@@ -1,0 +1,80 @@
+<button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+  <span class="sr-only">Toggle theme</span>
+  <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2"></path>
+    <path d="M12 20v2"></path>
+    <path d="m4.93 4.93 1.41 1.41"></path>
+    <path d="m17.66 17.66 1.41 1.41"></path>
+    <path d="M2 12h2"></path>
+    <path d="M20 12h2"></path>
+    <path d="m6.34 17.66-1.41 1.41"></path>
+    <path d="m19.07 4.93-1.41 1.41"></path>
+  </svg>
+  <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+  }
+
+  .theme-toggle:hover {
+    color: var(--accent);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Display logic based on current theme */
+  :global([data-theme="dark"]) .sun { display: block; }
+  :global([data-theme="dark"]) .moon { display: none; }
+
+  :global(:not([data-theme="dark"])) .sun { display: none; }
+  :global(:not([data-theme="dark"])) .moon { display: block; }
+</style>
+
+<script>
+  const handleToggleClick = () => {
+    const isDark = document.documentElement.hasAttribute('data-theme');
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  };
+
+  // We add this to run when View Transitions load the page as well (if used later)
+  const initToggle = () => {
+    const btn = document.getElementById('theme-toggle');
+    if (btn) {
+      // Remove old listeners to avoid duplicates if re-init
+      btn.removeEventListener('click', handleToggleClick);
+      btn.addEventListener('click', handleToggleClick);
+    }
+  };
+
+  initToggle();
+  document.addEventListener('astro:page-load', initToggle);
+</script>
