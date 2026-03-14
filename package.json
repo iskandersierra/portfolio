@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@astrojs/netlify": "^7.0.2",
+    "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@fontsource/syne": "^5.2.7",
     "astro": "^6.0.4"
   }
 }
