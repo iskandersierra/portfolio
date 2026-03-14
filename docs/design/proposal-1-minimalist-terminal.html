@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal 1: Minimalist Terminal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0F172A;
+            --surface: #000000;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border: #334155;
+            --accent: #2DD4BF;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        h1, h2, h3, .nav-link, .meta {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        nav {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 2rem;
+            text-transform: lowercase;
+        }
+        .nav-link.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .cursor {
+            display: inline-block;
+            width: 12px;
+            height: 24px;
+            background-color: var(--accent);
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            max-width: 600px;
+        }
+        .section-title {
+            margin-top: 4rem;
+            color: var(--accent);
+            font-size: 1.25rem;
+        }
+        .card {
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: var(--surface);
+            transition: border-color 0.2s;
+        }
+        .card:hover {
+            border-color: var(--accent);
+        }
+        .card h3 {
+            margin: 0 0 0.5rem 0;
+        }
+        .card p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .card-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo nav-link" style="color:var(--text-main); margin:0;">~/iskander</div>
+        <div>
+            <a href="#" class="nav-link active">index</a>
+            <a href="#" class="nav-link">about</a>
+            <a href="#" class="nav-link">blog</a>
+            <a href="#" class="nav-link">tools</a>
+        </div>
+    </nav>
+    <div class="container">
+        <header class="hero">
+            <h1>"Never stop learning."<span class="cursor"></span></h1>
+            <p>After 25 years in software, the most valuable thing I've learned is that there's always more to learn. Welcome to my living portfolio.</p>
+        </header>
+
+        <h2 class="section-title">ls ./recent-posts</h2>
+        <div class="card">
+            <h3>Clean Architecture in .NET</h3>
+            <p>Thoughts on structuring large scale enterprise applications.</p>
+            <a href="#" class="card-link">read_post() -></a>
+        </div>
+        <div class="card">
+            <h3>The value of CS fundamentals</h3>
+            <p>Why algorithms and data structures still matter 25 years later.</p>
+            <a href="#" class="card-link">read_post() -></a>
+        </div>
+    </div>
+</body>
+</html>
