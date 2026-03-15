@@ -1,0 +1,38 @@
+:root {
+	/* Light Mode (Base) - Indigo Accent */
+	--bg: #f8fafc;
+	--surface: #ffffff;
+	--text-main: #0f172a;
+	--text-muted: #64748b;
+	--border: #e2e8f0;
+	--accent: #4f46e5; /* Indigo 600 */
+	--shadow-color: #4f46e5;
+	--selection-bg: #4f46e5;
+	--selection-fg: #ffffff;
+}
+
+:root[data-theme='dark'] {
+	/* Dark Mode - Teal Accent */
+	--bg: #020617; /* Deep abyss slate */
+	--surface: #0f172a;
+	--text-main: #f1f5f9;
+	--text-muted: #94a3b8;
+	--border: #334155;
+	--accent: #14b8a6; /* Teal 500 */
+	--shadow-color: #14b8a6;
+	--selection-bg: #14b8a6;
+	--selection-fg: #020617;
+}
+
+html {
+	background-color: var(--bg);
+	color: var(--text-main);
+	transition:
+		background-color 0s,
+		color 0s;
+}
+
+::selection {
+	background: var(--selection-bg);
+	color: var(--selection-fg);
+}
