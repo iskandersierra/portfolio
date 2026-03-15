@@ -1,4 +1,4 @@
-<button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+<button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark theme" aria-pressed="false">
 	<span class="sr-only">Toggle theme</span>
 	<svg
 		class="sun"
@@ -84,6 +84,14 @@
 </style>
 
 <script>
+	const syncToggleA11y = () => {
+		const btn = document.getElementById('theme-toggle');
+		if (!btn) return;
+		const isDark = document.documentElement.hasAttribute('data-theme');
+		btn.setAttribute('aria-pressed', String(isDark));
+		btn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+	};
+
 	const handleToggleClick = () => {
 		const isDark = document.documentElement.hasAttribute('data-theme');
 		if (isDark) {
@@ -93,6 +101,7 @@
 			document.documentElement.setAttribute('data-theme', 'dark');
 			localStorage.setItem('theme', 'dark');
 		}
+		syncToggleA11y();
 	};
 
 	// We add this to run when View Transitions load the page as well (if used later)
@@ -103,6 +112,7 @@
 			btn.removeEventListener('click', handleToggleClick);
 			btn.addEventListener('click', handleToggleClick);
 		}
+		syncToggleA11y();
 	};
 
 	initToggle();
