@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .github/hooks/scripts/format-and-check-on-code-edit.mjs",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}

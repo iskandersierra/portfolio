@@ -12,10 +12,15 @@ import {
 } from './hook-utils.mjs';
 
 const TOOL_NAME_ALLOWLIST = new Set([
+  // GitHub Copilot agent tools
   'create_file',
   'apply_patch',
   'editFiles',
-  'replace_string_in_file'
+  'replace_string_in_file',
+  // Claude Code tools
+  'Write',
+  'Edit',
+  'NotebookEdit'
 ]);
 
 const MARKDOWN_EXTENSIONS = new Set([
