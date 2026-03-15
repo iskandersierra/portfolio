@@ -68,6 +68,12 @@ const ASTRO_CHECK_BASENAMES = new Set([
   'tsconfig.json'
 ]);
 
+// Directories under the repo root that are owned by the Astro project.
+// Only files within these dirs (plus explicit ASTRO_CHECK_BASENAMES) should
+// trigger `astro check` — prevents non-Astro tooling (e.g. hook scripts
+// under .github/) from being mis-classified as Astro-relevant.
+const ASTRO_SOURCE_DIRS = new Set(['src', 'public']);
+
 const HOOK_FILE_EXTENSIONS = new Set([
   ...MARKDOWN_EXTENSIONS,
   ...PRETTIER_EXTENSIONS
@@ -81,12 +87,21 @@ function filterByExtensions(files, extensions) {
   return files.filter((file) => extensions.has(path.extname(file).toLowerCase()));
 }
 
-function shouldRunAstroCheck(files) {
-  return files.some((file) => {
-    const extension = path.extname(file).toLowerCase();
-    const baseName = path.basename(file);
+function isAstroOwnedPath(file, cwd) {
+  const rel = path.relative(cwd, file);
+  const firstSegment = rel.split(path.sep)[0];
+  return ASTRO_SOURCE_DIRS.has(firstSegment);
+}
 
-    return ASTRO_CHECK_EXTENSIONS.has(extension) || ASTRO_CHECK_BASENAMES.has(baseName);
+function shouldRunAstroCheck(files, cwd) {
+  return files.some((file) => {
+    const baseName = path.basename(file);
+    if (ASTRO_CHECK_BASENAMES.has(baseName)) {
+      return true;
+    }
+
+    const extension = path.extname(file).toLowerCase();
+    return ASTRO_CHECK_EXTENSIONS.has(extension) && isAstroOwnedPath(file, cwd);
   });
 }
 
@@ -203,7 +218,7 @@ async function main() {
   const markdownlintResult = runMarkdownlint(markdownFiles, cwd);
   const prettierResult = runPrettier(prettierFiles, cwd);
   const eslintResult = runEslint(eslintFiles, cwd);
-  const astroResult = shouldRunAstroCheck(files) ? runAstroCheck(cwd) : null;
+  const astroResult = shouldRunAstroCheck(files, cwd) ? runAstroCheck(cwd) : null;
 
   const failures = collectFailures({ markdownlintResult, prettierResult, eslintResult, astroResult });
 
