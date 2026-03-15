@@ -9,11 +9,23 @@ export default [
 	},
 	{
 		...js.configs.recommended,
-		files: ['**/*.{js,mjs,jsx,ts,tsx}'],
+		files: ['**/*.{js,mjs,jsx}'],
 		languageOptions: {
 			...js.configs.recommended.languageOptions,
 			ecmaVersion: 'latest',
 			sourceType: 'module',
+			globals: {
+				...globals.browser,
+				...globals.node,
+			},
+		},
+	},
+	{
+		files: ['**/*.{ts,tsx}'],
+		languageOptions: {
+			ecmaVersion: 'latest',
+			sourceType: 'module',
+			parser: tsParser,
 			globals: {
 				...globals.browser,
 				...globals.node,

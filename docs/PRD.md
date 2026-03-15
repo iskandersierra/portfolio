@@ -25,7 +25,7 @@
 
 ## 1. Overview
 
-This portfolio is a **living personal site** — a professional home on the web for Iskander Sierra, Full Stack Developer, Software Architect, and Team Technical Lead with 25 years of experience. It is not a static CV, but a continuously evolving space that reflects both professional depth and personal character.
+This portfolio is a **living, personal site** — a professional home on the web for Iskander Sierra, Full-Stack Developer, Software-Architect, and Team-Technical Lead with 25 years of experience. It is not a static CV, but a continuously evolving space that reflects both professional depth and personal character.
 
 ### Tagline / Motto
 
