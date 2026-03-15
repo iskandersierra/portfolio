@@ -100,6 +100,7 @@ The first impression. Should communicate identity immediately.
 A deep but scannable professional profile. Not a wall of text.
 
 **Sections:**
+
 - **Summary:** Who Iskander is in a paragraph. Senior engineer, architect, leader, and lifelong learner.
 - **Core expertise:** Visual tag cloud or card grid covering:
   - .NET ecosystem (25 years)
@@ -128,6 +129,7 @@ A clean, filterable list of posts.
 - No CMS — all content lives in the repository under `src/content/blog/`.
 
 **Frontmatter schema per post:**
+
 ```yaml
 title: string
 date: YYYY-MM-DD
@@ -165,6 +167,7 @@ A catalog of small, useful web-based developer tools built by Iskander.
 **V1 requirement:** At least **1 published tool** at launch.
 
 **Tool ideas (backlog):**
+
 - JSON formatter / validator
 - Cron expression builder & explainer
 - Regex tester
@@ -199,6 +202,7 @@ An open-ended section for fun interactive games built by Iskander. Each game is 
 A window into Iskander's life outside engineering.
 
 **Sections:**
+
 - **Climbing:** Photos, routes, thoughts on the sport.
 - **Health & Fitness:** Philosophy, routines, what works.
 - **Philosophy:** Books, ideas, thinkers that have shaped Iskander's worldview.
@@ -215,12 +219,14 @@ Links to more elaborate external projects (GitHub repos, deployed apps, open sou
 ### 4.3 Navigation
 
 **Top navigation bar** (persistent, responsive):
+
 - Logo / Name (left) → links to `/`
 - Nav links: About · Blog · Tools · (Games) · (Personal)
 - Dark/Light mode toggle (right)
 - Mobile: hamburger menu with slide-in drawer
 
 **Footer:**
+
 - Copyright
 - Social links (GitHub, LinkedIn)
 - Quick links to main sections
@@ -304,7 +310,7 @@ Subtle, purposeful, non-distracting:
 
 ### 6.2 Project Structure
 
-```
+```text
 /
 ├── public/
 │   ├── favicon.svg
@@ -351,6 +357,7 @@ Subtle, purposeful, non-distracting:
 Define schemas in `src/content.config.ts` (Astro v5+):
 
 **Blog collection:**
+
 ```ts
 title: z.string()
 date: z.date()
@@ -362,6 +369,7 @@ coverImage: z.string().optional()
 ```
 
 **Tools collection (metadata):**
+
 ```ts
 title: z.string()
 description: z.string()
