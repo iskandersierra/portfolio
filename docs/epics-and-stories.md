@@ -83,6 +83,8 @@ Delivery notes:
 
 Decide which privacy-friendly analytics option will be used for v1.
 
+Issue: #8
+
 Acceptance criteria:
 
 - Umami, Plausible, and Netlify Analytics are compared.
@@ -93,6 +95,8 @@ Acceptance criteria:
 
 Decide whether the launch blog supports plain Markdown only or MDX.
 
+Issue: #6
+
 Acceptance criteria:
 
 - The launch content format is explicitly chosen.
@@ -101,6 +105,8 @@ Acceptance criteria:
 ### Story 0.4: Lock production domain
 
 Choose the public domain or canonical URL for launch.
+
+Issue: #5
 
 Acceptance criteria:
 
@@ -112,6 +118,8 @@ Acceptance criteria:
 
 Choose the first developer tool to publish at launch.
 
+Issue: #7
+
 Acceptance criteria:
 
 - One tool is selected from the PRD candidate list.
@@ -121,6 +129,8 @@ Acceptance criteria:
 ### Story 0.6: Finalize the three launch blog posts
 
 Define the initial launch content set for the blog.
+
+Issue: #9
 
 Acceptance criteria:
 
