@@ -50,7 +50,7 @@ Purpose: remove ambiguity before feature work starts.
 
 Story checklist:
 
-- [ ] Story 0.1: Select launch design direction
+- [x] Story 0.1: Select launch design direction
 - [ ] Story 0.2: Choose analytics platform
 - [ ] Story 0.3: Decide Markdown or MDX for blog MVP
 - [ ] Story 0.4: Lock production domain
@@ -68,6 +68,16 @@ Acceptance criteria:
 - One design proposal is selected as the launch baseline.
 - Any deviations from that proposal are documented.
 - The selected direction aligns with the existing token and styling strategy.
+
+Decision:
+
+- Proposal 1, Minimalist Terminal, is selected as the MVP launch baseline.
+- Decision record: [docs/design/launch-design-direction.md](./design/launch-design-direction.md)
+
+Delivery notes:
+
+- Proposal 2 and Proposal 3 remain valid post-launch explorations, but are not launch candidates.
+- Story 0.1 is closed by documentation and design-direction alignment only. Any follow-on visual refinements belong in later implementation stories.
 
 ### Story 0.2: Choose analytics platform
 
