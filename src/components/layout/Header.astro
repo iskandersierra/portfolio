@@ -7,6 +7,11 @@ const navItems = [
   { path: '/blog', label: 'blog' },
   { path: '/tools', label: 'tools' }
 ];
+
+const isActivePath = (itemPath: string, currentPath: string) =>
+  itemPath === '/'
+    ? currentPath === '/'
+    : currentPath === itemPath || currentPath.startsWith(`${itemPath}/`);
 ---
 
 <header class="terminal-header mono">
@@ -17,7 +22,7 @@ const navItems = [
     {navItems.map(item => (
       <a
         href={item.path}
-        class={`nav-link ${Astro.url.pathname === item.path ? 'active' : ''}`}
+        class={`nav-link ${isActivePath(item.path, Astro.url.pathname) ? 'active' : ''}`}
       >
         {item.label}
       </a>

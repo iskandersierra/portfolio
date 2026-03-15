@@ -348,7 +348,7 @@ Subtle, purposeful, non-distracting:
 
 ### 6.3 Content Collections
 
-Define schemas in `src/content/config.ts`:
+Define schemas in `src/content.config.ts` (Astro v5+):
 
 **Blog collection:**
 ```ts
