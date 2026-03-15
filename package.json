@@ -18,7 +18,7 @@
     "fix:lint": "eslint --fix .",
     "fix:format": "prettier --write .",
     "check": "markdownlint-cli2 && astro check && eslint . && prettier --check .",
-    "fix": "markdownlint-cli2 --fix && eslint --fix . && prettier --write ."
+    "fix": "markdownlint-cli2 --fix && astro check && eslint --fix . && prettier --write ."
   },
   "dependencies": {
     "@astrojs/check": "^0.9.7",

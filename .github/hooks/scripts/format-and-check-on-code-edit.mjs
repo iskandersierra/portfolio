@@ -133,6 +133,34 @@ function runEslint(files, cwd) {
   return runCommand('pnpm', ['exec', 'eslint', '--fix', ...files], { cwd });
 }
 
+function runPrettierCheck(files, cwd) {
+  if (files.length === 0) {
+    return null;
+  }
+
+  return runCommand('pnpm', ['exec', 'prettier', '--check', ...files], { cwd });
+}
+
+function runMarkdownlintCheck(files, cwd) {
+  if (files.length === 0) {
+    return null;
+  }
+
+  return runCommand(
+    'pnpm',
+    ['exec', 'markdownlint-cli2', ...files],
+    { cwd }
+  );
+}
+
+function runEslintCheck(files, cwd) {
+  if (files.length === 0) {
+    return null;
+  }
+
+  return runCommand('pnpm', ['exec', 'eslint', ...files], { cwd });
+}
+
 function runAstroCheck(cwd) {
   return runCommand('pnpm', ['astro', 'check'], { cwd });
 }
@@ -149,7 +177,7 @@ function summarizeResult(title, result, fallbackMessage) {
 function collectFailures({ markdownlintResult, prettierResult, eslintResult, astroResult }) {
   return [
     summarizeResult('markdownlint-cli2 still reports issues after --fix:', markdownlintResult, 'markdownlint-cli2 --fix failed'),
-    summarizeResult('Prettier failed:', prettierResult, 'prettier --write failed'),
+    summarizeResult('Prettier still reports formatting issues after --write:', prettierResult, 'prettier --check failed'),
     summarizeResult('ESLint still reports issues after --fix:', eslintResult, 'eslint --fix failed'),
     summarizeResult('Astro check reports issues:', astroResult, 'astro check failed')
   ].filter(Boolean);
@@ -215,10 +243,14 @@ async function main() {
   const prettierFiles = filterByExtensions(files, PRETTIER_EXTENSIONS);
   const eslintFiles = filterByExtensions(files, ESLINT_EXTENSIONS);
 
-  const markdownlintResult = runMarkdownlint(markdownFiles, cwd);
-  const prettierResult = runPrettier(prettierFiles, cwd);
-  const eslintResult = runEslint(eslintFiles, cwd);
+  runMarkdownlint(markdownFiles, cwd);
   const astroResult = shouldRunAstroCheck(files, cwd) ? runAstroCheck(cwd) : null;
+  runEslint(eslintFiles, cwd);
+  runPrettier(prettierFiles, cwd);
+
+  const markdownlintResult = runMarkdownlintCheck(markdownFiles, cwd);
+  const eslintResult = runEslintCheck(eslintFiles, cwd);
+  const prettierResult = runPrettierCheck(prettierFiles, cwd);
 
   const failures = collectFailures({ markdownlintResult, prettierResult, eslintResult, astroResult });
 
