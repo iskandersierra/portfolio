@@ -5,7 +5,15 @@ import globals from 'globals';
 
 export default [
 	{
-		ignores: ['dist/**', '.astro/**', 'node_modules/**', '.netlify/**'],
+		ignores: [
+			'dist/**',
+			'.astro/**',
+			'.agents/**',
+			'.claude/**',
+			'.github/**',
+			'node_modules/**',
+			'.netlify/**',
+		],
 	},
 	{
 		...js.configs.recommended,
