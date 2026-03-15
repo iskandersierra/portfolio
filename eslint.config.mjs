@@ -9,14 +9,7 @@ const ASTRO_FILES = ['src/**/*.astro'];
 
 export default [
 	{
-		ignores: [
-			'dist/**',
-			'.astro/**',
-			'.agents/**',
-			'.claude/**',
-			'node_modules/**',
-			'.netlify/**',
-		],
+		ignores: ['dist/**', '.astro/**', '.agents/**', '.claude/**', 'node_modules/**', '.netlify/**'],
 	},
 	{
 		...js.configs.recommended,
