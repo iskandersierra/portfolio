@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "type": "command",
+        "command": "node .github/hooks/scripts/format-and-check-on-code-edit.mjs",
+        "timeout": 120
+      }
+    ]
+  }
+}
