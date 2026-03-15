@@ -1,16 +1,16 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
-language: "en-US"
+language: 'en-US'
 early_access: false
 
 reviews:
-  profile: "chill"
+  profile: 'chill'
   high_level_summary: true
   review_status: true
   review_details: false
   path_filters:
-    - "!dist/**"
-    - "!node_modules/**"
-    - "!.astro/**"
+    - '!dist/**'
+    - '!node_modules/**'
+    - '!.astro/**'
   auto_review:
     enabled: true
     drafts: false

@@ -1,0 +1,14 @@
+config:
+  default: true
+  MD013: false
+  MD060: false
+gitignore: true
+globs:
+  - '**/*.md'
+ignores:
+  - dist/**
+  - .astro/**
+  - node_modules/**
+  - .netlify/**
+noBanner: true
+noProgress: true

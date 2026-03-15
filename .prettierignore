@@ -1,0 +1,6 @@
+dist/
+.astro/
+node_modules/
+.netlify/
+**/*.md
+pnpm-lock.yaml
