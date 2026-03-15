@@ -1,6 +1,9 @@
 # Prettier scope is defined here so package scripts can run against the repo root.
 *
 
+!.agents/
+!.claude/
+!.github/
 !src/
 !src/**/
 !src/**/*.{astro,css,js,jsx,ts,tsx}
