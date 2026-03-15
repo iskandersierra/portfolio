@@ -5,7 +5,7 @@ export interface Props {
 	title?: string;
 }
 
-const { title = "Iskander Sierra | ~/iskander" } = Astro.props;
+const { title = 'Iskander Sierra | ~/iskander' } = Astro.props;
 ---
 
 <!doctype html>
@@ -18,7 +18,7 @@ const { title = "Iskander Sierra | ~/iskander" } = Astro.props;
 		<title>{title}</title>
 
 		<script is:inline>
-			(function() {
+			(function () {
 				const getTheme = () => {
 					if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
 						return localStorage.getItem('theme');
