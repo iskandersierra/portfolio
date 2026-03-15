@@ -21,7 +21,9 @@ body {
 	flex-direction: column;
 	background-color: var(--bg);
 	color: var(--text-main);
-	transition: background-color 0.2s ease, color 0.2s ease;
+	transition:
+		background-color 0.2s ease,
+		color 0.2s ease;
 }
 
 h1,

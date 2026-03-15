@@ -12,6 +12,8 @@ reviews:
     - '!node_modules/**'
     - '!.astro/**'
     - '!.agents/**'
+    - '!.claude/**'
+    - '!.github/**'
   auto_review:
     enabled: true
     drafts: false

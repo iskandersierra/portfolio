@@ -12,13 +12,13 @@
     "astro": "astro",
     "check:md": "markdownlint-cli2",
     "check:ts": "astro check",
-    "check:lint": "eslint \"src/**/*.{astro,js,jsx,ts,tsx}\" \"*.mjs\"",
-    "check:format": "prettier --check \"src/**/*.{astro,css,js,jsx,ts,tsx}\" \"*.{json,mjs,yaml,yml}\" \".*.{json,yaml,yml}\"",
+    "check:lint": "eslint .",
+    "check:format": "prettier --check .",
     "fix:md": "markdownlint-cli2 --fix",
-    "fix:lint": "eslint --fix \"src/**/*.{astro,js,jsx,ts,tsx}\" \"*.mjs\"",
-    "fix:format": "prettier --write \"src/**/*.{astro,css,js,jsx,ts,tsx}\" \"*.{json,mjs,yaml,yml}\" \".*.{json,yaml,yml}\"",
-    "check": "markdownlint-cli2 && astro check && eslint \"src/**/*.{astro,js,jsx,ts,tsx}\" \"*.mjs\" && prettier --check \"src/**/*.{astro,css,js,jsx,ts,tsx}\" \"*.{json,mjs,yaml,yml}\" \".*.{json,yaml,yml}\"",
-    "fix": "markdownlint-cli2 --fix && eslint --fix \"src/**/*.{astro,js,jsx,ts,tsx}\" \"*.mjs\" && prettier --write \"src/**/*.{astro,css,js,jsx,ts,tsx}\" \"*.{json,mjs,yaml,yml}\" \".*.{json,yaml,yml}\""
+    "fix:lint": "eslint --fix .",
+    "fix:format": "prettier --write .",
+    "check": "markdownlint-cli2 && astro check && eslint . && prettier --check .",
+    "fix": "markdownlint-cli2 --fix && astro check && eslint --fix . && prettier --write ."
   },
   "dependencies": {
     "@astrojs/check": "^0.9.7",

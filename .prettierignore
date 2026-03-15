@@ -1,6 +1,18 @@
-dist/
-.astro/
-node_modules/
-.netlify/
-**/*.md
+# Prettier scope is defined here so package scripts can run against the repo root.
+*
+
+!.agents/
+!.claude/
+!.github/
+!src/
+!src/**/
+!src/**/*.{astro,css,js,jsx,ts,tsx}
+!*.json
+!*.mjs
+!*.yaml
+!*.yml
+!.*.json
+!.*.yaml
+!.*.yml
+
 pnpm-lock.yaml

@@ -9,7 +9,10 @@ globs:
 ignores:
   - dist/**
   - .astro/**
-  - node_modules/**
+  - .agents/**
+  - .claude/**
+  - .github/**
   - .netlify/**
+  - node_modules/**
 noBanner: true
 noProgress: true

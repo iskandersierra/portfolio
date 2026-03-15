@@ -3,13 +3,17 @@ import tsParser from '@typescript-eslint/parser';
 import eslintPluginAstro from 'eslint-plugin-astro';
 import globals from 'globals';
 
+const JS_FILES = ['src/**/*.{js,mjs,jsx}', '.github/**/*.mjs', '*.mjs'];
+const TS_FILES = ['src/**/*.{ts,tsx}'];
+const ASTRO_FILES = ['src/**/*.astro'];
+
 export default [
 	{
-		ignores: ['dist/**', '.astro/**', 'node_modules/**', '.netlify/**'],
+		ignores: ['dist/**', '.astro/**', '.agents/**', '.claude/**', 'node_modules/**', '.netlify/**'],
 	},
 	{
 		...js.configs.recommended,
-		files: ['**/*.{js,mjs,jsx}'],
+		files: JS_FILES,
 		languageOptions: {
 			...js.configs.recommended.languageOptions,
 			ecmaVersion: 'latest',
@@ -21,7 +25,7 @@ export default [
 		},
 	},
 	{
-		files: ['**/*.{ts,tsx}'],
+		files: TS_FILES,
 		languageOptions: {
 			ecmaVersion: 'latest',
 			sourceType: 'module',
@@ -34,7 +38,7 @@ export default [
 	},
 	...eslintPluginAstro.configs.recommended,
 	{
-		files: ['**/*.astro'],
+		files: ASTRO_FILES,
 		languageOptions: {
 			globals: {
 				...globals.browser,
