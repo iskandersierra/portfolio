@@ -10,7 +10,7 @@ export default [
 			'.astro/**',
 			'.agents/**',
 			'.claude/**',
-			'.github/**',
+			'.github/workflows/**',
 			'node_modules/**',
 			'.netlify/**',
 		],
