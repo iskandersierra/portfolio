@@ -1,4 +1,9 @@
-<button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark theme" aria-pressed="false">
+<button
+	id="theme-toggle"
+	class="theme-toggle"
+	aria-label="Switch to dark theme"
+	aria-pressed="false"
+>
 	<span class="sr-only">Toggle theme</span>
 	<svg
 		class="sun"
@@ -75,10 +80,10 @@
 		display: none;
 	}
 
-	:global(:not([data-theme='dark'])) .sun {
+	:global(html:not([data-theme='dark'])) .sun {
 		display: none;
 	}
-	:global(:not([data-theme='dark'])) .moon {
+	:global(html:not([data-theme='dark'])) .moon {
 		display: block;
 	}
 </style>
