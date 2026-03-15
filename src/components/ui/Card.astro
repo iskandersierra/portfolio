@@ -14,7 +14,9 @@ const { title, description, href, delayClass = '' } = Astro.props;
 		<h3 class="mono">{title}</h3>
 		<p>{description}</p>
 	</div>
-	<a href={href} class="card-link mono">run ./read_post.sh &rarr;</a>
+	<a href={href} class="card-link mono" aria-label={`Read post: ${title}`}>
+		run ./read_post.sh &rarr;
+	</a>
 </div>
 
 <style>
