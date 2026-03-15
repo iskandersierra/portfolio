@@ -34,13 +34,34 @@ Excluded from scope:
 - Existing implementation work is not used to expand scope beyond the MVP.
 - The output of this document is intended to be tracker-ready, but still readable as a planning artifact.
 
+## Epic Status
+
+- [ ] Epic 0: Product Decisions And Launch Planning
+- [ ] Epic 1: Shared Shell And UX Foundations
+- [ ] Epic 2: Content Platform And Shared Content UI
+- [ ] Epic 3: Home And About Experience
+- [ ] Epic 4: Blog Publishing MVP
+- [ ] Epic 5: Tools Publishing MVP
+- [ ] Epic 6: SEO, Analytics, And Launch Hardening
+
 ## Epic 0: Product Decisions And Launch Planning
 
 Purpose: remove ambiguity before feature work starts.
 
+Story checklist:
+
+- [ ] Story 0.1: Select launch design direction
+- [ ] Story 0.2: Choose analytics platform
+- [ ] Story 0.3: Decide Markdown or MDX for blog MVP
+- [ ] Story 0.4: Lock production domain
+- [ ] Story 0.5: Select first launch tool
+- [ ] Story 0.6: Finalize the three launch blog posts
+
 ### Story 0.1: Select launch design direction
 
 Choose the visual direction to ship for the MVP from the existing design proposals.
+
+Issue: #3
 
 Acceptance criteria:
 
@@ -101,6 +122,14 @@ Acceptance criteria:
 
 Purpose: establish the site-wide layout, navigation, theme behavior, and reusable page chrome.
 
+Story checklist:
+
+- [ ] Story 1.1: Extend base layout for reusable metadata
+- [ ] Story 1.2: Complete persistent site shell
+- [ ] Story 1.3: Implement mobile navigation
+- [ ] Story 1.4: Harden theme behavior
+- [ ] Story 1.5: Add reusable motion patterns
+
 ### Story 1.1: Extend base layout for reusable metadata
 
 Update the base layout so all pages can pass SEO and social metadata consistently.
@@ -154,6 +183,14 @@ Acceptance criteria:
 ## Epic 2: Content Platform And Shared Content UI
 
 Purpose: build the content model and shared presentation layers that power Blog and Tools.
+
+Story checklist:
+
+- [ ] Story 2.1: Add Astro content collections
+- [ ] Story 2.2: Build shared content helpers
+- [ ] Story 2.3: Create blog post layout
+- [ ] Story 2.4: Create tool page layout
+- [ ] Story 2.5: Define featured content rules
 
 ### Story 2.1: Add Astro content collections
 
@@ -212,6 +249,13 @@ Acceptance criteria:
 
 Purpose: deliver the core identity and profile pages for the portfolio.
 
+Story checklist:
+
+- [ ] Story 3.1: Refactor home page to use published content
+- [ ] Story 3.2: Build About page
+- [ ] Story 3.3: Add About page structured data
+- [ ] Story 3.4: Decide CV download behavior
+
 ### Story 3.1: Refactor home page to use published content
 
 Replace placeholder content on the home page with real routed and featured content.
@@ -255,6 +299,14 @@ Acceptance criteria:
 ## Epic 4: Blog Publishing MVP
 
 Purpose: launch the blog as a first-class content section.
+
+Story checklist:
+
+- [ ] Story 4.1: Build blog index page
+- [ ] Story 4.2: Build blog post route
+- [ ] Story 4.3: Add post navigation and author metadata
+- [ ] Story 4.4: Publish three launch posts
+- [ ] Story 4.5: Add blog SEO and structured data
 
 ### Story 4.1: Build blog index page
 
@@ -309,6 +361,13 @@ Acceptance criteria:
 
 Purpose: launch the first developer tool and the tools catalog.
 
+Story checklist:
+
+- [ ] Story 5.1: Build tools index page
+- [ ] Story 5.2: Build tool detail route
+- [ ] Story 5.3: Implement first interactive tool
+- [ ] Story 5.4: Publish tool metadata and copy
+
 ### Story 5.1: Build tools index page
 
 Create the tools listing page.
@@ -351,6 +410,14 @@ Acceptance criteria:
 ## Epic 6: SEO, Analytics, And Launch Hardening
 
 Purpose: finish the operational and quality gates required for release.
+
+Story checklist:
+
+- [ ] Story 6.1: Add sitemap and robots coverage
+- [ ] Story 6.2: Integrate analytics in production only
+- [ ] Story 6.3: Add site-wide social preview defaults
+- [ ] Story 6.4: Validate responsive, accessibility, and build quality
+- [ ] Story 6.5: Run PRD-based launch QA
 
 ### Story 6.1: Add sitemap and robots coverage
 
