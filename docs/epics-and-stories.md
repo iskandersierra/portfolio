@@ -91,6 +91,8 @@ Acceptance criteria:
 - One option is selected for MVP.
 - Production-only loading requirements are documented.
 
+Decision: **Umami Cloud free tier** (2026-03-16). See `docs/decisions/analytics-platform.md`.
+
 ### Story 0.3: Decide Markdown or MDX for blog MVP
 
 Decide whether the launch blog supports plain Markdown only or MDX.
