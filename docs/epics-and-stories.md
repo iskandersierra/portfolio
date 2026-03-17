@@ -54,7 +54,7 @@ Story checklist:
 - [x] Story 0.2: Choose analytics platform
 - [x] Story 0.3: Decide Markdown or MDX for blog MVP
 - [x] Story 0.4: Lock production domain
-- [ ] Story 0.5: Select first launch tool
+- [x] Story 0.5: Select first launch tool
 - [ ] Story 0.6: Finalize the three launch blog posts
 
 ### Story 0.1: Select launch design direction
