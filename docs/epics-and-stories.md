@@ -104,7 +104,7 @@ Acceptance criteria:
 - The launch content format is explicitly chosen.
 - If MDX is deferred, it is recorded as post-launch work.
 
-Decision: **Plain Markdown for MVP** (2026-03-16). See `docs/decisions/content-format.md`.
+Decision: **Plain Markdown for MVP** (2026-03-16). See `docs/superpowers/specs/2026-03-16-content-format-design.md`.
 
 ### Story 0.4: Lock production domain
 
@@ -118,7 +118,7 @@ Acceptance criteria:
 - SEO and metadata work can use the final URL.
 - Deployment implications are understood.
 
-Decision: **isksz.com** (`https://isksz.com`) (2026-03-17).
+Decision: **isksz.com** (`https://isksz.com`) (2026-03-17). See `docs/decisions/production-domain.md`.
 
 ### Story 0.5: Select first launch tool
 
@@ -132,7 +132,7 @@ Acceptance criteria:
 - Inputs, outputs, and target framework are defined.
 - The tool fits MVP scope.
 
-Decision: **UUID / ULID generator** (2026-03-17). Small scope, zero dependencies, clear inputs/outputs, and a genuinely useful utility for developers. Inputs: format selection (UUID v4 or ULID), quantity. Output: generated IDs with copy-to-clipboard. Framework: React island.
+Decision: **UUID / ULID generator** (2026-03-17). See `docs/decisions/launch-tool.md`.
 
 ### Story 0.6: Finalize the three launch blog posts
 
@@ -145,6 +145,8 @@ Acceptance criteria:
 - Three post titles are approved.
 - Each post has a rough outline and tag direction.
 - The set covers architecture, leadership, and learning philosophy.
+
+Decision: Three launch post titles and tag direction are documented in `docs/decisions/launch-blog-posts.md`. Rough outlines remain pending, so Story 0.6 stays open.
 
 ## Epic 1: Shared Shell And UX Foundations
 
