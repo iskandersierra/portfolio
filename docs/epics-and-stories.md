@@ -51,9 +51,9 @@ Purpose: remove ambiguity before feature work starts.
 Story checklist:
 
 - [x] Story 0.1: Select launch design direction
-- [ ] Story 0.2: Choose analytics platform
-- [ ] Story 0.3: Decide Markdown or MDX for blog MVP
-- [ ] Story 0.4: Lock production domain
+- [x] Story 0.2: Choose analytics platform
+- [x] Story 0.3: Decide Markdown or MDX for blog MVP
+- [x] Story 0.4: Lock production domain
 - [ ] Story 0.5: Select first launch tool
 - [ ] Story 0.6: Finalize the three launch blog posts
 
@@ -104,6 +104,8 @@ Acceptance criteria:
 - The launch content format is explicitly chosen.
 - If MDX is deferred, it is recorded as post-launch work.
 
+Decision: **Plain Markdown for MVP** (2026-03-16). See `docs/decisions/content-format.md`.
+
 ### Story 0.4: Lock production domain
 
 Choose the public domain or canonical URL for launch.
@@ -115,6 +117,8 @@ Acceptance criteria:
 - The canonical site URL is decided.
 - SEO and metadata work can use the final URL.
 - Deployment implications are understood.
+
+Decision: **isksz.com** (`https://isksz.com`) (2026-03-17).
 
 ### Story 0.5: Select first launch tool
 

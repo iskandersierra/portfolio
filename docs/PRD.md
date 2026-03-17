@@ -495,7 +495,7 @@ Ordered by rough priority:
 
 | #   | Question                                                                                      | Owner    | Status |
 | --- | --------------------------------------------------------------------------------------------- | -------- | ------ |
-| 1   | What is the final domain/URL for the site?                                                    | Iskander | ❓ Open |
+| 1   | What is the final domain/URL for the site?                                                    | Iskander | ✅ Decided — `https://isksz.com` |
 | 2   | Which analytics platform to use first — Umami, Plausible, or Netlify Analytics?               | Iskander | ❓ Open |
 | 3   | Should the blog support MDX (for interactive components inside posts) or plain Markdown only? | Iskander | ✅ Decided — plain Markdown for MVP. See `docs/superpowers/specs/2026-03-16-content-format-design.md`. |
 | 4   | Should the About page include a downloadable CV PDF?                                          | Iskander | ❓ Open |
