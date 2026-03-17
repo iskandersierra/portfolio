@@ -132,6 +132,8 @@ Acceptance criteria:
 - Inputs, outputs, and target framework are defined.
 - The tool fits MVP scope.
 
+Decision: **UUID / ULID generator** (2026-03-17). Small scope, zero dependencies, clear inputs/outputs, and a genuinely useful utility for developers. Inputs: format selection (UUID v4 or ULID), quantity. Output: generated IDs with copy-to-clipboard. Framework: React island.
+
 ### Story 0.6: Finalize the three launch blog posts
 
 Define the initial launch content set for the blog.
