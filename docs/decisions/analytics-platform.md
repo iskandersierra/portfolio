@@ -39,7 +39,7 @@ The tracking script must not load in development or preview environments. The in
 
 ```astro
 {
-  import.meta.env.PROD && (
+  import.meta.env.PROD && import.meta.env.CONTEXT !== 'deploy-preview' && (
     <script
       is:inline
       defer
@@ -50,13 +50,16 @@ The tracking script must not load in development or preview environments. The in
 }
 ```
 
-`import.meta.env.PROD` is `true` only for production builds (`astro build`). It is `false` during
-`astro dev` and Netlify preview deploys (which set `CONTEXT=deploy-preview` — see note below).
+`import.meta.env.PROD` is `true` for any build output (`astro build`), including Netlify deploy
+previews. It is `false` only during `astro dev`. Because deploy previews also produce a build, a
+`PROD`-only check is not enough to suppress analytics on them.
 
-> **Note on Netlify preview deploys:** Netlify sets `CONTEXT=deploy-preview` for PR previews.
-> If analytics should also be suppressed on preview deploys, check `CONTEXT` at build time and
-> set a custom env var (e.g., `PUBLIC_ANALYTICS_ENABLED=true`) only for production context.
-> For MVP, `import.meta.env.PROD` is sufficient.
+> **Note on Netlify deploy previews:** Netlify sets the `CONTEXT` build environment variable to
+> `deploy-preview` for PR preview builds. Since `import.meta.env.PROD` is `true` for all builds,
+> add an explicit `CONTEXT` check in `src/layouts/Layout.astro` so the script only loads when
+> `import.meta.env.PROD` is `true` **and** `import.meta.env.CONTEXT !== 'deploy-preview'`.
+> The `CONTEXT` variable is available at build time without a `PUBLIC_` prefix because the guard
+> expression is evaluated in the Astro template at build time, not in client-side JavaScript.
 
 ## Environment Variables
 

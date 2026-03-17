@@ -10,10 +10,10 @@ Selected launch tool: UUID / ULID generator
 
 ## Why This Tool
 
-- It is small enough to ship within MVP scope without dragging in unnecessary complexity.
-- It is useful to the target audience immediately and does not need supporting backend infrastructure.
-- It fits the portfolio's developer-focused positioning better than a generic novelty tool.
-- The interaction model is straightforward, which makes it a good first tool for validating the shared tools platform.
+- Small enough to ship within MVP scope without dragging in unnecessary complexity.
+- Provides immediate value to the target audience without needing supporting backend infrastructure.
+- Better fits the portfolio's developer-focused positioning than a generic novelty tool.
+- Offers a straightforward interaction model, making it a good first tool for validating the shared tools platform.
 
 ## Scope Definition
 
