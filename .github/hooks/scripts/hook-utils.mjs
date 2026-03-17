@@ -7,7 +7,8 @@ export const DEFAULT_FILE_INPUT_KEYS = [
   'targetFile',
   'path',
   'file',
-  'uri'
+  'uri',
+  'file_path' // Claude Code (Write, Edit)
 ];
 
 export const DEFAULT_FILE_LIST_KEYS = [
@@ -181,6 +182,9 @@ export function blockHook({
   additionalContext,
   exitCode = 2
 }) {
+  // Write to stderr so Claude Code shows the reason (exit 2 causes JSON stdout to be ignored).
+  // Also write JSON to stdout for agents that parse it regardless of exit code (e.g. Copilot).
+  process.stderr.write(reason + '\n');
   writeHookOutput({
     decision: 'block',
     reason,
