@@ -20,7 +20,11 @@ Selected launch tool: UUID / ULID generator
 Inputs:
 
 - Format selection: UUID v4 or ULID
-- Quantity
+- Quantity (integer; default: 1; min: 1; max: 1000)
+  - Client-side validation only — no server involvement; the tool is fully static.
+  - Non-integer input (decimal, text) is rejected: show an inline error, do not generate.
+  - Values below 1 or above 1000 are clamped or rejected with an inline error message; do not silently truncate without feedback.
+  - All results are rendered synchronously in-browser for any quantity ≤ 1000; no pagination or streaming is required.
 
 Outputs:
 

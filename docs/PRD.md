@@ -495,12 +495,12 @@ Ordered by rough priority:
 
 | #   | Question                                                                                      | Owner    | Status |
 | --- | --------------------------------------------------------------------------------------------- | -------- | ------ |
-| 1   | What is the final domain/URL for the site?                                                    | Iskander | ✅ Decided — `https://isksz.com` |
+| 1   | What is the final domain/URL for the site?                                                    | Iskander | ✅ Decided — `https://isksz.com` — Decision: [Production domain decision doc](decisions/production-domain.md). |
 | 2   | Which analytics platform to use first — Umami, Plausible, or Netlify Analytics?               | Iskander | ✅ Decided — Umami Cloud (free tier). See `docs/decisions/analytics-platform.md`. |
 | 3   | Should the blog support MDX (for interactive components inside posts) or plain Markdown only? | Iskander | ✅ Decided — plain Markdown for MVP. See `docs/superpowers/specs/2026-03-16-content-format-design.md`. |
 | 4   | Should the About page include a downloadable CV PDF?                                          | Iskander | ❓ Open |
 | 5   | Tailwind CSS or plain CSS custom properties for styling?                                      | Iskander | ❓ Open |
-| 6   | What is the first tool to build for v1 launch?                                                | Iskander | ✅ Decided — UUID / ULID generator. Small scope, zero external dependencies, clear inputs/outputs. React island. |
+| 6   | What is the first tool to build for v1 launch?                                                | Iskander | ✅ Decided — UUID / ULID generator. Small scope, zero external dependencies, clear inputs/outputs. React island. See `docs/decisions/launch-tool.md`. |
 | 7   | What are the 3 blog posts for launch? Titles / topics?                                        | Iskander | ✅ Decided — see `docs/decisions/launch-blog-posts.md`. |
 
 ---
