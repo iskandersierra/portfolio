@@ -1,0 +1,97 @@
+---
+import Header from '../components/layout/Header.astro';
+import Layout from '../layouts/Layout.astro';
+
+const expertise = [
+	'.NET architecture',
+	'Team technical leadership',
+	'TypeScript and JavaScript',
+	'Azure and cloud delivery',
+	'Docker and Kubernetes',
+	'Computer science fundamentals',
+];
+---
+
+<Layout
+	title="About"
+	description="Learn more about Iskander Sierra, a senior full-stack developer, architect, and technical lead with 25 years of experience building software and teams."
+	pageType="website"
+>
+	<div class="terminal-window">
+		<Header />
+
+		<main class="container page-shell">
+			<header class="page-header boot-seq delay-1">
+				<p class="mono page-kicker">$ cat ./about/profile.txt</p>
+				<h1>About</h1>
+				<p class="page-intro">
+					I am a full-stack developer, software architect, and team technical lead focused on
+					building dependable systems, helping teams move with clarity, and staying curious enough
+					to keep learning.
+				</p>
+			</header>
+
+			<section class="boot-seq delay-2 section-block">
+				<h2 class="mono section-title">$ ls ./core-expertise</h2>
+				<ul class="tag-list">
+					{expertise.map((item) => <li>{item}</li>)}
+				</ul>
+			</section>
+
+			<section class="boot-seq delay-3 section-block">
+				<h2 class="mono section-title">$ tail -n 3 ./notes.txt</h2>
+				<p>
+					This site sits at the intersection of architecture, delivery, and continuous learning.
+					It is a place to share practical experience, document new ideas, and make long-term
+					growth visible through real work.
+				</p>
+			</section>
+		</main>
+	</div>
+</Layout>
+
+<style>
+	.page-shell {
+		padding-block: 2rem 4rem;
+	}
+
+	.page-header {
+		margin-bottom: 2.5rem;
+	}
+
+	.page-kicker,
+	.section-title {
+		color: var(--accent);
+	}
+
+	.page-header h1 {
+		margin: 0.5rem 0 1rem;
+		font-size: clamp(2rem, 4vw, 3rem);
+	}
+
+	.page-intro,
+	.section-block p {
+		max-width: 720px;
+		line-height: 1.7;
+		color: var(--text-muted);
+	}
+
+	.section-block + .section-block {
+		margin-top: 2rem;
+	}
+
+	.tag-list {
+		list-style: none;
+		padding: 0;
+		margin: 1rem 0 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 0.75rem;
+	}
+
+	.tag-list li {
+		padding: 0.8rem 1rem;
+		border: 1px solid var(--border);
+		background: var(--surface);
+	}
+</style>

@@ -1,0 +1,106 @@
+---
+import Header from '../components/layout/Header.astro';
+import Layout from '../layouts/Layout.astro';
+
+const tools = [
+	{
+		name: 'UUID / ULID Generator',
+		framework: 'React island',
+		description: 'A small utility for generating identifiers with copy-friendly output and format options.',
+	},
+	{
+		name: 'More practical utilities',
+		framework: 'Astro shell',
+		description: 'A place for focused browser-based helpers, experiments, and small tools worth reusing.',
+	},
+];
+---
+
+<Layout
+	title="Tools"
+	description="Browse developer tools and experiments from Iskander Sierra, starting with practical browser-based utilities built as Astro pages and islands."
+	pageType="website"
+>
+	<div class="terminal-window">
+		<Header />
+
+		<main class="container page-shell">
+			<header class="page-header boot-seq delay-1">
+				<p class="mono page-kicker">$ ls ./tools</p>
+				<h1>Tools</h1>
+				<p class="page-intro">
+					A growing catalog of practical utilities and experiments, built to be useful first and a
+					good excuse to explore frameworks, patterns, and interface ideas second.
+				</p>
+			</header>
+
+			<section class="tool-list boot-seq delay-2">
+				{tools.map((tool) => (
+					<article class="tool-card">
+						<div class="tool-head">
+							<h2>{tool.name}</h2>
+							<span class="framework-badge mono">{tool.framework}</span>
+						</div>
+						<p>{tool.description}</p>
+					</article>
+				))}
+			</section>
+		</main>
+	</div>
+</Layout>
+
+<style>
+	.page-shell {
+		padding-block: 2rem 4rem;
+	}
+
+	.page-header {
+		margin-bottom: 2.5rem;
+	}
+
+	.page-kicker {
+		color: var(--accent);
+	}
+
+	.page-header h1 {
+		margin: 0.5rem 0 1rem;
+		font-size: clamp(2rem, 4vw, 3rem);
+	}
+
+	.page-intro,
+	.tool-card p {
+		max-width: 720px;
+		line-height: 1.7;
+		color: var(--text-muted);
+	}
+
+	.tool-list {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.tool-card {
+		border: 1px solid var(--border);
+		background: var(--surface);
+		padding: 1.25rem;
+	}
+
+	.tool-head {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		align-items: baseline;
+		flex-wrap: wrap;
+	}
+
+	.tool-head h2 {
+		margin: 0;
+	}
+
+	.framework-badge {
+		padding: 0.25rem 0.6rem;
+		border: 1px solid var(--border);
+		color: var(--accent);
+		font-size: 0.9rem;
+	}
+</style>

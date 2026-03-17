@@ -1,0 +1,107 @@
+---
+import Header from '../components/layout/Header.astro';
+import Layout from '../layouts/Layout.astro';
+
+const posts = [
+	{
+		title: 'Clean Architecture in .NET',
+		excerpt: 'Patterns for structuring large-scale applications without letting ceremony own the codebase.',
+		tags: ['Architecture', '.NET'],
+	},
+	{
+		title: 'The Value of CS Fundamentals',
+		excerpt: 'Why algorithms, data structures, and systems thinking still compound over a long career.',
+		tags: ['Career', 'Learning'],
+	},
+];
+---
+
+<Layout
+	title="Blog"
+	description="Read notes on software architecture, technical leadership, cloud delivery, and long-term learning from Iskander Sierra."
+	pageType="website"
+>
+	<div class="terminal-window">
+		<Header />
+
+		<main class="container page-shell">
+			<header class="page-header boot-seq delay-1">
+				<p class="mono page-kicker">$ find ./blog -type f</p>
+				<h1>Blog</h1>
+				<p class="page-intro">
+					Notes on software architecture, technical leadership, cloud delivery, and the habits that
+					help a long engineering career stay sharp.
+				</p>
+			</header>
+
+			<section class="post-list boot-seq delay-2">
+				{posts.map((post) => (
+					<article class="post-card">
+						<h2>{post.title}</h2>
+						<p>{post.excerpt}</p>
+						<ul class="tag-list">
+							{post.tags.map((tag) => <li>{tag}</li>)}
+						</ul>
+					</article>
+				))}
+			</section>
+		</main>
+	</div>
+</Layout>
+
+<style>
+	.page-shell {
+		padding-block: 2rem 4rem;
+	}
+
+	.page-header {
+		margin-bottom: 2.5rem;
+	}
+
+	.page-kicker {
+		color: var(--accent);
+	}
+
+	.page-header h1 {
+		margin: 0.5rem 0 1rem;
+		font-size: clamp(2rem, 4vw, 3rem);
+	}
+
+	.page-intro,
+	.post-card p {
+		max-width: 720px;
+		line-height: 1.7;
+		color: var(--text-muted);
+	}
+
+	.post-list {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.post-card {
+		border: 1px solid var(--border);
+		background: var(--surface);
+		padding: 1.25rem;
+	}
+
+	.post-card h2 {
+		margin: 0 0 0.75rem;
+	}
+
+	.tag-list {
+		list-style: none;
+		padding: 0;
+		margin: 1rem 0 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.tag-list li {
+		padding: 0.25rem 0.6rem;
+		border: 1px solid var(--border);
+		color: var(--accent);
+		font-size: 0.9rem;
+	}
+</style>

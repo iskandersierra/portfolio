@@ -1,11 +1,23 @@
 ---
 import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import { resolveSeoMetadata, type PageType } from '../utils/seo';
 
 export interface Props {
 	title?: string;
+	description?: string;
+	canonicalUrl?: string;
+	pageType?: PageType;
+	socialImage?: string;
 }
 
-const { title = 'Iskander Sierra | ~/iskander' } = Astro.props;
+const { title, description, canonicalUrl, pageType, socialImage } = Astro.props;
+const site = Astro.site ?? new URL('https://isksz.com');
+const metadata = resolveSeoMetadata(
+	{ title, description, canonicalUrl, pageType, socialImage },
+	Astro.url,
+	site,
+);
 ---
 
 <!doctype html>
@@ -15,7 +27,7 @@ const { title = 'Iskander Sierra | ~/iskander' } = Astro.props;
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<SEO {...metadata} />
 
 		<script is:inline>
 			(function () {
