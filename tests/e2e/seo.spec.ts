@@ -50,18 +50,13 @@ for (const route of seoExpectations) {
 			route.twitterCard,
 		);
 
-		if (route.socialImageUrl) {
-			await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
-				'content',
-				route.socialImageUrl,
-			);
-			await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
-				'content',
-				route.socialImageUrl,
-			);
-		} else {
-			await expect(page.locator('meta[property="og:image"]')).toHaveCount(0);
-			await expect(page.locator('meta[name="twitter:image"]')).toHaveCount(0);
-		}
+		await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+			'content',
+			route.socialImageUrl,
+		);
+		await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
+			'content',
+			route.socialImageUrl,
+		);
 	});
 }

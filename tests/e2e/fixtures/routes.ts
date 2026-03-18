@@ -13,7 +13,7 @@ interface SeoExpectation {
 	canonicalUrl: string;
 	pageType: 'website' | 'article';
 	twitterCard: 'summary' | 'summary_large_image';
-	socialImageUrl?: string;
+	socialImageUrl: string;
 }
 
 export const seoExpectations: SeoExpectation[] = [
@@ -26,7 +26,7 @@ export const seoExpectations: SeoExpectation[] = [
 		canonicalUrl: 'https://isksz.com/',
 		pageType: 'website',
 		twitterCard: 'summary_large_image',
-		socialImageUrl: 'https://isksz.com/social-card.svg',
+		socialImageUrl: 'https://isksz.com/social-card.png',
 	},
 	{
 		name: 'about',
@@ -34,9 +34,10 @@ export const seoExpectations: SeoExpectation[] = [
 		title: 'About | Iskander Sierra',
 		description:
 			'Learn more about Iskander Sierra, a senior full-stack developer, architect, and technical lead with 25 years of experience building software and teams.',
-		canonicalUrl: 'https://isksz.com/about',
+		canonicalUrl: 'https://isksz.com/about/',
 		pageType: 'website',
-		twitterCard: 'summary',
+		twitterCard: 'summary_large_image',
+		socialImageUrl: 'https://isksz.com/social-card.png',
 	},
 	{
 		name: 'blog',
@@ -44,9 +45,10 @@ export const seoExpectations: SeoExpectation[] = [
 		title: 'Blog | Iskander Sierra',
 		description:
 			'Read notes on software architecture, technical leadership, cloud delivery, and long-term learning from Iskander Sierra.',
-		canonicalUrl: 'https://isksz.com/blog',
+		canonicalUrl: 'https://isksz.com/blog/',
 		pageType: 'website',
-		twitterCard: 'summary',
+		twitterCard: 'summary_large_image',
+		socialImageUrl: 'https://isksz.com/social-card.png',
 	},
 	{
 		name: 'tools',
@@ -54,8 +56,9 @@ export const seoExpectations: SeoExpectation[] = [
 		title: 'Tools | Iskander Sierra',
 		description:
 			'Browse developer tools and experiments from Iskander Sierra, starting with practical browser-based utilities built as Astro pages and islands.',
-		canonicalUrl: 'https://isksz.com/tools',
+		canonicalUrl: 'https://isksz.com/tools/',
 		pageType: 'website',
-		twitterCard: 'summary',
+		twitterCard: 'summary_large_image',
+		socialImageUrl: 'https://isksz.com/social-card.png',
 	},
 ];
