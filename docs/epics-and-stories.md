@@ -55,7 +55,7 @@ Story checklist:
 - [x] Story 0.3: Decide Markdown or MDX for blog MVP
 - [x] Story 0.4: Lock production domain
 - [x] Story 0.5: Select first launch tool
-- [x] Story 0.6: Finalize the three launch blog posts
+- [ ] Story 0.6: Finalize the three launch blog posts
 
 ### Story 0.1: Select launch design direction
 
@@ -147,6 +147,12 @@ Acceptance criteria:
 - The set covers architecture, leadership, and learning philosophy.
 
 Decision: Three launch post titles and tag direction are documented in `docs/decisions/launch-blog-posts.md`. Rough outlines remain pending, so Story 0.6 stays open.
+
+Delivery notes:
+
+- Completed: the three launch post titles were selected and the set covers architecture, leadership, and learning philosophy.
+- Completed: initial tag direction is documented in `docs/decisions/launch-blog-posts.md`.
+- Remaining: rough outlines are still pending before Story 0.6 can be closed.
 
 ## Epic 1: Shared Shell And UX Foundations
 
