@@ -58,5 +58,19 @@ for (const route of seoExpectations) {
 			'content',
 			route.socialImageUrl,
 		);
+
+		if (route.socialImageAlt) {
+			await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute(
+				'content',
+				route.socialImageAlt,
+			);
+			await expect(page.locator('meta[name="twitter:image:alt"]')).toHaveAttribute(
+				'content',
+				route.socialImageAlt,
+			);
+		} else {
+			await expect(page.locator('meta[property="og:image:alt"]')).toHaveCount(0);
+			await expect(page.locator('meta[name="twitter:image:alt"]')).toHaveCount(0);
+		}
 	});
 }

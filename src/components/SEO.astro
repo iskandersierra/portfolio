@@ -9,6 +9,7 @@ const {
 	canonicalUrl,
 	pageType,
 	socialImageUrl,
+	socialImageAlt,
 	twitterCard,
 	siteName,
 } = Astro.props;
@@ -30,3 +31,5 @@ const {
 
 <meta property="og:image" content={socialImageUrl} />
 <meta name="twitter:image" content={socialImageUrl} />
+{socialImageAlt && <meta property="og:image:alt" content={socialImageAlt} />}
+{socialImageAlt && <meta name="twitter:image:alt" content={socialImageAlt} />}

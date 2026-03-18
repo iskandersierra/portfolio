@@ -14,6 +14,7 @@ interface SeoExpectation {
 	pageType: 'website' | 'article';
 	twitterCard: 'summary' | 'summary_large_image';
 	socialImageUrl: string;
+	socialImageAlt?: string;
 }
 
 export const seoExpectations: SeoExpectation[] = [
@@ -27,6 +28,8 @@ export const seoExpectations: SeoExpectation[] = [
 		pageType: 'website',
 		twitterCard: 'summary_large_image',
 		socialImageUrl: 'https://isksz.com/social-card.png',
+		socialImageAlt:
+			"Preview card for Iskander Sierra's portfolio with a terminal-inspired visual treatment.",
 	},
 	{
 		name: 'about',

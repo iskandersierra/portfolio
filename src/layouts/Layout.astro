@@ -7,7 +7,7 @@ export interface Props extends SeoInput {
 	seo?: SeoInput;
 }
 
-const { seo, title, description, canonicalUrl, pageType, socialImage } = Astro.props;
+const { seo, title, description, canonicalUrl, pageType, socialImage, socialImageAlt } = Astro.props;
 
 const metadata = resolveSeoMetadata(
 	{
@@ -16,6 +16,7 @@ const metadata = resolveSeoMetadata(
 		canonicalUrl: seo?.canonicalUrl ?? canonicalUrl,
 		pageType: seo?.pageType ?? pageType,
 		socialImage: seo?.socialImage ?? socialImage,
+		socialImageAlt: seo?.socialImageAlt ?? socialImageAlt,
 	},
 	Astro.url,
 	Astro.site,

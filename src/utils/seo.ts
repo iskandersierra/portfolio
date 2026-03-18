@@ -6,6 +6,7 @@ export interface SeoInput {
 	canonicalUrl?: string;
 	pageType?: PageType;
 	socialImage?: string;
+	socialImageAlt?: string;
 }
 
 interface SeoDefaults {
@@ -23,6 +24,7 @@ export interface ResolvedSeoMetadata {
 	canonicalUrl: string;
 	pageType: PageType;
 	socialImageUrl: string;
+	socialImageAlt?: string;
 	twitterCard: 'summary' | 'summary_large_image';
 	siteName: string;
 }
@@ -33,7 +35,7 @@ export const defaultSeo: SeoDefaults = {
 	defaultTitle: 'Iskander Sierra | ~/iskander',
 	defaultDescription:
 		"After 25 years in software, the most valuable thing I've learned is that there's always more to learn. This site is my living proof: a place where I share what I know, experiment with new ideas, build for the joy of building, and document the journey.",
-	defaultPageType: 'website' as const,
+	defaultPageType: 'website',
 	defaultSocialImage: '/social-card.png',
 };
 
@@ -49,8 +51,17 @@ const resolveTitle = (title?: string) => {
 
 const resolveSiteUrl = (site?: URL) => site ?? new URL(defaultSeo.siteUrl);
 
-const toAbsoluteUrl = (value: string, site: URL) =>
-	ABSOLUTE_URL_PATTERN.test(value) ? new URL(value).toString() : new URL(value, site).toString();
+const toAbsoluteUrl = (value: string, site: URL) => {
+	if (ABSOLUTE_URL_PATTERN.test(value)) {
+		try {
+			return new URL(value).toString();
+		} catch {
+			return new URL(value, site).toString();
+		}
+	}
+
+	return new URL(value, site).toString();
+};
 
 export const resolveSeoMetadata = (
 	input: SeoInput | undefined,
@@ -59,12 +70,12 @@ export const resolveSeoMetadata = (
 ): ResolvedSeoMetadata => {
 	const resolvedInput = input ?? {};
 	const resolvedSite = resolveSiteUrl(site);
-	const normalizedPathname =
-		currentUrl.pathname === '/'
-			? '/'
-			: currentUrl.pathname.endsWith('/')
-				? currentUrl.pathname
-				: `${currentUrl.pathname}/`;
+	let normalizedPathname = currentUrl.pathname;
+
+	if (normalizedPathname !== '/' && !normalizedPathname.endsWith('/')) {
+		normalizedPathname = `${normalizedPathname}/`;
+	}
+
 	const canonicalUrl = resolvedInput.canonicalUrl
 		? toAbsoluteUrl(resolvedInput.canonicalUrl, resolvedSite)
 		: new URL(normalizedPathname, resolvedSite).toString();
@@ -79,6 +90,7 @@ export const resolveSeoMetadata = (
 		canonicalUrl,
 		pageType: resolvedInput.pageType ?? defaultSeo.defaultPageType,
 		socialImageUrl,
+		socialImageAlt: resolvedInput.socialImageAlt,
 		twitterCard: 'summary_large_image',
 		siteName: defaultSeo.siteName,
 	};
