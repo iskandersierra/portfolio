@@ -1,22 +1,24 @@
 ---
 import '../styles/global.css';
 import SEO from '../components/SEO.astro';
-import { resolveSeoMetadata, type PageType } from '../utils/seo';
+import { resolveSeoMetadata, type SeoInput } from '../utils/seo';
 
-export interface Props {
-	title?: string;
-	description?: string;
-	canonicalUrl?: string;
-	pageType?: PageType;
-	socialImage?: string;
+export interface Props extends SeoInput {
+	seo?: SeoInput;
 }
 
-const { title, description, canonicalUrl, pageType, socialImage } = Astro.props;
-const site = Astro.site ?? new URL('https://isksz.com');
+const { seo, title, description, canonicalUrl, pageType, socialImage } = Astro.props;
+
 const metadata = resolveSeoMetadata(
-	{ title, description, canonicalUrl, pageType, socialImage },
+	{
+		title: seo?.title ?? title,
+		description: seo?.description ?? description,
+		canonicalUrl: seo?.canonicalUrl ?? canonicalUrl,
+		pageType: seo?.pageType ?? pageType,
+		socialImage: seo?.socialImage ?? socialImage,
+	},
 	Astro.url,
-	site,
+	Astro.site,
 );
 ---
 

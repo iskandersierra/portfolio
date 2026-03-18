@@ -8,6 +8,14 @@ export interface SeoInput {
 	socialImage?: string;
 }
 
+interface SeoDefaults {
+	siteName: string;
+	siteUrl: string;
+	defaultTitle: string;
+	defaultDescription: string;
+	defaultPageType: PageType;
+}
+
 export interface ResolvedSeoMetadata {
 	title: string;
 	description: string;
@@ -18,8 +26,9 @@ export interface ResolvedSeoMetadata {
 	siteName: string;
 }
 
-export const defaultSeo = {
+export const defaultSeo: SeoDefaults = {
 	siteName: 'Iskander Sierra',
+	siteUrl: 'https://isksz.com',
 	defaultTitle: 'Iskander Sierra | ~/iskander',
 	defaultDescription:
 		"After 25 years in software, the most valuable thing I've learned is that there's always more to learn. This site is my living proof: a place where I share what I know, experiment with new ideas, build for the joy of building, and document the journey.",
@@ -36,24 +45,30 @@ const resolveTitle = (title?: string) => {
 	return `${title} | ${defaultSeo.siteName}`;
 };
 
+const resolveSiteUrl = (site?: URL) => site ?? new URL(defaultSeo.siteUrl);
+
 const toAbsoluteUrl = (value: string, site: URL) =>
 	ABSOLUTE_URL_PATTERN.test(value) ? new URL(value).toString() : new URL(value, site).toString();
 
 export const resolveSeoMetadata = (
-	input: SeoInput,
+	input: SeoInput | undefined,
 	currentUrl: URL,
-	site: URL,
+	site?: URL,
 ): ResolvedSeoMetadata => {
-	const canonicalUrl = input.canonicalUrl
-		? toAbsoluteUrl(input.canonicalUrl, site)
-		: new URL(currentUrl.pathname, site).toString();
-	const socialImageUrl = input.socialImage ? toAbsoluteUrl(input.socialImage, site) : undefined;
+	const resolvedInput = input ?? {};
+	const resolvedSite = resolveSiteUrl(site);
+	const canonicalUrl = resolvedInput.canonicalUrl
+		? toAbsoluteUrl(resolvedInput.canonicalUrl, resolvedSite)
+		: new URL(currentUrl.pathname, resolvedSite).toString();
+	const socialImageUrl = resolvedInput.socialImage
+		? toAbsoluteUrl(resolvedInput.socialImage, resolvedSite)
+		: undefined;
 
 	return {
-		title: resolveTitle(input.title),
-		description: input.description ?? defaultSeo.defaultDescription,
+		title: resolveTitle(resolvedInput.title),
+		description: resolvedInput.description ?? defaultSeo.defaultDescription,
 		canonicalUrl,
-		pageType: input.pageType ?? defaultSeo.defaultPageType,
+		pageType: resolvedInput.pageType ?? defaultSeo.defaultPageType,
 		socialImageUrl,
 		twitterCard: socialImageUrl ? 'summary_large_image' : 'summary',
 		siteName: defaultSeo.siteName,
