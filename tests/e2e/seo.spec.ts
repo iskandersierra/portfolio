@@ -60,14 +60,17 @@ for (const route of seoExpectations) {
 			route.socialImageUrl,
 		);
 
-		if (route.socialImageAlt) {
+		const socialImageAlt = route.socialImageAlt;
+		const hasSocialImageAlt = socialImageAlt !== undefined;
+
+		if (hasSocialImageAlt) {
 			await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute(
 				'content',
-				route.socialImageAlt,
+				socialImageAlt,
 			);
 			await expect(page.locator('meta[name="twitter:image:alt"]')).toHaveAttribute(
 				'content',
-				route.socialImageAlt,
+				socialImageAlt,
 			);
 		} else {
 			await expect(page.locator('meta[property="og:image:alt"]')).toHaveCount(0);
