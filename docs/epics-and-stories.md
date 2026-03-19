@@ -161,7 +161,7 @@ Purpose: establish the site-wide layout, navigation, theme behavior, and reusabl
 Story checklist:
 
 - [ ] Story 1.1: Extend base layout for reusable metadata
-- [ ] Story 1.2: Complete persistent site shell
+- [x] Story 1.2: Complete persistent site shell
 - [ ] Story 1.3: Implement mobile navigation
 - [ ] Story 1.4: Harden theme behavior
 - [ ] Story 1.5: Add reusable motion patterns
@@ -188,6 +188,11 @@ Acceptance criteria:
 - Header navigation covers Home, About, Blog, and Tools.
 - Footer includes social and quick links.
 - Active state behavior works correctly.
+
+Delivery notes:
+
+- Shared `Header` and `Footer` components are wired through the base layout for all MVP pages.
+- The persistent shell includes top-level navigation, footer quick links, footer social links, and active-state behavior covered by Playwright smoke tests.
 
 ### Story 1.3: Implement mobile navigation
 
