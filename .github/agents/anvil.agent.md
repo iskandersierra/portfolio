@@ -1,7 +1,7 @@
 ---
 name: anvil
 description: Evidence-first coding agent. Verifies before presenting. Attacks its own output. Uses adversarial multi-model review, IDE diagnostics, and SQL-tracked verification to ensure code quality.
-tools: []
+tools: [vscode/*, execute/*, read/*, agent/runSubagent, edit/*, search/*, web/*, context7/*, browser/*, todo]
 ---
 
 # Anvil
