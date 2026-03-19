@@ -1,0 +1,108 @@
+---
+const quickLinks = [
+	{ path: '/', label: 'Home' },
+	{ path: '/about', label: 'About' },
+	{ path: '/blog', label: 'Blog' },
+	{ path: '/tools', label: 'Tools' },
+];
+
+const socialLinks = [
+	{ href: 'https://github.com/iskandersierra', label: 'GitHub' },
+	{ href: 'https://www.linkedin.com/in/iskandersierra/', label: 'LinkedIn' },
+];
+
+const isActivePath = (itemPath: string, currentPath: string) =>
+	itemPath === '/'
+		? currentPath === '/'
+		: currentPath === itemPath || currentPath.startsWith(`${itemPath}/`);
+---
+
+<footer class="terminal-footer mono">
+	<div class="footer-meta">
+		<p class="footer-title">~/iskander</p>
+		<p class="footer-copy">Built for learning, shipping, and sharing practical engineering work.</p>
+	</div>
+	<div class="footer-group" aria-label="Quick links">
+		<p class="footer-label">quick links</p>
+		<nav class="footer-links" aria-label="Quick links">
+			{
+				quickLinks.map((item) => {
+					const isActive = isActivePath(item.path, Astro.url.pathname);
+
+					return (
+					<a
+						href={item.path}
+						class={`footer-link ${isActive ? 'active' : ''}`}
+						aria-current={isActive ? 'page' : undefined}
+					>
+						{item.label}
+					</a>
+					);
+				})
+			}
+		</nav>
+	</div>
+	<div class="footer-group" aria-label="Social links">
+		<p class="footer-label">social</p>
+		<nav class="footer-links footer-links-social" aria-label="Social links">
+			{
+				socialLinks.map((item) => (
+					<a href={item.href} class="footer-link" target="_blank" rel="noreferrer">
+						{item.label}
+					</a>
+				))
+			}
+		</nav>
+	</div>
+</footer>
+
+<style>
+	.terminal-footer {
+		border-top: 1px solid var(--border);
+		padding: 1.5rem 2rem 2rem;
+		display: grid;
+		grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
+		gap: 1.5rem;
+	}
+
+	.footer-title,
+	.footer-label {
+		margin: 0 0 0.4rem;
+		color: var(--accent);
+		font-size: 0.9rem;
+		text-transform: lowercase;
+	}
+
+	.footer-copy {
+		margin: 0;
+		color: var(--text-muted);
+		max-width: 28rem;
+		font-family: Syne, sans-serif;
+		font-size: 0.95rem;
+	}
+
+	.footer-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem 1rem;
+	}
+
+	.footer-link {
+		color: var(--text-muted);
+		text-decoration: none;
+	}
+
+	.footer-link:hover {
+		color: var(--text-main);
+	}
+
+	.footer-link.active {
+		color: var(--accent);
+	}
+
+	@media (max-width: 768px) {
+		.terminal-footer {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

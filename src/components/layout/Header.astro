@@ -2,10 +2,10 @@
 import ThemeToggle from './ThemeToggle.astro';
 
 const navItems = [
-	{ path: '/', label: 'index' },
-	{ path: '/about', label: 'about' },
-	{ path: '/blog', label: 'blog' },
-	{ path: '/tools', label: 'tools' },
+	{ path: '/', label: 'Home' },
+	{ path: '/about', label: 'About' },
+	{ path: '/blog', label: 'Blog' },
+	{ path: '/tools', label: 'Tools' },
 ];
 
 const isActivePath = (itemPath: string, currentPath: string) =>
@@ -20,14 +20,19 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 	</div>
 	<nav class="nav-links">
 		{
-			navItems.map((item) => (
-				<a
-					href={item.path}
-					class={`nav-link ${isActivePath(item.path, Astro.url.pathname) ? 'active' : ''}`}
-				>
-					{item.label}
-				</a>
-			))
+			navItems.map((item) => {
+				const isActive = isActivePath(item.path, Astro.url.pathname);
+
+				return (
+					<a
+						href={item.path}
+						class={`nav-link ${isActive ? 'active' : ''}`}
+						aria-current={isActive ? 'page' : undefined}
+					>
+						{item.label}
+					</a>
+				);
+			})
 		}
 	</nav>
 	<div class="actions">

@@ -1,5 +1,4 @@
 ---
-import Header from '../components/layout/Header.astro';
 import Layout from '../layouts/Layout.astro';
 
 const tools = [
@@ -24,32 +23,28 @@ const tools = [
 		pageType: 'website',
 	}}
 >
-	<div class="terminal-window">
-		<Header />
+	<main class="container page-shell">
+		<header class="page-header boot-seq delay-1">
+			<p class="mono page-kicker">$ ls ./tools</p>
+			<h1>Tools</h1>
+			<p class="page-intro">
+				A growing catalog of practical utilities and experiments, built to be useful first and a
+				good excuse to explore frameworks, patterns, and interface ideas second.
+			</p>
+		</header>
 
-		<main class="container page-shell">
-			<header class="page-header boot-seq delay-1">
-				<p class="mono page-kicker">$ ls ./tools</p>
-				<h1>Tools</h1>
-				<p class="page-intro">
-					A growing catalog of practical utilities and experiments, built to be useful first and a
-					good excuse to explore frameworks, patterns, and interface ideas second.
-				</p>
-			</header>
-
-			<section class="tool-list boot-seq delay-2">
-				{tools.map((tool) => (
-					<article class="tool-card">
-						<div class="tool-head">
-							<h2>{tool.name}</h2>
-							<span class="framework-badge mono">{tool.framework}</span>
-						</div>
-						<p>{tool.description}</p>
-					</article>
-				))}
-			</section>
-		</main>
-	</div>
+		<section class="tool-list boot-seq delay-2">
+			{tools.map((tool) => (
+				<article class="tool-card">
+					<div class="tool-head">
+						<h2>{tool.name}</h2>
+						<span class="framework-badge mono">{tool.framework}</span>
+					</div>
+					<p>{tool.description}</p>
+				</article>
+			))}
+		</section>
+	</main>
 </Layout>
 
 <style>
