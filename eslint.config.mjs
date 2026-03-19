@@ -4,7 +4,7 @@ import eslintPluginAstro from 'eslint-plugin-astro';
 import globals from 'globals';
 
 const JS_FILES = ['src/**/*.{js,mjs,jsx}', '.github/**/*.mjs', '*.mjs'];
-const TS_FILES = ['src/**/*.{ts,tsx}'];
+const TS_FILES = ['src/**/*.{ts,tsx}', 'tests/**/*.ts', '*.config.ts'];
 const ASTRO_FILES = ['src/**/*.astro'];
 
 export default [

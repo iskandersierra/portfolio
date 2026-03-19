@@ -36,7 +36,7 @@ Excluded from scope:
 
 ## Epic Status
 
-- [ ] Epic 0: Product Decisions And Launch Planning
+- [x] Epic 0: Product Decisions And Launch Planning
 - [ ] Epic 1: Shared Shell And UX Foundations
 - [ ] Epic 2: Content Platform And Shared Content UI
 - [ ] Epic 3: Home And About Experience
@@ -148,6 +148,12 @@ Acceptance criteria:
 
 Decision: Three launch post titles and tag direction are documented in `docs/decisions/launch-blog-posts.md`. Rough outlines remain pending, so Story 0.6 stays open.
 
+Delivery notes:
+
+- Completed: the three launch post titles were selected and the set covers architecture, leadership, and learning philosophy.
+- Completed: initial tag direction is documented in `docs/decisions/launch-blog-posts.md`.
+- Remaining: rough outlines are still pending before Story 0.6 can be closed.
+
 ## Epic 1: Shared Shell And UX Foundations
 
 Purpose: establish the site-wide layout, navigation, theme behavior, and reusable page chrome.
@@ -164,6 +170,8 @@ Story checklist:
 
 Update the base layout so all pages can pass SEO and social metadata consistently.
 
+Issue: #11
+
 Acceptance criteria:
 
 - Title, description, canonical URL, page type, and social image inputs are supported.
@@ -172,6 +180,8 @@ Acceptance criteria:
 ### Story 1.2: Complete persistent site shell
 
 Finish the shared header and footer for all MVP pages.
+
+Issue: #12
 
 Acceptance criteria:
 
@@ -183,6 +193,8 @@ Acceptance criteria:
 
 Provide a usable mobile navigation experience for small screens.
 
+Issue: #13
+
 Acceptance criteria:
 
 - Navigation is accessible on mobile.
@@ -192,6 +204,8 @@ Acceptance criteria:
 ### Story 1.4: Harden theme behavior
 
 Ensure light and dark theme behavior is stable and user-friendly.
+
+Issue: #14
 
 Acceptance criteria:
 
@@ -203,6 +217,8 @@ Acceptance criteria:
 ### Story 1.5: Add reusable motion patterns
 
 Create a consistent approach for subtle page and section transitions.
+
+Issue: #15
 
 Acceptance criteria:
 

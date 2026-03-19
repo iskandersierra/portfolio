@@ -1,11 +1,26 @@
 ---
 import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import { resolveSeoMetadata, type SeoInput } from '../utils/seo';
 
-export interface Props {
-	title?: string;
+export interface Props extends SeoInput {
+	seo?: SeoInput;
 }
 
-const { title = 'Iskander Sierra | ~/iskander' } = Astro.props;
+const { seo, title, description, canonicalUrl, pageType, socialImage, socialImageAlt } = Astro.props;
+
+const metadata = resolveSeoMetadata(
+	{
+		title: seo?.title ?? title,
+		description: seo?.description ?? description,
+		canonicalUrl: seo?.canonicalUrl ?? canonicalUrl,
+		pageType: seo?.pageType ?? pageType,
+		socialImage: seo?.socialImage ?? socialImage,
+		socialImageAlt: seo?.socialImageAlt ?? socialImageAlt,
+	},
+	Astro.url,
+	Astro.site,
+);
 ---
 
 <!doctype html>
@@ -15,7 +30,7 @@ const { title = 'Iskander Sierra | ~/iskander' } = Astro.props;
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<SEO {...metadata} />
 
 		<script is:inline>
 			(function () {

@@ -1,0 +1,35 @@
+---
+import type { ResolvedSeoMetadata } from '../utils/seo';
+
+type Props = ResolvedSeoMetadata;
+
+const {
+	title,
+	description,
+	canonicalUrl,
+	pageType,
+	socialImageUrl,
+	socialImageAlt,
+	twitterCard,
+	siteName,
+} = Astro.props;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:type" content={pageType} />
+<meta property="og:site_name" content={siteName} />
+
+<meta name="twitter:card" content={twitterCard} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+
+<meta property="og:image" content={socialImageUrl} />
+<meta name="twitter:image" content={socialImageUrl} />
+{socialImageAlt && <meta property="og:image:alt" content={socialImageAlt} />}
+{socialImageAlt && <meta name="twitter:image:alt" content={socialImageAlt} />}
