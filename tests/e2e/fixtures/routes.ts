@@ -13,6 +13,7 @@ interface SeoExpectation {
 	canonicalUrl: string;
 	pageType: 'website' | 'article';
 	twitterCard: 'summary' | 'summary_large_image';
+	siteName: string;
 	socialImageUrl: string;
 	socialImageAlt?: string;
 }
@@ -27,6 +28,7 @@ export const seoExpectations: SeoExpectation[] = [
 		canonicalUrl: 'https://isksz.com/',
 		pageType: 'website',
 		twitterCard: 'summary_large_image',
+		siteName: 'Iskander Sierra',
 		socialImageUrl: 'https://isksz.com/social-card.png',
 		socialImageAlt:
 			"Preview card for Iskander Sierra's portfolio with a terminal-inspired visual treatment.",
@@ -40,6 +42,7 @@ export const seoExpectations: SeoExpectation[] = [
 		canonicalUrl: 'https://isksz.com/about/',
 		pageType: 'website',
 		twitterCard: 'summary_large_image',
+		siteName: 'Iskander Sierra',
 		socialImageUrl: 'https://isksz.com/social-card.png',
 	},
 	{
@@ -51,6 +54,7 @@ export const seoExpectations: SeoExpectation[] = [
 		canonicalUrl: 'https://isksz.com/blog/',
 		pageType: 'website',
 		twitterCard: 'summary_large_image',
+		siteName: 'Iskander Sierra',
 		socialImageUrl: 'https://isksz.com/social-card.png',
 	},
 	{
@@ -62,6 +66,7 @@ export const seoExpectations: SeoExpectation[] = [
 		canonicalUrl: 'https://isksz.com/tools/',
 		pageType: 'website',
 		twitterCard: 'summary_large_image',
+		siteName: 'Iskander Sierra',
 		socialImageUrl: 'https://isksz.com/social-card.png',
 	},
 ];

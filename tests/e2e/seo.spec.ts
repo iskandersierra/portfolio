@@ -1,6 +1,5 @@
 import { expect, test } from '@playwright/test';
 
-import { defaultSeo } from '../../src/utils/seo';
 import { seoExpectations } from './fixtures/routes';
 
 for (const route of seoExpectations) {
@@ -35,7 +34,7 @@ for (const route of seoExpectations) {
 		);
 		await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute(
 			'content',
-			defaultSeo.siteName,
+			route.siteName,
 		);
 
 		await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute(
