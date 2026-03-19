@@ -160,7 +160,7 @@ Purpose: establish the site-wide layout, navigation, theme behavior, and reusabl
 
 Story checklist:
 
-- [ ] Story 1.1: Extend base layout for reusable metadata
+- [x] Story 1.1: Extend base layout for reusable metadata
 - [x] Story 1.2: Complete persistent site shell
 - [ ] Story 1.3: Implement mobile navigation
 - [ ] Story 1.4: Harden theme behavior
