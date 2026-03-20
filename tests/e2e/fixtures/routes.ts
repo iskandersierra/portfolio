@@ -81,4 +81,16 @@ export const seoExpectations: SeoExpectation[] = [
 		siteName: 'Iskander Sierra',
 		socialImageUrl: 'https://isksz.com/social-card.png',
 	},
+	{
+		name: 'tool detail',
+		path: '/tools/uuid-ulid-generator',
+		title: 'UUID / ULID generator | Iskander Sierra',
+		description:
+			'Generate UUID v4 or ULID values in the browser with copy-friendly output and a lightweight interface.',
+		canonicalUrl: 'https://isksz.com/tools/uuid-ulid-generator/',
+		pageType: 'website',
+		twitterCard: 'summary_large_image',
+		siteName: 'Iskander Sierra',
+		socialImageUrl: 'https://isksz.com/social-card.png',
+	},
 ];

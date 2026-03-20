@@ -3,6 +3,24 @@ import { expect, test } from '@playwright/test';
 import { primaryRoutes } from './fixtures/routes';
 
 test.describe('site shell', () => {
+	test('published tools open on generated detail routes', async ({ page }) => {
+		await page.goto('/tools');
+
+		await page.getByRole('link', { name: 'Open UUID / ULID generator' }).click();
+
+		await expect(page).toHaveURL(/\/tools\/uuid-ulid-generator\/?$/);
+		await expect(page.getByRole('heading', { level: 1, name: 'UUID / ULID generator' })).toBeVisible();
+		await expect(page.locator('.tool-post-meta')).toContainText('Published Mar 17, 2026');
+		await expect(page.locator('.tool-framework-badge')).toContainText('React island');
+		await expect(page.locator('.tool-tag-list')).toContainText('UUID');
+		await expect(page.locator('.tool-post-body')).toContainText(
+			'A focused developer utility for generating identifiers client-side without external services.',
+		);
+		await expect(page.getByRole('region', { name: 'Interactive tool area' })).toContainText(
+			'This reserved panel will host the live browser-based tool UI when the interactive surface is implemented.',
+		);
+	});
+
 	test('published blog posts open on generated article routes', async ({ page }) => {
 		await page.goto('/blog');
 
