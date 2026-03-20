@@ -255,8 +255,8 @@ Purpose: build the content model and shared presentation layers that power Blog 
 
 Story checklist:
 
-- [ ] Story 2.1: Add Astro content collections
-- [ ] Story 2.2: Build shared content helpers
+- [x] Story 2.1: Add Astro content collections
+- [x] Story 2.2: Build shared content helpers
 - [ ] Story 2.3: Create blog post layout
 - [ ] Story 2.4: Create tool page layout
 - [ ] Story 2.5: Define featured content rules
@@ -281,6 +281,13 @@ Acceptance criteria:
 - Blog posts can be filtered by tag.
 - Previous and next navigation data can be computed.
 - Featured content can be selected without hardcoding.
+
+Delivery notes:
+
+- Added `src/utils/content.ts` as the shared content-helper layer for blog and tools collections, including published-only filtering, deterministic date sorting, tag extraction and filtering, adjacent blog navigation lookup, featured-item selection, and shared date formatting.
+- The `/blog` page now renders published collection entries instead of placeholders and exposes tag filtering through query-string links.
+- The `/tools` page now renders published tool metadata from the content collection instead of hardcoded cards.
+- The home page now pulls its featured blog post and featured tool from collection data rather than hardcoded copy, using the latest published items as the current MVP featured rule.
 
 ### Story 2.3: Create blog post layout
 

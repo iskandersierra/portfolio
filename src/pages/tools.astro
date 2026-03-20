@@ -1,18 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { formatContentDate, getPublishedTools } from '../utils/content';
 
-const tools = [
-	{
-		name: 'UUID / ULID Generator',
-		framework: 'React island',
-		description: 'A small utility for generating identifiers with copy-friendly output and format options.',
-	},
-	{
-		name: 'More practical utilities',
-		framework: 'Astro shell',
-		description: 'A place for focused browser-based helpers, experiments, and small tools worth reusing.',
-	},
-];
+const tools = await getPublishedTools();
 ---
 
 <Layout
@@ -37,10 +27,14 @@ const tools = [
 			{tools.map((tool, index) => (
 				<article class="tool-card motion-enter motion-hover-lift" style={`--motion-delay: ${(index + 2) * 80}ms`}>
 					<div class="tool-head">
-						<h2>{tool.name}</h2>
-						<span class="framework-badge mono">{tool.framework}</span>
+						<h2>{tool.data.title}</h2>
+						<span class="framework-badge mono">{tool.data.framework}</span>
 					</div>
-					<p>{tool.description}</p>
+					<p>{tool.data.description}</p>
+					<ul class="tag-list">
+						{tool.data.tags.map((tag) => <li>{tag}</li>)}
+					</ul>
+					<p class="tool-meta mono">Published {formatContentDate(tool.data.publishedAt)}</p>
 				</article>
 			))}
 		</section>
@@ -83,6 +77,12 @@ const tools = [
 		padding: 1.25rem;
 	}
 
+	.tool-meta {
+		margin: 1rem 0 0;
+		color: var(--text-muted);
+		font-size: 0.9rem;
+	}
+
 	.tool-head {
 		display: flex;
 		justify-content: space-between;
@@ -96,6 +96,22 @@ const tools = [
 	}
 
 	.framework-badge {
+		padding: 0.25rem 0.6rem;
+		border: 1px solid var(--border);
+		color: var(--accent);
+		font-size: 0.9rem;
+	}
+
+	.tag-list {
+		list-style: none;
+		padding: 0;
+		margin: 1rem 0 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.tag-list li {
 		padding: 0.25rem 0.6rem;
 		border: 1px solid var(--border);
 		color: var(--accent);

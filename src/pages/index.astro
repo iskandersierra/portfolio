@@ -1,6 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/ui/Card.astro';
+import { getFeaturedBlogPost, getFeaturedTool } from '../utils/content';
+
+const [featuredPost, featuredTool] = await Promise.all([getFeaturedBlogPost(), getFeaturedTool()]);
 ---
 
 <Layout
@@ -23,20 +26,28 @@ import Card from '../components/ui/Card.astro';
 		</header>
 
 		<section class="recent-posts motion-enter motion-delay-3">
-			<h2 class="section-title mono">$ ls ./recent-posts</h2>
+			<h2 class="section-title mono">$ ls ./featured-content</h2>
 			<div class="cards-grid">
-				<Card
-					title="Clean Architecture in .NET"
-					description="Thoughts on structuring large scale enterprise applications with modern C# and CQRS."
-					href="/blog"
-					motionClass="motion-delay-3"
-				/>
-				<Card
-					title="The value of CS fundamentals"
-					description="Why algorithms and data structures still matter 25 years later in modern development."
-					href="#"
-					motionClass="motion-delay-4"
-				/>
+				{featuredPost && (
+					<Card
+						title={featuredPost.data.title}
+						description={featuredPost.data.excerpt}
+						href="/blog"
+						motionClass="motion-delay-3"
+						linkText="open ./blog_index.sh →"
+						ariaLabel={`Open the blog section featuring ${featuredPost.data.title}`}
+					/>
+				)}
+				{featuredTool && (
+					<Card
+						title={featuredTool.data.title}
+						description={`${featuredTool.data.framework} · ${featuredTool.data.description}`}
+						href="/tools"
+						motionClass="motion-delay-4"
+						linkText="open ./tools_catalog.sh →"
+						ariaLabel={`Open the tools section featuring ${featuredTool.data.title}`}
+					/>
+				)}
 			</div>
 		</section>
 	</main>

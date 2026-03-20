@@ -4,9 +4,18 @@ interface Props {
 	description: string;
 	href: string;
 	motionClass?: string;
+	linkText?: string;
+	ariaLabel?: string;
 }
 
-const { title, description, href, motionClass = '' } = Astro.props;
+const {
+	title,
+	description,
+	href,
+	motionClass = '',
+	linkText = 'run ./read_post.sh →',
+	ariaLabel = `Open: ${title}`,
+} = Astro.props;
 ---
 
 <div class={`brutalist-card motion-enter motion-hover-lift ${motionClass}`}>
@@ -14,8 +23,8 @@ const { title, description, href, motionClass = '' } = Astro.props;
 		<h3 class="mono">{title}</h3>
 		<p>{description}</p>
 	</div>
-	<a href={href} class="card-link mono" aria-label={`Read post: ${title}`}>
-		run ./read_post.sh &rarr;
+	<a href={href} class="card-link mono" aria-label={ariaLabel}>
+		{linkText}
 	</a>
 </div>
 
