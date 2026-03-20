@@ -111,9 +111,11 @@ test.describe('site shell', () => {
 
 		const mobileAboutLink = mobileNav.getByRole('link', { name: 'About' });
 		await expect(mobileAboutLink).toBeVisible();
-		await mobileAboutLink.click();
+		await Promise.all([
+			page.waitForURL(/\/about\/?$/),
+			mobileAboutLink.click(),
+		]);
 
-		await expect(page).toHaveURL(/\/about\/?$/);
 		await expect(page.getByRole('heading', { level: 1, name: 'About' })).toBeVisible();
 		expect(await page.locator('body').getAttribute('data-mobile-nav-open')).toBeNull();
 	});
