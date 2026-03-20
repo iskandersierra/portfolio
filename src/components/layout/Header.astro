@@ -294,7 +294,15 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		header.setAttribute('data-mobile-nav-ready', 'true');
 
 		const closeMenu = () => {
+			const activeElement = document.activeElement;
+			const shouldRestoreFocus = activeElement instanceof Node && panel.contains(activeElement);
+
 			panel.hidden = true;
+
+			if (shouldRestoreFocus) {
+				toggle.focus();
+			}
+
 			toggle.setAttribute('aria-expanded', 'false');
 			toggle.setAttribute('aria-label', 'Open navigation menu');
 			document.body.removeAttribute('data-mobile-nav-open');
