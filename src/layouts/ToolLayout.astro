@@ -1,0 +1,138 @@
+---
+import Layout from './Layout.astro';
+import { formatContentDate, type ToolEntry } from '../utils/content';
+
+interface Props {
+	tool: ToolEntry;
+}
+
+const { tool } = Astro.props;
+const formattedDate = formatContentDate(tool.data.publishedAt);
+---
+
+<Layout
+	seo={{
+		title: tool.data.title,
+		description: tool.data.description,
+		pageType: 'website',
+	}}
+>
+	<main class="container page-shell">
+		<article class="tool-post-article tool-post-layout post-shell">
+			<header class="tool-post-header post-header motion-enter motion-delay-1">
+				<p class="tool-post-kicker mono">$ open ./tools/{tool.id}.md</p>
+				<h1 class="post-title">{tool.data.title}</h1>
+				<p class="tool-post-description">{tool.data.description}</p>
+				<div class="tool-post-meta post-meta" aria-label="Tool metadata">
+					<span>Published {formattedDate}</span>
+					<span class="tool-framework-badge mono">{tool.data.framework}</span>
+				</div>
+				<ul class="post-tag-list tool-tag-list" aria-label="Tool tags">
+					{tool.data.tags.map((tag) => (
+						<li>
+							<span class="tool-tag mono">{tag}</span>
+						</li>
+					))}
+				</ul>
+			</header>
+
+			<div class="tool-post-body post-body motion-enter motion-delay-2">
+				<div class="tool-usage-notes">
+					<p class="tool-section-kicker mono">$ cat ./usage-notes</p>
+					<h2>Usage notes</h2>
+					<slot />
+				</div>
+			</div>
+
+			<section class="tool-post-footer motion-enter motion-delay-3" aria-label="Interactive tool area">
+				<p class="tool-section-kicker mono">$ mount ./interactive-surface</p>
+				<h2>Interactive tool area</h2>
+				<slot name="interactive">
+					<div class="tool-interactive-placeholder">
+						<p>
+							This reserved panel will host the live browser-based tool UI when the interactive
+							surface is implemented.
+						</p>
+						<p class="tool-placeholder-meta mono">Launch scope: shared detail layout only.</p>
+					</div>
+				</slot>
+			</section>
+		</article>
+	</main>
+</Layout>
+
+<style>
+	.tool-post-header,
+	.tool-post-body,
+	.tool-post-footer {
+		border: 1px solid var(--border);
+		background: var(--surface);
+		padding: clamp(1.25rem, 3vw, 2rem);
+	}
+
+	.tool-post-kicker,
+	.tool-section-kicker {
+		margin: 0;
+		color: var(--accent);
+	}
+
+	.tool-post-description {
+		margin: 0;
+		max-width: 62ch;
+		color: var(--text-muted);
+		font-size: 1.05rem;
+	}
+
+	.tool-post-meta {
+		margin: 0;
+	}
+
+	.tool-framework-badge,
+	.tool-tag {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.2rem 0.55rem;
+		border: 1px solid var(--border);
+		background: var(--surface);
+		color: var(--accent);
+		line-height: 1.2;
+	}
+
+	.tool-tag-list {
+		margin: 0;
+	}
+
+	.tool-post-body,
+	.tool-post-footer {
+		min-width: 0;
+	}
+
+	.tool-usage-notes {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.tool-usage-notes h2,
+	.tool-post-footer h2 {
+		margin: 0;
+	}
+
+	.tool-interactive-placeholder {
+		border: 1px dashed var(--border);
+		padding: clamp(1rem, 2.6vw, 1.5rem);
+		min-height: 12rem;
+		display: grid;
+		align-content: start;
+		gap: 0.85rem;
+		overflow-x: auto;
+	}
+
+	.tool-interactive-placeholder p {
+		margin: 0;
+	}
+
+	.tool-placeholder-meta {
+		color: var(--text-muted);
+		font-size: 0.9rem;
+	}
+</style>

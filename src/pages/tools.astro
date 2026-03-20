@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { formatContentDate, getPublishedTools } from '../utils/content';
+import { formatContentDate, getPublishedTools, getToolHref } from '../utils/content';
 
 const tools = await getPublishedTools();
 ---
@@ -26,15 +26,17 @@ const tools = await getPublishedTools();
 		<section class="tool-list motion-enter motion-delay-2">
 			{tools.map((tool, index) => (
 				<article class="tool-card motion-enter motion-hover-lift" style={`--motion-delay: ${(index + 2) * 80}ms`}>
-					<div class="tool-head">
-						<h2>{tool.data.title}</h2>
-						<span class="framework-badge mono">{tool.data.framework}</span>
-					</div>
-					<p>{tool.data.description}</p>
-					<ul class="tag-list">
-						{tool.data.tags.map((tag) => <li>{tag}</li>)}
-					</ul>
-					<p class="tool-meta mono">Published {formatContentDate(tool.data.publishedAt)}</p>
+					<a class="tool-card-link" href={getToolHref(tool.id)} aria-label={`Open ${tool.data.title}`}>
+						<div class="tool-head">
+							<h2>{tool.data.title}</h2>
+							<span class="framework-badge mono">{tool.data.framework}</span>
+						</div>
+						<p>{tool.data.description}</p>
+						<ul class="tag-list">
+							{tool.data.tags.map((tag) => <li>{tag}</li>)}
+						</ul>
+						<p class="tool-meta mono">Published {formatContentDate(tool.data.publishedAt)}</p>
+					</a>
 				</article>
 			))}
 		</section>
@@ -74,7 +76,24 @@ const tools = await getPublishedTools();
 	.tool-card {
 		border: 1px solid var(--border);
 		background: var(--surface);
+	}
+
+	.tool-card-link {
+		display: grid;
+		gap: 0;
 		padding: 1.25rem;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.tool-card-link:hover,
+	.tool-card-link:focus-visible {
+		text-decoration: none;
+	}
+
+	.tool-card-link:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
 	}
 
 	.tool-meta {
@@ -93,6 +112,11 @@ const tools = await getPublishedTools();
 
 	.tool-head h2 {
 		margin: 0;
+	}
+
+	.tool-card-link:hover .tool-head h2,
+	.tool-card-link:focus-visible .tool-head h2 {
+		color: var(--accent);
 	}
 
 	.framework-badge {

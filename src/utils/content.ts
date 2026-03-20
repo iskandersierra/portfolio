@@ -32,6 +32,8 @@ export const getAllBlogTags = (entries: BlogEntry[]) =>
 
 export const getBlogPostHref = (slug: string) => `/blog/${slug}`;
 
+export const getToolHref = (slug: string) => `/tools/${slug}`;
+
 export const getBlogTagHref = (tag?: string | null) =>
 	tag ? `/blog?tag=${encodeURIComponent(tag)}` : '/blog';
 
