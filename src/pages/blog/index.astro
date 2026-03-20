@@ -1,0 +1,205 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import {
+	filterBlogPostsByTag,
+	formatContentDate,
+	getAllBlogTags,
+	getBlogPostHref,
+	getBlogTagHref,
+	getPublishedBlogPosts,
+} from '../../utils/content';
+
+const selectedTag = Astro.url.searchParams.get('tag');
+const normalizedSelectedTag = selectedTag?.trim().toLocaleLowerCase();
+const allPosts = await getPublishedBlogPosts();
+const visiblePosts = filterBlogPostsByTag(allPosts, selectedTag);
+const availableTags = getAllBlogTags(allPosts);
+---
+
+<Layout
+	seo={{
+		title: 'Blog',
+		description:
+			'Read notes on software architecture, technical leadership, cloud delivery, and long-term learning from Iskander Sierra.',
+		pageType: 'website',
+	}}
+>
+	<main class="container page-shell">
+		<header class="page-header motion-enter motion-delay-1">
+			<p class="mono page-kicker">$ find ./blog -type f</p>
+			<h1>Blog</h1>
+			<p class="page-intro">
+				Notes on software architecture, technical leadership, cloud delivery, and the habits that
+				help a long engineering career stay sharp.
+			</p>
+			<nav class="filter-row" aria-label="Blog tag filters">
+				<a
+					href={getBlogTagHref()}
+					class={`filter-chip mono ${normalizedSelectedTag ? '' : 'active'}`}
+					aria-current={normalizedSelectedTag ? undefined : 'page'}
+				>
+					All posts
+				</a>
+				{availableTags.map((tag) => {
+					const isActive = normalizedSelectedTag === tag.toLocaleLowerCase();
+
+					return (
+						<a
+							href={getBlogTagHref(tag)}
+							class={`filter-chip mono ${isActive ? 'active' : ''}`}
+							aria-current={isActive ? 'page' : undefined}
+						>
+							{tag}
+						</a>
+					);
+				})}
+			</nav>
+		</header>
+
+		<section class="post-list motion-enter motion-delay-2">
+			{visiblePosts.length > 0 ? (
+				visiblePosts.map((post, index) => (
+					<article class="post-card motion-enter motion-hover-lift" style={`--motion-delay: ${(index + 2) * 80}ms`}>
+						<div class="post-meta mono">
+							<span>{formatContentDate(post.data.date)}</span>
+							<span>{post.data.readTime} min read</span>
+						</div>
+						<h2>
+							<a class="post-link" href={getBlogPostHref(post.id)}>
+								{post.data.title}
+							</a>
+						</h2>
+						<p>{post.data.excerpt}</p>
+						<ul class="tag-list">
+							{post.data.tags.map((tag) => (
+								<li>
+									<a href={getBlogTagHref(tag)}>{tag}</a>
+								</li>
+							))}
+						</ul>
+						<a class="post-link post-link-cta mono" href={getBlogPostHref(post.id)}>
+							open ./blog/{post.id}.md →
+						</a>
+					</article>
+				))
+			) : (
+				<p class="empty-state">No posts match the selected tag yet.</p>
+			)}
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.page-shell {
+		padding-block: 2rem 4rem;
+	}
+
+	.page-header {
+		margin-bottom: 2.5rem;
+	}
+
+	.filter-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 1.5rem;
+	}
+
+	.filter-chip {
+		padding: 0.35rem 0.75rem;
+		border: 1px solid var(--border);
+		background: var(--surface);
+		color: var(--text-muted);
+		text-decoration: none;
+	}
+
+	.filter-chip.active,
+	.filter-chip:hover {
+		color: var(--accent);
+		border-color: var(--accent);
+		text-decoration: none;
+	}
+
+	.page-kicker {
+		color: var(--accent);
+	}
+
+	.page-header h1 {
+		margin: 0.5rem 0 1rem;
+		font-size: clamp(2rem, 4vw, 3rem);
+	}
+
+	.page-intro,
+	.post-card p {
+		max-width: 720px;
+		line-height: 1.7;
+		color: var(--text-muted);
+	}
+
+	.post-list {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.post-card {
+		border: 1px solid var(--border);
+		background: var(--surface);
+		padding: 1.25rem;
+	}
+
+	.post-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-bottom: 0.75rem;
+		color: var(--text-muted);
+		font-size: 0.9rem;
+	}
+
+	.post-card h2 {
+		margin: 0 0 0.75rem;
+	}
+
+	.post-link {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.post-link:hover {
+		color: var(--accent);
+		text-decoration: none;
+	}
+
+	.post-link-cta {
+		display: inline-block;
+		margin-top: 1rem;
+		color: var(--accent);
+	}
+
+	.empty-state {
+		padding: 1rem 1.25rem;
+		border: 1px solid var(--border);
+		background: var(--surface);
+		color: var(--text-muted);
+	}
+
+	.tag-list {
+		list-style: none;
+		padding: 0;
+		margin: 1rem 0 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.tag-list li {
+		border: 1px solid var(--border);
+		font-size: 0.9rem;
+	}
+
+	.tag-list a {
+		display: inline-flex;
+		padding: 0.25rem 0.6rem;
+		color: var(--accent);
+	}
+</style>

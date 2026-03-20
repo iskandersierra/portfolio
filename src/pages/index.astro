@@ -1,6 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/ui/Card.astro';
+import {
+	getBlogPostHref,
+	getFeaturedBlogPost,
+	getFeaturedTool,
+	getToolHref,
+} from '../utils/content';
+
+const [featuredPost, featuredTool] = await Promise.all([getFeaturedBlogPost(), getFeaturedTool()]);
+const featuredPostHref = featuredPost ? getBlogPostHref(featuredPost.id) : '/blog';
+const featuredToolHref = featuredTool ? getToolHref(featuredTool.id) : '/tools';
 ---
 
 <Layout
@@ -23,19 +33,38 @@ import Card from '../components/ui/Card.astro';
 		</header>
 
 		<section class="recent-posts motion-enter motion-delay-3">
-			<h2 class="section-title mono">$ ls ./recent-posts</h2>
+			<h2 class="section-title mono">$ ls ./featured-content</h2>
 			<div class="cards-grid">
 				<Card
-					title="Clean Architecture in .NET"
-					description="Thoughts on structuring large scale enterprise applications with modern C# and CQRS."
-					href="/blog"
+					title={featuredPost?.data.title ?? 'Blog'}
+					description={
+						featuredPost?.data.excerpt ??
+						'Read the latest notes on software architecture, technical leadership, and long-term learning.'
+					}
+					href={featuredPostHref}
 					motionClass="motion-delay-3"
+					linkText={featuredPost ? `open ./blog/${featuredPost.id}.md →` : 'open ./blog_index.sh →'}
+					ariaLabel={
+						featuredPost
+							? `Open featured blog post ${featuredPost.data.title}`
+							: 'Open the blog section'
+					}
 				/>
 				<Card
-					title="The value of CS fundamentals"
-					description="Why algorithms and data structures still matter 25 years later in modern development."
-					href="#"
+					title={featuredTool?.data.title ?? 'Tools'}
+					description={
+						featuredTool
+							? `${featuredTool.data.framework} · ${featuredTool.data.description}`
+							: 'Browse practical developer tools and experiments built for the portfolio.'
+					}
+					href={featuredToolHref}
 					motionClass="motion-delay-4"
+					linkText={featuredTool ? `open ./tools/${featuredTool.id}.md →` : 'open ./tools_catalog.sh →'}
+					ariaLabel={
+						featuredTool
+							? `Open featured tool ${featuredTool.data.title}`
+							: 'Open the tools section'
+					}
 				/>
 			</div>
 		</section>

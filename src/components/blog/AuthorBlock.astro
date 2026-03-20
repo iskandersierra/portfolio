@@ -1,0 +1,68 @@
+---
+const author = {
+	name: 'Iskander Sierra',
+	role: 'Full-Stack Developer, Software Architect, and Technical Lead',
+	bio: 'Writing about software architecture, technical leadership, and the habits that keep a long engineering career sharp.',
+	links: [
+		{ href: 'https://github.com/iskandersierra', label: 'GitHub', external: true },
+		{ href: 'https://www.linkedin.com/in/iskandersierra/', label: 'LinkedIn', external: true },
+		{ href: '/about', label: 'About', external: false },
+	],
+};
+---
+
+<aside class="blog-author-block" aria-label="Author information">
+	<p class="blog-author-block__label mono">Author</p>
+	<h2 class="blog-author-block__name">{author.name}</h2>
+	<p class="blog-author-block__role">{author.role}</p>
+	<p class="blog-author-block__bio">{author.bio}</p>
+	<nav class="blog-author-block__links" aria-label="Author links">
+		{author.links.map((link) => (
+			<a
+				class="blog-author-block__link mono"
+				href={link.href}
+				target={link.external ? '_blank' : undefined}
+				rel={link.external ? 'noreferrer' : undefined}
+			>
+				{link.label}
+			</a>
+		))}
+	</nav>
+</aside>
+
+<style>
+	.blog-author-block {
+		border: 1px solid var(--border);
+		background: var(--surface);
+		padding: 1.25rem;
+	}
+
+	.blog-author-block__label {
+		margin-bottom: 0.5rem;
+		color: var(--accent);
+		font-size: 0.9rem;
+	}
+
+	.blog-author-block__name {
+		margin: 0;
+		font-size: 1.35rem;
+	}
+
+	.blog-author-block__role,
+	.blog-author-block__bio {
+		margin: 0.75rem 0 0;
+		color: var(--text-muted);
+	}
+
+	.blog-author-block__links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 1rem;
+	}
+
+	.blog-author-block__link {
+		display: inline-flex;
+		color: var(--accent);
+	}
+</style>

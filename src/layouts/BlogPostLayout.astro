@@ -1,0 +1,85 @@
+---
+import AuthorBlock from '../components/blog/AuthorBlock.astro';
+import Layout from './Layout.astro';
+import { formatContentDate, getBlogTagHref, type BlogEntry } from '../utils/content';
+
+interface Props {
+	post: BlogEntry;
+}
+
+const { post } = Astro.props;
+const formattedDate = formatContentDate(post.data.date);
+const readTimeLabel = `${post.data.readTime} min read`;
+---
+
+<Layout
+	seo={{
+		title: post.data.title,
+		description: post.data.excerpt,
+		pageType: 'article',
+		socialImage: post.data.coverImage,
+	}}
+>
+	<main class="container page-shell">
+		<article class="blog-post-article blog-post-layout post-shell">
+			<header class="blog-post-header post-header motion-enter motion-delay-1">
+				<p class="blog-post-kicker mono">$ cat ./blog/{post.id}.md</p>
+				<h1 class="post-title">{post.data.title}</h1>
+				<p class="blog-post-excerpt">{post.data.excerpt}</p>
+				<div class="blog-post-meta post-meta mono" aria-label="Post metadata">
+					<span>{formattedDate}</span>
+					<span>{readTimeLabel}</span>
+				</div>
+				<ul class="blog-post-tags post-tag-list" aria-label="Post tags">
+					{post.data.tags.map((tag) => (
+						<li>
+							<a href={getBlogTagHref(tag)}>{tag}</a>
+						</li>
+					))}
+				</ul>
+			</header>
+
+			<div class="blog-post-body post-body motion-enter motion-delay-2">
+				<slot />
+			</div>
+
+			<div class="blog-post-footer motion-enter motion-delay-3">
+				<AuthorBlock />
+			</div>
+		</article>
+	</main>
+</Layout>
+
+<style>
+	.blog-post-header,
+	.blog-post-body,
+	.blog-post-footer {
+		border: 1px solid var(--border);
+		background: var(--surface);
+		padding: clamp(1.25rem, 3vw, 2rem);
+	}
+
+	.blog-post-kicker {
+		margin: 0;
+		color: var(--accent);
+	}
+
+	.blog-post-excerpt {
+		margin: 0;
+		max-width: 62ch;
+		color: var(--text-muted);
+		font-size: 1.05rem;
+	}
+
+	.blog-post-meta {
+		margin: 0;
+	}
+
+	.blog-post-tags {
+		margin: 0;
+	}
+
+	.blog-post-body {
+		min-width: 0;
+	}
+</style>

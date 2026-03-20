@@ -28,6 +28,7 @@
 - Keep navigation and route changes synchronized with `tests/e2e/fixtures/routes.ts`; new or renamed primary routes should update the fixture data and any affected Playwright expectations.
 - Preserve the terminal-inspired visual language and existing typography/theme tokens unless a task explicitly changes the design direction.
 - Keep changes targeted. Reuse representative patterns from `src/layouts/Layout.astro`, `src/components/layout/Header.astro`, and `src/components/ui/Card.astro` before introducing new structures.
+- Agents must never push git changes automatically; only run `git push` when the user explicitly requests it.
 
 ## Documentation
 - Link to existing docs instead of duplicating them in code comments or new guidance.

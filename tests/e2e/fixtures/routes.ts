@@ -58,12 +58,36 @@ export const seoExpectations: SeoExpectation[] = [
 		socialImageUrl: 'https://isksz.com/social-card.png',
 	},
 	{
+		name: 'blog post',
+		path: '/blog/vertical-slice-architecture-in-dotnet',
+		title: 'Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure | Iskander Sierra',
+		description:
+			'A launch post about organizing .NET applications around features instead of forcing every change through a layered folder maze.',
+		canonicalUrl: 'https://isksz.com/blog/vertical-slice-architecture-in-dotnet/',
+		pageType: 'article',
+		twitterCard: 'summary_large_image',
+		siteName: 'Iskander Sierra',
+		socialImageUrl: 'https://isksz.com/social-card.png',
+	},
+	{
 		name: 'tools',
 		path: '/tools',
 		title: 'Tools | Iskander Sierra',
 		description:
 			'Browse developer tools and experiments from Iskander Sierra, starting with practical browser-based utilities built as Astro pages and islands.',
 		canonicalUrl: 'https://isksz.com/tools/',
+		pageType: 'website',
+		twitterCard: 'summary_large_image',
+		siteName: 'Iskander Sierra',
+		socialImageUrl: 'https://isksz.com/social-card.png',
+	},
+	{
+		name: 'tool detail',
+		path: '/tools/uuid-ulid-generator',
+		title: 'UUID / ULID generator | Iskander Sierra',
+		description:
+			'Generate UUID v4 or ULID values in the browser with copy-friendly output and a lightweight interface.',
+		canonicalUrl: 'https://isksz.com/tools/uuid-ulid-generator/',
 		pageType: 'website',
 		twitterCard: 'summary_large_image',
 		siteName: 'Iskander Sierra',

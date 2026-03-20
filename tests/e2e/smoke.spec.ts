@@ -3,6 +3,54 @@ import { expect, test } from '@playwright/test';
 import { primaryRoutes } from './fixtures/routes';
 
 test.describe('site shell', () => {
+	test('published tools open on generated detail routes', async ({ page }) => {
+		await page.goto('/tools');
+
+		await page.getByRole('link', { name: 'Open UUID / ULID generator' }).click();
+
+		await expect(page).toHaveURL(/\/tools\/uuid-ulid-generator\/?$/);
+		await expect(page.getByRole('heading', { level: 1, name: 'UUID / ULID generator' })).toBeVisible();
+		await expect(page.locator('.tool-post-meta')).toContainText('Published Mar 17, 2026');
+		await expect(page.locator('.tool-framework-badge')).toContainText('React island');
+		await expect(page.locator('.tool-tag-list')).toContainText('UUID');
+		await expect(page.locator('.tool-post-body')).toContainText(
+			'A focused developer utility for generating identifiers client-side without external services.',
+		);
+		await expect(page.getByRole('region', { name: 'Interactive tool area' })).toContainText(
+			'This reserved panel will host the live browser-based tool UI when the interactive surface is implemented.',
+		);
+	});
+
+	test('published blog posts open on generated article routes', async ({ page }) => {
+		await page.goto('/blog');
+
+		await page.getByRole('link', { name: 'Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure' }).click();
+
+		await expect(page).toHaveURL(/\/blog\/vertical-slice-architecture-in-dotnet\/?$/);
+		await expect(
+			page.getByRole('heading', {
+				level: 1,
+				name: 'Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure',
+			}),
+		).toBeVisible();
+		await expect(page.locator('.blog-post-meta')).toContainText('Mar 17, 2026');
+		await expect(page.locator('.blog-post-meta')).toContainText('6 min read');
+		await expect(page.locator('.blog-post-body')).toContainText(
+			'Feature-first structure becomes easier to defend once the codebase is large enough',
+		);
+		await expect(page.locator('.blog-post-tags')).toContainText('.NET');
+		const authorBlock = page.locator('.blog-author-block');
+		await expect(authorBlock).toContainText('Iskander Sierra');
+		await expect(authorBlock.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
+			'href',
+			'https://github.com/iskandersierra',
+		);
+		await expect(authorBlock.getByRole('link', { name: 'LinkedIn' })).toHaveAttribute(
+			'href',
+			'https://www.linkedin.com/in/iskandersierra/',
+		);
+	});
+
 	test('primary navigation reaches each top-level page', async ({ page }) => {
 		await page.goto('/');
 
@@ -63,9 +111,11 @@ test.describe('site shell', () => {
 
 		const mobileAboutLink = mobileNav.getByRole('link', { name: 'About' });
 		await expect(mobileAboutLink).toBeVisible();
-		await mobileAboutLink.click();
+		await Promise.all([
+			page.waitForURL(/\/about\/?$/),
+			mobileAboutLink.click(),
+		]);
 
-		await expect(page).toHaveURL(/\/about\/?$/);
 		await expect(page.getByRole('heading', { level: 1, name: 'About' })).toBeVisible();
 		expect(await page.locator('body').getAttribute('data-mobile-nav-open')).toBeNull();
 	});
