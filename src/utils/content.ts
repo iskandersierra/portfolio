@@ -4,6 +4,8 @@ export type BlogEntry = CollectionEntry<'blog'>;
 export type ToolEntry = CollectionEntry<'tools'>;
 
 const descendingDateOrder = (left: Date, right: Date) => right.getTime() - left.getTime();
+const caseInsensitiveSortOrder = (left: string, right: string) =>
+	left.localeCompare(right, undefined, { sensitivity: 'accent' });
 
 const isPublished = <T extends { data: { draft: boolean } }>(entry: T) => !entry.data.draft;
 
@@ -21,7 +23,7 @@ export const filterBlogPostsByTag = (entries: BlogEntry[], tag?: string | null) 
 	}
 
 	return entries.filter((entry) =>
-		entry.data.tags.some((entryTag) => entryTag.toLocaleLowerCase() === normalizedTag),
+		entry.data.tags.some((entryTag) => entryTag.trim().toLocaleLowerCase() === normalizedTag),
 	);
 };
 
@@ -29,16 +31,17 @@ export const getAllBlogTags = (entries: BlogEntry[]) => {
 	const tagsByNormalizedValue = new Map<string, string>();
 
 	for (const tag of entries.flatMap((entry) => entry.data.tags)) {
-		const normalizedTag = tag.trim().toLocaleLowerCase();
+		const displayTag = tag.trim();
+		const normalizedTag = displayTag.toLocaleLowerCase();
 
 		if (!normalizedTag || tagsByNormalizedValue.has(normalizedTag)) {
 			continue;
 		}
 
-		tagsByNormalizedValue.set(normalizedTag, tag);
+		tagsByNormalizedValue.set(normalizedTag, displayTag);
 	}
 
-	return [...tagsByNormalizedValue.values()].sort((left, right) => left.localeCompare(right));
+	return [...tagsByNormalizedValue.values()].sort(caseInsensitiveSortOrder);
 };
 
 export const getBlogPostHref = (slug: string) => `/blog/${slug}`;

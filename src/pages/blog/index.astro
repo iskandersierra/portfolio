@@ -10,6 +10,7 @@ import {
 } from '../../utils/content';
 
 const selectedTag = Astro.url.searchParams.get('tag');
+const normalizedSelectedTag = selectedTag?.trim().toLocaleLowerCase();
 const allPosts = await getPublishedBlogPosts();
 const visiblePosts = filterBlogPostsByTag(allPosts, selectedTag);
 const availableTags = getAllBlogTags(allPosts);
@@ -34,13 +35,13 @@ const availableTags = getAllBlogTags(allPosts);
 			<nav class="filter-row" aria-label="Blog tag filters">
 				<a
 					href={getBlogTagHref()}
-					class={`filter-chip mono ${selectedTag ? '' : 'active'}`}
-					aria-current={selectedTag ? undefined : 'page'}
+					class={`filter-chip mono ${normalizedSelectedTag ? '' : 'active'}`}
+					aria-current={normalizedSelectedTag ? undefined : 'page'}
 				>
 					All posts
 				</a>
 				{availableTags.map((tag) => {
-					const isActive = selectedTag?.toLocaleLowerCase() === tag.toLocaleLowerCase();
+					const isActive = normalizedSelectedTag === tag.toLocaleLowerCase();
 
 					return (
 						<a
