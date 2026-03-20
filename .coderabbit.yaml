@@ -10,10 +10,12 @@ reviews:
   path_filters:
     - '!dist/**'
     - '!node_modules/**'
-    - '!.astro/**'
     - '!.agents/**'
+    - '!.astro/**'
     - '!.claude/**'
     - '!.github/**'
+    - '!.netlify/**'
+    - '!.squad/**'
   auto_review:
     enabled: true
     drafts: false
