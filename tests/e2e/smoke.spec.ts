@@ -20,14 +20,40 @@ test.describe('site shell', () => {
 		await page.setViewportSize({ width: 320, height: 720 });
 		await page.goto('/');
 
+		const header = page.locator('header.terminal-header');
+		const headerTop = page.locator('.terminal-header-top');
+		const brand = page.locator('.brand');
+		const actions = page.locator('.actions');
 		const menuToggle = page.locator('[data-mobile-nav-toggle]');
 		const desktopNav = page.locator('.nav-links-desktop');
 		const mobileNav = page.locator('#mobile-navigation');
 
+		await expect(headerTop).toBeVisible();
+		await expect(brand).toBeVisible();
+		await expect(actions).toBeVisible();
 		await expect(menuToggle).toBeVisible();
 		await expect(menuToggle).toHaveAttribute('aria-label', 'Open navigation menu');
 		await expect(desktopNav).toBeHidden();
 		await expect(mobileNav).toBeHidden();
+
+		const [headerBox, topBox, brandBox, actionsBox] = await Promise.all([
+			header.boundingBox(),
+			headerTop.boundingBox(),
+			brand.boundingBox(),
+			actions.boundingBox(),
+		]);
+
+		expect(headerBox).not.toBeNull();
+		expect(topBox).not.toBeNull();
+		expect(brandBox).not.toBeNull();
+		expect(actionsBox).not.toBeNull();
+
+		if (headerBox && topBox && brandBox && actionsBox) {
+			expect(brandBox.y).toBeLessThan(actionsBox.y + actionsBox.height);
+			expect(actionsBox.y).toBeLessThan(brandBox.y + brandBox.height);
+			expect(topBox.height).toBeLessThanOrEqual(Math.max(brandBox.height, actionsBox.height) + 18);
+			expect(headerBox.height).toBeLessThan(220);
+		}
 
 		await menuToggle.click();
 
@@ -35,11 +61,65 @@ test.describe('site shell', () => {
 		await expect(menuToggle).toHaveAttribute('aria-label', 'Close navigation menu');
 		await expect(mobileNav).toBeVisible();
 
-		await mobileNav.getByRole('link', { name: 'About' }).click();
+		const mobileAboutLink = mobileNav.getByRole('link', { name: 'About' });
+		await expect(mobileAboutLink).toBeVisible();
+		await mobileAboutLink.click();
 
 		await expect(page).toHaveURL(/\/about\/?$/);
 		await expect(page.getByRole('heading', { level: 1, name: 'About' })).toBeVisible();
 		expect(await page.locator('body').getAttribute('data-mobile-nav-open')).toBeNull();
+	});
+
+	test('desktop header keeps nav centered and theme chooser flush right', async ({ page }) => {
+		await page.setViewportSize({ width: 1280, height: 900 });
+		await page.goto('/');
+
+		const header = page.locator('header.terminal-header');
+		const headerTop = page.locator('.terminal-header-top');
+		const brand = page.locator('.brand');
+		const nav = page.locator('.nav-links-desktop');
+		const actions = page.locator('.actions');
+		const menuToggle = page.locator('[data-mobile-nav-toggle]');
+
+		await expect(headerTop).toBeVisible();
+		await expect(nav).toBeVisible();
+		await expect(actions).toBeVisible();
+		await expect(menuToggle).toBeHidden();
+
+		const [headerBox, topBox, brandBox, navBox, actionsBox, headerPaddingRight] = await Promise.all([
+			header.boundingBox(),
+			headerTop.boundingBox(),
+			brand.boundingBox(),
+			nav.boundingBox(),
+			actions.boundingBox(),
+			header.evaluate((element) => Number.parseFloat(getComputedStyle(element).paddingRight)),
+		]);
+
+		expect(headerBox).not.toBeNull();
+		expect(topBox).not.toBeNull();
+		expect(brandBox).not.toBeNull();
+		expect(navBox).not.toBeNull();
+		expect(actionsBox).not.toBeNull();
+
+		if (headerBox && topBox && brandBox && navBox && actionsBox) {
+			const headerCenter = headerBox.x + headerBox.width / 2;
+			const navCenter = navBox.x + navBox.width / 2;
+			const headerContentRight = headerBox.x + headerBox.width - headerPaddingRight;
+			const actionsRight = actionsBox.x + actionsBox.width;
+			const brandCenterY = brandBox.y + brandBox.height / 2;
+			const navCenterY = navBox.y + navBox.height / 2;
+			const actionsCenterY = actionsBox.y + actionsBox.height / 2;
+			const tallestChild = Math.max(brandBox.height, navBox.height, actionsBox.height);
+
+			expect(Math.abs(navCenter - headerCenter)).toBeLessThanOrEqual(4);
+			expect(Math.abs(actionsRight - headerContentRight)).toBeLessThanOrEqual(2);
+			expect(Math.abs(brandCenterY - navCenterY)).toBeLessThanOrEqual(8);
+			expect(Math.abs(actionsCenterY - navCenterY)).toBeLessThanOrEqual(8);
+			expect(topBox.height).toBeLessThanOrEqual(tallestChild + 12);
+			expect(headerBox.height).toBeLessThan(120);
+			expect(brandBox.x + brandBox.width).toBeLessThan(navBox.x);
+			expect(navBox.x + navBox.width).toBeLessThan(actionsBox.x);
+		}
 	});
 
 	test('footer exposes quick links and social links on every MVP page', async ({ page }) => {
