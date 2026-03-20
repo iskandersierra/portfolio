@@ -17,3 +17,4 @@
 - Mobile header fixes are more stable when the component owns its breakpoint layout and uses an explicit top-row wrapper for brand plus controls, leaving only container chrome in global styles.
 - Desktop header alignment is more stable as a three-column layout with left brand, centered nav, and right-aligned actions instead of relying on flex spacing around a growing middle nav.
 - Desktop header stability in Astro improves when the brand, primary nav, and actions stay in one explicit wrapper grid instead of depending on `display: contents`, which can render as stacked rows in practice.
+- Story 2.1 is safest when content collections land before any page wiring; seeding minimal Markdown entries early gives later UI stories stable schema targets without forcing premature template changes.
