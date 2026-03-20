@@ -58,6 +58,18 @@ export const seoExpectations: SeoExpectation[] = [
 		socialImageUrl: 'https://isksz.com/social-card.png',
 	},
 	{
+		name: 'blog post',
+		path: '/blog/vertical-slice-architecture-in-dotnet',
+		title: 'Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure | Iskander Sierra',
+		description:
+			'A launch post about organizing .NET applications around features instead of forcing every change through a layered folder maze.',
+		canonicalUrl: 'https://isksz.com/blog/vertical-slice-architecture-in-dotnet/',
+		pageType: 'article',
+		twitterCard: 'summary_large_image',
+		siteName: 'Iskander Sierra',
+		socialImageUrl: 'https://isksz.com/social-card.png',
+	},
+	{
 		name: 'tools',
 		path: '/tools',
 		title: 'Tools | Iskander Sierra',

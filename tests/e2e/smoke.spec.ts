@@ -3,6 +3,36 @@ import { expect, test } from '@playwright/test';
 import { primaryRoutes } from './fixtures/routes';
 
 test.describe('site shell', () => {
+	test('published blog posts open on generated article routes', async ({ page }) => {
+		await page.goto('/blog');
+
+		await page.getByRole('link', { name: 'Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure' }).click();
+
+		await expect(page).toHaveURL(/\/blog\/vertical-slice-architecture-in-dotnet\/?$/);
+		await expect(
+			page.getByRole('heading', {
+				level: 1,
+				name: 'Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure',
+			}),
+		).toBeVisible();
+		await expect(page.locator('.blog-post-meta')).toContainText('Mar 17, 2026');
+		await expect(page.locator('.blog-post-meta')).toContainText('6 min read');
+		await expect(page.locator('.blog-post-body')).toContainText(
+			'Feature-first structure becomes easier to defend once the codebase is large enough',
+		);
+		await expect(page.locator('.blog-post-tags')).toContainText('.NET');
+		const authorBlock = page.locator('.blog-author-block');
+		await expect(authorBlock).toContainText('Iskander Sierra');
+		await expect(authorBlock.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
+			'href',
+			'https://github.com/iskandersierra',
+		);
+		await expect(authorBlock.getByRole('link', { name: 'LinkedIn' })).toHaveAttribute(
+			'href',
+			'https://www.linkedin.com/in/iskandersierra/',
+		);
+	});
+
 	test('primary navigation reaches each top-level page', async ({ page }) => {
 		await page.goto('/');
 

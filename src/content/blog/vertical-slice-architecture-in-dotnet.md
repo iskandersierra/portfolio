@@ -1,5 +1,5 @@
 ---
-title: Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure
+title: "Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure"
 date: 2026-03-17
 tags:
   - .NET
