@@ -25,10 +25,21 @@ export const filterBlogPostsByTag = (entries: BlogEntry[], tag?: string | null) 
 	);
 };
 
-export const getAllBlogTags = (entries: BlogEntry[]) =>
-	[...new Set(entries.flatMap((entry) => entry.data.tags))].sort((left, right) =>
-		left.localeCompare(right),
-	);
+export const getAllBlogTags = (entries: BlogEntry[]) => {
+	const tagsByNormalizedValue = new Map<string, string>();
+
+	for (const tag of entries.flatMap((entry) => entry.data.tags)) {
+		const normalizedTag = tag.trim().toLocaleLowerCase();
+
+		if (!normalizedTag || tagsByNormalizedValue.has(normalizedTag)) {
+			continue;
+		}
+
+		tagsByNormalizedValue.set(normalizedTag, tag);
+	}
+
+	return [...tagsByNormalizedValue.values()].sort((left, right) => left.localeCompare(right));
+};
 
 export const getBlogPostHref = (slug: string) => `/blog/${slug}`;
 

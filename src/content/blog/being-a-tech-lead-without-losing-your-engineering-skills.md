@@ -9,6 +9,6 @@ readTime: 5
 draft: false
 ---
 
-Technical leadership only works long term if responsibility grows without completely severing the feedback loop with code, architecture, and delivery.
+Technical leadership only works long-term if responsibility grows without completely severing the feedback loop with code, architecture, and delivery.
 
 This launch entry anchors the leadership track and frames the tension between people leadership, execution pressure, and hands-on engineering.

@@ -31,7 +31,7 @@ const availableTags = getAllBlogTags(allPosts);
 				Notes on software architecture, technical leadership, cloud delivery, and the habits that
 				help a long engineering career stay sharp.
 			</p>
-			<div class="filter-row" aria-label="Blog tag filters">
+			<nav class="filter-row" aria-label="Blog tag filters">
 				<a
 					href={getBlogTagHref()}
 					class={`filter-chip mono ${selectedTag ? '' : 'active'}`}
@@ -52,7 +52,7 @@ const availableTags = getAllBlogTags(allPosts);
 						</a>
 					);
 				})}
-			</div>
+			</nav>
 		</header>
 
 		<section class="post-list motion-enter motion-delay-2">

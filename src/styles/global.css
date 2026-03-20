@@ -228,7 +228,7 @@ body[data-mobile-nav-open] {
 	font-size: clamp(2.2rem, 5vw, 3.5rem);
 	line-height: 1.05;
 	text-wrap: balance;
-	word-break: break-word;
+	overflow-wrap: anywhere;
 }
 
 .post-meta,
@@ -271,7 +271,6 @@ body[data-mobile-nav-open] {
 	width: 100%;
 	min-width: 0;
 	overflow-wrap: break-word;
-	word-break: break-word;
 	text-wrap: pretty;
 }
 
@@ -327,8 +326,8 @@ body[data-mobile-nav-open] {
 	text-decoration-line: underline;
 	text-decoration-thickness: 0.08em;
 	text-underline-offset: 0.18em;
-	text-decoration-color: currentColor;
-	word-break: break-word;
+	text-decoration-color: currentcolor;
+	overflow-wrap: anywhere;
 }
 
 .post-body a:hover,
@@ -356,7 +355,7 @@ body[data-mobile-nav-open] {
 	border: 1px solid var(--border);
 	background: var(--surface);
 	border-radius: 0.15rem;
-	word-break: break-word;
+	overflow-wrap: anywhere;
 }
 
 .post-body pre {

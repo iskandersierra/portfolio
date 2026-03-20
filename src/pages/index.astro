@@ -1,9 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/ui/Card.astro';
-import { getFeaturedBlogPost, getFeaturedTool } from '../utils/content';
+import {
+	getBlogPostHref,
+	getFeaturedBlogPost,
+	getFeaturedTool,
+	getToolHref,
+} from '../utils/content';
 
 const [featuredPost, featuredTool] = await Promise.all([getFeaturedBlogPost(), getFeaturedTool()]);
+const featuredPostHref = featuredPost ? getBlogPostHref(featuredPost.id) : '/blog';
+const featuredToolHref = featuredTool ? getToolHref(featuredTool.id) : '/tools';
 ---
 
 <Layout
@@ -28,26 +35,37 @@ const [featuredPost, featuredTool] = await Promise.all([getFeaturedBlogPost(), g
 		<section class="recent-posts motion-enter motion-delay-3">
 			<h2 class="section-title mono">$ ls ./featured-content</h2>
 			<div class="cards-grid">
-				{featuredPost && (
-					<Card
-						title={featuredPost.data.title}
-						description={featuredPost.data.excerpt}
-						href="/blog"
-						motionClass="motion-delay-3"
-						linkText="open ./blog_index.sh →"
-						ariaLabel={`Open the blog section featuring ${featuredPost.data.title}`}
-					/>
-				)}
-				{featuredTool && (
-					<Card
-						title={featuredTool.data.title}
-						description={`${featuredTool.data.framework} · ${featuredTool.data.description}`}
-						href="/tools"
-						motionClass="motion-delay-4"
-						linkText="open ./tools_catalog.sh →"
-						ariaLabel={`Open the tools section featuring ${featuredTool.data.title}`}
-					/>
-				)}
+				<Card
+					title={featuredPost?.data.title ?? 'Blog'}
+					description={
+						featuredPost?.data.excerpt ??
+						'Read the latest notes on software architecture, technical leadership, and long-term learning.'
+					}
+					href={featuredPostHref}
+					motionClass="motion-delay-3"
+					linkText={featuredPost ? `open ./blog/${featuredPost.id}.md →` : 'open ./blog_index.sh →'}
+					ariaLabel={
+						featuredPost
+							? `Open featured blog post ${featuredPost.data.title}`
+							: 'Open the blog section'
+					}
+				/>
+				<Card
+					title={featuredTool?.data.title ?? 'Tools'}
+					description={
+						featuredTool
+							? `${featuredTool.data.framework} · ${featuredTool.data.description}`
+							: 'Browse practical developer tools and experiments built for the portfolio.'
+					}
+					href={featuredToolHref}
+					motionClass="motion-delay-4"
+					linkText={featuredTool ? `open ./tools/${featuredTool.id}.md →` : 'open ./tools_catalog.sh →'}
+					ariaLabel={
+						featuredTool
+							? `Open featured tool ${featuredTool.data.title}`
+							: 'Open the tools section'
+					}
+				/>
 			</div>
 		</section>
 	</main>
