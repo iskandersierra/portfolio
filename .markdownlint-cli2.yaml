@@ -8,11 +8,12 @@ globs:
   - '**/*.md'
 ignores:
   - dist/**
-  - .astro/**
   - .agents/**
+  - .astro/**
   - .claude/**
   - .github/**
   - .netlify/**
+  - .squad/**
   - node_modules/**
 noBanner: true
 noProgress: true
