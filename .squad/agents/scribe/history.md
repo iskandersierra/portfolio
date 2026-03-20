@@ -9,3 +9,4 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- When implementation and QA inbox entries describe the same fix, merge them into one consolidated decision block and keep the approval trail in session and orchestration logs.

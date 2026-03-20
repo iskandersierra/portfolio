@@ -37,7 +37,7 @@ Excluded from scope:
 ## Epic Status
 
 - [x] Epic 0: Product Decisions And Launch Planning
-- [ ] Epic 1: Shared Shell And UX Foundations
+- [x] Epic 1: Shared Shell And UX Foundations
 - [ ] Epic 2: Content Platform And Shared Content UI
 - [ ] Epic 3: Home And About Experience
 - [ ] Epic 4: Blog Publishing MVP
@@ -160,11 +160,11 @@ Purpose: establish the site-wide layout, navigation, theme behavior, and reusabl
 
 Story checklist:
 
-- [ ] Story 1.1: Extend base layout for reusable metadata
+- [x] Story 1.1: Extend base layout for reusable metadata
 - [x] Story 1.2: Complete persistent site shell
-- [ ] Story 1.3: Implement mobile navigation
-- [ ] Story 1.4: Harden theme behavior
-- [ ] Story 1.5: Add reusable motion patterns
+- [x] Story 1.3: Implement mobile navigation
+- [x] Story 1.4: Harden theme behavior
+- [x] Story 1.5: Add reusable motion patterns
 
 ### Story 1.1: Extend base layout for reusable metadata
 
@@ -206,6 +206,12 @@ Acceptance criteria:
 - The layout works at 320px width.
 - Desktop navigation behavior is preserved.
 
+Delivery notes:
+
+- The shared header now exposes a dedicated mobile menu button and drawer with proper `aria-expanded`, `aria-controls`, active-link state, outside-click dismissal, and Escape-key dismissal.
+- The shell was adjusted to keep the terminal frame usable at 320px width without compromising the existing desktop navigation.
+- Cross-browser Playwright smoke coverage now verifies the mobile path specifically at 320px.
+
 ### Story 1.4: Harden theme behavior
 
 Ensure light and dark theme behavior is stable and user-friendly.
@@ -219,6 +225,12 @@ Acceptance criteria:
 - Theme changes do not cause visible flash on load.
 - Reduced motion is respected where relevant.
 
+Delivery notes:
+
+- Theme bootstrapping now resolves from system preference first, applies before paint, and records an explicit `data-theme-mode` so system-following and user override states stay distinct.
+- The theme toggle still gives a simple light-or-dark override, and the chosen override persists through `localStorage`.
+- Reduced-motion users now bypass theme transition effects along with other shell motion cues.
+
 ### Story 1.5: Add reusable motion patterns
 
 Create a consistent approach for subtle page and section transitions.
@@ -230,6 +242,12 @@ Acceptance criteria:
 - Entrance and transition behavior is available for MVP pages.
 - Motion remains subtle and non-distracting.
 - Reduced-motion users get a simplified experience.
+
+Delivery notes:
+
+- MVP pages now share reusable `motion-enter`, `motion-delay-*`, and `motion-hover-lift` patterns instead of one-off boot-sequence classes.
+- Astro client routing is enabled with a restrained page transition for the shared page shell, keeping the minimalist terminal direction intact.
+- Reduced-motion handling simplifies entrance, hover, and page-transition motion to avoid distraction.
 
 ## Epic 2: Content Platform And Shared Content UI
 
