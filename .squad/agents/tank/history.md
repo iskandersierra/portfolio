@@ -17,3 +17,4 @@
 - Story 2.1 should remain collection-only work; approval is stronger when QA explicitly confirms that `/blog` and `/tools` stay unwired until the later UI stories begin.
 - Story 2.3 validation must hit the generated `/blog/[slug]` route directly; a healthy `/blog` index can still hide a broken article route registration.
 - Story 2.3's code-block acceptance needs either a published markdown fixture with fenced code or a dedicated rendering test, because the current launch posts are prose-only and leave that criterion unproven.
+- Story 2.4 review is strongest when it checks the tool detail page against the shared `.post-shell` and `.post-body` contract instead of treating it as a one-off template; route and SEO coverage are sufficient for launch, but rich markdown cases on tool pages remain a follow-up risk until a tool fixture or test exercises them.
