@@ -9,3 +9,4 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- Epic 1 closure reviews need explicit reduced-motion checks for theme transitions, hover transforms, and persistent cues like the cursor blink; the current smoke coverage only verifies page-entry motion.

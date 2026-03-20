@@ -24,7 +24,7 @@ const tools = [
 	}}
 >
 	<main class="container page-shell">
-		<header class="page-header boot-seq delay-1">
+		<header class="page-header motion-enter motion-delay-1">
 			<p class="mono page-kicker">$ ls ./tools</p>
 			<h1>Tools</h1>
 			<p class="page-intro">
@@ -33,9 +33,9 @@ const tools = [
 			</p>
 		</header>
 
-		<section class="tool-list boot-seq delay-2">
-			{tools.map((tool) => (
-				<article class="tool-card">
+		<section class="tool-list motion-enter motion-delay-2">
+			{tools.map((tool, index) => (
+				<article class={`tool-card motion-enter motion-hover-lift motion-delay-${index + 2}`}>
 					<div class="tool-head">
 						<h2>{tool.name}</h2>
 						<span class="framework-badge mono">{tool.framework}</span>

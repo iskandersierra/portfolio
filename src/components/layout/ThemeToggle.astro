@@ -1,6 +1,7 @@
 <button
 	id="theme-toggle"
 	class="theme-toggle"
+	type="button"
 	aria-label="Switch to dark theme"
 	aria-pressed="false"
 >
@@ -45,19 +46,36 @@
 
 <style>
 	.theme-toggle {
-		background: none;
-		border: none;
+		background: var(--surface);
+		border: 1px solid var(--border);
 		color: var(--text-muted);
 		cursor: pointer;
-		padding: 0.25rem;
+		width: 2.75rem;
+		height: 2.75rem;
+		padding: 0.45rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		transition: color 0.2s ease;
+		transition:
+			border-color 0.2s ease,
+			background-color 0.2s ease,
+			color 0.2s ease,
+			transform 0.2s ease;
 	}
 
 	.theme-toggle:hover {
+		border-color: var(--accent);
 		color: var(--accent);
+	}
+
+	.theme-toggle:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
+	}
+
+	.theme-toggle svg {
+		width: 1.15rem;
+		height: 1.15rem;
 	}
 
 	.sr-only {
@@ -86,37 +104,53 @@
 	:global(html:not([data-theme='dark'])) .moon {
 		display: block;
 	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.theme-toggle {
+			transition: none;
+		}
+	}
 </style>
 
 <script>
+	const themeToggleState = {
+		controller: null as AbortController | null,
+	};
+
 	const syncToggleA11y = () => {
 		const btn = document.getElementById('theme-toggle');
 		if (!btn) return;
-		const isDark = document.documentElement.hasAttribute('data-theme');
-		btn.setAttribute('aria-pressed', String(isDark));
-		btn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+		const resolvedTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+		btn.setAttribute('aria-pressed', String(resolvedTheme === 'dark'));
+		btn.setAttribute(
+			'aria-label',
+			resolvedTheme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme',
+		);
 	};
 
 	const handleToggleClick = () => {
-		const isDark = document.documentElement.hasAttribute('data-theme');
-		if (isDark) {
-			document.documentElement.removeAttribute('data-theme');
-			localStorage.setItem('theme', 'light');
-		} else {
-			document.documentElement.setAttribute('data-theme', 'dark');
-			localStorage.setItem('theme', 'dark');
-		}
-		syncToggleA11y();
+		const resolvedTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+		const themeApi = (window as Window & {
+			__portfolioTheme?: {
+				setPreference?: (preference: 'light' | 'dark' | null) => void;
+			};
+		}).__portfolioTheme;
+
+		themeApi?.setPreference?.(resolvedTheme === 'dark' ? 'light' : 'dark');
 	};
 
 	// We add this to run when View Transitions load the page as well (if used later)
 	const initToggle = () => {
+		themeToggleState.controller?.abort();
+		themeToggleState.controller = new AbortController();
+
+		const signal = themeToggleState.controller.signal;
 		const btn = document.getElementById('theme-toggle');
 		if (btn) {
-			// Remove old listeners to avoid duplicates if re-init
-			btn.removeEventListener('click', handleToggleClick);
-			btn.addEventListener('click', handleToggleClick);
+			btn.addEventListener('click', handleToggleClick, { signal });
 		}
+
+		window.addEventListener('portfolio:theme-change', syncToggleA11y, { signal });
 		syncToggleA11y();
 	};
 

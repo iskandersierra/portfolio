@@ -3,13 +3,13 @@ interface Props {
 	title: string;
 	description: string;
 	href: string;
-	delayClass?: string;
+	motionClass?: string;
 }
 
-const { title, description, href, delayClass = '' } = Astro.props;
+const { title, description, href, motionClass = '' } = Astro.props;
 ---
 
-<div class={`brutalist-card boot-seq ${delayClass}`}>
+<div class={`brutalist-card motion-enter motion-hover-lift ${motionClass}`}>
 	<div class="card-content">
 		<h3 class="mono">{title}</h3>
 		<p>{description}</p>
@@ -26,12 +26,10 @@ const { title, description, href, delayClass = '' } = Astro.props;
 		padding: 1.5rem;
 		margin-bottom: 1.5rem;
 		position: relative;
-		transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	}
 
 	.brutalist-card:hover {
 		border-color: var(--accent);
-		transform: translate(-4px, -4px);
 		box-shadow: 4px 4px 0 var(--accent);
 	}
 

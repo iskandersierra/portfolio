@@ -27,9 +27,17 @@
 html {
 	background-color: var(--bg);
 	color: var(--text-main);
+	color-scheme: light;
+}
+
+html[data-theme='dark'] {
+	color-scheme: dark;
+}
+
+html[data-theme-ready='true'] {
 	transition:
-		background-color 0s,
-		color 0s;
+		background-color 0.2s ease,
+		color 0.2s ease;
 }
 
 ::selection {

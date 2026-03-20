@@ -20,7 +20,7 @@ const expertise = [
 	}}
 >
 	<main class="container page-shell">
-		<header class="page-header boot-seq delay-1">
+		<header class="page-header motion-enter motion-delay-1">
 			<p class="mono page-kicker">$ cat ./about/profile.txt</p>
 			<h1>About</h1>
 			<p class="page-intro">
@@ -30,14 +30,14 @@ const expertise = [
 			</p>
 		</header>
 
-		<section class="boot-seq delay-2 section-block">
+		<section class="section-block motion-enter motion-delay-2">
 			<h2 class="mono section-title">$ ls ./core-expertise</h2>
 			<ul class="tag-list">
 				{expertise.map((item) => <li>{item}</li>)}
 			</ul>
 		</section>
 
-		<section class="boot-seq delay-3 section-block">
+		<section class="section-block motion-enter motion-delay-3">
 			<h2 class="mono section-title">$ tail -n 3 ./notes.txt</h2>
 			<p>
 				This site sits at the intersection of architecture, delivery, and continuous learning.

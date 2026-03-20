@@ -15,10 +15,28 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 ---
 
 <header class="terminal-header mono">
-	<div class="brand">
-		<a href="/" class="logo">~/iskander</a>
+	<div class="header-bar">
+		<div class="brand">
+			<a href="/" class="logo">~/iskander</a>
+		</div>
+		<div class="actions">
+			<ThemeToggle />
+			<button
+				type="button"
+				class="nav-toggle"
+				data-mobile-nav-toggle
+				aria-expanded="false"
+				aria-controls="mobile-navigation"
+				aria-label="Open navigation menu"
+			>
+				<span class="nav-toggle-line"></span>
+				<span class="nav-toggle-line"></span>
+				<span class="nav-toggle-line"></span>
+				<span class="sr-only">Toggle navigation</span>
+			</button>
+		</div>
 	</div>
-	<nav class="nav-links">
+	<nav class="nav-links nav-links-desktop" aria-label="Primary">
 		{
 			navItems.map((item) => {
 				const isActive = isActivePath(item.path, Astro.url.pathname);
@@ -35,12 +53,35 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 			})
 		}
 	</nav>
-	<div class="actions">
-		<ThemeToggle />
+	<div class="mobile-nav-shell" data-mobile-nav hidden>
+		<nav id="mobile-navigation" class="mobile-nav-panel" aria-label="Mobile primary">
+			{
+				navItems.map((item) => {
+					const isActive = isActivePath(item.path, Astro.url.pathname);
+
+					return (
+						<a
+							href={item.path}
+							class={`mobile-nav-link ${isActive ? 'active' : ''}`}
+							aria-current={isActive ? 'page' : undefined}
+						>
+							{item.label}
+						</a>
+					);
+				})
+			}
+		</nav>
 	</div>
 </header>
 
 <style>
+	.header-bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
 	.logo {
 		color: var(--text-main);
 		font-weight: 600;
@@ -58,6 +99,10 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		gap: 1.5rem;
 	}
 
+	.nav-links-desktop {
+		align-items: center;
+	}
+
 	.nav-link {
 		color: var(--text-muted);
 		text-decoration: none;
@@ -73,14 +118,206 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		border-bottom: 2px solid var(--accent);
 	}
 
+	.actions {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border-width: 0;
+	}
+
+	.nav-toggle {
+		display: none;
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.3rem;
+		width: 2.75rem;
+		height: 2.75rem;
+		padding: 0.65rem;
+		border: 1px solid var(--border);
+		background: var(--surface);
+		color: var(--text-main);
+		cursor: pointer;
+		transition:
+			border-color 0.2s ease,
+			background-color 0.2s ease,
+			color 0.2s ease,
+			transform 0.2s ease;
+	}
+
+	.nav-toggle:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+
+	.nav-toggle:focus-visible,
+	.nav-link:focus-visible,
+	.mobile-nav-link:focus-visible,
+	.logo:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
+	}
+
+	.nav-toggle-line {
+		display: block;
+		width: 100%;
+		height: 1px;
+		background: currentColor;
+	}
+
+	.mobile-nav-shell {
+		border-top: 1px solid var(--border);
+		padding-top: 1rem;
+	}
+
+	.mobile-nav-panel {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.mobile-nav-link {
+		display: block;
+		padding: 0.85rem 1rem;
+		border: 1px solid var(--border);
+		background: var(--surface);
+		color: var(--text-muted);
+		text-decoration: none;
+	}
+
+	.mobile-nav-link.active {
+		color: var(--accent);
+		border-color: var(--accent);
+	}
+
 	@media (max-width: 640px) {
 		.terminal-header {
-			flex-direction: column;
-			gap: 1rem;
+			padding-inline: 1rem;
+			align-items: stretch;
 		}
-		.nav-links {
-			flex-wrap: wrap;
-			justify-content: center;
+
+		.logo {
+			font-size: 1rem;
+		}
+
+		.nav-links-desktop {
+			display: none;
+		}
+
+		.nav-toggle {
+			display: inline-flex;
+		}
+	}
+
+	@media (min-width: 641px) {
+		.mobile-nav-shell {
+			display: none !important;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.nav-toggle {
+			transition: none;
 		}
 	}
 </style>
+
+<script>
+	const mobileNavState = {
+		controller: null as AbortController | null,
+	};
+
+	const initMobileNav = () => {
+		mobileNavState.controller?.abort();
+		mobileNavState.controller = new AbortController();
+
+		const signal = mobileNavState.controller.signal;
+		const header = document.querySelector('.terminal-header');
+		const toggle = document.querySelector('[data-mobile-nav-toggle]');
+		const panel = document.querySelector('[data-mobile-nav]');
+		const desktopMedia = window.matchMedia('(min-width: 641px)');
+
+		if (!(header instanceof HTMLElement)) {
+			return;
+		}
+
+		if (!(toggle instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) {
+			return;
+		}
+
+		const closeMenu = () => {
+			panel.hidden = true;
+			toggle.setAttribute('aria-expanded', 'false');
+			toggle.setAttribute('aria-label', 'Open navigation menu');
+			document.body.removeAttribute('data-mobile-nav-open');
+		};
+
+		const openMenu = () => {
+			panel.hidden = false;
+			toggle.setAttribute('aria-expanded', 'true');
+			toggle.setAttribute('aria-label', 'Close navigation menu');
+			document.body.setAttribute('data-mobile-nav-open', 'true');
+		};
+
+		const syncViewport = () => {
+			if (desktopMedia.matches) {
+				closeMenu();
+			}
+		};
+
+		closeMenu();
+
+		toggle.addEventListener(
+			'click',
+			() => {
+				if (toggle.getAttribute('aria-expanded') === 'true') {
+					closeMenu();
+					return;
+				}
+
+				openMenu();
+			},
+			{ signal },
+		);
+
+		panel.querySelectorAll('a').forEach((link) => {
+			link.addEventListener('click', closeMenu, { signal });
+		});
+
+		document.addEventListener(
+			'keydown',
+			(event) => {
+				if (event.key === 'Escape') {
+					closeMenu();
+				}
+			},
+			{ signal },
+		);
+
+		document.addEventListener(
+			'click',
+			(event) => {
+				const target = event.target;
+
+				if (target instanceof Node && !header.contains(target)) {
+					closeMenu();
+				}
+			},
+			{ signal },
+		);
+
+		desktopMedia.addEventListener('change', syncViewport, { signal });
+	};
+
+	initMobileNav();
+	document.addEventListener('astro:page-load', initMobileNav);
+</script>
