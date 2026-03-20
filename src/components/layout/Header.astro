@@ -15,26 +15,8 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 ---
 
 <header class="terminal-header mono">
-	<div class="header-bar">
-		<div class="brand">
-			<a href="/" class="logo">~/iskander</a>
-		</div>
-		<div class="actions">
-			<ThemeToggle />
-			<button
-				type="button"
-				class="nav-toggle"
-				data-mobile-nav-toggle
-				aria-expanded="false"
-				aria-controls="mobile-navigation"
-				aria-label="Open navigation menu"
-			>
-				<span class="nav-toggle-line"></span>
-				<span class="nav-toggle-line"></span>
-				<span class="nav-toggle-line"></span>
-				<span class="sr-only">Toggle navigation</span>
-			</button>
-		</div>
+	<div class="brand">
+		<a href="/" class="logo">~/iskander</a>
 	</div>
 	<nav class="nav-links nav-links-desktop" aria-label="Primary">
 		{
@@ -53,6 +35,22 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 			})
 		}
 	</nav>
+	<div class="actions">
+		<ThemeToggle />
+		<button
+			type="button"
+			class="nav-toggle"
+			data-mobile-nav-toggle
+			aria-expanded="false"
+			aria-controls="mobile-navigation"
+			aria-label="Open navigation menu"
+		>
+			<span class="nav-toggle-line"></span>
+			<span class="nav-toggle-line"></span>
+			<span class="nav-toggle-line"></span>
+			<span class="sr-only">Toggle navigation</span>
+		</button>
+	</div>
 	<div class="mobile-nav-shell" data-mobile-nav hidden>
 		<nav id="mobile-navigation" class="mobile-nav-panel" aria-label="Mobile primary">
 			{
@@ -75,11 +73,8 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 </header>
 
 <style>
-	.header-bar {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
+	.brand {
+		flex-shrink: 0;
 	}
 
 	.logo {
@@ -87,6 +82,7 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		font-weight: 600;
 		text-decoration: none;
 		font-size: 1.1rem;
+		white-space: nowrap;
 	}
 
 	.logo:hover {
@@ -101,6 +97,8 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 
 	.nav-links-desktop {
 		align-items: center;
+		flex: 1;
+		justify-content: center;
 	}
 
 	.nav-link {
@@ -122,6 +120,7 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		display: flex;
 		align-items: center;
 		gap: 0.75rem;
+		flex-shrink: 0;
 	}
 
 	.sr-only {
@@ -207,12 +206,18 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 			align-items: stretch;
 		}
 
-		.header-bar {
-			width: 100%;
+		.brand {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
 		}
 
 		.logo {
 			font-size: 1rem;
+		}
+
+		.actions {
+			align-self: flex-end;
 		}
 
 		.terminal-header[data-mobile-nav-ready='true'] .nav-links-desktop {
