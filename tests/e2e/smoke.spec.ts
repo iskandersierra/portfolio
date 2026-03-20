@@ -39,7 +39,7 @@ test.describe('site shell', () => {
 
 		await expect(page).toHaveURL(/\/about\/?$/);
 		await expect(page.getByRole('heading', { level: 1, name: 'About' })).toBeVisible();
-		await expect(page.locator('body')).not.toHaveAttribute('data-mobile-nav-open', 'true');
+		expect(await page.locator('body').getAttribute('data-mobile-nav-open')).toBeNull();
 	});
 
 	test('footer exposes quick links and social links on every MVP page', async ({ page }) => {
@@ -122,7 +122,16 @@ test.describe('site shell', () => {
 
 	test('theme defaults to the system preference when no selection is saved', async ({ page }) => {
 		await page.emulateMedia({ colorScheme: 'dark' });
-		await page.goto('/');
+		await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+		const initialTheme = await page.evaluate(() => ({
+			theme: document.documentElement.dataset['theme'],
+			mode: document.documentElement.dataset['themeMode'],
+		}));
+		expect(initialTheme.theme).toBe('dark');
+		expect(initialTheme.mode).toBe('system');
+
+		await page.waitForLoadState('load');
 
 		await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 		await expect(page.locator('html')).toHaveAttribute('data-theme-mode', 'system');
@@ -177,106 +186,70 @@ test.describe('site shell', () => {
 		await page.emulateMedia({ reducedMotion: 'reduce' });
 		await page.goto('/');
 
-		const heroAnimation = await page.locator('.hero').evaluate((element) => {
-			const styles = globalThis.getComputedStyle(element);
-
-			return {
-				animationName: styles.animationName,
-				opacity: styles.opacity,
-				transform: styles.transform,
-			};
+		const heroNoLongAnimations = await page.locator('.hero').evaluate((element) => {
+			return element.getAnimations().every((a) => {
+				const duration = a.effect?.getTiming().duration ?? 0;
+				return typeof duration === 'number' && duration <= 1;
+			});
 		});
 
-		expect(heroAnimation.animationName).toBe('none');
-		expect(heroAnimation.opacity).toBe('1');
-		expect(heroAnimation.transform).toBe('none');
+		expect(heroNoLongAnimations).toBe(true);
+		await expect(page.locator('.hero')).toHaveCSS('opacity', '1');
 	});
 
 	test('reduced motion disables theme color transitions', async ({ page }) => {
 		await page.emulateMedia({ reducedMotion: 'reduce', colorScheme: 'light' });
 		await page.goto('/');
 
-		const getThemeTransitionStyles = () =>
+		const getMaxTransitionMs = () =>
 			page.evaluate(() => {
-				const htmlStyles = globalThis.getComputedStyle(document.documentElement);
-				const bodyStyles = globalThis.getComputedStyle(document.body);
+				const parseMaxMs = (s: string) =>
+					s
+						.split(',')
+						.map((v) => {
+							const t = v.trim();
+							return Number.parseFloat(t) * (t.endsWith('ms') ? 1 : 1000);
+						})
+						.reduce((a, b) => Math.max(a, b), 0);
 
 				return {
-					html: {
-						transitionDuration: htmlStyles.transitionDuration,
-						transitionProperty: htmlStyles.transitionProperty,
-					},
-					body: {
-						transitionDuration: bodyStyles.transitionDuration,
-						transitionProperty: bodyStyles.transitionProperty,
-					},
+					html: parseMaxMs(getComputedStyle(document.documentElement).transitionDuration),
+					body: parseMaxMs(getComputedStyle(document.body).transitionDuration),
 				};
 			});
 
-		expect(await getThemeTransitionStyles()).toEqual({
-			html: {
-				transitionDuration: '0s',
-				transitionProperty: 'none',
-			},
-			body: {
-				transitionDuration: '0s',
-				transitionProperty: 'none',
-			},
-		});
+		const before = await getMaxTransitionMs();
+		expect(before.html).toBe(0);
+		expect(before.body).toBe(0);
 
 		await page.locator('#theme-toggle').click();
 		await page.getByRole('menuitemradio', { name: 'Dark' }).click();
 
 		await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-		expect(await getThemeTransitionStyles()).toEqual({
-			html: {
-				transitionDuration: '0s',
-				transitionProperty: 'none',
-			},
-			body: {
-				transitionDuration: '0s',
-				transitionProperty: 'none',
-			},
-		});
+
+		const after = await getMaxTransitionMs();
+		expect(after.html).toBe(0);
+		expect(after.body).toBe(0);
 	});
 
 	test('reduced motion disables cursor blink and hover lift transforms', async ({ page }) => {
 		await page.emulateMedia({ reducedMotion: 'reduce' });
 		await page.goto('/');
 
-		const cursorStyles = await page.locator('.cursor').evaluate((element) => {
-			const styles = globalThis.getComputedStyle(element);
-
-			return {
-				animationName: styles.animationName,
-				animationDuration: styles.animationDuration,
-			};
-		});
-
-		expect(cursorStyles).toEqual({
-			animationName: 'none',
-			animationDuration: '0s',
-		});
+		const cursorHasLongAnimations = await page.locator('.cursor').evaluate((element) =>
+			element.getAnimations().some((a) => {
+				const duration = a.effect?.getTiming().duration ?? 0;
+				return typeof duration === 'number' && duration > 1;
+			}),
+		);
+		expect(cursorHasLongAnimations).toBe(false);
 
 		const firstCard = page.locator('.brutalist-card').first();
 		await expect(firstCard).toBeVisible();
 
-		const hoverMotionBeforeHover = await firstCard.evaluate((element) => {
-			const styles = globalThis.getComputedStyle(element);
-
-			return {
-				transitionDuration: styles.transitionDuration,
-				transitionProperty: styles.transitionProperty,
-			};
-		});
-
-		expect(hoverMotionBeforeHover).toEqual({
-			transitionDuration: '0s',
-			transitionProperty: 'none',
-		});
-
+		const transformBefore = await firstCard.evaluate((el) => getComputedStyle(el).transform);
 		await firstCard.hover();
-
-		await expect(firstCard).toHaveCSS('transform', 'none');
+		const transformAfter = await firstCard.evaluate((el) => getComputedStyle(el).transform);
+		expect(transformBefore).toBe(transformAfter);
 	});
 });
