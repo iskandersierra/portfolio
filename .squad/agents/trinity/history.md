@@ -18,3 +18,5 @@
 - Desktop header alignment is more stable as a three-column layout with left brand, centered nav, and right-aligned actions instead of relying on flex spacing around a growing middle nav.
 - Desktop header stability in Astro improves when the brand, primary nav, and actions stay in one explicit wrapper grid instead of depending on `display: contents`, which can render as stacked rows in practice.
 - Story 2.1 is safest when content collections land before any page wiring; seeding minimal Markdown entries early gives later UI stories stable schema targets without forcing premature template changes.
+- Story 2.3 lands cleanly when the post page owns metadata framing and author chrome in a shared layout while leaving prose and code treatment to stable hooks like `.blog-post-layout` and `.blog-post-body` for shared CSS follow-up.
+- When shared prose hooks land after a first-pass detail layout, dual-hooking the existing blog selectors with `.post-shell`, `.post-header`, `.post-meta`, `.post-tag-list`, and `.post-body` preserves smoke coverage while handing typography and code-block behavior back to global CSS.

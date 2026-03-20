@@ -15,3 +15,5 @@
 - The header fix is stable when desktop owns the three-column wrapper and mobile overrides only that wrapper at `max-width: 640px`; remaining QA risk is narrow mid-width squeeze above the mobile breakpoint rather than the original row-drop regression.
 - Story 2.1 content-platform reviews are cleaner when approval confirms both the explicit PRD schema section and the changed-files list, because that catches scope creep separately from schema correctness.
 - Story 2.1 should remain collection-only work; approval is stronger when QA explicitly confirms that `/blog` and `/tools` stay unwired until the later UI stories begin.
+- Story 2.3 validation must hit the generated `/blog/[slug]` route directly; a healthy `/blog` index can still hide a broken article route registration.
+- Story 2.3's code-block acceptance needs either a published markdown fixture with fenced code or a dedicated rendering test, because the current launch posts are prose-only and leave that criterion unproven.

@@ -336,10 +336,6 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 			{ signal },
 		);
 
-		panel.querySelectorAll('a').forEach((link) => {
-			link.addEventListener('click', closeMenu, { signal });
-		});
-
 		document.addEventListener(
 			'keydown',
 			(event) => {

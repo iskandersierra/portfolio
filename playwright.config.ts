@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const port = 4321;
+// Keep Playwright on its own port so local dev servers do not leak stale route manifests into E2E runs.
+const port = 4331;
 
 export default defineConfig({
 	testDir: './tests/e2e',
@@ -32,7 +33,7 @@ export default defineConfig({
 	webServer: {
 		command: `pnpm astro dev --host 127.0.0.1 --port ${port}`,
 		url: `http://127.0.0.1:${port}`,
-		reuseExistingServer: !process.env.CI,
+		reuseExistingServer: false,
 		timeout: 120_000,
 	},
 });
