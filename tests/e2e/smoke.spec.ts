@@ -67,24 +67,28 @@ test.describe('site shell', () => {
 		}
 	});
 
-	test('theme toggle persists the selected theme', async ({ page }) => {
+	test('theme chooser persists the selected theme', async ({ page }) => {
 		await page.emulateMedia({ colorScheme: 'light' });
 		await page.goto('/');
 
 		const toggle = page.locator('#theme-toggle');
 		await toggle.click();
+		await expect(page.getByRole('menu', { name: 'Color theme' })).toBeVisible();
+		await page.getByRole('menuitemradio', { name: 'Dark' }).click();
 
 		await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-		await expect(toggle).toHaveAttribute('aria-label', 'Switch to light theme');
+		await expect(page.locator('html')).toHaveAttribute('data-theme-mode', 'dark');
+		await expect(toggle).toHaveAttribute('aria-label', 'Theme: Dark. Open theme menu');
 		await expect(page.evaluate(() => localStorage.getItem('theme'))).resolves.toBe('dark');
 
 		await page.reload();
 
 		await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-		await expect(page.getByRole('button', { name: /switch to light theme/i })).toHaveAttribute(
-			'aria-pressed',
-			'true',
-		);
+		await expect(page.locator('html')).toHaveAttribute('data-theme-mode', 'dark');
+		await expect(page.getByRole('button', { name: /theme: dark/i })).toBeVisible();
+
+		await page.locator('#theme-toggle').click();
+		await expect(page.getByRole('menuitemradio', { name: 'Dark' })).toHaveAttribute('aria-checked', 'true');
 	});
 
 	test('theme stays dark across header-link navigation', async ({ page }) => {
@@ -96,12 +100,13 @@ test.describe('site shell', () => {
 
 		const expectDarkThemeState = async () => {
 			await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-			await expect(toggle).toHaveAttribute('aria-pressed', 'true');
-			await expect(toggle).toHaveAttribute('aria-label', 'Switch to light theme');
+			await expect(page.locator('html')).toHaveAttribute('data-theme-mode', 'dark');
+			await expect(toggle).toHaveAttribute('aria-label', 'Theme: Dark. Open theme menu');
 			expect(await page.evaluate(() => localStorage.getItem('theme'))).toBe('dark');
 		};
 
 		await toggle.click();
+		await page.getByRole('menuitemradio', { name: 'Dark' }).click();
 		await expectDarkThemeState();
 
 		await header.getByRole('link', { name: 'About' }).first().click();
@@ -122,10 +127,50 @@ test.describe('site shell', () => {
 		await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 		await expect(page.locator('html')).toHaveAttribute('data-theme-mode', 'system');
 		await expect(page.evaluate(() => localStorage.getItem('theme'))).resolves.toBeNull();
-		await expect(page.getByRole('button', { name: /switch to light theme/i })).toHaveAttribute(
-			'aria-pressed',
-			'true',
-		);
+		await expect(page.getByRole('button', { name: /theme: system/i })).toBeVisible();
+
+		await page.locator('#theme-toggle').click();
+		await expect(page.getByRole('menuitemradio', { name: 'System' })).toHaveAttribute('aria-checked', 'true');
+	});
+
+	test('theme chooser supports keyboard access and explicit system selection', async ({ page }) => {
+		await page.emulateMedia({ colorScheme: 'dark' });
+		await page.goto('/');
+
+		const toggle = page.locator('#theme-toggle');
+
+		await toggle.focus();
+		await page.keyboard.press('Enter');
+		await expect(page.getByRole('menu', { name: 'Color theme' })).toBeVisible();
+		await expect(page.getByRole('menuitemradio', { name: 'System' })).toBeFocused();
+
+		await page.keyboard.press('Home');
+		await expect(page.getByRole('menuitemradio', { name: 'Light' })).toBeFocused();
+		await page.keyboard.press('Enter');
+
+		await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+		await expect(page.locator('html')).toHaveAttribute('data-theme-mode', 'light');
+		await expect(page.evaluate(() => localStorage.getItem('theme'))).resolves.toBe('light');
+
+		await toggle.focus();
+		await page.keyboard.press('Space');
+		await expect(page.getByRole('menu', { name: 'Color theme' })).toBeVisible();
+		await page.keyboard.press('Escape');
+		await expect(page.locator('#theme-menu')).toBeHidden();
+		await expect(toggle).toBeFocused();
+
+		await toggle.focus();
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('End');
+		await expect(page.getByRole('menuitemradio', { name: 'System' })).toBeFocused();
+		await page.keyboard.press('Enter');
+
+		await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+		await expect(page.locator('html')).toHaveAttribute('data-theme-mode', 'system');
+		await expect(page.evaluate(() => localStorage.getItem('theme'))).resolves.toBeNull();
+
+		await page.emulateMedia({ colorScheme: 'light' });
+		await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
 	});
 
 	test('reduced motion disables page entrance animation patterns', async ({ page }) => {
@@ -180,6 +225,7 @@ test.describe('site shell', () => {
 		});
 
 		await page.locator('#theme-toggle').click();
+		await page.getByRole('menuitemradio', { name: 'Dark' }).click();
 
 		await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 		expect(await getThemeTransitionStyles()).toEqual({
