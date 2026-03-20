@@ -144,6 +144,19 @@
 - An explicit chooser is more accessible than a cycling toggle because it supports clear menu semantics, keyboard navigation, Escape dismissal, and visible active state.
 - Reusing the established theme bootstrap avoids unnecessary API churn while preserving navigation and persistence behavior already verified elsewhere.
 
+### 2026-03-21: PR #20 review closure follows current branch state, not stale thread state
+
+**By:** Neo, Tank
+
+**What:**
+- Normalize blog tag handling end to end by trimming and lowercasing both the query-string tag and entry tags, and drive the selected filter chip from that same normalized value.
+- Preserve the dedicated prose-link focus cue by leaving `.post-body a:focus-visible` free to control underline rendering without a shared `text-decoration` reset overriding it.
+- Treat remaining PR #20 CodeRabbit threads as non-blocking once the current branch reflects the requested behavior and `pnpm check` still passes.
+
+**Why:**
+- The outstanding review comments were caused by real mismatches between filtering, chip state, and focus styling, so the fix needed to align all three behaviors rather than partially patch one layer.
+- GitHub review-thread status can lag behind branch changes; closure should follow the live code plus current validation evidence instead of stale thread metadata.
+
 ## Governance
 
 - All meaningful changes require team consensus

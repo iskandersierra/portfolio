@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- Tag helper output should preserve the first trimmed display form of each blog tag, dedupe by a lowercase normalized key, and sort with an explicit case-insensitive comparison so filter chips stay stable even when content authors vary casing or whitespace.
 - Featured homepage cards should resolve directly to the selected blog and tool detail routes via shared href helpers, while tag aggregation needs case-insensitive dedupe so the blog filter chips mirror the tag-matching behavior without splitting display variants.
 - A stacked desktop nav is not sufficient for the mobile-navigation story; the small-screen shell needs a dedicated toggle, drawer state, and touch-sized targets that still behave cleanly at 320px.
 - System-first theme handling is most reliable when the resolved theme is applied in the head before paint and the UI reads from a shared theme controller rather than duplicating localStorage logic.
