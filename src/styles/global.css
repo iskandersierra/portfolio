@@ -255,10 +255,4 @@ body[data-mobile-nav-open] {
 		min-height: calc(100vh - 1.5rem);
 		box-shadow: 4px 4px 0 var(--border);
 	}
-
-	.terminal-header {
-		flex-direction: column;
-		gap: 1rem;
-		padding: 1.25rem 1rem;
-	}
 }

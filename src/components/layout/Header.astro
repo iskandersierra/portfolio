@@ -15,41 +15,43 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 ---
 
 <header class="terminal-header mono">
-	<div class="brand">
-		<a href="/" class="logo">~/iskander</a>
-	</div>
-	<nav class="nav-links nav-links-desktop" aria-label="Primary">
-		{
-			navItems.map((item) => {
-				const isActive = isActivePath(item.path, Astro.url.pathname);
+	<div class="terminal-header-top">
+		<div class="brand">
+			<a href="/" class="logo">~/iskander</a>
+		</div>
+		<nav class="nav-links nav-links-desktop" aria-label="Primary">
+			{
+				navItems.map((item) => {
+					const isActive = isActivePath(item.path, Astro.url.pathname);
 
-				return (
-					<a
-						href={item.path}
-						class={`nav-link ${isActive ? 'active' : ''}`}
-						aria-current={isActive ? 'page' : undefined}
-					>
-						{item.label}
-					</a>
-				);
-			})
-		}
-	</nav>
-	<div class="actions">
-		<ThemeToggle />
-		<button
-			type="button"
-			class="nav-toggle"
-			data-mobile-nav-toggle
-			aria-expanded="false"
-			aria-controls="mobile-navigation"
-			aria-label="Open navigation menu"
-		>
-			<span class="nav-toggle-line"></span>
-			<span class="nav-toggle-line"></span>
-			<span class="nav-toggle-line"></span>
-			<span class="sr-only">Toggle navigation</span>
-		</button>
+					return (
+						<a
+							href={item.path}
+							class={`nav-link ${isActive ? 'active' : ''}`}
+							aria-current={isActive ? 'page' : undefined}
+						>
+							{item.label}
+						</a>
+					);
+				})
+			}
+		</nav>
+		<div class="actions">
+			<ThemeToggle />
+			<button
+				type="button"
+				class="nav-toggle"
+				data-mobile-nav-toggle
+				aria-expanded="false"
+				aria-controls="mobile-navigation"
+				aria-label="Open navigation menu"
+			>
+				<span class="nav-toggle-line"></span>
+				<span class="nav-toggle-line"></span>
+				<span class="nav-toggle-line"></span>
+				<span class="sr-only">Toggle navigation</span>
+			</button>
+		</div>
 	</div>
 	<div class="mobile-nav-shell" data-mobile-nav hidden>
 		<nav id="mobile-navigation" class="mobile-nav-panel" aria-label="Mobile primary">
@@ -73,8 +75,23 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 </header>
 
 <style>
+	.terminal-header-top {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+		align-items: center;
+		gap: 1rem;
+		width: 100%;
+	}
+
+	.terminal-header {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+	}
+
 	.brand {
 		flex-shrink: 0;
+		justify-self: start;
 	}
 
 	.logo {
@@ -97,13 +114,15 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 
 	.nav-links-desktop {
 		align-items: center;
-		flex: 1;
 		justify-content: center;
+		justify-self: center;
+		white-space: nowrap;
 	}
 
 	.nav-link {
 		color: var(--text-muted);
 		text-decoration: none;
+		white-space: nowrap;
 	}
 
 	.nav-link:hover {
@@ -121,6 +140,7 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		align-items: center;
 		gap: 0.75rem;
 		flex-shrink: 0;
+		justify-self: end;
 	}
 
 	.sr-only {
@@ -200,16 +220,22 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 
 	@media (max-width: 640px) {
 		.terminal-header {
-			flex-direction: column;
 			gap: 1rem;
 			padding-inline: 1rem;
 			align-items: stretch;
 		}
 
-		.brand {
+		.terminal-header-top {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+			gap: 0.75rem;
+			width: 100%;
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
 		}
 
 		.logo {
@@ -217,7 +243,7 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		}
 
 		.actions {
-			align-self: flex-end;
+			justify-content: flex-end;
 		}
 
 		.terminal-header[data-mobile-nav-ready='true'] .nav-links-desktop {
