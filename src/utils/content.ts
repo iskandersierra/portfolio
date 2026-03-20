@@ -76,6 +76,7 @@ export const formatContentDate = (date: Date) =>
 		month: 'short',
 		day: 'numeric',
 		year: 'numeric',
+		timeZone: 'UTC',
 	}).format(date);
 
 export const getPublishedBlogPosts = async () => {
