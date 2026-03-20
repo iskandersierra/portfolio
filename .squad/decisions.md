@@ -2,6 +2,56 @@
 
 ## Active Decisions
 
+### 2026-03-20: Shared blog detail pages use one prose contract with compatibility hooks
+
+**By:** Trinity, Switch
+
+**What:**
+- Use `BlogPostLayout.astro` to own blog detail metadata framing, tag presentation, and author placement.
+- Treat `.post-shell`, `.post-body`, and companion `.post-*` hooks in `src/styles/global.css` as the shared prose contract for long-form content.
+- Keep dual-hook class wiring where needed so the shared prose contract becomes the source of truth without breaking existing smoke-test selectors during the transition.
+
+**Why:**
+- The slug route stays thin and predictable while shared typography, code-block styling, and reading affordances live in one reusable contract.
+- Compatibility hooks avoid unnecessary selector churn while Story 2.3 settles into the shared detail-page structure.
+
+### 2026-03-20: Tool detail routes reuse the shared post shell with a slot for interactive surfaces
+
+**By:** Trinity
+
+**What:**
+- Reuse the existing `.post-shell` detail-page structure for tool routes.
+- Reserve the interactive tool surface as a generic named slot in the shared tool layout.
+
+**Why:**
+- This keeps tool pages visually aligned with blog detail pages and the launch terminal direction.
+- The shared layout stays decoupled from unfinished tool-specific interactivity.
+
+### 2026-03-20: Content-helper and route wiring changes use a three-step validation baseline
+
+**By:** Tank
+
+**What:**
+- Gate shared content and page changes with `pnpm check` first.
+- Follow with a focused `pnpm test:e2e` pass against generated detail routes and top-level navigation.
+- Finish with `pnpm test:seo` to verify fixture-backed metadata contracts.
+
+**Why:**
+- Type and content drift, rendered-route regressions, and SEO fixture mismatches fail in different layers.
+- The three-step sequence is the smallest reliable validation set for this content and routing slice.
+
+### 2026-03-20: Playwright CI uses the official container instead of browser caching
+
+**By:** Iskander (via Copilot)
+
+**What:**
+- Replace the Ubuntu `e2e` job's Playwright browser-cache optimization with the official Playwright container image.
+- Preserve the existing Node and pnpm setup inside the containerized job.
+
+**Why:**
+- Measured CI runs showed browser caching did not materially help because dependency installation dominated setup time.
+- The official container removes that bottleneck directly while keeping the workflow aligned with Playwright's supported environment.
+
 ### 2026-03-20: Local-only workflow and desktop-only header scope
 
 **By:** Iskander (via Copilot)

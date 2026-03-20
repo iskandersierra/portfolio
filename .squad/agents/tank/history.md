@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- Story 2.2 and follow-on detail-route work should validate in three layers: `pnpm check` first for Astro/content/schema drift, a focused `pnpm test:e2e` pass for generated-route and navigation behavior, and `pnpm test:seo` last because route/SEO fixtures are a separate public contract that can drift even when rendering still works.
 - Epic 1 closure reviews need explicit reduced-motion checks for theme transitions, hover transforms, and persistent cues like the cursor blink; the current smoke coverage only verifies page-entry motion.
 - Theme persistence regression coverage should navigate through client-routed header links and assert `data-theme`, toggle `aria-*` state, and `localStorage` after each hop.
 - Header layout regressions should be guarded with explicit viewport-specific geometry assertions: mobile should keep brand and actions on one top row at 320px, while desktop should verify centered nav and right-flush actions independently.

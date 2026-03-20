@@ -9,3 +9,4 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- 2026-03-20: For launch-post PR review fixes, keep copy edits strictly scoped to the requested wording change and avoid opportunistic rewrites.
