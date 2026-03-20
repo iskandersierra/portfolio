@@ -2,6 +2,7 @@
 name: Plan Squad
 description: "Researches and outlines multi-step plans, then hands off implementation to Squad. Use when you need planning, scoping, breakdowns, or an execution plan before coding."
 argument-hint: Outline the goal or problem to research
+model: GPT-5.4 (copilot)
 disable-model-invocation: true
 tools: ['search', 'read', 'web', 'vscode/memory', 'github/issue_read', 'github.vscode-pull-request-github/issue_fetch', 'github.vscode-pull-request-github/activePullRequest', 'execute/getTerminalOutput', 'execute/testFailure', 'agent', 'vscode/askQuestions']
 agents: ['Explore']
