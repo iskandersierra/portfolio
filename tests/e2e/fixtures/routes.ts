@@ -1,8 +1,8 @@
 export const primaryRoutes = [
-	{ navLabel: 'index', path: '/', heading: '"Never stop learning."' },
-	{ navLabel: 'about', path: '/about', heading: 'About' },
-	{ navLabel: 'blog', path: '/blog', heading: 'Blog' },
-	{ navLabel: 'tools', path: '/tools', heading: 'Tools' },
+	{ navLabel: 'Home', path: '/', heading: '"Never stop learning."' },
+	{ navLabel: 'About', path: '/about', heading: 'About' },
+	{ navLabel: 'Blog', path: '/blog', heading: 'Blog' },
+	{ navLabel: 'Tools', path: '/tools', heading: 'Tools' },
 ] as const;
 
 interface SeoExpectation {

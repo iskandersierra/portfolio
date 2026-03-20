@@ -1,5 +1,4 @@
 ---
-import Header from '../components/layout/Header.astro';
 import Layout from '../layouts/Layout.astro';
 
 const posts = [
@@ -24,32 +23,28 @@ const posts = [
 		pageType: 'website',
 	}}
 >
-	<div class="terminal-window">
-		<Header />
+	<main class="container page-shell">
+		<header class="page-header boot-seq delay-1">
+			<p class="mono page-kicker">$ find ./blog -type f</p>
+			<h1>Blog</h1>
+			<p class="page-intro">
+				Notes on software architecture, technical leadership, cloud delivery, and the habits that
+				help a long engineering career stay sharp.
+			</p>
+		</header>
 
-		<main class="container page-shell">
-			<header class="page-header boot-seq delay-1">
-				<p class="mono page-kicker">$ find ./blog -type f</p>
-				<h1>Blog</h1>
-				<p class="page-intro">
-					Notes on software architecture, technical leadership, cloud delivery, and the habits that
-					help a long engineering career stay sharp.
-				</p>
-			</header>
-
-			<section class="post-list boot-seq delay-2">
-				{posts.map((post) => (
-					<article class="post-card">
-						<h2>{post.title}</h2>
-						<p>{post.excerpt}</p>
-						<ul class="tag-list">
-							{post.tags.map((tag) => <li>{tag}</li>)}
-						</ul>
-					</article>
-				))}
-			</section>
-		</main>
-	</div>
+		<section class="post-list boot-seq delay-2">
+			{posts.map((post) => (
+				<article class="post-card">
+					<h2>{post.title}</h2>
+					<p>{post.excerpt}</p>
+					<ul class="tag-list">
+						{post.tags.map((tag) => <li>{tag}</li>)}
+					</ul>
+				</article>
+			))}
+		</section>
+	</main>
 </Layout>
 
 <style>
