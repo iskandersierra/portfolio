@@ -87,6 +87,34 @@ test.describe('site shell', () => {
 		);
 	});
 
+	test('theme stays dark across header-link navigation', async ({ page }) => {
+		await page.emulateMedia({ colorScheme: 'light' });
+		await page.goto('/');
+
+		const toggle = page.locator('#theme-toggle');
+		const header = page.locator('header');
+
+		const expectDarkThemeState = async () => {
+			await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+			await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+			await expect(toggle).toHaveAttribute('aria-label', 'Switch to light theme');
+			expect(await page.evaluate(() => localStorage.getItem('theme'))).toBe('dark');
+		};
+
+		await toggle.click();
+		await expectDarkThemeState();
+
+		await header.getByRole('link', { name: 'About' }).first().click();
+		await expect(page).toHaveURL(/\/about\/?$/);
+		await expect(page.getByRole('heading', { level: 1, name: 'About' })).toBeVisible();
+		await expectDarkThemeState();
+
+		await header.getByRole('link', { name: 'Home' }).first().click();
+		await expect(page).toHaveURL(/\/$/);
+		await expect(page.getByRole('heading', { level: 1, name: /never stop learning/i })).toBeVisible();
+		await expectDarkThemeState();
+	});
+
 	test('theme defaults to the system preference when no selection is saved', async ({ page }) => {
 		await page.emulateMedia({ colorScheme: 'dark' });
 		await page.goto('/');

@@ -40,7 +40,17 @@ const metadata = resolveSeoMetadata(
 			(function () {
 				const storageKey = 'theme';
 				const root = document.documentElement;
-				const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+				const lifecycleState = window.__portfolioThemeLifecycle ?? {
+					mediaQuery: window.matchMedia('(prefers-color-scheme: dark)'),
+					controller: null,
+				};
+				const mediaQuery = lifecycleState.mediaQuery;
+
+				lifecycleState.controller?.abort();
+				lifecycleState.controller = new AbortController();
+				window.__portfolioThemeLifecycle = lifecycleState;
+
+				const { signal } = lifecycleState.controller;
 
 				const getStoredPreference = () => {
 					try {
@@ -77,6 +87,10 @@ const metadata = resolveSeoMetadata(
 					notifyThemeChange(mode, resolvedTheme);
 				};
 
+				const syncStoredTheme = () => {
+					applyTheme(getStoredPreference());
+				};
+
 				window.__portfolioTheme = {
 					getPreference: getStoredPreference,
 					getResolvedTheme: () => (root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'),
@@ -96,7 +110,7 @@ const metadata = resolveSeoMetadata(
 					},
 				};
 
-				applyTheme(getStoredPreference());
+				syncStoredTheme();
 				root.setAttribute('data-theme-ready', 'true');
 
 				const handleSystemThemeChange = () => {
@@ -105,12 +119,15 @@ const metadata = resolveSeoMetadata(
 					}
 				};
 
-				mediaQuery.addEventListener('change', handleSystemThemeChange);
-				window.addEventListener('storage', (event) => {
+				const handleStorageChange = (event) => {
 					if (event.key === storageKey) {
 						applyTheme(event.newValue);
 					}
-				});
+				};
+
+				mediaQuery.addEventListener('change', handleSystemThemeChange, { signal });
+				window.addEventListener('storage', handleStorageChange, { signal });
+				document.addEventListener('astro:page-load', syncStoredTheme, { signal });
 			})();
 		</script>
 	</head>
