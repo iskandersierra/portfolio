@@ -201,19 +201,25 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 
 	@media (max-width: 640px) {
 		.terminal-header {
+			flex-direction: column;
+			gap: 1rem;
 			padding-inline: 1rem;
 			align-items: stretch;
+		}
+
+		.header-bar {
+			width: 100%;
 		}
 
 		.logo {
 			font-size: 1rem;
 		}
 
-		.nav-links-desktop {
+		.terminal-header[data-mobile-nav-ready='true'] .nav-links-desktop {
 			display: none;
 		}
 
-		.nav-toggle {
+		.terminal-header[data-mobile-nav-ready='true'] .nav-toggle {
 			display: inline-flex;
 		}
 	}
@@ -253,6 +259,8 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		if (!(toggle instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) {
 			return;
 		}
+
+		header.setAttribute('data-mobile-nav-ready', 'true');
 
 		const closeMenu = () => {
 			panel.hidden = true;
