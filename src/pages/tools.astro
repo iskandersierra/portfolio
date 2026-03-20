@@ -35,7 +35,7 @@ const tools = [
 
 		<section class="tool-list motion-enter motion-delay-2">
 			{tools.map((tool, index) => (
-				<article class={`tool-card motion-enter motion-hover-lift motion-delay-${index + 2}`}>
+				<article class="tool-card motion-enter motion-hover-lift" style={`--motion-delay: ${(index + 2) * 80}ms`}>
 					<div class="tool-head">
 						<h2>{tool.name}</h2>
 						<span class="framework-badge mono">{tool.framework}</span>
