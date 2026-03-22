@@ -3,6 +3,41 @@ import { expect, test } from '@playwright/test';
 import { primaryRoutes } from './fixtures/routes';
 
 test.describe('site shell', () => {
+	test('home featured-content cards point to the expected detail routes', async ({ page }) => {
+		await page.goto('/');
+
+		const featuredSection = page.locator('section.recent-posts');
+		const featuredBlogCard = featuredSection.locator('.brutalist-card').filter({
+			has: page.getByRole('heading', {
+				level: 3,
+				name: 'How to stay technically current after 25 years',
+			}),
+		});
+		const featuredToolCard = featuredSection.locator('.brutalist-card').filter({
+			has: page.getByRole('heading', {
+				level: 3,
+				name: 'UUID / ULID generator',
+			}),
+		});
+
+		await expect(featuredBlogCard).toContainText('How to stay technically current after 25 years');
+		await expect(featuredToolCard).toContainText('UUID / ULID generator');
+
+		await featuredBlogCard
+			.getByRole('link', { name: 'Open featured blog post How to stay technically current after 25 years' })
+			.click();
+		await expect(page).toHaveURL(/\/blog\/how-to-stay-technically-current-after-25-years\/?$/);
+		await expect(
+			page.getByRole('heading', { level: 1, name: 'How to stay technically current after 25 years' }),
+		).toBeVisible();
+
+		await page.goto('/');
+
+		await featuredToolCard.getByRole('link', { name: 'Open featured tool UUID / ULID generator' }).click();
+		await expect(page).toHaveURL(/\/tools\/uuid-ulid-generator\/?$/);
+		await expect(page.getByRole('heading', { level: 1, name: 'UUID / ULID generator' })).toBeVisible();
+	});
+
 	test('published tools open on generated detail routes', async ({ page }) => {
 		await page.goto('/tools');
 
