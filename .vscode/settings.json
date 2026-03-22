@@ -2,5 +2,8 @@
     "chat.tools.terminal.autoApprove": {
         "git config": true,
         "git worktree": true
+    },
+    "chat.agentSkillsLocations": {
+        ".claude/skills/gitnexus": true
     }
 }

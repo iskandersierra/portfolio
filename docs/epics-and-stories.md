@@ -38,7 +38,7 @@ Excluded from scope:
 
 - [x] Epic 0: Product Decisions And Launch Planning
 - [x] Epic 1: Shared Shell And UX Foundations
-- [ ] Epic 2: Content Platform And Shared Content UI
+- [x] Epic 2: Content Platform And Shared Content UI
 - [ ] Epic 3: Home And About Experience
 - [ ] Epic 4: Blog Publishing MVP
 - [ ] Epic 5: Tools Publishing MVP
@@ -257,9 +257,9 @@ Story checklist:
 
 - [x] Story 2.1: Add Astro content collections
 - [x] Story 2.2: Build shared content helpers
-- [ ] Story 2.3: Create blog post layout
-- [ ] Story 2.4: Create tool page layout
-- [ ] Story 2.5: Define featured content rules
+- [x] Story 2.3: Create blog post layout
+- [x] Story 2.4: Create tool page layout
+- [x] Story 2.5: Define featured content rules
 
 ### Story 2.1: Add Astro content collections
 
@@ -280,14 +280,12 @@ Acceptance criteria:
 - Published content can be listed and sorted.
 - Blog posts can be filtered by tag.
 - Previous and next navigation data can be computed.
-- Featured content can be selected without hardcoding.
 
 Delivery notes:
 
-- Added `src/utils/content.ts` as the shared content-helper layer for blog and tools collections, including published-only filtering, deterministic date sorting, tag extraction and filtering, adjacent blog navigation lookup, featured-item selection, and shared date formatting.
+- Added `src/utils/content.ts` as the shared content-helper layer for blog and tools collections, including published-only filtering, deterministic date sorting, tag extraction and filtering, adjacent blog navigation lookup, and shared date formatting.
 - The `/blog` page now renders published collection entries instead of placeholders and exposes tag filtering through query-string links.
 - The `/tools` page now renders published tool metadata from the content collection instead of hardcoded cards.
-- The home page now pulls its featured blog post and featured tool from collection data rather than hardcoded copy, using the latest published items as the current MVP featured rule.
 
 ### Story 2.3: Create blog post layout
 
@@ -320,6 +318,13 @@ Acceptance criteria:
 - Latest published post can be selected programmatically.
 - Featured tool can be selected programmatically.
 - The home page no longer depends on hardcoded placeholders.
+
+Delivery notes:
+
+- The current MVP rule is date-driven: the home page features the first published blog post and first published tool after descending publish-date sort.
+- `src/utils/content.ts` implements that rule through published-only collection reads, descending sort helpers, and `getFeaturedBlogPostFromEntries` / `getFeaturedToolFromEntries`, each returning the first item.
+- `src/pages/index.astro` consumes `getFeaturedBlogPost()` and `getFeaturedTool()` directly, so the home page featured strip no longer depends on hardcoded placeholders.
+- Closure evidence: the learning-philosophy launch post is now dated 2026-03-18 while the other two launch posts remain dated 2026-03-17, making it the intentionally newest featured launch post under the current MVP rule.
 
 ## Epic 3: Home And About Experience
 

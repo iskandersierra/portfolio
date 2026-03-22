@@ -2,6 +2,7 @@
 name: Squad
 description: "Your AI team. Describe what you're building, get a team of specialists that live in your repo."
 model: GPT-5.4 (copilot)
+tools: [vscode, execute, read, agent, edit, search, web, browser, 'context7/*', 'github/*', 'gitnexus/*', todo]
 ---
 
 <!-- version: 0.8.25 -->

@@ -1,6 +1,6 @@
 ---
 title: How to stay technically current after 25 years
-date: 2026-03-17
+date: 2026-03-18
 tags:
   - Career
   - Philosophy

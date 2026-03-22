@@ -13,3 +13,4 @@
 - When the inbox includes user directives alongside implementation and review notes, fold the directives into the main ledger as scope constraints and keep the execution evidence in the log files.
 - When PR review threads stay open after follow-up fixes, record closure from current branch behavior plus the latest successful validation run instead of mirroring stale GitHub thread state in the decision ledger.
 - After merging PR-specific inbox notes into the ledger, clear the processed inbox files and keep the detailed sequence in session and orchestration logs rather than duplicating it in multiple decision entries.
+- When a content-story decision is closed by existing publish-date ordering and QA validates the rendered home-page surface, keep the ledger entry consolidated and record the validation caveat separately in the session snapshot.

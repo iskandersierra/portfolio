@@ -157,6 +157,20 @@
 - The outstanding review comments were caused by real mismatches between filtering, chip state, and focus styling, so the fix needed to align all three behaviors rather than partially patch one layer.
 - GitHub review-thread status can lag behind branch changes; closure should follow the live code plus current validation evidence instead of stale thread metadata.
 
+### 2026-03-22: Featured content stays date-driven and QA validates it from the home-page surface
+
+**By:** Morpheus, Tank
+
+**What:**
+- Treat `How to stay technically current after 25 years` as the intentional featured launch post by making it the newest published blog entry.
+- Keep the MVP featured-content rule date-driven instead of adding a manual featured flag before launch.
+- Cover the home-page featured-content strip through smoke tests that assert the rendered card titles and the generated detail-route destinations.
+
+**Why:**
+- The existing shared content helpers already select featured items by descending publish date, so adjusting content dates closes Story 2.5 without adding new product surface area.
+- The learning-philosophy post best matches the site's launch positioning and should lead the narrative on `/`.
+- User-visible smoke coverage catches regressions in helper selection, home-page wiring, and featured-card navigation without coupling QA to helper internals.
+
 ## Governance
 
 - All meaningful changes require team consensus

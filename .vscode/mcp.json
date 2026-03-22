@@ -1,8 +1,18 @@
 {
 	"servers": {
 		"github": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/"
-    }
-  }
+			"type": "http",
+			"url": "https://api.githubcopilot.com/mcp/"
+		},
+		"gitnexus": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"gitnexus@1.4.7",
+				"mcp"
+			]
+		}
+	},
+	"inputs": []
 }

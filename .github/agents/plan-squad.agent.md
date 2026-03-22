@@ -4,7 +4,7 @@ description: "Researches and outlines multi-step plans, then hands off implement
 argument-hint: Outline the goal or problem to research
 model: GPT-5.4 (copilot)
 disable-model-invocation: true
-tools: ['search', 'read', 'web', 'vscode/memory', 'github/issue_read', 'github.vscode-pull-request-github/issue_fetch', 'github.vscode-pull-request-github/activePullRequest', 'execute/getTerminalOutput', 'execute/testFailure', 'agent', 'vscode/askQuestions']
+tools: [vscode, read, agent, search, web, browser, 'context7/*', 'github/*', 'gitnexus/*', todo]
 agents: ['Explore']
 handoffs:
   - label: Start Implementation
