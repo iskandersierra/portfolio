@@ -51,7 +51,7 @@ export const getToolHref = (slug: string) => `/tools/${slug}`;
 export const getBlogTagHref = (tag?: string | null) =>
 	tag ? `/blog?tag=${encodeURIComponent(tag)}` : '/blog';
 
-export const getAdjacentBlogPosts = (entries: BlogEntry[], slug: string) => {
+const getAdjacentEntries = <T extends { id: string }>(entries: T[], slug: string) => {
 	const currentIndex = entries.findIndex((entry) => entry.id === slug);
 
 	if (currentIndex === -1) {
@@ -66,6 +66,11 @@ export const getAdjacentBlogPosts = (entries: BlogEntry[], slug: string) => {
 		next: entries[currentIndex - 1],
 	};
 };
+
+export const getAdjacentBlogPosts = (entries: BlogEntry[], slug: string) =>
+	getAdjacentEntries(entries, slug);
+
+export const getAdjacentTools = (entries: ToolEntry[], slug: string) => getAdjacentEntries(entries, slug);
 
 export const getFeaturedBlogPostFromEntries = (entries: BlogEntry[]) => entries[0];
 
