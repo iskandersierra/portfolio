@@ -9,6 +9,8 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- Decorative node maps need a real breakpoint-specific layout plan at 320px; swapping absolute node placement for a grid before labels start collapsing is safer than trying to keep shrinking positioned cards.
+- Shared shell overlays inside the header need a higher stacking level than the page-shell content, or visually open menus can still fail pointer interaction because sibling content layers intercept the hit target.
 - A 320px layout can pass without horizontal overflow and still fail the mobile-navigation story if the desktop nav is only stacked and target sizes stay under comfortable touch dimensions.
 - Reduced-motion support needs to cover persistent motion cues such as blinking cursors, hover lifts, and theme transitions, not just page-entry animations.
 - Header and footer link styling currently prioritizes hover and active states; Epic 1 reviews should explicitly verify visible keyboard focus rather than assuming browser defaults are sufficient.
@@ -16,3 +18,4 @@
 - Story 2.3 prose styling should stay tightly scoped to a dedicated shell and markdown wrapper so Trinity can wire blog detail routes without inheriting index-page rules.
 - Blog detail content needs underlined inline links, constrained measure, and explicit code-block overflow handling because the global shell defaults optimize cards and navigation more than long-form reading.
 - Index-page review fixes can stay low risk by swapping structural wrappers instead of restyling chips; a semantic `nav` is enough when the current filter interactions are already clear.
+- Proposal 7 review should stay blocked until the shared shell shows unmistakable signal-graph cues, footer links have explicit `:focus-visible` treatment, and the 320px header proves it can avoid horizontal overflow.

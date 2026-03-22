@@ -1,13 +1,16 @@
 ---
-updated_at: 2026-03-22T12:00:00.000Z
-focus_area: Story 2.5 complete; next up Story 2.3 and Story 2.4
-active_issues: []
+updated_at: 2026-03-22T23:25:06.000Z
+focus_area: Proposal 7 detail-layout slice closed; canonical Playwright port validation remains blocked
+active_issues:
+	- Canonical Playwright automation on port 4331 is still blocked, so retained validation evidence comes from live-browser verification and Astro checks instead of the preferred port-specific run.
 ---
 
 # What We're Focused On
 
-Story 2.5 is implemented and closed. The launch home page now relies on the existing date-driven featured-content rule, with `How to stay technically current after 25 years` intentionally leading the featured blog slot and smoke coverage asserting the visible featured cards and their generated destinations.
+The Proposal 7 detail-layout batch is now closed. Blog and tool detail routes now share the approved connected-module framing, preserve the established prose contract, and expose adjacent navigation without reopening the shared shell, SEO, or helper-layer decisions already in force.
 
-The latest validation result is still clean for Story 2.5 itself: `pnpm test:e2e` passed, while `pnpm check` continues to fail only because of pre-existing markdown list-spacing issues in repo instruction documents.
+The completed slice also removed internal and placeholder detail-page language, stopped tool detail pages from implying unfinished live interactivity, and kept the tool sidebar useful by retaining a stable registry link even when adjacent tool data is limited.
 
-The next likely focus is Story 2.3 and Story 2.4: shared blog and tool detail layouts plus the slug routes that consume the adjacent-navigation data already present in the helper layer.
+Tank's final confirmation found no blocking issues in the shipped detail-layout behavior. The only retained caveat is environmental: canonical Playwright automation on port 4331 remained blocked, so the closure evidence relies on live-browser verification plus Astro checks instead of that preferred automation path.
+
+The next likely focus moves past the closed detail-layout slice and onto the next unclaimed product work outside this Story 2.3 and Story 2.4 closure set.

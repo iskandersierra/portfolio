@@ -12,7 +12,7 @@ const author = {
 ---
 
 <aside class="blog-author-block" aria-label="Author information">
-	<p class="blog-author-block__label mono">Author</p>
+	<p class="blog-author-block__label mono">Written by</p>
 	<h2 class="blog-author-block__name">{author.name}</h2>
 	<p class="blog-author-block__role">{author.role}</p>
 	<p class="blog-author-block__bio">{author.bio}</p>
@@ -32,37 +32,52 @@ const author = {
 
 <style>
 	.blog-author-block {
-		border: 1px solid var(--border);
-		background: var(--surface);
-		padding: 1.25rem;
+		display: grid;
+		gap: 0.75rem;
 	}
 
 	.blog-author-block__label {
-		margin-bottom: 0.5rem;
-		color: var(--accent);
-		font-size: 0.9rem;
+		margin: 0;
+		color: var(--accent-2);
+		font-size: 0.72rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
 	}
 
 	.blog-author-block__name {
 		margin: 0;
 		font-size: 1.35rem;
+		line-height: 1.15;
 	}
 
 	.blog-author-block__role,
 	.blog-author-block__bio {
-		margin: 0.75rem 0 0;
+		margin: 0;
 		color: var(--text-muted);
+		line-height: 1.7;
 	}
 
 	.blog-author-block__links {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.75rem;
-		margin-top: 1rem;
+		margin-top: 0.25rem;
 	}
 
 	.blog-author-block__link {
 		display: inline-flex;
+		align-items: center;
+		padding: 0.45rem 0.75rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
+		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
 		color: var(--accent);
+		text-decoration: none;
+	}
+
+	.blog-author-block__link:hover,
+	.blog-author-block__link:focus-visible {
+		border-color: var(--accent);
+		background: color-mix(in srgb, var(--accent) 10%, var(--surface-strong));
+		text-decoration: none;
 	}
 </style>

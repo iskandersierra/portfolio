@@ -2,30 +2,21 @@
 
 ## Active Decisions
 
-### 2026-03-20: Shared blog detail pages use one prose contract with compatibility hooks
+### 2026-03-22: Proposal 7 detail layouts share connected modules, adjacent navigation, and conditional tool interactivity
 
-**By:** Trinity, Switch
-
-**What:**
-- Use `BlogPostLayout.astro` to own blog detail metadata framing, tag presentation, and author placement.
-- Treat `.post-shell`, `.post-body`, and companion `.post-*` hooks in `src/styles/global.css` as the shared prose contract for long-form content.
-- Keep dual-hook class wiring where needed so the shared prose contract becomes the source of truth without breaking existing smoke-test selectors during the transition.
-
-**Why:**
-- The slug route stays thin and predictable while shared typography, code-block styling, and reading affordances live in one reusable contract.
-- Compatibility hooks avoid unnecessary selector churn while Story 2.3 settles into the shared detail-page structure.
-
-### 2026-03-20: Tool detail routes reuse the shared post shell with a slot for interactive surfaces
-
-**By:** Trinity
+**By:** Trinity, Morpheus, Switch, Tank
 
 **What:**
-- Reuse the existing `.post-shell` detail-page structure for tool routes.
-- Reserve the interactive tool surface as a generic named slot in the shared tool layout.
+- Keep blog and tool detail routes on the shared `.post-shell` and `.post-body` prose contract while restyling their supporting surfaces into the approved Proposal 7 connected-module framing.
+- Let `BlogPostLayout.astro` and `ToolLayout.astro` own the detail-page metadata framing, supporting modules, and adjacent-navigation surfaces so the slug routes stay thin and predictable.
+- Wire blog detail pages to adjacent-post helper data for explicit newer and older navigation, and give tool detail pages the same adjacent-tool data while always preserving a stable registry link when the published tool set is sparse.
+- Render the tool layout's interactive section only when a real `interactive` slot is present, and keep detail labels and supporting copy user-facing instead of advertising unfinished live-tool behavior or internal workflow language.
+- Retune the author block and focused smoke coverage to match the shared detail-module behavior without changing content, SEO, or helper contracts outside the slice.
 
 **Why:**
-- This keeps tool pages visually aligned with blog detail pages and the launch terminal direction.
-- The shared layout stays decoupled from unfinished tool-specific interactivity.
+- The detail pages needed to align with the approved Proposal 7 direction without reopening shared shell, SEO, or content-helper decisions that were already settled.
+- Adjacent navigation and consistent supporting modules make the blog and tool detail routes easier to scan and more useful while keeping the underlying route architecture stable.
+- Tool pages should not promise interactivity that is not implemented, and user-facing labels build more trust than internal or placeholder language.
 
 ### 2026-03-20: Content-helper and route wiring changes use a three-step validation baseline
 
@@ -170,6 +161,56 @@
 - The existing shared content helpers already select featured items by descending publish date, so adjusting content dates closes Story 2.5 without adding new product surface area.
 - The learning-philosophy post best matches the site's launch positioning and should lead the narrative on `/`.
 - User-visible smoke coverage catches regressions in helper selection, home-page wiring, and featured-card navigation without coupling QA to helper internals.
+
+### 2026-03-22: Proposal 7 shell slice stays in the shared frame, with reviewer-driven narrow-view, layering, and validation fixes
+
+**By:** Trinity, Switch, Neo, Tank
+
+**What:**
+- Move the shared shell from the prior terminal-window metaphor to an adapted Signal Graph Studio frame by changing shared tokens, global shell chrome, and header, footer, and theme-control styling.
+- Preserve the existing Astro layout structure, ClientRouter usage, theme lifecycle API, mobile navigation behavior, and content and SEO contracts while making the shell-level visual change.
+- Treat approval of the first slice as contingent on unmistakable shared-shell signal-graph cues, explicit footer `:focus-visible` styling, and no horizontal overflow at 320px.
+- Resolve the narrow-view revision by compacting header action controls, hiding only non-essential brand metadata at the tightest breakpoint, and keeping the existing theme chooser behavior and menu model intact.
+- Keep the shared header above the page-shell content layer so the desktop theme chooser menu remains pointer-clickable without changing its keyboard or menu semantics.
+- Align shell smoke assertions with the visible signal-index treatment by checking the indexed labels compatibly instead of relying on stale exact-text matches.
+- Treat the repaired shell batch as approved once focused smoke coverage confirms desktop pointer theme selection, keyboard theme access, primary navigation, and footer links across Chromium, Firefox, and WebKit.
+
+**Why:**
+- Proposal 7 needed a visible systems-oriented identity in the live shell, but the first slice had to stay concentrated in shared presentation layers rather than route-specific logic.
+- Review needed explicit shell-level acceptance criteria so the redesign would read as a coherent direction change instead of isolated decoration.
+- The overflow issue came from combined brand and action width at 320px, so compaction was the lowest-risk fix and preserved the shell architecture already working elsewhere.
+- The revised shell introduced a layering fault where the main page content intercepted theme-menu clicks even though the menu rendered correctly.
+- Visible signal indices are now an intentional part of the shell treatment, so smoke coverage needed to follow the user-visible labeling model without treating the index markers as regressions.
+
+### 2026-03-22: Proposal 7 archive pages keep shared archive behavior while blog filtering syncs from the query string
+
+**By:** Trinity, Switch, Tank
+
+**What:**
+- Keep the blog and tools archive routes inside the approved Proposal 7 framing by using archive-specific graph summaries, sidebars, and field visuals without changing route structure, content helpers, theme tokens, or archive semantics.
+- Drive blog archive filtering from one client-side normalized tag source so query-string visits, visible post lists, active chips, tag-map state, and summary copy stay synchronized in the static Astro build.
+- Keep archive cards to a single keyboard destination by leaving the title as the actionable link and treating the matching CTA copy as visual affordance only.
+- Collapse decorative archive hero fields sooner on narrow screens and keep focused smoke coverage on query-string tag filtering plus reset-to-full-archive behavior.
+
+**Why:**
+- The archive slice needed an unmistakable Proposal 7 presentation change without dragging detail pages or shared helper logic into the same batch.
+- Query-string filtering has to reconcile on the client in production because the site ships as a static Astro build.
+- Review and QA found mobile density, duplicate focus stops, and filter-regression risk, so the fix had to close those issues at the behavior layer and leave executable coverage behind.
+
+### 2026-03-22: Proposal 7 home and about pages stay route-local, with connected-system copy and narrow-width accessibility fixes
+
+**By:** Trinity, Morpheus, Switch, Tank
+
+**What:**
+- Keep `/` and `/about` inside the approved Proposal 7 direction as route-local signal hubs without reopening shared shell, SEO, or content-helper contracts.
+- Preserve the existing home and about headings plus the current featured-content data flow, then express the new direction through page-local graph panels, metrics, and module framing around the current content.
+- Ground the revised home and about copy in practical system outcomes across architecture, leadership, tools, and learning, using concrete language about systems, decisions, tools, and patterns instead of abstract graph phrasing.
+- Keep the about-page profile map decorative at wider breakpoints, but switch it to a real narrow-screen grid and expose the same role labels in an explicit list so meaningful content does not depend on positioned graphics.
+
+**Why:**
+- The home and about routes needed a visible Proposal 7 identity without churning the shared shell and data contracts already approved elsewhere.
+- The copy needed to make the connected-system metaphor feel earned by the actual work on the site rather than reading like decoration.
+- Review found the about-page field broke down at 320px and needed an accessible equivalent for the role labels, so the fix had to address both layout stability and content access.
 
 ## Governance
 
