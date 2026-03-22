@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal 6: Field Notes Atelier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Literata:opsz,wght@7..72,400;7..72,500&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ebe2d3;
+            --paper: #f9f3e8;
+            --ink: #2b241e;
+            --muted: #6e6255;
+            --line: #c8b69e;
+            --accent: #537257;
+            --accent-soft: #dde5d6;
+            --pin: #a6573f;
+            --shadow: rgba(83, 62, 34, 0.14);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            font-family: 'Literata', serif;
+            line-height: 1.72;
+            background:
+                radial-gradient(circle at 15% 10%, rgba(83, 114, 87, 0.12), transparent 25%),
+                linear-gradient(180deg, rgba(255,255,255,0.28), transparent 24%),
+                var(--bg);
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .canvas {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 32px 22px 60px;
+        }
+
+        .sheet,
+        .journal,
+        .footer {
+            background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(249,243,232,0.96));
+            border: 1px solid var(--line);
+            box-shadow: 0 18px 40px var(--shadow);
+            position: relative;
+        }
+
+        .sheet::before,
+        .journal::before {
+            content: '';
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(200, 182, 158, 0.55);
+            pointer-events: none;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: center;
+            padding: 18px 22px;
+            margin-bottom: 22px;
+        }
+
+        .mono,
+        .stamp,
+        .meta {
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .stamp {
+            color: var(--accent);
+            font-size: 0.92rem;
+        }
+
+        .nav {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            color: var(--muted);
+        }
+
+        .nav a.active {
+            color: var(--ink);
+            text-decoration: underline;
+            text-decoration-color: var(--pin);
+            text-decoration-thickness: 2px;
+        }
+
+        .sheet {
+            padding: 28px;
+            margin-bottom: 22px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.28fr 0.9fr;
+            gap: 24px;
+        }
+
+        .hero-copy {
+            padding-right: 12px;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-size: 0.84rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Fraunces', serif;
+            margin: 0;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 7vw, 6.2rem);
+            margin: 14px 0 18px;
+            max-width: 8ch;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .lead,
+        .copy,
+        .entry p,
+        .author p,
+        .tool-note p,
+        .footer p {
+            color: var(--muted);
+        }
+
+        .note-card {
+            background: rgba(255, 251, 242, 0.88);
+            border: 1px dashed var(--line);
+            padding: 22px;
+            align-self: start;
+        }
+
+        .pin {
+            width: 18px;
+            height: 18px;
+            border-radius: 999px;
+            background: var(--pin);
+            box-shadow: 0 2px 0 rgba(0,0,0,0.18);
+            margin-bottom: 12px;
+        }
+
+        .columns {
+            display: grid;
+            grid-template-columns: 0.96fr 1.25fr;
+            gap: 22px;
+            margin-bottom: 22px;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .chip {
+            padding: 7px 12px;
+            border: 1px solid var(--line);
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.82rem;
+        }
+
+        .entries {
+            display: grid;
+            gap: 14px;
+        }
+
+        .entry {
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .entry:last-child { border-bottom: none; padding-bottom: 0; }
+
+        .entry h3 {
+            font-size: 1.35rem;
+            line-height: 1.22;
+            margin: 6px 0;
+        }
+
+        .meta {
+            color: var(--accent);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 0.82rem;
+        }
+
+        .journal {
+            padding: 28px;
+            margin-bottom: 22px;
+        }
+
+        .journal-grid,
+        .tool-grid,
+        .footer {
+            display: grid;
+            gap: 22px;
+        }
+
+        .journal-grid { grid-template-columns: 1.34fr 0.92fr; }
+        .tool-grid { grid-template-columns: 1fr 1fr; }
+
+        .author,
+        .tool-note,
+        .placeholder {
+            border-left: 2px solid var(--line);
+            padding-left: 18px;
+        }
+
+        .placeholder {
+            min-height: 210px;
+            display: grid;
+            align-content: start;
+            gap: 12px;
+            background: repeating-linear-gradient(180deg, rgba(83, 114, 87, 0.04), rgba(83, 114, 87, 0.04) 27px, transparent 27px, transparent 28px);
+            padding-top: 12px;
+        }
+
+        .footer {
+            grid-template-columns: 1.3fr 1fr 1fr;
+            padding: 20px 24px;
+        }
+
+        .footer p { margin: 0; }
+
+        @media (max-width: 920px) {
+            .hero,
+            .columns,
+            .journal-grid,
+            .tool-grid,
+            .footer {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas">
+        <header class="sheet topbar">
+            <div class="stamp">Proposal 6 · Field Notes Atelier</div>
+            <nav class="nav mono" aria-label="Primary">
+                <a href="#" class="active">Home</a>
+                <a href="#about">About</a>
+                <a href="#writing">Blog</a>
+                <a href="#tool">Tools</a>
+            </nav>
+        </header>
+
+        <section class="sheet hero">
+            <div class="hero-copy">
+                <p class="eyebrow">A warmer direction for a long engineering career</p>
+                <h1>Never stop learning.</h1>
+                <p class="lead">This proposal reframes the portfolio as a set of field notes from practice. The content is still technical, but the presentation feels more like a workshop journal than a command line.</p>
+            </div>
+            <aside class="note-card">
+                <div class="pin"></div>
+                <p class="mono" style="color:var(--accent); margin-top:0;">sample composition</p>
+                <p class="copy">The same real about summary, launch posts, author details, and tool metadata are preserved here. What changes is the emotional temperature: more human, more crafted, less purely operational.</p>
+            </aside>
+        </section>
+
+        <section class="columns">
+            <article class="sheet" id="about">
+                <p class="eyebrow">About sample</p>
+                <h2>Profile and expertise</h2>
+                <p class="copy">I am a full-stack developer, software architect, and team technical lead focused on building dependable systems, helping teams move with clarity, and staying curious enough to keep learning.</p>
+                <ul class="chips">
+                    <li class="chip">.NET architecture</li>
+                    <li class="chip">Team technical leadership</li>
+                    <li class="chip">TypeScript and JavaScript</li>
+                    <li class="chip">Azure and cloud delivery</li>
+                    <li class="chip">Docker and Kubernetes</li>
+                    <li class="chip">Computer science fundamentals</li>
+                </ul>
+            </article>
+            <article class="sheet" id="writing">
+                <p class="eyebrow">Blog index sample</p>
+                <h2>Writing shelf</h2>
+                <div class="entries">
+                    <div class="entry">
+                        <div class="meta"><span>Mar 18, 2026</span><span>Career · Philosophy</span><span>5 min</span></div>
+                        <h3>How to stay technically current after 25 years</h3>
+                        <p>A launch post about keeping curiosity active over a long software career without chasing every trend or abandoning fundamentals.</p>
+                    </div>
+                    <div class="entry">
+                        <div class="meta"><span>Mar 17, 2026</span><span>.NET · Architecture</span><span>6 min</span></div>
+                        <h3>Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure</h3>
+                        <p>A launch post about organizing .NET applications around features instead of forcing every change through a layered folder maze.</p>
+                    </div>
+                    <div class="entry">
+                        <div class="meta"><span>Mar 17, 2026</span><span>Leadership · Career</span><span>5 min</span></div>
+                        <h3>Being a Tech Lead without losing your engineering skills</h3>
+                        <p>A launch post about staying technically credible while taking on the coordination, communication, and decision load of technical leadership.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="journal">
+            <div class="journal-grid">
+                <div>
+                    <p class="eyebrow">Blog post sample</p>
+                    <h2>How to stay technically current after 25 years</h2>
+                    <div class="meta"><span>Career</span><span>Philosophy</span><span>5 min read</span></div>
+                    <p class="copy">Staying current is less about consuming every new tool and more about building a repeatable habit of learning, testing ideas, and connecting them back to fundamentals.</p>
+                    <p class="copy">This launch entry carries the learning philosophy theme that supports the site's core message: never stop learning.</p>
+                </div>
+                <aside class="author">
+                    <p class="eyebrow">Author block sample</p>
+                    <h3>Iskander Sierra</h3>
+                    <p>Full-Stack Developer, Software Architect, and Technical Lead</p>
+                    <p>Writing about software architecture, technical leadership, and the habits that keep a long engineering career sharp.</p>
+                </aside>
+            </div>
+        </section>
+
+        <section class="sheet" id="tool">
+            <div class="tool-grid">
+                <div>
+                    <p class="eyebrow">Tool detail sample</p>
+                    <h2>UUID / ULID generator</h2>
+                    <div class="meta"><span>Published Mar 17, 2026</span><span>React island</span><span>UUID · ULID · Utility</span></div>
+                    <p class="copy">Generate UUID v4 or ULID values in the browser with copy-friendly output and a lightweight interface.</p>
+                    <div class="tool-note">
+                        <p>A focused developer utility for generating identifiers client-side without external services. The MVP scope covers UUID v4 and ULID output, quantity control, inline validation, and copy-to-clipboard support.</p>
+                    </div>
+                </div>
+                <aside class="placeholder mono">
+                    <div>usage notes</div>
+                    <div>mode: ULID</div>
+                    <div>quantity: 12</div>
+                    <div>copy: clipboard ready</div>
+                    <div>output: 01JQ0A4K7R41...</div>
+                    <p style="margin:0; color:var(--muted);">The interactive area becomes a neat notebook insert rather than a stark application panel.</p>
+                </aside>
+            </div>
+        </section>
+
+        <footer class="footer sheet mono">
+            <div><p>~/iskander</p><p>Built for learning, shipping, and sharing practical engineering work.</p></div>
+            <div><p>quick links</p><p>Home · About · Blog · Tools</p></div>
+            <div><p>social</p><p>GitHub · LinkedIn</p></div>
+        </footer>
+    </div>
+</body>
+</html>

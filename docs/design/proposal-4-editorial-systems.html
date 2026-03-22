@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal 4: Editorial Systems</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f6f1ea;
+            --surface: rgba(255, 252, 247, 0.78);
+            --surface-strong: #fffaf4;
+            --text-main: #1f1b18;
+            --text-muted: #665c52;
+            --border: #d8cabc;
+            --accent: #8f3d23;
+            --accent-soft: #ede0d2;
+            --shadow: rgba(82, 46, 29, 0.09);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Instrument Sans', sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at top left, rgba(143, 61, 35, 0.07), transparent 34%),
+                linear-gradient(180deg, #fbf7f2 0%, var(--bg) 100%);
+            line-height: 1.65;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; }
+
+        .shell {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 32px 24px 56px;
+        }
+
+        .topbar,
+        .panel,
+        .article-preview,
+        .tool-surface,
+        .footer {
+            border: 1px solid var(--border);
+            background: var(--surface);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 24px 60px var(--shadow);
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 18px 22px;
+            margin-bottom: 28px;
+        }
+
+        .brand-mark, .eyebrow, .meta, .chip, .mini-label, .footer-label {
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.04em;
+        }
+
+        .brand-mark {
+            color: var(--accent);
+            font-size: 0.92rem;
+        }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            color: var(--text-muted);
+        }
+
+        .nav a.active {
+            color: var(--accent);
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.4fr 0.9fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .hero-copy {
+            padding: 34px;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-size: 0.82rem;
+            text-transform: uppercase;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Newsreader', serif;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: clamp(3.4rem, 7vw, 6.8rem);
+            line-height: 0.92;
+            max-width: 9ch;
+            margin: 18px 0 22px;
+        }
+
+        .lead {
+            max-width: 56ch;
+            font-size: 1.12rem;
+            color: var(--text-muted);
+        }
+
+        .hero-notes {
+            padding: 28px;
+            display: grid;
+            gap: 18px;
+            align-content: start;
+            background: var(--surface-strong);
+        }
+
+        .quote {
+            font-family: 'Newsreader', serif;
+            font-size: 1.55rem;
+            line-height: 1.24;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.05fr 1.3fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .panel {
+            padding: 28px;
+        }
+
+        .panel h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .section-intro {
+            color: var(--text-muted);
+            margin: 0 0 18px;
+        }
+
+        .chips, .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .chip {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            background: var(--surface-strong);
+            font-size: 0.84rem;
+            color: var(--accent);
+        }
+
+        .essay-list {
+            display: grid;
+            gap: 18px;
+        }
+
+        .essay-item {
+            border-top: 1px solid var(--border);
+            padding-top: 18px;
+        }
+
+        .essay-item:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .essay-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+
+        .meta {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            color: var(--accent);
+            font-size: 0.82rem;
+            margin-bottom: 8px;
+        }
+
+        .essay-item p,
+        .article-preview p,
+        .tool-surface p,
+        .footer-copy {
+            color: var(--text-muted);
+        }
+
+        .article-preview,
+        .tool-surface {
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+
+        .article-columns,
+        .tool-columns,
+        .footer {
+            display: grid;
+            gap: 24px;
+        }
+
+        .article-columns {
+            grid-template-columns: 1.45fr 0.9fr;
+            align-items: start;
+        }
+
+        .article-body {
+            display: grid;
+            gap: 16px;
+        }
+
+        .article-body p {
+            margin: 0;
+            max-width: 64ch;
+        }
+
+        .article-side {
+            border-left: 1px solid var(--border);
+            padding-left: 24px;
+        }
+
+        .mini-label {
+            color: var(--accent);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .tool-columns {
+            grid-template-columns: 1.1fr 1fr;
+        }
+
+        .tool-card {
+            padding: 24px;
+            border: 1px solid var(--border);
+            background: var(--surface-strong);
+        }
+
+        .tool-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .placeholder {
+            min-height: 220px;
+            border: 1px dashed var(--border);
+            background: linear-gradient(180deg, rgba(143, 61, 35, 0.05), rgba(255,255,255,0.4));
+            padding: 20px;
+            display: grid;
+            gap: 14px;
+            align-content: start;
+        }
+
+        .output-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .footer {
+            grid-template-columns: 1.3fr 1fr 1fr;
+            padding: 24px 28px;
+        }
+
+        .footer-label {
+            color: var(--accent);
+            font-size: 0.82rem;
+            margin: 0 0 10px;
+            text-transform: lowercase;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 900px) {
+            .hero,
+            .grid,
+            .article-columns,
+            .tool-columns,
+            .footer {
+                grid-template-columns: 1fr;
+            }
+
+            .article-side {
+                border-left: none;
+                border-top: 1px solid var(--border);
+                padding-left: 0;
+                padding-top: 20px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <header class="topbar">
+            <div class="brand-mark">Proposal 4 · Editorial Systems</div>
+            <nav class="nav" aria-label="Primary">
+                <a href="#" class="active">Home</a>
+                <a href="#about-sample">About</a>
+                <a href="#blog-sample">Blog</a>
+                <a href="#tools-sample">Tools</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <article class="panel hero-copy">
+                <div>
+                    <p class="eyebrow">A living portfolio for leadership, architecture, and long-term learning</p>
+                    <h1>Never stop learning.</h1>
+                    <p class="lead">After 25 years in software, the most valuable thing I've learned is that there's always more to learn. This direction treats the portfolio like a refined publication: calmer, more authoritative, and built to make experience feel earned rather than advertised.</p>
+                </div>
+                <div class="meta">
+                    <span>Audience: CTOs and hiring managers</span>
+                    <span>Signal: thoughtful, durable, senior</span>
+                </div>
+            </article>
+            <aside class="panel hero-notes">
+                <p class="mini-label">Why this works</p>
+                <div class="quote">The current terminal voice becomes editorial rather than operational, without losing the sense that the work is technical and real.</div>
+                <p class="section-intro">This composite sample includes the home lead, about summary, blog listing, long-form post treatment, tool detail, and footer language from the actual site.</p>
+                <ul class="chips">
+                    <li class="chip">Newsreader display</li>
+                    <li class="chip">Warm paper palette</li>
+                    <li class="chip">Real portfolio content</li>
+                </ul>
+            </aside>
+        </section>
+
+        <section class="grid">
+            <article class="panel" id="about-sample">
+                <p class="eyebrow">About sample</p>
+                <h2>Professional profile</h2>
+                <p class="section-intro">I am a full-stack developer, software architect, and team technical lead focused on building dependable systems, helping teams move with clarity, and staying curious enough to keep learning.</p>
+                <ul class="chips">
+                    <li class="chip">.NET architecture</li>
+                    <li class="chip">Team technical leadership</li>
+                    <li class="chip">TypeScript and JavaScript</li>
+                    <li class="chip">Azure and cloud delivery</li>
+                    <li class="chip">Docker and Kubernetes</li>
+                    <li class="chip">Computer science fundamentals</li>
+                </ul>
+            </article>
+            <article class="panel" id="blog-sample">
+                <p class="eyebrow">Blog index sample</p>
+                <h2>Latest writing</h2>
+                <div class="essay-list">
+                    <div class="essay-item">
+                        <div class="meta"><span>Mar 18, 2026</span><span>5 min read</span><span>Career · Philosophy</span></div>
+                        <h3>How to stay technically current after 25 years</h3>
+                        <p>A launch post about keeping curiosity active over a long software career without chasing every trend or abandoning fundamentals.</p>
+                    </div>
+                    <div class="essay-item">
+                        <div class="meta"><span>Mar 17, 2026</span><span>6 min read</span><span>.NET · Architecture</span></div>
+                        <h3>Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure</h3>
+                        <p>A launch post about organizing .NET applications around features instead of forcing every change through a layered folder maze.</p>
+                    </div>
+                    <div class="essay-item">
+                        <div class="meta"><span>Mar 17, 2026</span><span>5 min read</span><span>Leadership · Career</span></div>
+                        <h3>Being a Tech Lead without losing your engineering skills</h3>
+                        <p>A launch post about staying technically credible while taking on the coordination, communication, and decision load of technical leadership.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="article-preview">
+            <div class="article-columns">
+                <div class="article-body">
+                    <p class="eyebrow">Blog post sample</p>
+                    <h2>How to stay technically current after 25 years</h2>
+                    <div class="meta"><span>Career</span><span>Philosophy</span><span>5 min read</span></div>
+                    <p>Staying current is less about consuming every new tool and more about building a repeatable habit of learning, testing ideas, and connecting them back to fundamentals.</p>
+                    <p>This launch entry carries the learning philosophy theme that supports the site's core message: never stop learning.</p>
+                </div>
+                <aside class="article-side">
+                    <p class="mini-label">Author block sample</p>
+                    <h3>Iskander Sierra</h3>
+                    <p>Full-Stack Developer, Software Architect, and Technical Lead</p>
+                    <p>Writing about software architecture, technical leadership, and the habits that keep a long engineering career sharp.</p>
+                    <ul class="article-tags">
+                        <li class="chip">GitHub</li>
+                        <li class="chip">LinkedIn</li>
+                        <li class="chip">About</li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+
+        <section class="tool-surface" id="tools-sample">
+            <div class="tool-columns">
+                <article class="tool-card">
+                    <p class="eyebrow">Tool detail sample</p>
+                    <h3>UUID / ULID generator</h3>
+                    <div class="meta"><span>Published Mar 17, 2026</span><span>React island</span></div>
+                    <p>Generate UUID v4 or ULID values in the browser with copy-friendly output and a lightweight interface.</p>
+                    <ul class="chips">
+                        <li class="chip">UUID</li>
+                        <li class="chip">ULID</li>
+                        <li class="chip">Utility</li>
+                    </ul>
+                    <p>A focused developer utility for generating identifiers client-side without external services. The MVP scope covers UUID v4 and ULID output, quantity control, inline validation, and copy-to-clipboard support.</p>
+                </article>
+                <div class="placeholder">
+                    <p class="mini-label">Interactive surface sample</p>
+                    <div class="output-row"><span>ULID</span><strong>01JQ0A4K7R41...</strong></div>
+                    <div class="output-row"><span>UUID v4</span><strong>8f0b6d1e-7e2...</strong></div>
+                    <div class="output-row"><span>Mode</span><strong>Copy-ready output</strong></div>
+                    <p>This direction frames tools like elegant case studies: the interface is still practical, but the surrounding presentation feels more premium and publication-like.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div>
+                <p class="footer-label">~/iskander</p>
+                <p class="footer-copy">Built for learning, shipping, and sharing practical engineering work.</p>
+            </div>
+            <div>
+                <p class="footer-label">quick links</p>
+                <div class="footer-links"><a href="#">Home</a><a href="#">About</a><a href="#">Blog</a><a href="#">Tools</a></div>
+            </div>
+            <div>
+                <p class="footer-label">social</p>
+                <div class="footer-links"><a href="#">GitHub</a><a href="#">LinkedIn</a></div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

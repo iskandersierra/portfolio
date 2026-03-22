@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal 5: Precision Brutalism 2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1017;
+            --surface: #151924;
+            --surface-2: #1a2030;
+            --text-main: #f3f6ff;
+            --text-muted: #94a0be;
+            --border: #30384f;
+            --accent: #52d1b2;
+            --accent-2: #7f8cff;
+            --danger: #ff8a67;
+            --shadow: rgba(0, 0, 0, 0.4);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Sora', sans-serif;
+            color: var(--text-main);
+            background:
+                linear-gradient(180deg, rgba(82, 209, 178, 0.07), transparent 24%),
+                linear-gradient(90deg, rgba(127, 140, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(rgba(127, 140, 255, 0.08) 1px, transparent 1px),
+                var(--bg);
+            background-size: auto, 48px 48px, 48px 48px, auto;
+            line-height: 1.6;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .shell {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .mono { font-family: 'IBM Plex Mono', monospace; }
+
+        .frame,
+        .hero,
+        .card,
+        .preview,
+        .footer {
+            border: 1px solid var(--border);
+            background: var(--surface);
+            box-shadow: 8px 8px 0 var(--shadow);
+        }
+
+        .frame {
+            padding: 18px 22px;
+            display: grid;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .topline,
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .status {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+
+        .nav {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            padding: 8px 10px;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+        }
+
+        .nav a.active,
+        .nav a:hover {
+            color: var(--text-main);
+            border-color: var(--accent);
+            background: rgba(82, 209, 178, 0.08);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.35fr 0.8fr;
+            gap: 0;
+            margin-bottom: 22px;
+        }
+
+        .hero-main,
+        .hero-aside {
+            padding: 28px;
+        }
+
+        .hero-main {
+            border-right: 1px solid var(--border);
+        }
+
+        .kicker {
+            color: var(--accent);
+            font-size: 0.86rem;
+            text-transform: lowercase;
+        }
+
+        h1, h2, h3 {
+            margin: 0;
+            line-height: 1.02;
+        }
+
+        h1 {
+            font-size: clamp(3.2rem, 7vw, 6rem);
+            margin: 12px 0 18px;
+            max-width: 8ch;
+        }
+
+        .lead {
+            max-width: 62ch;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .badge-row,
+        .chips,
+        .meta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .badge,
+        .chip {
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            background: var(--surface-2);
+        }
+
+        .badge { color: var(--accent); }
+        .chip { color: var(--accent-2); }
+        .warn { color: var(--danger); }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 0.95fr 1.3fr;
+            gap: 22px;
+            margin-bottom: 22px;
+        }
+
+        .card,
+        .preview {
+            padding: 24px;
+        }
+
+        .card h2,
+        .preview h2 {
+            font-size: 1.85rem;
+            margin: 10px 0 14px;
+        }
+
+        .list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .item {
+            border: 1px solid var(--border);
+            background: var(--surface-2);
+            padding: 14px 16px;
+        }
+
+        .item h3 {
+            font-size: 1.1rem;
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+
+        .item p,
+        .copy,
+        .preview p,
+        .footer p {
+            margin: 0;
+            color: var(--text-muted);
+        }
+
+        .article-grid,
+        .tool-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 0.85fr;
+            gap: 22px;
+        }
+
+        .body-copy {
+            display: grid;
+            gap: 14px;
+        }
+
+        .body-copy p { margin: 0; }
+
+        .sidebox {
+            border: 1px solid var(--border);
+            background: var(--surface-2);
+            padding: 16px;
+            display: grid;
+            gap: 12px;
+            align-content: start;
+        }
+
+        .placeholder {
+            min-height: 210px;
+            display: grid;
+            gap: 10px;
+            align-content: start;
+        }
+
+        .line {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .footer {
+            padding: 18px 22px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 960px) {
+            .hero,
+            .layout,
+            .article-grid,
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-main {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <header class="frame">
+            <div class="topline mono">
+                <div class="brand">~/iskander :: proposal-5</div>
+                <div class="status"><span>precision brutalism 2.0</span><span>replacement candidate</span><span class="warn">more designed, not softer</span></div>
+            </div>
+            <nav class="nav mono" aria-label="Primary">
+                <a href="#" class="active">home</a>
+                <a href="#about">about</a>
+                <a href="#blog">blog</a>
+                <a href="#tool">tools</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-main">
+                <div class="kicker mono">$ launch ./portfolio --mode precise</div>
+                <h1>Never stop learning.</h1>
+                <p class="lead">This proposal keeps the terminal DNA but raises the design discipline: harder grid logic, stronger annotation, more intentional hierarchy, and a clearer sense that every panel belongs to the same engineered system.</p>
+                <div class="badge-row mono">
+                    <span class="badge">Home lead</span>
+                    <span class="badge">About and blog samples</span>
+                    <span class="badge">Tool surface</span>
+                </div>
+            </div>
+            <aside class="hero-aside">
+                <div class="sidebox mono">
+                    <div>[01] Audience: technical recruiters, engineering leaders</div>
+                    <div>[02] Reads as: sharper, faster, more intentional</div>
+                    <div>[03] Uses the same real content as the live site for fair comparison</div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="layout">
+            <article class="card" id="about">
+                <div class="kicker mono">$ cat ./about/profile.txt</div>
+                <h2>About sample</h2>
+                <p class="copy">I am a full-stack developer, software architect, and team technical lead focused on building dependable systems, helping teams move with clarity, and staying curious enough to keep learning.</p>
+                <div class="chips mono" style="margin-top:16px;">
+                    <span class="chip">.NET architecture</span>
+                    <span class="chip">technical leadership</span>
+                    <span class="chip">TypeScript</span>
+                    <span class="chip">Azure</span>
+                    <span class="chip">Kubernetes</span>
+                    <span class="chip">CS fundamentals</span>
+                </div>
+            </article>
+            <article class="card" id="blog">
+                <div class="kicker mono">$ find ./blog -type f</div>
+                <h2>Blog index sample</h2>
+                <div class="list">
+                    <div class="item">
+                        <div class="meta mono"><span>2026-03-18</span><span>5m</span><span>career philosophy</span></div>
+                        <h3>How to stay technically current after 25 years</h3>
+                        <p>A launch post about keeping curiosity active over a long software career without chasing every trend or abandoning fundamentals.</p>
+                    </div>
+                    <div class="item">
+                        <div class="meta mono"><span>2026-03-17</span><span>6m</span><span>.net architecture</span></div>
+                        <h3>Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure</h3>
+                        <p>A launch post about organizing .NET applications around features instead of forcing every change through a layered folder maze.</p>
+                    </div>
+                    <div class="item">
+                        <div class="meta mono"><span>2026-03-17</span><span>5m</span><span>leadership career</span></div>
+                        <h3>Being a Tech Lead without losing your engineering skills</h3>
+                        <p>A launch post about staying technically credible while taking on the coordination, communication, and decision load of technical leadership.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="preview" style="margin-bottom:22px;">
+            <div class="article-grid">
+                <div class="body-copy">
+                    <div class="kicker mono">$ cat ./blog/how-to-stay-technically-current-after-25-years.md</div>
+                    <h2>Blog post sample</h2>
+                    <div class="meta mono"><span>career</span><span>philosophy</span><span>5 min read</span></div>
+                    <p>Staying current is less about consuming every new tool and more about building a repeatable habit of learning, testing ideas, and connecting them back to fundamentals.</p>
+                    <p>This launch entry carries the learning philosophy theme that supports the site's core message: never stop learning.</p>
+                </div>
+                <aside class="sidebox">
+                    <div class="kicker mono">author block</div>
+                    <strong>Iskander Sierra</strong>
+                    <p>Full-Stack Developer, Software Architect, and Technical Lead.</p>
+                    <p>Writing about software architecture, technical leadership, and the habits that keep a long engineering career sharp.</p>
+                    <div class="chips mono"><span class="chip">GitHub</span><span class="chip">LinkedIn</span><span class="chip">About</span></div>
+                </aside>
+            </div>
+        </section>
+
+        <section class="preview" id="tool">
+            <div class="tool-grid">
+                <div class="body-copy">
+                    <div class="kicker mono">$ open ./tools/uuid-ulid-generator.md</div>
+                    <h2>Tool sample</h2>
+                    <div class="meta mono"><span>published 2026-03-17</span><span>react island</span><span>uuid ulid utility</span></div>
+                    <p>Generate UUID v4 or ULID values in the browser with copy-friendly output and a lightweight interface.</p>
+                    <p>A focused developer utility for generating identifiers client-side without external services. The MVP scope covers UUID v4 and ULID output, quantity control, inline validation, and copy-to-clipboard support.</p>
+                </div>
+                <aside class="sidebox placeholder mono">
+                    <div class="line"><span>mode</span><strong>ULID</strong></div>
+                    <div class="line"><span>quantity</span><strong>08</strong></div>
+                    <div class="line"><span>copy</span><strong>ready</strong></div>
+                    <div class="line"><span>output</span><strong>01JQ0A4K7R...</strong></div>
+                    <p>This direction makes the existing terminal treatment feel less improvised and more like a rigorous system.</p>
+                </aside>
+            </div>
+        </section>
+
+        <footer class="footer mono">
+            <span>~/iskander</span>
+            <span>built for learning, shipping, and sharing practical engineering work</span>
+            <span>github · linkedin</span>
+        </footer>
+    </div>
+</body>
+</html>
