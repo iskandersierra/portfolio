@@ -15,7 +15,7 @@ All commands work via `npx` — no global install required.
 npx gitnexus analyze
 ```
 
-Run from the project root. This parses all source files, builds the knowledge graph, writes it to `.gitnexus/`, and refreshes the repository's GitNexus context.
+Run from the project root. This parses all source files, builds the knowledge graph, writes it to `.gitnexus/`, and generates CLAUDE.md / AGENTS.md context files.
 
 | Flag           | Effect                                                           |
 | -------------- | ---------------------------------------------------------------- |
@@ -73,8 +73,7 @@ Lists all repositories registered in `~/.gitnexus/registry.json`. The MCP `list_
 ## After Indexing
 
 1. **Read `gitnexus://repo/{name}/context`** to verify the index loaded
-2. **Read `.claude/skills/gitnexus/README.md`** for the shared repository workflow and guardrails
-3. Use the other GitNexus skills (`exploring`, `debugging`, `impact-analysis`, `refactoring`) for your task
+2. Use the other GitNexus skills (`exploring`, `debugging`, `impact-analysis`, `refactoring`) for your task
 
 ## Troubleshooting
 
