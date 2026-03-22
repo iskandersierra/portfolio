@@ -18,8 +18,8 @@
 - Apply autofixes with `pnpm fix`.
 - Run end-to-end coverage with `pnpm test:e2e`.
 - Run focused SEO coverage with `pnpm test:seo`.
-- When Playwright is needed for browser interaction, screenshots, or snapshots, always use the `playwright-cli` skill.
-- Store any Playwright-generated snapshots or captured artifacts in `.playwright-cli/`, which is gitignored in this repo.
+- When browser interaction, screenshots, page inspection, or snapshots are needed, prefer the native VS Code browser tools when they are available in the current session; fall back to the `playwright-cli` skill when those tools are unavailable or when Playwright-specific automation is needed.
+- Store any Playwright CLI-generated snapshots or captured artifacts in `.playwright-cli/`, which is gitignored in this repo.
 - Prefer the package scripts above over ad hoc commands so Astro, Playwright, lint, and formatting run with the repo's expected settings.
 
 ## Conventions
