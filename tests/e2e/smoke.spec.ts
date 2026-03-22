@@ -46,14 +46,13 @@ test.describe('site shell', () => {
 		await expect(page).toHaveURL(/\/tools\/uuid-ulid-generator\/?$/);
 		await expect(page.getByRole('heading', { level: 1, name: 'UUID / ULID generator' })).toBeVisible();
 		await expect(page.locator('.tool-post-meta')).toContainText('Published Mar 17, 2026');
-		await expect(page.locator('.tool-framework-badge')).toContainText('React island');
+		await expect(page.locator('.tool-post-meta')).toContainText('Built with React island');
+		await expect(page.locator('.tool-framework-badge')).toContainText('Practice tool');
 		await expect(page.locator('.tool-tag-list')).toContainText('UUID');
 		await expect(page.locator('.tool-post-body')).toContainText(
 			'A focused developer utility for generating identifiers client-side without external services.',
 		);
-		await expect(page.getByRole('region', { name: 'Interactive tool area' })).toContainText(
-			'This reserved panel will host the live browser-based tool UI when the interactive surface is implemented.',
-		);
+		await expect(page.getByRole('region', { name: 'Interactive tool module' })).toHaveCount(0);
 	});
 
 	test('published blog posts open on generated article routes', async ({ page }) => {
@@ -84,6 +83,55 @@ test.describe('site shell', () => {
 			'href',
 			'https://www.linkedin.com/in/iskandersierra/',
 		);
+
+		await page.getByRole('link', { name: 'Being a Tech Lead without losing your engineering skills' }).click();
+		await expect(page).toHaveURL(/\/blog\/being-a-tech-lead-without-losing-your-engineering-skills\/?$/);
+		await expect(
+			page.getByRole('heading', {
+				level: 1,
+				name: 'Being a Tech Lead without losing your engineering skills',
+			}),
+		).toBeVisible();
+	});
+
+	test('blog archive filters by tag from the query string', async ({ page }) => {
+		await page.goto('/blog?tag=Career');
+
+		const visibleEntries = page.locator('.signal-entry:not([hidden])');
+		const hiddenEntries = page.locator('.signal-entry[hidden]');
+
+		await expect(page.locator('.filter-chip[aria-current="page"]')).toContainText('Career');
+		await expect(page.locator('.archive-stats dd').nth(0)).toHaveText('02');
+		await expect(page.locator('.archive-stats dd').nth(2)).toHaveText('Career');
+		await expect(page.locator('.graph-panel__metrics dd').nth(0)).toHaveText('filtered');
+		await expect(page.locator('.graph-panel__metrics dd').nth(1)).toHaveText('/blog?tag=Career');
+		await expect(visibleEntries).toHaveCount(2);
+		await expect(hiddenEntries).toHaveCount(1);
+		await expect(visibleEntries.locator('h2')).toContainText([
+			'How to stay technically current after 25 years',
+			'Being a Tech Lead without losing your engineering skills',
+		]);
+		await expect(hiddenEntries.locator('h2')).toContainText([
+			'Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure',
+		]);
+
+		await page.goto('/blog?tag=%20cArEeR%20');
+
+		await expect(page.locator('.filter-chip[aria-current="page"]')).toContainText('Career');
+		await expect(page.locator('.archive-stats dd').nth(0)).toHaveText('02');
+		await expect(page.locator('.archive-stats dd').nth(2)).toHaveText('Career');
+		await expect(page.locator('.graph-panel__metrics dd').nth(1)).toHaveText('/blog?tag=Career');
+		await expect(page.locator('.signal-entry:not([hidden])')).toHaveCount(2);
+
+		await page.getByRole('link', { name: 'All posts' }).click();
+
+		await expect(page).toHaveURL(/\/blog\/?$/);
+		await expect(page.locator('.filter-chip[aria-current="page"]')).toContainText('All posts');
+		await expect(page.locator('.archive-stats dd').nth(0)).toHaveText('03');
+		await expect(page.locator('.archive-stats dd').nth(2)).toHaveText('All signals');
+		await expect(page.locator('.graph-panel__metrics dd').nth(0)).toHaveText('open');
+		await expect(page.locator('.graph-panel__metrics dd').nth(1)).toHaveText('/blog');
+		await expect(page.locator('.signal-entry:not([hidden])')).toHaveCount(3);
 	});
 
 	test('primary navigation reaches each top-level page', async ({ page }) => {
@@ -94,7 +142,7 @@ test.describe('site shell', () => {
 			await page.getByRole('link', { name: route.navLabel }).first().click();
 			await expect(page).toHaveURL(new RegExp(expectedPathPattern));
 			await expect(page.getByRole('heading', { level: 1, name: route.heading })).toBeVisible();
-			await expect(page.locator('header .nav-link.active')).toHaveText(route.navLabel);
+			await expect(page.locator('header .nav-link.active')).toContainText(route.navLabel);
 			await expect(page.locator('header .nav-link.active')).toHaveAttribute('aria-current', 'page');
 		}
 	});
@@ -219,7 +267,7 @@ test.describe('site shell', () => {
 				await expect(footerLink).toBeVisible();
 			}
 
-			await expect(footer.locator('.footer-link.active')).toHaveText(route.navLabel);
+			await expect(footer.locator('.footer-link.active')).toContainText(route.navLabel);
 			await expect(footer.locator('.footer-link.active')).toHaveAttribute('aria-current', 'page');
 			await expect(footer.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
 				'href',
