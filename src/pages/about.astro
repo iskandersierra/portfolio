@@ -2,12 +2,58 @@
 import Layout from '../layouts/Layout.astro';
 
 const expertise = [
-	'.NET architecture',
-	'Team technical leadership',
-	'TypeScript and JavaScript',
-	'Azure and cloud delivery',
-	'Docker and Kubernetes',
-	'Computer science fundamentals',
+	{
+		signal: 'N01',
+		label: '.NET architecture',
+		detail: 'Feature-driven services, dependable boundaries, and systems that stay understandable as they grow.',
+	},
+	{
+		signal: 'N02',
+		label: 'Team technical leadership',
+		detail: 'Leading through clarity, design reviews, and delivery habits that raise the technical floor for the team.',
+	},
+	{
+		signal: 'N03',
+		label: 'TypeScript and JavaScript',
+		detail: 'Building interfaces and tooling that feel considered, not assembled, while keeping performance and semantics intact.',
+	},
+	{
+		signal: 'N04',
+		label: 'Azure and cloud delivery',
+		detail: 'Shipping cloud systems with operational discipline, practical observability, and steady release flow.',
+	},
+	{
+		signal: 'N05',
+		label: 'Docker and Kubernetes',
+		detail: 'Containerized development and deployment patterns that support repeatable environments and calm operations.',
+	},
+	{
+		signal: 'N06',
+		label: 'Computer science fundamentals',
+		detail: 'The foundations that keep architecture, debugging, and tradeoff decisions grounded in first principles.',
+	},
+];
+
+const profileModules = [
+	{
+		title: 'System role',
+		copy: 'Full-stack developer, software architect, and technical lead working across product delivery and engineering quality.',
+	},
+	{
+		title: 'Operating mode',
+		copy: 'I do my best work where architecture and implementation stay connected, so strategy still cashes out as working software.',
+	},
+	{
+		title: 'What this site does',
+		copy: 'It makes long-term learning visible through real posts, tools, and design decisions instead of a static list of claims.',
+	},
+];
+
+const profileRoles = [
+	{ signal: 'R1', label: 'architect' },
+	{ signal: 'R2', label: 'developer' },
+	{ signal: 'R3', label: 'technical lead' },
+	{ signal: 'R4', label: 'continuous learner' },
 ];
 ---
 
@@ -19,77 +65,488 @@ const expertise = [
 		pageType: 'website',
 	}}
 >
-	<main class="container page-shell">
-		<header class="page-header motion-enter motion-delay-1">
-			<p class="mono page-kicker">$ cat ./about/profile.txt</p>
-			<h1>About</h1>
-			<p class="page-intro">
-				I am a full-stack developer, software architect, and team technical lead focused on
-				building dependable systems, helping teams move with clarity, and staying curious enough
-				to keep learning.
-			</p>
+	<main class="container page-shell about-surface">
+		<header class="about-hero motion-enter motion-delay-1">
+			<div class="about-hero__copy">
+				<p class="mono page-kicker">profile graph / capability map</p>
+				<h1>About</h1>
+				<p class="page-intro">
+					I am a full-stack developer, software architect, and team technical lead focused on
+					building dependable systems, helping teams move with clarity, and staying curious enough
+					to keep learning.
+				</p>
+				<dl class="about-stats" aria-label="About page summary">
+					<div>
+						<dt class="mono">experience arc</dt>
+						<dd>25 years</dd>
+					</div>
+					<div>
+						<dt class="mono">active roles</dt>
+						<dd>03</dd>
+					</div>
+					<div>
+						<dt class="mono">core nodes</dt>
+						<dd>{String(expertise.length).padStart(2, '0')}</dd>
+					</div>
+				</dl>
+			</div>
+
+			<aside class="profile-map" aria-labelledby="profile-map-title">
+				<div class="profile-map__header">
+					<p class="mono profile-map__eyebrow" id="profile-map-title">Connected profile modules</p>
+					<p class="mono profile-map__status">identity://resolved</p>
+				</div>
+				<div class="profile-map__field" aria-hidden="true">
+					<span class="profile-map__orbit profile-map__orbit--a"></span>
+					<span class="profile-map__orbit profile-map__orbit--b"></span>
+					<span class="profile-map__wire profile-map__wire--a"></span>
+					<span class="profile-map__wire profile-map__wire--b"></span>
+					<span class="profile-map__wire profile-map__wire--c"></span>
+					{profileRoles.map((role, index) => (
+						<span class={`profile-node profile-node--${index + 1}`}>
+							<span class="mono">{role.signal}</span>
+							<strong>{role.label}</strong>
+						</span>
+					))}
+				</div>
+				<ul class="profile-map__legend" aria-label="Profile role labels">
+					{profileRoles.map((role) => (
+						<li class="profile-map__legend-item">
+							<span class="mono profile-map__legend-signal">{role.signal}</span>
+							<span class="profile-map__legend-label">{role.label}</span>
+						</li>
+					))}
+				</ul>
+			</aside>
 		</header>
 
-		<section class="section-block motion-enter motion-delay-2">
-			<h2 class="mono section-title">$ ls ./core-expertise</h2>
-			<ul class="tag-list">
-				{expertise.map((item) => <li>{item}</li>)}
-			</ul>
-		</section>
+		<div class="about-grid motion-enter motion-delay-2">
+			<section class="section-block expertise-network" aria-labelledby="expertise-network-title">
+				<div class="section-heading">
+					<p class="mono section-kicker">capability nodes</p>
+					<h2 id="expertise-network-title">Expertise that travels together</h2>
+					<p>
+						These are not isolated tags. They reinforce each other in real delivery work, which is
+						why they are presented as linked nodes instead of a flat skill dump.
+					</p>
+				</div>
+				<div class="expertise-grid">
+					{expertise.map((item) => (
+						<article class="expertise-node">
+							<p class="mono expertise-node__signal">{item.signal}</p>
+							<h3>{item.label}</h3>
+							<p>{item.detail}</p>
+						</article>
+					))}
+				</div>
+			</section>
 
-		<section class="section-block motion-enter motion-delay-3">
-			<h2 class="mono section-title">$ tail -n 3 ./notes.txt</h2>
-			<p>
-				This site sits at the intersection of architecture, delivery, and continuous learning.
-				It is a place to share practical experience, document new ideas, and make long-term
-				growth visible through real work.
-			</p>
-		</section>
+			<aside class="about-sidebar" aria-label="Profile context modules">
+				<section class="section-block profile-modules">
+					<div class="section-heading section-heading--compact">
+						<p class="mono section-kicker">profile modules</p>
+						<h2>How I work</h2>
+					</div>
+					<div class="profile-module-list">
+						{profileModules.map((module, index) => (
+							<article class="profile-module-card">
+								<p class="mono profile-module-card__signal">M{String(index + 1).padStart(2, '0')}</p>
+								<h3>{module.title}</h3>
+								<p>{module.copy}</p>
+							</article>
+						))}
+					</div>
+				</section>
+
+				<section class="section-block profile-note motion-enter motion-delay-3">
+					<div class="section-heading section-heading--compact">
+						<p class="mono section-kicker">system note</p>
+						<h2>Why this page exists</h2>
+					</div>
+					<p>
+						This site sits at the intersection of architecture, delivery, and continuous learning.
+						It is a place to share practical experience, document new ideas, and make long-term
+						growth visible through real work.
+					</p>
+				</section>
+			</aside>
+		</div>
 	</main>
 </Layout>
 
 <style>
-	.page-shell {
+	.about-surface {
 		padding-block: 2rem 4rem;
 	}
 
-	.page-header {
-		margin-bottom: 2.5rem;
+	.about-hero,
+	.section-block {
+		position: relative;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
+		background:
+			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
+		box-shadow: var(--panel-shadow-soft);
+		overflow: clip;
+	}
+
+	.about-hero::before,
+	.section-block::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background:
+			linear-gradient(var(--grid-line) 1px, transparent 1px),
+			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+		background-size: 3rem 3rem;
+		opacity: 0.45;
+		mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.62), transparent 86%);
+	}
+
+	.about-hero {
+		display: grid;
+		grid-template-columns: minmax(0, 1.18fr) minmax(18rem, 0.92fr);
+		gap: 1.25rem;
+		padding: clamp(1.1rem, 2.8vw, 1.7rem);
+		margin-bottom: 1.25rem;
 	}
 
 	.page-kicker,
-	.section-title {
-		color: var(--accent);
+	.section-kicker,
+	.profile-map__eyebrow,
+	.profile-map__status,
+	.about-stats dt,
+	.expertise-node__signal,
+	.profile-module-card__signal {
+		margin: 0;
+		font-size: 0.72rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
 	}
 
-	.page-header h1 {
-		margin: 0.5rem 0 1rem;
-		font-size: clamp(2rem, 4vw, 3rem);
+	.page-kicker,
+	.section-kicker,
+	.profile-map__eyebrow,
+	.expertise-node__signal,
+	.profile-module-card__signal {
+		color: var(--accent-2);
+	}
+
+	.profile-map__status,
+	.about-stats dt {
+		color: var(--text-soft);
+	}
+
+	.about-hero h1 {
+		margin: 0.55rem 0 0.9rem;
+		font-size: clamp(2.8rem, 5.4vw, 4.6rem);
+		line-height: 0.96;
 	}
 
 	.page-intro,
-	.section-block p {
-		max-width: 720px;
+	.section-heading p,
+	.expertise-node p,
+	.profile-module-card p,
+	.profile-note p {
+		max-width: 64ch;
 		line-height: 1.7;
 		color: var(--text-muted);
 	}
 
-	.section-block + .section-block {
-		margin-top: 2rem;
-	}
-
-	.tag-list {
-		list-style: none;
-		padding: 0;
-		margin: 1rem 0 0;
+	.about-stats {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 0.75rem;
+		margin: 1.5rem 0 0;
 	}
 
-	.tag-list li {
-		padding: 0.8rem 1rem;
+	.about-stats div {
+		padding: 0.95rem 1rem;
 		border: 1px solid var(--border);
-		background: var(--surface);
+		background: color-mix(in srgb, var(--surface-soft) 84%, transparent);
+}
+
+	.about-stats dd {
+		margin: 0.4rem 0 0;
+		font-size: 1rem;
+		font-weight: 700;
+		color: var(--text-main);
+	}
+
+	.profile-map {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.profile-map__header,
+	.section-heading {
+		display: grid;
+		gap: 0.35rem;
+	}
+
+	.profile-map__field {
+		position: relative;
+		min-height: 17rem;
+		padding: 1rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 60%, transparent);
+		background:
+			radial-gradient(circle at 18% 16%, color-mix(in srgb, var(--accent) 16%, transparent) 0, transparent 26%),
+			radial-gradient(circle at 78% 18%, color-mix(in srgb, var(--accent-2) 12%, transparent) 0, transparent 22%),
+			color-mix(in srgb, var(--surface-soft) 78%, transparent);
+		overflow: hidden;
+}
+
+	.profile-map__legend {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.65rem;
+	}
+
+	.profile-map__legend-item {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		align-items: center;
+		gap: 0.65rem;
+		padding: 0.75rem 0.8rem;
+		border: 1px solid var(--border);
+		background: color-mix(in srgb, var(--surface-soft) 78%, transparent);
+	}
+
+	.profile-map__legend-signal {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.75rem;
+		height: 1.75rem;
+		border-radius: 999px;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 52%, transparent);
+		background: color-mix(in srgb, var(--surface-strong) 74%, transparent);
+		color: var(--accent-2);
+		font-size: 0.62rem;
+		line-height: 1;
+	}
+
+	.profile-map__legend-label {
+		color: var(--text-main);
+		text-transform: lowercase;
+	}
+
+	.profile-map__orbit,
+	.profile-map__wire,
+	.profile-node {
+		position: absolute;
+		display: block;
+	}
+
+	.profile-map__orbit {
+		border: 1px solid color-mix(in srgb, var(--border-strong) 52%, transparent);
+		border-radius: 999px;
+		opacity: 0.4;
+	}
+
+	.profile-map__orbit--a {
+		left: 1rem;
+		top: 1rem;
+		width: 10rem;
+		height: 10rem;
+	}
+
+	.profile-map__orbit--b {
+		right: 1rem;
+		bottom: 1rem;
+		width: 8rem;
+		height: 8rem;
+	}
+
+	.profile-map__wire {
+		height: 1px;
+		background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+		transform-origin: left center;
+	}
+
+	.profile-map__wire--a {
+		top: 3.2rem;
+		left: 4rem;
+		width: 11rem;
+		transform: rotate(9deg);
+	}
+
+	.profile-map__wire--b {
+		top: 7.8rem;
+		right: 4.2rem;
+		width: 8rem;
+		transform: rotate(140deg);
+	}
+
+	.profile-map__wire--c {
+		left: 6rem;
+		bottom: 4rem;
+		width: 10rem;
+		transform: rotate(-8deg);
+	}
+
+	.profile-node {
+		padding: 0.55rem 0.7rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 66%, transparent);
+		background: color-mix(in srgb, var(--surface-strong) 90%, transparent);
+		box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--frame-glow) 92%, transparent);
+	}
+
+	.profile-node strong {
+		display: block;
+		margin-top: 0.3rem;
+		font-size: 0.92rem;
+		color: var(--text-main);
+		text-transform: lowercase;
+	}
+
+	.profile-node--1 {
+		top: 1.4rem;
+		left: 1rem;
+	}
+
+	.profile-node--2 {
+		top: 4rem;
+		right: 1rem;
+	}
+
+	.profile-node--3 {
+		left: 4rem;
+		bottom: 3.6rem;
+	}
+
+	.profile-node--4 {
+		right: 2.2rem;
+		bottom: 1rem;
+	}
+
+	.about-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+		gap: 1.25rem;
+	}
+
+	.section-block {
+		padding: clamp(1.1rem, 2.6vw, 1.5rem);
+	}
+
+	.section-heading h2,
+	.expertise-node h3,
+	.profile-module-card h3 {
+		margin: 0;
+	}
+
+	.section-heading h2 {
+		font-size: clamp(1.45rem, 2.5vw, 2rem);
+	}
+
+	.about-sidebar,
+	.profile-module-list,
+	.expertise-grid {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.expertise-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.expertise-node,
+	.profile-module-card {
+		position: relative;
+		padding: 1rem;
+		border: 1px solid var(--border);
+		background: color-mix(in srgb, var(--surface-soft) 78%, transparent);
+	}
+
+	.expertise-node h3,
+	.profile-module-card h3 {
+		font-size: 1.1rem;
+	}
+
+	.expertise-node::after,
+	.profile-module-card::after {
+		content: '';
+		position: absolute;
+		inset: auto auto 0.7rem 1rem;
+		width: 3rem;
+		height: 1px;
+		background: linear-gradient(90deg, var(--accent-2), transparent);
+	}
+
+	@media (max-width: 980px) {
+		.about-hero,
+		.about-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.profile-map__field {
+			min-height: 14rem;
+		}
+	}
+
+	@media (max-width: 560px) {
+		.profile-map__field {
+			min-height: auto;
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 0.75rem;
+			align-items: stretch;
+		}
+
+		.profile-map__orbit,
+		.profile-map__wire {
+			display: none;
+		}
+
+		.profile-node {
+			position: relative;
+			top: auto;
+			right: auto;
+			bottom: auto;
+			left: auto;
+			padding: 0.6rem 0.7rem;
+		}
+
+		.profile-map__legend {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 720px) {
+		.about-hero,
+		.section-block {
+			padding: 1rem;
+		}
+
+		.about-stats,
+		.expertise-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.profile-map__field {
+			min-height: 11.5rem;
+		}
+
+		.profile-node {
+			padding: 0.42rem 0.55rem;
+		}
+
+		.profile-node strong {
+			font-size: 0.8rem;
+		}
+	}
+
+	@media (max-width: 420px) {
+		.profile-map__field {
+			grid-template-columns: 1fr;
+		}
+
+		.profile-map__legend-item {
+			padding-inline: 0.7rem;
+		}
 	}
 </style>

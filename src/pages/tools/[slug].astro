@@ -1,10 +1,11 @@
 ---
 import { render } from 'astro:content';
 import ToolLayout from '../../layouts/ToolLayout.astro';
-import { getPublishedTools, type ToolEntry } from '../../utils/content';
+import { getAdjacentTools, getPublishedTools, type ToolEntry } from '../../utils/content';
 
 interface Props {
 	tool: ToolEntry;
+	adjacentTools: ReturnType<typeof getAdjacentTools>;
 }
 
 export async function getStaticPaths() {
@@ -12,14 +13,17 @@ export async function getStaticPaths() {
 
 	return tools.map((tool) => ({
 		params: { slug: tool.id },
-		props: { tool },
+		props: {
+			tool,
+			adjacentTools: getAdjacentTools(tools, tool.id),
+		},
 	}));
 }
 
-const { tool } = Astro.props as Props;
+const { tool, adjacentTools } = Astro.props as Props;
 const { Content } = await render(tool);
 ---
 
-<ToolLayout tool={tool}>
+<ToolLayout tool={tool} adjacentTools={adjacentTools}>
 	<Content />
 </ToolLayout>

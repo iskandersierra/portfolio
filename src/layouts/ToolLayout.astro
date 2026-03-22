@@ -1,13 +1,18 @@
 ---
 import Layout from './Layout.astro';
-import { formatContentDate, type ToolEntry } from '../utils/content';
+import { formatContentDate, getToolHref, type ToolEntry } from '../utils/content';
 
-interface Props {
+export interface Props {
 	tool: ToolEntry;
+	adjacentTools?: {
+		previous?: ToolEntry;
+		next?: ToolEntry;
+	};
 }
 
-const { tool } = Astro.props;
+const { tool, adjacentTools = {} } = Astro.props as Props;
 const formattedDate = formatContentDate(tool.data.publishedAt);
+const hasInteractiveSlot = Astro.slots.has('interactive');
 ---
 
 <Layout
@@ -17,74 +22,368 @@ const formattedDate = formatContentDate(tool.data.publishedAt);
 		pageType: 'website',
 	}}
 >
-	<main class="container page-shell">
-		<article class="tool-post-article tool-post-layout post-shell">
-			<header class="tool-post-header post-header motion-enter motion-delay-1">
-				<p class="tool-post-kicker mono">$ open ./tools/{tool.id}.md</p>
-				<h1 class="post-title">{tool.data.title}</h1>
-				<p class="tool-post-description">{tool.data.description}</p>
-				<div class="tool-post-meta post-meta" aria-label="Tool metadata">
-					<span>Published {formattedDate}</span>
-					<span class="tool-framework-badge mono">{tool.data.framework}</span>
+	<main class="container page-shell detail-surface detail-surface--tool">
+		<article class="tool-post-article tool-post-layout post-shell detail-shell">
+			<header class="detail-hero detail-hero--tool motion-enter motion-delay-1">
+				<div class="tool-post-header post-header detail-module detail-module--hero">
+					<p class="tool-post-kicker mono">Tool module</p>
+					<h1 class="post-title">{tool.data.title}</h1>
+					<p class="tool-post-description">{tool.data.description}</p>
+					<div class="tool-post-meta post-meta mono" aria-label="Tool metadata">
+						<span>Published {formattedDate}</span>
+						<span>Built with {tool.data.framework}</span>
+						<span class="tool-framework-badge mono">Practice tool</span>
+					</div>
+					<ul class="post-tag-list tool-tag-list" aria-label="Tool tags">
+						{tool.data.tags.map((tag) => (
+							<li>
+								<span class="tool-tag mono">{tag}</span>
+							</li>
+						))}
+					</ul>
 				</div>
-				<ul class="post-tag-list tool-tag-list" aria-label="Tool tags">
-					{tool.data.tags.map((tag) => (
-						<li>
-							<span class="tool-tag mono">{tag}</span>
-						</li>
-					))}
-				</ul>
+
+				<aside class="detail-hero__graph detail-module" aria-labelledby="tool-detail-map-title">
+					<div class="detail-module__header">
+						<p class="mono detail-module__eyebrow" id="tool-detail-map-title">Tool map</p>
+						<p class="mono detail-module__status">Utility node</p>
+					</div>
+					<div class="detail-hero__field detail-hero__field--tool" aria-hidden="true">
+						<span class="detail-spine"></span>
+						<span class="detail-branch detail-branch--a"></span>
+						<span class="detail-branch detail-branch--b"></span>
+						<span class="detail-branch detail-branch--c"></span>
+						<span class="detail-node detail-node--a"><span>input</span></span>
+						<span class="detail-node detail-node--b"><span>generate</span></span>
+						<span class="detail-node detail-node--c"><span>validate</span></span>
+						<span class="detail-node detail-node--d"><span>export</span></span>
+					</div>
+					<dl class="detail-hero__metrics" aria-label="Tool overview">
+						<div>
+							<dt class="mono">Published</dt>
+							<dd>{formattedDate}</dd>
+						</div>
+						<div>
+							<dt class="mono">Built with</dt>
+							<dd>{tool.data.framework}</dd>
+						</div>
+						<div>
+							<dt class="mono">Topics</dt>
+							<dd>{String(tool.data.tags.length).padStart(2, '0')}</dd>
+						</div>
+					</dl>
+				</aside>
 			</header>
 
-			<div class="tool-post-body post-body motion-enter motion-delay-2">
-				<div class="tool-usage-notes">
-					<p class="tool-section-kicker mono">$ cat ./usage-notes</p>
-					<h2>Usage notes</h2>
-					<slot />
-				</div>
-			</div>
+			<div class="detail-grid detail-grid--tool">
+				<div class="detail-main detail-main--tool">
+					<section class="detail-module detail-module--body motion-enter motion-delay-2">
+						<div class="detail-module__header">
+							<p class="tool-section-kicker mono">Usage notes</p>
+							<p class="mono detail-module__status">Reference</p>
+						</div>
+						<div class="tool-usage-notes">
+							<h2>Usage notes</h2>
+							<div class="tool-post-body post-body">
+								<slot />
+							</div>
+						</div>
+					</section>
 
-			<section class="tool-post-footer motion-enter motion-delay-3" aria-label="Interactive tool area">
-				<p class="tool-section-kicker mono">$ mount ./interactive-surface</p>
-				<h2>Interactive tool area</h2>
-				<slot name="interactive">
-					<div class="tool-interactive-placeholder">
-						<p>
-							This reserved panel will host the live browser-based tool UI when the interactive
-							surface is implemented.
+					{hasInteractiveSlot ? (
+						<section class="tool-post-footer detail-module motion-enter motion-delay-3" aria-label="Interactive tool module">
+							<div class="detail-module__header">
+								<p class="tool-section-kicker mono">Interactive tool</p>
+								<p class="mono detail-module__status">Live workspace</p>
+							</div>
+							<h2>Use the tool</h2>
+							<p class="tool-interactive-copy">
+								Use the live module below when this tool includes an interactive workspace.
+							</p>
+							<slot name="interactive" />
+						</section>
+					) : null}
+				</div>
+
+				<aside class="detail-sidebar">
+					<section class="detail-module detail-module--context motion-enter motion-delay-2" aria-labelledby="tool-context-title">
+						<div class="detail-module__header">
+							<p class="mono detail-module__eyebrow" id="tool-context-title">At a glance</p>
+							<p class="mono detail-module__status">Practice tool</p>
+						</div>
+						<p class="detail-context-copy">
+							This page keeps the purpose, technology, and related tools visible so you can understand
+							what the utility does before moving into the notes or the next module.
 						</p>
-						<p class="tool-placeholder-meta mono">Launch scope: shared detail layout only.</p>
-					</div>
-				</slot>
-			</section>
+						<dl class="detail-fact-list" aria-label="Tool facts">
+							<div>
+								<dt class="mono">Published</dt>
+								<dd>{formattedDate}</dd>
+							</div>
+							<div>
+								<dt class="mono">Built with</dt>
+								<dd>{tool.data.framework}</dd>
+							</div>
+							<div>
+								<dt class="mono">Topics</dt>
+								<dd>{tool.data.tags.join(' / ')}</dd>
+							</div>
+						</dl>
+						<nav class="detail-route-nav" aria-label="Adjacent tools">
+							{adjacentTools.next ? (
+								<a class="detail-route-link" href={getToolHref(adjacentTools.next.id)}>
+									<span class="mono detail-route-link__label">Newer tool</span>
+									<strong>{adjacentTools.next.data.title}</strong>
+								</a>
+							) : null}
+							{adjacentTools.previous ? (
+								<a class="detail-route-link" href={getToolHref(adjacentTools.previous.id)}>
+									<span class="mono detail-route-link__label">Earlier tool</span>
+									<strong>{adjacentTools.previous.data.title}</strong>
+								</a>
+							) : null}
+							<a class="detail-route-link detail-route-link--solo" href="/tools">
+								<span class="mono detail-route-link__label">Tool index</span>
+								<strong>Browse all practice tools</strong>
+							</a>
+						</nav>
+					</section>
+
+					<section class="detail-module detail-module--notes motion-enter motion-delay-3">
+						<div class="detail-module__header">
+							<p class="mono detail-module__eyebrow">What this page includes</p>
+							<p class="mono detail-module__status">Quick guide</p>
+						</div>
+						<p class="detail-context-copy">
+							Expect a concise overview, the build context, and links to the adjacent tools that sit next
+							to this one in the collection.
+						</p>
+					</section>
+				</aside>
+			</div>
 		</article>
 	</main>
 </Layout>
 
 <style>
-	.tool-post-header,
-	.tool-post-body,
-	.tool-post-footer {
-		border: 1px solid var(--border);
-		background: var(--surface);
-		padding: clamp(1.25rem, 3vw, 2rem);
+	.detail-surface {
+		padding-block: 2rem 4rem;
 	}
 
+	.detail-shell {
+		max-width: none;
+		padding-block: 0;
+		gap: 1.25rem;
+	}
+
+	.detail-hero,
+	.detail-grid,
+	.detail-main--tool,
+	.detail-sidebar {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.detail-hero {
+		grid-template-columns: minmax(0, 1.16fr) minmax(18rem, 0.92fr);
+	}
+
+	.detail-grid--tool {
+		grid-template-columns: minmax(0, 1.15fr) minmax(17rem, 0.82fr);
+		align-items: start;
+	}
+
+	.detail-main,
+	.detail-sidebar,
+	.detail-module,
+	.detail-hero__graph,
+	.detail-hero__field,
+	.tool-post-body,
+	.tool-interactive-placeholder {
+		min-width: 0;
+	}
+
+	.detail-module {
+		position: relative;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
+		background:
+			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
+		box-shadow: var(--panel-shadow-soft);
+		padding: clamp(1.1rem, 2.7vw, 1.65rem);
+		overflow: clip;
+	}
+
+	.detail-module::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background:
+			linear-gradient(var(--grid-line) 1px, transparent 1px),
+			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+		background-size: 3rem 3rem;
+		opacity: 0.42;
+		mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 86%);
+	}
+
+	.detail-module > * {
+		position: relative;
+		z-index: 1;
+	}
+
+	.detail-module__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+		margin-bottom: 1rem;
+	}
+
+	.detail-module__eyebrow,
+	.detail-module__status,
+	.detail-hero__metrics dt,
+	.detail-fact-list dt,
+	.detail-route-link__label,
 	.tool-post-kicker,
 	.tool-section-kicker {
 		margin: 0;
-		color: var(--accent);
+		font-size: 0.72rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
 	}
 
-	.tool-post-description {
+	.detail-module__eyebrow,
+	.tool-post-kicker,
+	.tool-section-kicker,
+	.detail-route-link__label {
+		color: var(--accent-2);
+	}
+
+	.detail-module__status,
+	.detail-hero__metrics dt,
+	.detail-fact-list dt {
+		color: var(--text-soft);
+	}
+
+	.detail-hero__field {
+		position: relative;
+		min-height: 16rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 60%, transparent);
+		background:
+			radial-gradient(circle at 18% 16%, color-mix(in srgb, var(--accent) 14%, transparent) 0, transparent 28%),
+			color-mix(in srgb, var(--surface-soft) 78%, transparent);
+		overflow: hidden;
+	}
+
+	.detail-spine,
+	.detail-branch,
+	.detail-node {
+		position: absolute;
+		display: block;
+	}
+
+	.detail-spine {
+		top: 1.25rem;
+		bottom: 1.25rem;
+		left: 50%;
+		width: 1px;
+		background: linear-gradient(180deg, transparent, var(--accent), transparent);
+	}
+
+	.detail-branch {
+		height: 1px;
+		background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+	}
+
+	.detail-branch--a {
+		top: 22%;
+		left: 24%;
+		width: 28%;
+	}
+
+	.detail-branch--b {
+		top: 46%;
+		left: 50%;
+		width: 22%;
+	}
+
+	.detail-branch--c {
+		bottom: 22%;
+		left: 30%;
+		width: 20%;
+	}
+
+	.detail-node {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.38rem 0.65rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 60%, transparent);
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
+		box-shadow: 0 12px 24px color-mix(in srgb, var(--shadow-color) 20%, transparent);
+		font-family: 'Azeret Mono', monospace;
+		font-size: 0.68rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--text-main);
+	}
+
+	.detail-node--a {
+		left: 1rem;
+		top: 2rem;
+	}
+
+	.detail-node--b {
+		left: 42%;
+		top: 42%;
+	}
+
+	.detail-node--c {
+		right: 1rem;
+		top: 5.4rem;
+	}
+
+	.detail-node--d {
+		left: 2rem;
+		bottom: 1.5rem;
+	}
+
+	.detail-hero__metrics,
+	.detail-fact-list {
+		display: grid;
+		gap: 0.75rem;
 		margin: 0;
-		max-width: 62ch;
+	}
+
+	.detail-hero__metrics {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		margin-top: 1rem;
+	}
+
+	.detail-hero__metrics div,
+	.detail-fact-list div {
+		padding: 0.85rem 0.95rem;
+		border: 1px solid var(--border);
+		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+	}
+
+	.detail-hero__metrics dd,
+	.detail-fact-list dd {
+		margin: 0.35rem 0 0;
+		color: var(--text-main);
+		font-weight: 600;
+	}
+
+	.tool-post-description,
+	.detail-context-copy,
+	.tool-interactive-copy {
+		margin: 0;
+		max-width: 65ch;
 		color: var(--text-muted);
-		font-size: 1.05rem;
-	}
-
-	.tool-post-meta {
-		margin: 0;
+		font-size: 1.02rem;
+		line-height: 1.72;
 	}
 
 	.tool-framework-badge,
@@ -93,18 +392,9 @@ const formattedDate = formatContentDate(tool.data.publishedAt);
 		align-items: center;
 		padding: 0.2rem 0.55rem;
 		border: 1px solid var(--border);
-		background: var(--surface);
+		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
 		color: var(--accent);
 		line-height: 1.2;
-	}
-
-	.tool-tag-list {
-		margin: 0;
-	}
-
-	.tool-post-body,
-	.tool-post-footer {
-		min-width: 0;
 	}
 
 	.tool-usage-notes {
@@ -117,22 +407,79 @@ const formattedDate = formatContentDate(tool.data.publishedAt);
 		margin: 0;
 	}
 
-	.tool-interactive-placeholder {
-		border: 1px dashed var(--border);
-		padding: clamp(1rem, 2.6vw, 1.5rem);
-		min-height: 12rem;
+	.tool-post-body {
+		max-width: 68ch;
+	}
+
+	.detail-route-nav {
 		display: grid;
-		align-content: start;
-		gap: 0.85rem;
-		overflow-x: auto;
+		gap: 0.75rem;
+		margin-top: 1rem;
 	}
 
-	.tool-interactive-placeholder p {
-		margin: 0;
+	.detail-route-link {
+		display: grid;
+		gap: 0.3rem;
+		padding: 0.9rem 1rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
+		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		color: var(--text-main);
+		text-decoration: none;
 	}
 
-	.tool-placeholder-meta {
-		color: var(--text-muted);
-		font-size: 0.9rem;
+	.detail-route-link:hover,
+	.detail-route-link:focus-visible {
+		border-color: var(--accent);
+		background: color-mix(in srgb, var(--accent) 10%, var(--surface-strong));
+		text-decoration: none;
+	}
+
+	.detail-route-link strong {
+		font-size: 1rem;
+		line-height: 1.4;
+	}
+
+	@media (max-width: 960px) {
+		.detail-hero,
+		.detail-grid--tool {
+			grid-template-columns: 1fr;
+		}
+
+		.detail-sidebar {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 720px) {
+		.detail-hero__metrics {
+			grid-template-columns: 1fr;
+		}
+
+		.detail-sidebar {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.detail-surface {
+			padding-block: 1.5rem 3rem;
+		}
+
+		.detail-shell {
+			gap: 1rem;
+		}
+
+		.detail-module {
+			padding: 1rem;
+		}
+
+		.detail-hero__field {
+			min-height: 13rem;
+		}
+
+		.detail-node {
+			font-size: 0.62rem;
+			letter-spacing: 0.05em;
+		}
 	}
 </style>

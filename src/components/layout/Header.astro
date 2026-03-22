@@ -2,10 +2,10 @@
 import ThemeToggle from './ThemeToggle.astro';
 
 const navItems = [
-	{ path: '/', label: 'Home' },
-	{ path: '/about', label: 'About' },
-	{ path: '/blog', label: 'Blog' },
-	{ path: '/tools', label: 'Tools' },
+	{ path: '/', label: 'Home', signal: '01' },
+	{ path: '/about', label: 'About', signal: '02' },
+	{ path: '/blog', label: 'Blog', signal: '03' },
+	{ path: '/tools', label: 'Tools', signal: '04' },
 ];
 
 const isActivePath = (itemPath: string, currentPath: string) =>
@@ -14,12 +14,14 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		: currentPath === itemPath || currentPath.startsWith(`${itemPath}/`);
 ---
 
-<header class="terminal-header mono">
+<header class="terminal-header">
 	<div class="terminal-header-top">
 		<div class="brand">
-			<a href="/" class="logo">~/iskander</a>
+			<p class="brand-kicker mono">signal graph</p>
+			<a href="/" class="logo">iskander.sierra</a>
+			<p class="brand-meta mono">systems / writing / tools</p>
 		</div>
-		<nav class="nav-links nav-links-desktop" aria-label="Primary">
+		<nav class="nav-links nav-links-desktop mono" aria-label="Primary">
 			{
 				navItems.map((item) => {
 					const isActive = isActivePath(item.path, Astro.url.pathname);
@@ -30,13 +32,21 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 							class={`nav-link ${isActive ? 'active' : ''}`}
 							aria-current={isActive ? 'page' : undefined}
 						>
-							{item.label}
+							<span class="nav-link-index" aria-hidden="true">{item.signal}</span>
+							<span class="nav-link-label">{item.label}</span>
 						</a>
 					);
 				})
 			}
 		</nav>
 		<div class="actions">
+			<p class="header-status mono" aria-hidden="true">
+				<span class="header-status-dot"></span>
+				<span class="header-status-copy">
+					<span>control layer</span>
+					<span>live</span>
+				</span>
+			</p>
 			<ThemeToggle />
 			<button
 				type="button"
@@ -46,6 +56,7 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 				aria-controls="mobile-navigation"
 				aria-label="Open navigation menu"
 			>
+				<span class="nav-toggle-label mono" aria-hidden="true">menu</span>
 				<span class="nav-toggle-line"></span>
 				<span class="nav-toggle-line"></span>
 				<span class="nav-toggle-line"></span>
@@ -66,7 +77,8 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 							class={`mobile-nav-link ${isActive ? 'active' : ''}`}
 							aria-current={isActive ? 'page' : undefined}
 						>
-							{item.label}
+							<span class="mobile-nav-link-index mono" aria-hidden="true">{item.signal}</span>
+							<span>{item.label}</span>
 						</a>
 					);
 				})
@@ -88,19 +100,41 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		display: flex;
 		flex-direction: column;
 		align-items: stretch;
+		position: relative;
+		z-index: 2;
 	}
 
 	.brand {
 		flex-shrink: 0;
 		justify-self: start;
+		display: grid;
+		gap: 0.28rem;
+		min-width: 0;
+	}
+
+	.brand-kicker {
+		margin: 0;
+		font-size: 0.72rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--accent-2);
+	}
+
+	.brand-meta {
+		margin: 0;
+		font-size: 0.68rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--text-soft);
 	}
 
 	.logo {
 		color: var(--text-main);
-		font-weight: 600;
+		font-weight: 700;
 		text-decoration: none;
-		font-size: 1.1rem;
+		font-size: clamp(1.15rem, 1rem + 0.5vw, 1.45rem);
 		white-space: nowrap;
+		letter-spacing: -0.04em;
 	}
 
 	.logo:hover {
@@ -110,7 +144,7 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 
 	.nav-links {
 		display: flex;
-		gap: 1.5rem;
+		gap: 0.75rem;
 	}
 
 	.nav-links-desktop {
@@ -121,19 +155,62 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 	}
 
 	.nav-link {
+		display: grid;
+		grid-template-columns: auto auto;
+		align-items: center;
+		justify-content: center;
+		min-height: 2.7rem;
+		gap: 0.5rem;
+		padding: 0.72rem 0.95rem;
+		border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--surface) 45%, transparent);
 		color: var(--text-muted);
 		text-decoration: none;
 		white-space: nowrap;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		font-size: 0.78rem;
+		box-shadow: inset 0 1px 0 color-mix(in srgb, var(--surface-strong) 36%, transparent);
+	}
+
+	.nav-link-index {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.5rem;
+		height: 1.5rem;
+		border-radius: 999px;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 48%, transparent);
+		background: color-mix(in srgb, var(--surface-strong) 68%, transparent);
+		color: var(--accent-2);
+		font-size: 0.63rem;
+		line-height: 1;
+	}
+
+	.nav-link-label {
+		color: inherit;
 	}
 
 	.nav-link:hover {
 		color: var(--text-main);
+		border-color: color-mix(in srgb, var(--border-strong) 76%, transparent);
+		background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
 		text-decoration: none;
 	}
 
 	.nav-link.active {
 		color: var(--accent);
-		border-bottom: 2px solid var(--accent);
+		border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+		background: color-mix(in srgb, var(--surface-strong) 76%, var(--accent) 10%);
+		box-shadow:
+			inset 0 0 0 1px color-mix(in srgb, var(--accent-2) 18%, transparent),
+			0 14px 28px color-mix(in srgb, var(--shadow-color) 12%, transparent);
+	}
+
+	.nav-link.active .nav-link-index {
+		border-color: color-mix(in srgb, var(--accent-2) 55%, transparent);
+		background: color-mix(in srgb, var(--accent) 14%, var(--surface-strong));
 	}
 
 	.actions {
@@ -142,6 +219,36 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		gap: 0.75rem;
 		flex-shrink: 0;
 		justify-self: end;
+		min-width: 0;
+	}
+
+	.header-status {
+		margin: 0;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.45rem 0.8rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 60%, transparent);
+		border-radius: 1rem;
+		background: color-mix(in srgb, var(--surface-strong) 74%, transparent);
+		color: var(--text-muted);
+		font-size: 0.68rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		box-shadow: inset 0 1px 0 color-mix(in srgb, var(--surface-strong) 44%, transparent);
+	}
+
+	.header-status-copy {
+		display: grid;
+		gap: 0.1rem;
+	}
+
+	.header-status-dot {
+		width: 0.55rem;
+		height: 0.55rem;
+		border-radius: 999px;
+		background: var(--accent-2);
+		box-shadow: 0 0 0 0.32rem color-mix(in srgb, var(--accent-2) 14%, transparent);
 	}
 
 	.sr-only {
@@ -158,26 +265,30 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 
 	.nav-toggle {
 		display: none;
-		flex-direction: column;
+		grid-template-columns: auto 1fr;
+		align-items: center;
 		justify-content: center;
-		gap: 0.3rem;
-		width: 2.75rem;
+		gap: 0.55rem;
+		min-width: 5.4rem;
 		height: 2.75rem;
-		padding: 0.65rem;
-		border: 1px solid var(--border);
-		background: var(--surface);
+		padding: 0.65rem 0.8rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 65%, transparent);
+		border-radius: 1rem;
+		background: color-mix(in srgb, var(--surface-strong) 78%, transparent);
 		color: var(--text-main);
 		cursor: pointer;
 		transition:
 			border-color 0.2s ease,
 			background-color 0.2s ease,
 			color 0.2s ease,
-			transform 0.2s ease;
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
 	}
 
 	.nav-toggle:hover {
 		border-color: var(--accent);
 		color: var(--accent);
+		box-shadow: 0 14px 28px color-mix(in srgb, var(--shadow-color) 28%, transparent);
 	}
 
 	.nav-toggle:focus-visible,
@@ -195,9 +306,16 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		background: currentColor;
 	}
 
+	.nav-toggle-label {
+		font-size: 0.68rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+
 	.mobile-nav-shell {
-		border-top: 1px solid var(--border);
+		margin-top: 1rem;
 		padding-top: 1rem;
+		border-top: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
 	}
 
 	.mobile-nav-panel {
@@ -206,37 +324,67 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 	}
 
 	.mobile-nav-link {
-		display: block;
+		display: grid;
+		grid-template-columns: auto 1fr;
+		align-items: center;
+		gap: 0.75rem;
 		padding: 0.85rem 1rem;
-		border: 1px solid var(--border);
-		background: var(--surface);
+		border: 1px solid color-mix(in srgb, var(--border-strong) 60%, transparent);
+		border-radius: 1rem;
+		background: color-mix(in srgb, var(--surface-strong) 78%, transparent);
 		color: var(--text-muted);
 		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 0.82rem;
+		letter-spacing: 0.08em;
+	}
+
+	.mobile-nav-link-index {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.6rem;
+		height: 1.6rem;
+		border-radius: 999px;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 52%, transparent);
+		color: var(--accent-2);
+		font-size: 0.68rem;
 	}
 
 	.mobile-nav-link.active {
 		color: var(--accent);
 		border-color: var(--accent);
+		box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-2) 20%, transparent);
 	}
 
 	@media (max-width: 640px) {
 		.terminal-header {
 			gap: 1rem;
-			padding-inline: 1rem;
 			align-items: stretch;
 		}
 
 		.terminal-header-top {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 0.75rem;
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) auto;
+			align-items: start;
+			gap: 0.65rem;
 			width: 100%;
 		}
 
 		.brand {
-			display: flex;
-			align-items: center;
+			display: grid;
+			gap: 0.2rem;
+			min-width: 0;
+		}
+
+		.brand-kicker {
+			font-size: 0.64rem;
+			letter-spacing: 0.12em;
+		}
+
+		.brand-meta {
+			font-size: 0.62rem;
+			letter-spacing: 0.1em;
 		}
 
 		.logo {
@@ -245,6 +393,17 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 
 		.actions {
 			justify-content: flex-end;
+			align-self: start;
+			gap: 0.45rem;
+		}
+
+		.header-status {
+			display: none;
+		}
+
+		.nav-toggle {
+			min-width: 4.65rem;
+			padding-inline: 0.7rem;
 		}
 
 		.terminal-header[data-mobile-nav-ready='true'] .nav-links-desktop {
@@ -253,6 +412,21 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 
 		.terminal-header[data-mobile-nav-ready='true'] .nav-toggle {
 			display: inline-flex;
+		}
+	}
+
+	@media (max-width: 360px) {
+		.brand-meta {
+			display: none;
+		}
+
+		.nav-toggle {
+			min-width: 4.2rem;
+			padding-inline: 0.62rem;
+		}
+
+		.nav-toggle-label {
+			font-size: 0.62rem;
 		}
 	}
 

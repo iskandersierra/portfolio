@@ -10,6 +10,11 @@
 		data-current-mode="system"
 	>
 		<span class="sr-only">Theme: System. Open theme menu</span>
+		<span class="theme-toggle-copy" aria-hidden="true">
+			<span class="theme-toggle-label mono">theme</span>
+			<span class="theme-toggle-mode">system</span>
+		</span>
+		<span class="theme-toggle-signal mono" aria-hidden="true">adaptive</span>
 		<span class="theme-toggle-icon" aria-hidden="true">
 			<svg
 				class="theme-icon theme-icon-light"
@@ -95,7 +100,10 @@
 					<path d="m19.07 4.93-1.41 1.41"></path>
 				</svg>
 			</span>
-			<span class="theme-option-label">Light</span>
+			<span class="theme-option-copy">
+				<span class="theme-option-label">Light</span>
+				<span class="theme-option-meta mono">clear field</span>
+			</span>
 			<span class="theme-option-check" aria-hidden="true">•</span>
 		</button>
 		<button type="button" class="theme-option" role="menuitemradio" aria-checked="false" data-theme-option="dark" tabindex="-1">
@@ -104,7 +112,10 @@
 					<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
 				</svg>
 			</span>
-			<span class="theme-option-label">Dark</span>
+			<span class="theme-option-copy">
+				<span class="theme-option-label">Dark</span>
+				<span class="theme-option-meta mono">deep field</span>
+			</span>
 			<span class="theme-option-check" aria-hidden="true">•</span>
 		</button>
 		<button type="button" class="theme-option" role="menuitemradio" aria-checked="false" data-theme-option="system" tabindex="-1">
@@ -115,7 +126,10 @@
 					<path d="M12 16v4"></path>
 				</svg>
 			</span>
-			<span class="theme-option-label">System</span>
+			<span class="theme-option-copy">
+				<span class="theme-option-label">System</span>
+				<span class="theme-option-meta mono">adaptive sync</span>
+			</span>
 			<span class="theme-option-check" aria-hidden="true">•</span>
 		</button>
 	</div>
@@ -124,35 +138,39 @@
 <style>
 	.theme-toggle-shell {
 		position: relative;
+		flex: 0 0 auto;
 	}
 
 	.theme-toggle {
-		background: var(--surface);
-		border: 1px solid var(--border);
+		background: color-mix(in srgb, var(--surface-strong) 78%, transparent);
+		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
+		border-radius: 999px;
 		color: var(--text-muted);
 		cursor: pointer;
-		min-width: 3.4rem;
+		min-width: 8rem;
 		height: 2.75rem;
-		padding: 0.45rem 0.65rem;
+		padding: 0.45rem 0.75rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 0.35rem;
+		gap: 0.55rem;
 		transition:
 			border-color 0.2s ease,
 			background-color 0.2s ease,
 			color 0.2s ease,
-			transform 0.2s ease;
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
 	}
 
 	.theme-toggle-shell[data-open='true'] .theme-toggle,
 	.theme-toggle:hover {
 		border-color: var(--accent);
 		color: var(--accent);
+		box-shadow: 0 14px 30px color-mix(in srgb, var(--shadow-color) 28%, transparent);
 	}
 
 	.theme-toggle-shell[data-open='true'] .theme-toggle {
-		background: color-mix(in srgb, var(--surface) 82%, var(--accent) 18%);
+		background: color-mix(in srgb, var(--surface-strong) 78%, var(--accent) 12%);
 	}
 
 	.theme-toggle:focus-visible {
@@ -160,10 +178,51 @@
 		outline-offset: 3px;
 	}
 
+	.theme-toggle-copy {
+		display: grid;
+		justify-items: start;
+		gap: 0.05rem;
+		min-width: 0;
+		flex: 0 1 auto;
+	}
+
+	.theme-toggle-label {
+		font-size: 0.64rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--text-muted);
+	}
+
+	.theme-toggle-mode {
+		font-size: 0.88rem;
+		line-height: 1;
+		text-transform: capitalize;
+		color: var(--text-main);
+	}
+
+	.theme-toggle-signal {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.26rem 0.45rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 52%, transparent);
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--surface) 58%, transparent);
+		color: var(--text-soft);
+		font-size: 0.58rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+	}
+
 	.theme-toggle-icon {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
+		width: 1.8rem;
+		height: 1.8rem;
+		border-radius: 999px;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 56%, transparent);
+		background: color-mix(in srgb, var(--surface) 65%, transparent);
 	}
 
 	.theme-icon,
@@ -197,11 +256,14 @@
 		top: calc(100% + 0.45rem);
 		right: 0;
 		z-index: 20;
-		width: min(11rem, calc(100vw - 2rem));
-		padding: 0.35rem;
-		border: 1px solid var(--border);
-		background: var(--surface);
-		box-shadow: 0 18px 40px color-mix(in srgb, var(--shadow-color) 14%, transparent);
+		width: min(13rem, calc(100vw - 2rem));
+		padding: 0.45rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
+		border-radius: 1rem;
+		background:
+			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 94%, transparent) 0%, color-mix(in srgb, var(--surface-soft) 92%, transparent) 100%);
+		backdrop-filter: blur(16px);
+		box-shadow: 0 24px 48px color-mix(in srgb, var(--shadow-color) 22%, transparent);
 	}
 
 	.theme-menu[hidden] {
@@ -211,6 +273,7 @@
 	.theme-option {
 		width: 100%;
 		border: 1px solid transparent;
+		border-radius: 0.8rem;
 		background: transparent;
 		color: var(--text-muted);
 		cursor: pointer;
@@ -227,6 +290,22 @@
 			color 0.2s ease;
 	}
 
+	.theme-option-copy {
+		display: grid;
+		gap: 0.15rem;
+	}
+
+	.theme-option-label {
+		line-height: 1.1;
+	}
+
+	.theme-option-meta {
+		font-size: 0.62rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--text-soft);
+	}
+
 	.theme-option:hover,
 	.theme-option:focus-visible {
 		border-color: var(--accent);
@@ -241,7 +320,7 @@
 	.theme-option[aria-checked='true'] {
 		color: var(--accent);
 		border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
-		background: color-mix(in srgb, var(--surface) 84%, var(--accent) 16%);
+		background: color-mix(in srgb, var(--surface-strong) 80%, var(--accent) 14%);
 	}
 
 	.theme-option-icon {
@@ -279,6 +358,43 @@
 			transition: none;
 		}
 	}
+
+	@media (max-width: 640px) {
+		.theme-toggle {
+			min-width: 3rem;
+			padding-inline: 0.58rem;
+			gap: 0.38rem;
+		}
+
+		.theme-toggle-copy {
+			display: none;
+		}
+
+		.theme-toggle-signal {
+			display: none;
+		}
+
+		.theme-toggle-icon {
+			width: 1.68rem;
+			height: 1.68rem;
+		}
+
+		.theme-toggle-caret {
+			width: 0.8rem;
+			height: 0.8rem;
+		}
+	}
+
+	@media (max-width: 360px) {
+		.theme-toggle {
+			padding-inline: 0.5rem;
+			gap: 0.3rem;
+		}
+
+		.theme-toggle-caret {
+			display: none;
+		}
+	}
 </style>
 
 <script>
@@ -306,6 +422,14 @@
 		}
 
 		return `Theme: ${mode === 'dark' ? 'Dark' : 'Light'}. Open theme menu`;
+	};
+
+	const getVisibleModeLabel = (mode: ThemeMode) => {
+		if (mode === 'system') {
+			return 'System';
+		}
+
+		return mode === 'dark' ? 'Dark' : 'Light';
 	};
 
 	const getCurrentMode = (): ThemeMode => {
@@ -343,6 +467,11 @@
 		const srOnlyLabel = trigger.querySelector('.sr-only');
 		if (srOnlyLabel) {
 			srOnlyLabel.textContent = label;
+		}
+
+		const visibleLabel = trigger.querySelector('.theme-toggle-mode');
+		if (visibleLabel) {
+			visibleLabel.textContent = getVisibleModeLabel(mode);
 		}
 
 		for (const item of getMenuItems(menu)) {

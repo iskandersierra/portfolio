@@ -132,11 +132,34 @@ const metadata = resolveSeoMetadata(
 		</script>
 	</head>
 	<body>
-		<div class="grain-overlay"></div>
-		<div class="terminal-window">
-			<Header />
-			<slot />
-			<Footer />
+		<div class="grain-overlay" aria-hidden="true"></div>
+		<div class="signal-stage">
+			<div class="signal-stage__field" aria-hidden="true">
+				<span class="signal-orbit signal-orbit-a"></span>
+				<span class="signal-orbit signal-orbit-b"></span>
+				<span class="signal-wire signal-wire-a"></span>
+				<span class="signal-wire signal-wire-b"></span>
+				<span class="signal-wire signal-wire-c"></span>
+				<span class="signal-node signal-node-a"></span>
+				<span class="signal-node signal-node-b"></span>
+				<span class="signal-node signal-node-c"></span>
+				<span class="signal-node signal-node-d"></span>
+			</div>
+			<div class="signal-stage__frame">
+				<div class="signal-stage__rail signal-stage__rail--top mono" aria-hidden="true">
+					<span>signal graph studio</span>
+					<span>shared shell / proposal 07</span>
+				</div>
+				<div class="terminal-window">
+					<Header />
+					<slot />
+					<Footer />
+				</div>
+				<div class="signal-stage__rail signal-stage__rail--bottom mono" aria-hidden="true">
+					<span>adaptive theme control layer</span>
+					<span>content graph online</span>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

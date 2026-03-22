@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import { formatContentDate, getPublishedTools, getToolHref } from '../utils/content';
 
 const tools = await getPublishedTools();
+const uniqueFrameworks = [...new Set(tools.map((tool) => tool.data.framework))];
+const toolTagCount = new Set(tools.flatMap((tool) => tool.data.tags.map((tag) => tag.trim().toLocaleLowerCase()))).size;
 ---
 
 <Layout
@@ -13,30 +15,80 @@ const tools = await getPublishedTools();
 		pageType: 'website',
 	}}
 >
-	<main class="container page-shell">
-		<header class="page-header motion-enter motion-delay-1">
-			<p class="mono page-kicker">$ ls ./tools</p>
-			<h1>Tools</h1>
-			<p class="page-intro">
-				A growing catalog of practical utilities and experiments, built to be useful first and a
-				good excuse to explore frameworks, patterns, and interface ideas second.
-			</p>
+	<main class="container page-shell archive-shell archive-shell--tools">
+		<header class="archive-hero motion-enter motion-delay-1">
+			<div class="archive-hero__copy">
+				<p class="mono page-kicker">$ inspect ./tools --surface modules</p>
+				<h1>Tools</h1>
+				<p class="page-intro">
+					A growing catalog of practical utilities and experiments, built to be useful first and a
+					good excuse to explore frameworks, patterns, and interface ideas second.
+				</p>
+				<dl class="archive-stats" aria-label="Tools archive summary">
+					<div>
+						<dt class="mono">live modules</dt>
+						<dd>{String(tools.length).padStart(2, '0')}</dd>
+					</div>
+					<div>
+						<dt class="mono">frameworks</dt>
+						<dd>{String(uniqueFrameworks.length).padStart(2, '0')}</dd>
+					</div>
+					<div>
+						<dt class="mono">signal tags</dt>
+						<dd>{String(toolTagCount).padStart(2, '0')}</dd>
+					</div>
+				</dl>
+			</div>
+
+			<aside class="module-panel" aria-labelledby="tool-network-title">
+				<div class="module-panel__header">
+					<p class="mono module-panel__eyebrow" id="tool-network-title">Connected system modules</p>
+					<p class="mono module-panel__status">registry://active</p>
+				</div>
+				<div class="module-panel__field" aria-hidden="true">
+					<span class="module-panel__spine"></span>
+					<span class="module-panel__branch module-panel__branch--a"></span>
+					<span class="module-panel__branch module-panel__branch--b"></span>
+					<span class="module-panel__branch module-panel__branch--c"></span>
+					<span class="module-node module-node--a">Input</span>
+					<span class="module-node module-node--b">Generate</span>
+					<span class="module-node module-node--c">Validate</span>
+					<span class="module-node module-node--d">Export</span>
+				</div>
+				<p class="module-panel__copy">
+					Each tool is framed as a connected module in the same system language as the rest of the
+					site, so the archive reads like practice in motion instead of a static product shelf.
+				</p>
+			</aside>
 		</header>
 
-		<section class="tool-list motion-enter motion-delay-2">
+		<div class="archive-grid motion-enter motion-delay-2">
+			<section class="tool-list" aria-label="Published tools archive">
 			{tools.length > 0 ? (
 				tools.map((tool, index) => (
 					<article class="tool-card motion-enter motion-hover-lift" style={`--motion-delay: ${(index + 2) * 80}ms`}>
 						<a class="tool-card-link" href={getToolHref(tool.id)} aria-label={`Open ${tool.data.title}`}>
-							<div class="tool-head">
-								<h2>{tool.data.title}</h2>
-								<span class="framework-badge mono">{tool.data.framework}</span>
+							<div class="tool-card__trace" aria-hidden="true">
+								<span class="mono tool-card__trace-id">M{String(index + 1).padStart(2, '0')}</span>
+								<span class="tool-card__trace-line"></span>
 							</div>
-							<p>{tool.data.description}</p>
-							<ul class="tag-list">
-								{tool.data.tags.map((tag) => <li>{tag}</li>)}
-							</ul>
-							<p class="tool-meta mono">Published {formatContentDate(tool.data.publishedAt)}</p>
+							<div class="tool-card__body">
+								<div class="tool-head">
+									<h2>{tool.data.title}</h2>
+									<span class="framework-badge mono">{tool.data.framework}</span>
+								</div>
+								<p>{tool.data.description}</p>
+								<div class="tool-card__mesh" aria-hidden="true">
+									<span></span>
+									<span></span>
+									<span></span>
+								</div>
+								<ul class="tag-list" aria-label={`Tags for ${tool.data.title}`}>
+									{tool.data.tags.map((tag) => <li>{tag}</li>)}
+								</ul>
+								<p class="tool-meta mono">Published {formatContentDate(tool.data.publishedAt)}</p>
+							</div>
+							<span class="tool-card__cta mono">open module →</span>
 						</a>
 					</article>
 				))
@@ -51,43 +103,266 @@ const tools = await getPublishedTools();
 					</div>
 				</article>
 			)}
-		</section>
+			</section>
+
+			<aside class="archive-sidebar" aria-label="Tools archive context modules">
+				<section class="sidebar-module">
+					<div class="sidebar-module__header">
+						<h2>Registry view</h2>
+						<p class="mono">Current module index</p>
+					</div>
+					<ul class="module-list">
+						{tools.map((tool, index) => (
+							<li>
+								<a href={getToolHref(tool.id)} class="module-list__link">
+									<span class="mono">M{String(index + 1).padStart(2, '0')}</span>
+									<strong>{tool.data.title}</strong>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+
+				<section class="sidebar-module sidebar-module--notes">
+					<div class="sidebar-module__header">
+						<h2>System note</h2>
+						<p class="mono">Archive framing only</p>
+					</div>
+					<p>
+						This slice stops at the archive layer. Tool detail pages and the interactive surface stay
+						unchanged until the next pass.
+					</p>
+				</section>
+			</aside>
+		</div>
 	</main>
 </Layout>
 
 <style>
-	.page-shell {
+	.archive-shell {
 		padding-block: 2rem 4rem;
 	}
 
-	.page-header {
-		margin-bottom: 2.5rem;
+	.archive-hero {
+		display: grid;
+		grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.95fr);
+		gap: 1.25rem;
+		align-items: stretch;
+		margin-bottom: 1.5rem;
+	}
+
+	.archive-hero__copy,
+	.module-panel,
+	.tool-card,
+	.sidebar-module,
+	.empty-state {
+		position: relative;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
+		background:
+			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
+		box-shadow: var(--panel-shadow-soft);
+		overflow: clip;
+	}
+
+	.archive-hero__copy,
+	.module-panel,
+	.sidebar-module,
+	.empty-state {
+		padding: clamp(1.1rem, 2.6vw, 1.5rem);
+	}
+
+	.archive-hero__copy::before,
+	.module-panel::before,
+	.tool-card::before,
+	.sidebar-module::before,
+	.empty-state::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background:
+			linear-gradient(var(--grid-line) 1px, transparent 1px),
+			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+		background-size: 3rem 3rem;
+		opacity: 0.45;
+		mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 86%);
 	}
 
 	.page-kicker {
-		color: var(--accent);
+		margin: 0;
+		color: var(--accent-2);
+		letter-spacing: 0.12em;
+		font-size: 0.74rem;
+		text-transform: uppercase;
 	}
 
-	.page-header h1 {
-		margin: 0.5rem 0 1rem;
-		font-size: clamp(2rem, 4vw, 3rem);
+	.archive-hero h1 {
+		margin: 0.55rem 0 0.85rem;
+		font-size: clamp(2.6rem, 5.2vw, 4.6rem);
+		line-height: 0.96;
+		max-width: 7ch;
 	}
 
 	.page-intro,
-	.tool-card p {
-		max-width: 720px;
-		line-height: 1.7;
+	.tool-card p,
+	.module-panel__copy,
+	.sidebar-module p,
+	.empty-state {
+		max-width: 70ch;
+		line-height: 1.72;
 		color: var(--text-muted);
 	}
 
-	.tool-list {
+	.archive-stats {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.75rem;
+		margin: 1.3rem 0 0;
+	}
+
+	.archive-stats div {
+		padding: 0.9rem 1rem;
+		border: 1px solid var(--border);
+		background: color-mix(in srgb, var(--surface-soft) 84%, transparent);
+	}
+
+	.archive-stats dt {
+		font-size: 0.68rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--text-soft);
+	}
+
+	.archive-stats dd {
+		margin: 0.4rem 0 0;
+		font-size: 1.1rem;
+		font-weight: 700;
+		color: var(--text-main);
+	}
+
+	.module-panel {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.module-panel__header,
+	.sidebar-module__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+
+	.module-panel__eyebrow,
+	.module-panel__status,
+	.sidebar-module__header p,
+	.tool-card__trace-id {
+		margin: 0;
+		font-size: 0.72rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--text-soft);
+	}
+
+	.module-panel__status,
+	.tool-card__trace-id {
+		color: var(--accent-2);
+	}
+
+	.module-panel__field {
+		position: relative;
+		min-height: 16rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 60%, transparent);
+		background:
+			radial-gradient(circle at 50% 8%, color-mix(in srgb, var(--accent) 14%, transparent) 0, transparent 28%),
+			color-mix(in srgb, var(--surface-soft) 78%, transparent);
+		overflow: hidden;
+	}
+
+	.module-panel__spine,
+	.module-panel__branch,
+	.module-node {
+		position: absolute;
+		display: block;
+	}
+
+	.module-panel__spine {
+		top: 1.5rem;
+		bottom: 1.5rem;
+		left: 50%;
+		width: 1px;
+		background: linear-gradient(180deg, transparent, var(--accent), transparent);
+	}
+
+	.module-panel__branch {
+		height: 1px;
+		background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+	}
+
+	.module-panel__branch--a {
+		top: 3.3rem;
+		left: 26%;
+		width: 24%;
+	}
+
+	.module-panel__branch--b {
+		top: 7rem;
+		left: 50%;
+		width: 22%;
+	}
+
+	.module-panel__branch--c {
+		bottom: 3.3rem;
+		left: 30%;
+		width: 20%;
+	}
+
+	.module-node {
+		padding: 0.55rem 0.7rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 66%, transparent);
+		background: color-mix(in srgb, var(--surface-strong) 90%, transparent);
+		font-family: 'Azeret Mono', monospace;
+		font-size: 0.68rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--text-main);
+	}
+
+	.module-node--a {
+		top: 2.4rem;
+		left: 10%;
+	}
+
+	.module-node--b {
+		top: 6rem;
+		right: 12%;
+	}
+
+	.module-node--c {
+		bottom: 5rem;
+		left: 14%;
+	}
+
+	.module-node--d {
+		bottom: 1.8rem;
+		right: 16%;
+	}
+
+	.archive-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.86fr);
+		gap: 1.25rem;
+	}
+
+	.tool-list,
+	.archive-sidebar {
 		display: grid;
 		gap: 1rem;
 	}
 
 	.tool-card {
-		border: 1px solid var(--border);
-		background: var(--surface);
+		padding: 0;
 	}
 
 	.empty-state {
@@ -96,7 +371,8 @@ const tools = await getPublishedTools();
 
 	.tool-card-link {
 		display: grid;
-		gap: 0;
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		gap: 1rem;
 		padding: 1.25rem;
 		color: inherit;
 		text-decoration: none;
@@ -112,6 +388,24 @@ const tools = await getPublishedTools();
 		outline-offset: 3px;
 	}
 
+	.tool-card__trace {
+		display: grid;
+		justify-items: center;
+		gap: 0.85rem;
+		min-width: 3rem;
+	}
+
+	.tool-card__trace-line {
+		width: 1px;
+		min-height: 100%;
+		background: linear-gradient(180deg, var(--accent-2), transparent);
+	}
+
+	.tool-card__body {
+		display: grid;
+		gap: 0;
+	}
+
 	.empty-state-copy {
 		gap: 0.75rem;
 		cursor: default;
@@ -125,6 +419,17 @@ const tools = await getPublishedTools();
 		margin: 1rem 0 0;
 		color: var(--text-muted);
 		font-size: 0.9rem;
+	}
+
+	.tool-card__cta {
+		display: inline-flex;
+		align-self: center;
+		padding: 0.65rem 0.8rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
+		background: color-mix(in srgb, var(--surface-soft) 74%, transparent);
+		color: var(--accent);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 	}
 
 	.tool-head {
@@ -144,11 +449,36 @@ const tools = await getPublishedTools();
 		color: var(--accent);
 	}
 
+	.tool-card__mesh {
+		display: flex;
+		gap: 0.4rem;
+		margin-top: 0.9rem;
+	}
+
+	.tool-card__mesh span {
+		height: 0.45rem;
+		border-radius: 999px;
+		background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 70%, transparent), color-mix(in srgb, var(--accent-2) 70%, transparent));
+	}
+
+	.tool-card__mesh span:nth-child(1) {
+		width: 34%;
+	}
+
+	.tool-card__mesh span:nth-child(2) {
+		width: 22%;
+	}
+
+	.tool-card__mesh span:nth-child(3) {
+		width: 44%;
+	}
+
 	.framework-badge {
 		padding: 0.25rem 0.6rem;
 		border: 1px solid var(--border);
 		color: var(--accent);
 		font-size: 0.9rem;
+		background: color-mix(in srgb, var(--surface-soft) 74%, transparent);
 	}
 
 	.tag-list {
@@ -165,5 +495,126 @@ const tools = await getPublishedTools();
 		border: 1px solid var(--border);
 		color: var(--accent);
 		font-size: 0.9rem;
+		background: color-mix(in srgb, var(--surface-soft) 72%, transparent);
+	}
+
+	.archive-sidebar {
+		align-content: start;
+	}
+
+	.sidebar-module {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.sidebar-module h2 {
+		margin: 0;
+		font-size: 1.1rem;
+	}
+
+	.module-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: 0.55rem;
+	}
+
+	.module-list__link {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0.75rem;
+		align-items: center;
+		padding: 0.75rem 0.8rem;
+		border: 1px solid var(--border);
+		background: color-mix(in srgb, var(--surface-soft) 74%, transparent);
+		color: var(--text-main);
+	}
+
+	.module-list__link:hover,
+	.module-list__link:focus-visible {
+		border-color: var(--accent);
+		background: color-mix(in srgb, var(--accent) 12%, var(--surface-strong));
+		text-decoration: none;
+	}
+
+	.module-list__link span {
+		color: var(--accent-2);
+	}
+
+	@media (max-width: 980px) {
+		.archive-hero,
+		.archive-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.module-panel__field {
+			min-height: 12.75rem;
+		}
+	}
+
+	@media (max-width: 720px) {
+		.archive-hero__copy,
+		.module-panel,
+		.sidebar-module,
+		.empty-state {
+			padding: 1rem;
+		}
+
+		.archive-stats {
+			grid-template-columns: 1fr;
+		}
+
+		.module-panel {
+			gap: 0.85rem;
+		}
+
+		.module-panel__field {
+			min-height: 9.75rem;
+		}
+
+		.module-node {
+			padding: 0.4rem 0.55rem;
+			font-size: 0.62rem;
+		}
+
+		.module-node--a {
+			left: 7%;
+		}
+
+		.module-node--b {
+			top: 4.85rem;
+			right: 8%;
+		}
+
+		.module-node--c {
+			bottom: 3.6rem;
+			left: 11%;
+		}
+
+		.module-node--d {
+			bottom: 1.2rem;
+			right: 11%;
+		}
+
+		.tool-card-link {
+			grid-template-columns: 1fr;
+		}
+
+		.tool-card__trace {
+			grid-template-columns: auto 1fr;
+			justify-items: start;
+		}
+
+		.tool-card__trace-line {
+			width: 100%;
+			height: 1px;
+			min-height: 1px;
+			background: linear-gradient(90deg, var(--accent-2), transparent);
+		}
+
+		.tool-card__cta {
+			justify-self: start;
+		}
 	}
 </style>
