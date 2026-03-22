@@ -7,6 +7,8 @@ description: "Use when the user asks about GitNexus itself — available tools, 
 
 Quick reference for all GitNexus MCP tools, resources, and the knowledge graph schema.
 
+For this repository's shared GitNexus workflow, guardrails, and tool checklist, read `.claude/skills/gitnexus/README.md`.
+
 ## Always Start Here
 
 For any task involving code understanding, debugging, impact analysis, or refactoring:

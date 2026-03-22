@@ -9,7 +9,7 @@
 			"command": "npx",
 			"args": [
 				"-y",
-				"gitnexus",
+				"gitnexus@1.4.7",
 				"mcp"
 			]
 		}
