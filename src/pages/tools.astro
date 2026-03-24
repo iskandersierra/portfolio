@@ -11,18 +11,19 @@ const toolTagCount = new Set(tools.flatMap((tool) => tool.data.tags.map((tag) =>
 	seo={{
 		title: 'Tools',
 		description:
-			'Browse developer tools and experiments from Iskander Sierra, starting with practical browser-based utilities built as Astro pages and islands.',
+			'Browse developer tools and experiments from Iskander Sierra, presented as connected modules with detail views that extend the site\'s shipped Proposal 7 system language.',
 		pageType: 'website',
 	}}
 >
 	<main class="container page-shell archive-shell archive-shell--tools">
 		<header class="archive-hero motion-enter motion-delay-1">
 			<div class="archive-hero__copy">
-				<p class="mono page-kicker">$ inspect ./tools --surface modules</p>
+				<p class="mono page-kicker">signal registry / tool modules</p>
 				<h1>Tools</h1>
 				<p class="page-intro">
-					A growing catalog of practical utilities and experiments, built to be useful first and a
-					good excuse to explore frameworks, patterns, and interface ideas second.
+					A growing catalog of practical utilities and experiments, organized as connected modules so
+					each entry can move from quick archive scan to a fuller detail view without changing visual
+					language or overpromising unfinished behavior.
 				</p>
 				<dl class="archive-stats" aria-label="Tools archive summary">
 					<div>
@@ -56,8 +57,8 @@ const toolTagCount = new Set(tools.flatMap((tool) => tool.data.tags.map((tag) =>
 					<span class="module-node module-node--d">Export</span>
 				</div>
 				<p class="module-panel__copy">
-					Each tool is framed as a connected module in the same system language as the rest of the
-					site, so the archive reads like practice in motion instead of a static product shelf.
+					Each tool sits inside the same connected system language as the rest of the site, linking
+					archive discovery to shipped detail modules that add context when a tool needs it.
 				</p>
 			</aside>
 		</header>
@@ -97,8 +98,8 @@ const toolTagCount = new Set(tools.flatMap((tool) => tool.data.tags.map((tag) =>
 					<div class="tool-card-link empty-state-copy">
 						<h2>No published tools yet</h2>
 						<p>
-							This section will list browser-based utilities and experiments as they are ready to ship.
-							Check back for practical tools with the same terminal-inspired presentation used across the site.
+							This section will list practical utilities and experiments as they are ready to ship.
+							Check back for new modules that plug into the same Proposal 7 archive and detail system used across the site.
 						</p>
 					</div>
 				</article>
@@ -126,11 +127,12 @@ const toolTagCount = new Set(tools.flatMap((tool) => tool.data.tags.map((tag) =>
 				<section class="sidebar-module sidebar-module--notes">
 					<div class="sidebar-module__header">
 						<h2>System note</h2>
-						<p class="mono">Archive framing only</p>
+						<p class="mono">Archive + detail sync</p>
 					</div>
 					<p>
-						This slice stops at the archive layer. Tool detail pages and the interactive surface stay
-						unchanged until the next pass.
+						The archive is the registry layer for tool modules whose detail pages already follow the
+						shipped Proposal 7 treatment, including contextual modules and optional interactive surfaces
+						only where the tool actually supports them.
 					</p>
 				</section>
 			</aside>

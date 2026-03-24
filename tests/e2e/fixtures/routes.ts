@@ -74,7 +74,7 @@ export const seoExpectations: SeoExpectation[] = [
 		path: '/tools',
 		title: 'Tools | Iskander Sierra',
 		description:
-			'Browse developer tools and experiments from Iskander Sierra, starting with practical browser-based utilities built as Astro pages and islands.',
+			'Browse developer tools and experiments from Iskander Sierra, presented as connected modules with detail views that extend the site\'s shipped Proposal 7 system language.',
 		canonicalUrl: 'https://isksz.com/tools/',
 		pageType: 'website',
 		twitterCard: 'summary_large_image',

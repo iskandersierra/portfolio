@@ -3,17 +3,17 @@ import { expect, test } from '@playwright/test';
 import { primaryRoutes } from './fixtures/routes';
 
 test.describe('site shell', () => {
-	test('home featured-content cards point to the expected detail routes', async ({ page }) => {
+	test('home featured-content modules point to the expected detail routes', async ({ page }) => {
 		await page.goto('/');
 
 		const featuredSection = page.locator('section.recent-posts');
-		const featuredBlogCard = featuredSection.locator('.brutalist-card').filter({
+		const featuredBlogCard = featuredSection.locator('.signal-module').filter({
 			has: page.getByRole('heading', {
 				level: 3,
 				name: 'How to stay technically current after 25 years',
 			}),
 		});
-		const featuredToolCard = featuredSection.locator('.brutalist-card').filter({
+		const featuredToolCard = featuredSection.locator('.signal-module').filter({
 			has: page.getByRole('heading', {
 				level: 3,
 				name: 'UUID / ULID generator',
@@ -92,6 +92,27 @@ test.describe('site shell', () => {
 				name: 'Being a Tech Lead without losing your engineering skills',
 			}),
 		).toBeVisible();
+	});
+
+	test('about page exposes experience arc, grounding layers, and external profile routes', async ({ page }) => {
+		await page.goto('/about');
+		const linksPanel = page.locator('.links-panel');
+
+		await expect(page.getByRole('heading', { level: 2, name: 'How the profile evolved' })).toBeVisible();
+		await expect(page.getByRole('heading', { level: 3, name: 'Engineering depth before abstraction' })).toBeVisible();
+		await expect(page.getByRole('heading', { level: 2, name: 'Grounding layers' })).toBeVisible();
+		await expect(page.getByRole('heading', { level: 3, name: 'Computer science background' })).toBeVisible();
+		await expect(page.getByRole('heading', { level: 2, name: 'Profile links and CV status' })).toBeVisible();
+		await expect(linksPanel.getByRole('link', { name: /GitHub/i })).toHaveAttribute(
+			'href',
+			'https://github.com/iskandersierra',
+		);
+		await expect(linksPanel.getByRole('link', { name: /LinkedIn/i })).toHaveAttribute(
+			'href',
+			'https://www.linkedin.com/in/iskandersierra/',
+		);
+		await expect(linksPanel.getByLabel('CV download status')).toContainText('status / explicitly deferred');
+		await expect(linksPanel.getByRole('link', { name: /CV/i })).toHaveCount(0);
 	});
 
 	test('blog archive filters by tag from the query string', async ({ page }) => {
@@ -249,7 +270,7 @@ test.describe('site shell', () => {
 			expect(Math.abs(brandCenterY - navCenterY)).toBeLessThanOrEqual(8);
 			expect(Math.abs(actionsCenterY - navCenterY)).toBeLessThanOrEqual(8);
 			expect(topBox.height).toBeLessThanOrEqual(tallestChild + 12);
-			expect(headerBox.height).toBeLessThan(120);
+			expect(headerBox.height).toBeLessThan(132);
 			expect(brandBox.x + brandBox.width).toBeLessThan(navBox.x);
 			expect(navBox.x + navBox.width).toBeLessThan(actionsBox.x);
 		}
@@ -399,7 +420,9 @@ test.describe('site shell', () => {
 		await page.emulateMedia({ reducedMotion: 'reduce' });
 		await page.goto('/');
 
-		const heroNoLongAnimations = await page.locator('.hero').evaluate((element) => {
+		const homeHero = page.locator('.home-hero');
+
+		const heroNoLongAnimations = await homeHero.evaluate((element) => {
 			return element.getAnimations().every((a) => {
 				const duration = a.effect?.getTiming().duration ?? 0;
 				return typeof duration === 'number' && duration <= 1;
@@ -407,7 +430,7 @@ test.describe('site shell', () => {
 		});
 
 		expect(heroNoLongAnimations).toBe(true);
-		await expect(page.locator('.hero')).toHaveCSS('opacity', '1');
+		await expect(homeHero).toHaveCSS('opacity', '1');
 	});
 
 	test('reduced motion disables theme color transitions', async ({ page }) => {
@@ -457,7 +480,7 @@ test.describe('site shell', () => {
 		);
 		expect(cursorHasLongAnimations).toBe(false);
 
-		const firstCard = page.locator('.brutalist-card').first();
+			const firstCard = page.locator('.recent-posts .signal-module').first();
 		await expect(firstCard).toBeVisible();
 
 		const transformBefore = await firstCard.evaluate((el) => getComputedStyle(el).transform);

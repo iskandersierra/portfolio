@@ -1,11 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/ui/Card.astro';
 import {
-getBlogPostHref,
-getFeaturedBlogPost,
-getFeaturedTool,
-getToolHref,
+	formatContentDate,
+	getBlogPostHref,
+	getFeaturedBlogPost,
+	getFeaturedTool,
+	getToolHref,
 } from '../utils/content';
 
 const graphNodes = [
@@ -18,6 +18,44 @@ const graphNodes = [
 const [featuredPost, featuredTool] = await Promise.all([getFeaturedBlogPost(), getFeaturedTool()]);
 const featuredPostHref = featuredPost ? getBlogPostHref(featuredPost.id) : '/blog';
 const featuredToolHref = featuredTool ? getToolHref(featuredTool.id) : '/tools';
+const featuredModules = [
+	{
+		signal: '03',
+		eyebrow: 'Writing signal',
+		title: featuredPost?.data.title ?? 'Blog archive',
+		summary:
+			featuredPost?.data.excerpt ??
+			'Read the latest notes on software architecture, technical leadership, and long-term learning.',
+		href: featuredPostHref,
+		pathLabel: featuredPost ? `/blog/${featuredPost.id}` : '/blog',
+		status: featuredPost ? 'latest note' : 'archive route',
+		meta: featuredPost
+			? `${formatContentDate(featuredPost.data.date)} / architecture signal`
+			: 'route / blog archive',
+		linkText: featuredPost ? 'open writing module →' : 'open writing graph →',
+		ariaLabel: featuredPost
+			? `Open featured blog post ${featuredPost.data.title}`
+			: 'Open the blog section',
+	},
+	{
+		signal: '04',
+		eyebrow: 'Tool module',
+		title: featuredTool?.data.title ?? 'Tools registry',
+		summary: featuredTool
+			? `${featuredTool.data.framework} module for ${featuredTool.data.description}`
+			: 'Browse practical developer tools and experiments built for the portfolio.',
+		href: featuredToolHref,
+		pathLabel: featuredTool ? `/tools/${featuredTool.id}` : '/tools',
+		status: featuredTool ? 'current release' : 'registry route',
+		meta: featuredTool
+			? `${featuredTool.data.framework} / published module`
+			: 'route / tools registry',
+		linkText: featuredTool ? 'open tool module →' : 'open tools registry →',
+		ariaLabel: featuredTool
+			? `Open featured tool ${featuredTool.data.title}`
+			: 'Open the tools section',
+	},
+];
 ---
 
 <Layout
@@ -105,42 +143,42 @@ that connect them.
 <p class="mono section-kicker">featured signal paths</p>
 <h2 id="featured-signals-title">Current live nodes</h2>
 <p>
-The home surface stays data-driven. The latest writing node and the current tool module
-remain the visible entry points into the rest of the graph.
+The home surface stays data-driven. The newest writing node and the current tool release
+stay connected here as adjacent modules instead of falling back to the older shared-card strip.
 </p>
 </div>
-<div class="cards-grid">
-<Card
-title={featuredPost?.data.title ?? 'Blog'}
-description={
-featuredPost?.data.excerpt ??
-'Read the latest notes on software architecture, technical leadership, and long-term learning.'
-}
-href={featuredPostHref}
-motionClass="motion-delay-3"
-linkText={featuredPost ? `open ./blog/${featuredPost.id}.md →` : 'open ./blog_index.sh →'}
-ariaLabel={
-featuredPost
-? `Open featured blog post ${featuredPost.data.title}`
-: 'Open the blog section'
-}
-/>
-<Card
-title={featuredTool?.data.title ?? 'Tools'}
-description={
-featuredTool
-? `${featuredTool.data.framework} · ${featuredTool.data.description}`
-: 'Browse practical developer tools and experiments built for the portfolio.'
-}
-href={featuredToolHref}
-motionClass="motion-delay-4"
-linkText={featuredTool ? `open ./tools/${featuredTool.id}.md →` : 'open ./tools_catalog.sh →'}
-ariaLabel={
-featuredTool
-? `Open featured tool ${featuredTool.data.title}`
-: 'Open the tools section'
-}
-/>
+<div class="feature-network" aria-label="Featured content network">
+<span class="feature-network__spine" aria-hidden="true"></span>
+<span class="feature-network__bridge feature-network__bridge--a" aria-hidden="true"></span>
+<span class="feature-network__bridge feature-network__bridge--b" aria-hidden="true"></span>
+{featuredModules.map((module, index) => (
+<article class={`signal-module motion-enter motion-hover-lift motion-delay-${index + 3}`}>
+<div class="signal-module__trace" aria-hidden="true">
+<span class="mono signal-module__signal">{module.signal}</span>
+<span class="signal-module__trace-line"></span>
+</div>
+<div class="signal-module__body">
+<p class="mono signal-module__eyebrow">{module.eyebrow}</p>
+<div class="signal-module__head">
+<div>
+<h3>{module.title}</h3>
+<p class="mono signal-module__path">{module.pathLabel}</p>
+</div>
+<span class="mono signal-module__status">{module.status}</span>
+</div>
+<p>{module.summary}</p>
+<dl class="signal-module__meta" aria-label={`${module.title} metadata`}>
+<div>
+<dt class="mono">signal meta</dt>
+<dd>{module.meta}</dd>
+</div>
+</dl>
+</div>
+<a href={module.href} class="signal-module__link mono" aria-label={module.ariaLabel}>
+{module.linkText}
+</a>
+</article>
+))}
 </div>
 </section>
 
@@ -496,10 +534,184 @@ gap: 1rem;
 align-content: start;
 }
 
-.cards-grid,
+.feature-network,
 .module-links {
 display: grid;
 gap: 1rem;
+}
+
+.feature-network {
+position: relative;
+padding-left: clamp(0.6rem, 2vw, 1rem);
+}
+
+.feature-network__spine,
+.feature-network__bridge {
+position: absolute;
+display: block;
+pointer-events: none;
+background: linear-gradient(180deg, transparent, var(--line-strong), transparent);
+}
+
+.feature-network__spine {
+left: 0;
+top: 1rem;
+bottom: 1rem;
+width: 1px;
+}
+
+.feature-network__bridge {
+left: 0;
+width: clamp(1.25rem, 3vw, 2rem);
+height: 1px;
+background: linear-gradient(90deg, var(--line-strong), transparent);
+}
+
+.feature-network__bridge--a {
+top: 4.4rem;
+}
+
+.feature-network__bridge--b {
+top: calc(50% + 2rem);
+}
+
+.signal-module {
+display: grid;
+grid-template-columns: auto minmax(0, 1fr);
+gap: 1rem;
+align-items: start;
+padding: clamp(1rem, 2.6vw, 1.25rem);
+border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
+background:
+linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface-soft) 92%, transparent) 100%);
+box-shadow: var(--panel-shadow-soft);
+position: relative;
+overflow: clip;
+}
+
+.signal-module::before {
+content: '';
+position: absolute;
+inset: 0;
+pointer-events: none;
+background:
+linear-gradient(var(--grid-line) 1px, transparent 1px),
+linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+background-size: 3rem 3rem;
+opacity: 0.38;
+mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.62), transparent 86%);
+}
+
+.signal-module > * {
+position: relative;
+z-index: 1;
+}
+
+.signal-module__trace {
+display: grid;
+justify-items: center;
+gap: 0.45rem;
+min-width: 2.25rem;
+padding-top: 0.1rem;
+}
+
+.signal-module__signal,
+.signal-module__eyebrow,
+.signal-module__status,
+.signal-module__path,
+.signal-module__meta dt {
+font-size: 0.68rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+}
+
+.signal-module__signal,
+.signal-module__eyebrow {
+color: var(--accent-2);
+}
+
+.signal-module__trace-line {
+width: 1px;
+min-height: 100%;
+flex: 1;
+background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 78%, transparent), transparent 88%);
+}
+
+.signal-module__body {
+display: grid;
+gap: 0.75rem;
+}
+
+.signal-module__head {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+gap: 1rem;
+flex-wrap: wrap;
+}
+
+.signal-module__head h3 {
+margin: 0.15rem 0 0;
+font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+line-height: 1.08;
+}
+
+.signal-module__path,
+.signal-module__status,
+.signal-module__meta dt {
+color: var(--text-soft);
+}
+
+.signal-module__path {
+margin: 0.4rem 0 0;
+}
+
+.signal-module__status {
+display: inline-flex;
+align-items: center;
+padding: 0.45rem 0.65rem;
+border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
+background: color-mix(in srgb, var(--surface) 60%, transparent);
+}
+
+.signal-module__body > p,
+.signal-module__meta dd {
+margin: 0;
+color: var(--text-muted);
+line-height: 1.72;
+}
+
+.signal-module__meta {
+margin: 0;
+}
+
+.signal-module__meta div {
+display: grid;
+gap: 0.3rem;
+padding-top: 0.75rem;
+border-top: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
+}
+
+.signal-module__link {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: fit-content;
+min-height: 2.6rem;
+margin-left: calc(2.25rem + 1rem);
+padding: 0.45rem 0.8rem;
+border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
+background: color-mix(in srgb, var(--surface) 58%, transparent);
+color: var(--accent);
+letter-spacing: 0.08em;
+text-transform: uppercase;
+}
+
+.signal-module__link:hover,
+.signal-module__link:focus-visible {
+border-color: var(--accent);
+background: color-mix(in srgb, var(--accent) 12%, var(--surface-strong));
+text-decoration: none;
 }
 
 .module-links {
@@ -545,6 +757,37 @@ min-height: 15rem;
 .recent-posts,
 .home-module {
 padding: 1rem;
+}
+
+.feature-network {
+padding-left: 0;
+}
+
+.feature-network__spine,
+.feature-network__bridge {
+display: none;
+}
+
+.signal-module {
+grid-template-columns: 1fr;
+gap: 0.85rem;
+}
+
+.signal-module__trace {
+grid-auto-flow: column;
+justify-content: start;
+min-width: 0;
+}
+
+.signal-module__trace-line {
+width: 2.8rem;
+min-height: 1px;
+margin-top: 0.45rem;
+background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 78%, transparent), transparent 88%);
+}
+
+.signal-module__link {
+margin-left: 0;
 }
 
 .home-metrics,

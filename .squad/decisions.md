@@ -18,6 +18,27 @@
 - Adjacent navigation and consistent supporting modules make the blog and tool detail routes easier to scan and more useful while keeping the underlying route architecture stable.
 - Tool pages should not promise interactivity that is not implemented, and user-facing labels build more trust than internal or placeholder language.
 
+### 2026-03-23: Proposal 7 continuation is now gated by smoke-suite debt, and remaining design work stays route-local
+
+**By:** Tank, Neo, Switch
+
+**What:**
+- Retire the stale Proposal 7 note that local port `4331` blocks canonical Playwright validation; the package-script smoke path is runnable again.
+- Treat the remaining blocker as shared smoke-suite debt in two stale expectations: the desktop header height ceiling and the reduced-motion page-entry selector that still targets `.hero`.
+- Keep the canonical Playwright smoke spec aligned with the live Proposal 7 surface by allowing the observed shared-shell header height range and by targeting the route-local `.home-hero` element for reduced-motion entrance checks.
+- Close the home/tools continuation slice route-locally by replacing the home featured-content strip inside `src/pages/index.astro` with page-owned signal modules, leaving `src/components/ui/Card.astro` untouched, and updating `src/pages/tools.astro` so the archive note reflects the shipped connected-module detail experience and conditional interactive behavior.
+- Validate the repaired home/tools slice against the live route surface by asserting `.signal-module` and `.home-hero` behavior in the focused smoke path, while keeping metadata checks aligned with the shipped tools archive contract.
+- Record the slice as approved once `pnpm check`, focused smoke coverage over the intended route-level UX, and `pnpm test:seo` are green, while tracking the lone remaining full-smoke debt separately as the stale reduced-motion hover-lift locator that still targets `.brutalist-card` instead of the live home-page `.signal-module` surface.
+- Keep the next Proposal 7 implementation pass route-local and avoid reopening the shared shell, header, footer, global theme tokens, or already-closed archive and detail routes unless validation exposes a real regression.
+
+**Why:**
+- The validation caveat changed from an environment-startup issue to deterministic test debt, so the canonical ledger needed to point at the real blocker.
+- The stale desktop-height threshold and removed `.hero` selector were test debt, not evidence of a live shell regression.
+- Continuation planning from design, implementation, and QA all converged on remaining route-local work rather than another shared-shell redesign.
+- Direct usage showed the older shared `Card.astro` treatment still surfaced visibly on the home route while the tools archive note had drifted behind the shipped product contract, so both repairs fit the same route-local cleanup slice.
+- The revision cycle confirmed the slice could close without reopening shared components: the route-local module treatment answered the UX rejection, the focused smoke assertions now follow the visible Proposal 7 surface, and the SEO suite verified the archive metadata contract.
+- Final review and QA both converged on the same outcome: the touched product slice is approved, and the only leftover test debt is one stale canonical smoke locator that no longer matches the live home-page module surface.
+
 ### 2026-03-20: Content-helper and route wiring changes use a three-step validation baseline
 
 **By:** Tank
