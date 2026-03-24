@@ -153,11 +153,11 @@ const profileRoles = [
 					</div>
 					<div>
 						<dt class="mono">active roles</dt>
-						<dd>03</dd>
+						<dd>{profileRoles.length}</dd>
 					</div>
 					<div>
 						<dt class="mono">core nodes</dt>
-						<dd>{String(expertise.length).padStart(2, '0')}</dd>
+						<dd>{expertise.length}</dd>
 					</div>
 				</dl>
 			</div>
@@ -175,7 +175,6 @@ const profileRoles = [
 					<span class="profile-map__wire profile-map__wire--c"></span>
 					{profileRoles.map((role, index) => (
 						<span class={`profile-node profile-node--${index + 1}`}>
-							<span class="mono">{role.signal}</span>
 							<strong>{role.label}</strong>
 						</span>
 					))}
@@ -183,7 +182,6 @@ const profileRoles = [
 				<ul class="profile-map__legend" aria-label="Profile role labels">
 					{profileRoles.map((role) => (
 						<li class="profile-map__legend-item">
-							<span class="mono profile-map__legend-signal">{role.signal}</span>
 							<span class="profile-map__legend-label">{role.label}</span>
 						</li>
 					))}
@@ -204,7 +202,6 @@ const profileRoles = [
 				<div class="expertise-grid">
 					{expertise.map((item) => (
 						<article class="expertise-node">
-							<p class="mono expertise-node__signal">{item.signal}</p>
 							<h3>{item.label}</h3>
 							<p>{item.detail}</p>
 						</article>
@@ -226,7 +223,6 @@ const profileRoles = [
 						{experienceTimeline.map((entry) => (
 							<li class="timeline-entry">
 								<div class="timeline-entry__rail" aria-hidden="true">
-									<span class="mono timeline-entry__signal">{entry.signal}</span>
 									<span class="timeline-entry__line"></span>
 								</div>
 								<div class="timeline-entry__body">
@@ -250,9 +246,8 @@ const profileRoles = [
 						<h2>How I work</h2>
 					</div>
 					<div class="profile-module-list">
-						{profileModules.map((module, index) => (
+						{profileModules.map((module) => (
 							<article class="profile-module-card">
-								<p class="mono profile-module-card__signal">M{String(index + 1).padStart(2, '0')}</p>
 								<h3>{module.title}</h3>
 								<p>{module.copy}</p>
 							</article>
@@ -268,7 +263,6 @@ const profileRoles = [
 					<div class="education-grid">
 						{educationModules.map((module) => (
 							<article class="education-card">
-								<p class="mono education-card__signal">{module.signal}</p>
 								<h3>{module.title}</h3>
 								<p>{module.copy}</p>
 							</article>
@@ -285,7 +279,6 @@ const profileRoles = [
 						{profileLinks.map((link) => (
 							<a class="profile-link-card" href={link.href} target="_blank" rel="noreferrer">
 								<div>
-									<p class="mono profile-link-card__signal">{link.signal}</p>
 									<h3>{link.label}</h3>
 									<p>{link.copy}</p>
 								</div>
@@ -293,7 +286,6 @@ const profileRoles = [
 							</a>
 						))}
 						<article class="cv-status-card" aria-label="CV download status">
-							<p class="mono cv-status-card__signal">L03</p>
 							<h3>CV download</h3>
 							<p>
 								No placeholder PDF ships here. The public CV download stays deferred until there is a
@@ -361,9 +353,7 @@ const profileRoles = [
 	.section-kicker,
 	.profile-map__eyebrow,
 	.profile-map__status,
-	.about-stats dt,
-	.expertise-node__signal,
-	.profile-module-card__signal {
+	.about-stats dt {
 		margin: 0;
 		font-size: 0.72rem;
 		letter-spacing: 0.12em;
@@ -372,9 +362,7 @@ const profileRoles = [
 
 	.page-kicker,
 	.section-kicker,
-	.profile-map__eyebrow,
-	.expertise-node__signal,
-	.profile-module-card__signal {
+	.profile-map__eyebrow {
 		color: var(--accent-2);
 	}
 
@@ -452,32 +440,16 @@ const profileRoles = [
 	}
 
 	.profile-map__legend-item {
-		display: grid;
-		grid-template-columns: auto 1fr;
-		align-items: center;
-		gap: 0.65rem;
+		display: block;
 		padding: 0.75rem 0.8rem;
 		border: 1px solid var(--border);
 		background: color-mix(in srgb, var(--surface-soft) 78%, transparent);
 	}
 
-	.profile-map__legend-signal {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 1.75rem;
-		height: 1.75rem;
-		border-radius: 999px;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 52%, transparent);
-		background: color-mix(in srgb, var(--surface-strong) 74%, transparent);
-		color: var(--accent-2);
-		font-size: 0.62rem;
-		line-height: 1;
-	}
-
 	.profile-map__legend-label {
 		color: var(--text-main);
 		text-transform: lowercase;
+		font-weight: 600;
 	}
 
 	.profile-map__orbit,
@@ -543,7 +515,6 @@ const profileRoles = [
 
 	.profile-node strong {
 		display: block;
-		margin-top: 0.3rem;
 		font-size: 0.92rem;
 		color: var(--text-main);
 		text-transform: lowercase;
@@ -656,28 +627,16 @@ const profileRoles = [
 	.timeline-entry__rail {
 		display: grid;
 		justify-items: center;
-		gap: 0.55rem;
-		min-width: 2.1rem;
+		min-width: 1rem;
 	}
 
-	.timeline-entry__signal,
 	.timeline-entry__span,
-	.education-card__signal,
-	.profile-link-card__signal,
-	.cv-status-card__signal,
 	.cv-status-card__state,
 	.profile-link-card__cta,
 	.timeline-entry__points li {
 		font-size: 0.72rem;
 		letter-spacing: 0.12em;
 		text-transform: uppercase;
-	}
-
-	.timeline-entry__signal,
-	.education-card__signal,
-	.profile-link-card__signal,
-	.cv-status-card__signal {
-		color: var(--accent-2);
 	}
 
 	.timeline-entry__line {
@@ -734,6 +693,7 @@ const profileRoles = [
 		gap: 1rem;
 		text-decoration: none;
 		color: inherit;
+		padding-top: 1.15rem;
 	}
 
 	.profile-link-card:hover,

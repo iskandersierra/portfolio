@@ -28,15 +28,15 @@ const toolTagCount = new Set(tools.flatMap((tool) => tool.data.tags.map((tag) =>
 				<dl class="archive-stats" aria-label="Tools archive summary">
 					<div>
 						<dt class="mono">live modules</dt>
-						<dd>{String(tools.length).padStart(2, '0')}</dd>
+						<dd>{tools.length}</dd>
 					</div>
 					<div>
 						<dt class="mono">frameworks</dt>
-						<dd>{String(uniqueFrameworks.length).padStart(2, '0')}</dd>
+						<dd>{uniqueFrameworks.length}</dd>
 					</div>
 					<div>
 						<dt class="mono">signal tags</dt>
-						<dd>{String(toolTagCount).padStart(2, '0')}</dd>
+						<dd>{toolTagCount}</dd>
 					</div>
 				</dl>
 			</div>
@@ -70,7 +70,6 @@ const toolTagCount = new Set(tools.flatMap((tool) => tool.data.tags.map((tag) =>
 					<article class="tool-card motion-enter motion-hover-lift" style={`--motion-delay: ${(index + 2) * 80}ms`}>
 						<a class="tool-card-link" href={getToolHref(tool.id)} aria-label={`Open ${tool.data.title}`}>
 							<div class="tool-card__trace" aria-hidden="true">
-								<span class="mono tool-card__trace-id">M{String(index + 1).padStart(2, '0')}</span>
 								<span class="tool-card__trace-line"></span>
 							</div>
 							<div class="tool-card__body">
@@ -113,10 +112,9 @@ const toolTagCount = new Set(tools.flatMap((tool) => tool.data.tags.map((tag) =>
 						<p class="mono">Current module index</p>
 					</div>
 					<ul class="module-list">
-						{tools.map((tool, index) => (
+						{tools.map((tool) => (
 							<li>
 								<a href={getToolHref(tool.id)} class="module-list__link">
-									<span class="mono">M{String(index + 1).padStart(2, '0')}</span>
 									<strong>{tool.data.title}</strong>
 								</a>
 							</li>
@@ -258,8 +256,7 @@ const toolTagCount = new Set(tools.flatMap((tool) => tool.data.tags.map((tag) =>
 
 	.module-panel__eyebrow,
 	.module-panel__status,
-	.sidebar-module__header p,
-	.tool-card__trace-id {
+	.sidebar-module__header p {
 		margin: 0;
 		font-size: 0.72rem;
 		letter-spacing: 0.12em;
@@ -267,8 +264,7 @@ const toolTagCount = new Set(tools.flatMap((tool) => tool.data.tags.map((tag) =>
 		color: var(--text-soft);
 	}
 
-	.module-panel__status,
-	.tool-card__trace-id {
+	.module-panel__status {
 		color: var(--accent-2);
 	}
 
@@ -393,8 +389,7 @@ const toolTagCount = new Set(tools.flatMap((tool) => tool.data.tags.map((tag) =>
 	.tool-card__trace {
 		display: grid;
 		justify-items: center;
-		gap: 0.85rem;
-		min-width: 3rem;
+		min-width: 1rem;
 	}
 
 	.tool-card__trace-line {
@@ -524,8 +519,7 @@ const toolTagCount = new Set(tools.flatMap((tool) => tool.data.tags.map((tag) =>
 
 	.module-list__link {
 		display: grid;
-		grid-template-columns: auto 1fr;
-		gap: 0.75rem;
+		gap: 0.25rem;
 		align-items: center;
 		padding: 0.75rem 0.8rem;
 		border: 1px solid var(--border);
@@ -540,8 +534,8 @@ const toolTagCount = new Set(tools.flatMap((tool) => tool.data.tags.map((tag) =>
 		text-decoration: none;
 	}
 
-	.module-list__link span {
-		color: var(--accent-2);
+	.module-list__link strong {
+		font-size: 1rem;
 	}
 
 	@media (max-width: 980px) {

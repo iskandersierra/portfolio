@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- When a route-local UI cleanup is rejected for a temporary layout regression and then approved after a narrow follow-up, merge the implementation, rejection, and revision into one canonical decision and let the session log carry the review sequence.
 - When implementation and QA inbox entries describe the same fix, merge them into one consolidated decision block and keep the approval trail in session and orchestration logs.
 - When the inbox includes user directives alongside implementation and review notes, fold the directives into the main ledger as scope constraints and keep the execution evidence in the log files.
 - When PR review threads stay open after follow-up fixes, record closure from current branch behavior plus the latest successful validation run instead of mirroring stale GitHub thread state in the decision ledger.

@@ -122,7 +122,7 @@ test.describe('site shell', () => {
 		const hiddenEntries = page.locator('.signal-entry[hidden]');
 
 		await expect(page.locator('.filter-chip[aria-current="page"]')).toContainText('Career');
-		await expect(page.locator('.archive-stats dd').nth(0)).toHaveText('02');
+		await expect(page.locator('.archive-stats dd').nth(0)).toHaveText('2');
 		await expect(page.locator('.archive-stats dd').nth(2)).toHaveText('Career');
 		await expect(page.locator('.graph-panel__metrics dd').nth(0)).toHaveText('filtered');
 		await expect(page.locator('.graph-panel__metrics dd').nth(1)).toHaveText('/blog?tag=Career');
@@ -139,7 +139,7 @@ test.describe('site shell', () => {
 		await page.goto('/blog?tag=%20cArEeR%20');
 
 		await expect(page.locator('.filter-chip[aria-current="page"]')).toContainText('Career');
-		await expect(page.locator('.archive-stats dd').nth(0)).toHaveText('02');
+		await expect(page.locator('.archive-stats dd').nth(0)).toHaveText('2');
 		await expect(page.locator('.archive-stats dd').nth(2)).toHaveText('Career');
 		await expect(page.locator('.graph-panel__metrics dd').nth(1)).toHaveText('/blog?tag=Career');
 		await expect(page.locator('.signal-entry:not([hidden])')).toHaveCount(2);
@@ -148,7 +148,7 @@ test.describe('site shell', () => {
 
 		await expect(page).toHaveURL(/\/blog\/?$/);
 		await expect(page.locator('.filter-chip[aria-current="page"]')).toContainText('All posts');
-		await expect(page.locator('.archive-stats dd').nth(0)).toHaveText('03');
+		await expect(page.locator('.archive-stats dd').nth(0)).toHaveText('3');
 		await expect(page.locator('.archive-stats dd').nth(2)).toHaveText('All signals');
 		await expect(page.locator('.graph-panel__metrics dd').nth(0)).toHaveText('open');
 		await expect(page.locator('.graph-panel__metrics dd').nth(1)).toHaveText('/blog');

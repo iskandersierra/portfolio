@@ -2,6 +2,98 @@
 
 ## Active Decisions
 
+### 2026-03-24: Home and about graph-field cleanup stays route-local, and the home hero title remains width-constrained
+
+**By:** Trinity, Tank, Switch
+
+**What:**
+- Remove the decorative field block from the home sidebar graph and the about profile map.
+- Keep each panel header and lower legend or list intact, and delete only the page-local data and CSS that existed to render the removed field blocks.
+- Treat the first home pass as rejected until the hero title no longer overlaps the right sidebar.
+- Keep the home hero heading in `src/pages/index.astro` on a constrained multi-line measure instead of forcing a single line with `white-space: nowrap` and `max-width: 100%`.
+
+**Why:**
+- The field blocks duplicated labels already present in the lower legend or list and were overlapping nearby heading content, so removing them is the cleanest route-local presentation fix.
+- QA confirmed the single-line title constraint introduced a visible desktop regression by letting the headline and cursor intrude into the sidebar status area.
+- Restoring only the heading measure closes the regression without reopening the hero grid, sidebar module, mobile breakpoints, shared shell, or component work.
+
+### 2026-03-24: Decorative numeric and alphanumeric tokens are removed while rails and counts stay intentional
+
+**By:** Trinity
+
+**What:**
+- Remove visible serial badges and faux telemetry tokens from shared navigation, footer links, home modules, about modules, archive cards, and list/detail count surfaces.
+- Keep the Proposal 7 visual language through rails, spacing, and stronger label emphasis instead of numbered chrome.
+- Replace zero-padded counts with direct readable values wherever the number still carries meaning.
+
+**Why:**
+- The tokens were decorative garnish rather than information, and they added clutter across the shared shell and route surfaces.
+- Tightening the layouts alongside the removals keeps the UI intentional instead of leaving empty badge columns behind.
+
+### 2026-03-24: Shared header brand text removal stays markup-only
+
+**By:** Trinity
+
+**What:**
+- Remove the `brand-kicker` and `brand-meta` text nodes from `src/components/layout/Header.astro`.
+- Leave the shared header layout, logo, navigation, theme controls, and styling rules unchanged.
+
+**Why:**
+- The request was to remove two visible brand text elements from the home page header without disturbing the rest of the shell.
+- Deleting only those nodes is the smallest presentation-only change, and the existing `.brand` grid collapses to a single logo item without leaving broken spacing.
+
+### 2026-03-24: Theme chooser trigger width reduction stays a presentation-only header tweak
+
+**By:** Trinity
+
+**What:**
+- Remove the trigger-only `adaptive` badge from the header theme chooser button in `src/components/layout/ThemeToggle.astro`.
+- Keep the richer theme descriptions inside the dropdown menu items, including the existing system-mode secondary label.
+- Leave the chooser's menu semantics, accessible name, and current visual language unchanged.
+
+**Why:**
+- The extra trigger badge made the control wider than needed in the shared header.
+- Removing only the trigger badge is the smallest targeted fix that narrows the button without weakening the more descriptive in-menu labeling.
+
+### 2026-03-24: Proposal 7 is the explicit launch baseline in planning docs
+
+**By:** Neo
+
+**What:**
+- Treat Proposal 7, Signal Graph Studio, as the explicit launch baseline in launch-planning documentation.
+- Retire the older Proposal 1 wording from the canonical launch-direction record and Story 0.1 summary.
+- Reconcile nearby planning language so shared-shell notes describe the approved launch direction instead of the older terminal baseline.
+
+**Why:**
+- The live product already ships the Proposal 7 shell and route framing, so the planning baseline should describe the product that is actually launching.
+- Leaving Proposal 1 as the recorded baseline creates avoidable drift between the design decision, the epic tracker, and the shipped UI.
+- This is a documentation-alignment decision, not a request to reopen the already-shipped Proposal 7 implementation scope.
+
+### 2026-03-24: Shared shell UI copy cleanup stays presentation-only
+
+**By:** Trinity
+
+**What:**
+- Remove the header's internal-status pill instead of replacing it with another live-state label.
+- Replace the shared top-rail copy with a neutral Proposal 7-consistent label that keeps the signal-graph framing without surfacing "shared shell" or "Proposal 07" text.
+- Trim the footer meta note to keep the connected-practice and adaptive-theme language while removing shared-shell wording.
+
+**Why:**
+- The request was to remove internal and stale live UI labels while preserving the current Proposal 7 visual language.
+- Presentation-only copy edits keep the shell composition stable and avoid reopening component structure, tokens, or route behavior.
+
+### 2026-03-24: Canonical reduced-motion hover-lift smoke locator now follows the live home module surface
+
+**By:** Tank
+
+**What:**
+- Update the reduced-motion hover-lift assertion in `tests/e2e/smoke.spec.ts` to target `.recent-posts .signal-module` instead of the removed `.brutalist-card` selector.
+- Treat the original hover-lift failure as closed; the canonical smoke command now fails only on six separate Chromium navigation and server-stability assertions.
+
+**Why:**
+- The home route no longer renders the legacy shared-card surface, so the stale selector was test debt rather than a product regression.
+- Keeping the fix locator-only preserves the current request scope while making the smoke suite report the remaining real failures accurately.
+
 ### 2026-03-22: Proposal 7 detail layouts share connected modules, adjacent navigation, and conditional tool interactivity
 
 **By:** Trinity, Morpheus, Switch, Tank

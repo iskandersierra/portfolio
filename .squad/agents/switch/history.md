@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- The home hero heading can look stable in isolation and still break the desktop two-column composition; forcing `white-space: nowrap` on that line lets the title and cursor intrude into the sidebar, so the safer pattern is a constrained multi-line measure.
 - Review outcome for the home-and-tools continuation pass is still a rejection: the home featured strip inherits the legacy `Card.astro` treatment, so the key entry modules on `/` still read as terminal-era cards instead of Proposal 7 connected modules.
 - `src/pages/tools.astro` still contains stale archive-only and terminal-era copy even though tool detail pages already shipped in the Proposal 7 language, so archive messaging now contradicts the product surface.
 - `tests/e2e/smoke.spec.ts` mixes valid route-level assertions with one stale UX selector pattern; the featured-card and hover-lift checks still key off `.brutalist-card`, which validates an implementation class instead of the intended home-module surface.

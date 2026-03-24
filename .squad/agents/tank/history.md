@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- For route-local hero cleanups, treat single-line containment hacks on the home title as suspect; if `white-space: nowrap` lets the heading or cursor intrude into the sidebar, reject the batch until the title returns to a constrained multi-line measure.
 - The stale reduced-motion hover-lift assertion in `tests/e2e/smoke.spec.ts` is now aligned to the live Proposal 7 home surface by targeting `.recent-posts .signal-module` instead of the removed `.brutalist-card` selector.
 - After that one-line smoke-spec fix, `pnpm test:e2e -- tests/e2e/smoke.spec.ts` still exits 1, but the repaired reduced-motion hover-lift check passes; the remaining failures are six Chromium-only navigation and server-stability regressions outside this locator change.
 - Proposal 7 smoke coverage on the canonical file is stale in two narrow places only: the desktop header geometry ceiling needs to allow the current shared shell height (`<132px` instead of `<120px`), and reduced-motion entrance assertions should target the route-local `.home-hero` surface instead of the removed generic `.hero` selector.

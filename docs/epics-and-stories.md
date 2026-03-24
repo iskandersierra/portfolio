@@ -71,12 +71,13 @@ Acceptance criteria:
 
 Decision:
 
-- Proposal 1, Minimalist Terminal, is selected as the MVP launch baseline.
+- Proposal 7, Signal Graph Studio, is selected as the MVP launch baseline.
 - Decision record: [docs/design/launch-design-direction.md](./design/launch-design-direction.md)
 
 Delivery notes:
 
-- Proposal 2 and Proposal 3 remain valid post-launch explorations, but are not launch candidates.
+- Short note: this replaces the earlier Proposal 1 baseline now that Proposal 7 is the shipped launch direction.
+- Proposal 1, Proposal 2, and Proposal 3 remain valid reference explorations, but are not the launch baseline.
 - Story 0.1 is closed by documentation and design-direction alignment only. Any follow-on visual refinements belong in later implementation stories.
 
 ### Story 0.2: Choose analytics platform
@@ -209,7 +210,7 @@ Acceptance criteria:
 Delivery notes:
 
 - The shared header now exposes a dedicated mobile menu button and drawer with proper `aria-expanded`, `aria-controls`, active-link state, outside-click dismissal, and Escape-key dismissal.
-- The shell was adjusted to keep the terminal frame usable at 320px width without compromising the existing desktop navigation.
+- The shell was adjusted to keep the shared launch frame usable at 320px width without compromising the existing desktop navigation.
 - Cross-browser Playwright smoke coverage now verifies the mobile path specifically at 320px.
 
 ### Story 1.4: Harden theme behavior
@@ -246,7 +247,7 @@ Acceptance criteria:
 Delivery notes:
 
 - MVP pages now share reusable `motion-enter`, `motion-delay-*`, and `motion-hover-lift` patterns instead of one-off boot-sequence classes.
-- Astro client routing is enabled with a restrained page transition for the shared page shell, keeping the minimalist terminal direction intact.
+- Astro client routing is enabled with a restrained page transition for the shared page shell, keeping the approved launch direction intact.
 - Reduced-motion handling simplifies entrance, hover, and page-transition motion to avoid distraction.
 
 ## Epic 2: Content Platform And Shared Content UI

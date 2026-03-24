@@ -2,22 +2,25 @@
 
 Status: Accepted  
 Date: 2026-03-15  
+Updated: 2026-03-24  
 Issue: #3
 
 ## Decision
 
-Proposal 1, Minimalist Terminal, is the launch design baseline for the MVP.
+Proposal 7, Signal Graph Studio, is the launch design baseline for the MVP.
+
+This supersedes the earlier Proposal 1 launch-baseline call. Proposal 1 remains a useful record of the earlier MVP planning posture, but it is no longer the launch direction the product ships.
 
 ## Rationale
 
-Proposal 1 is the strongest MVP choice because it already aligns with the current implementation and supports the launch priority of technical credibility.
+Proposal 7 is the strongest launch choice because it now matches the shipped product surface and better expresses the portfolio's systems-thinking positioning.
 
-- It matches the current visual language already present in the site shell, hero, and card treatments.
-- It preserves the existing slate, indigo, and teal token strategy already implemented in the theme layer.
-- It avoids turning a product-decision story into a redesign story.
-- It keeps launch effort focused on content, routing, SEO, and feature completeness instead of reworking the visual system.
+- It matches the current shared shell, route framing, and connected-module treatments already implemented across the launch routes.
+- It supports the PRD themes of architecture, learning, tools, and connected technical depth more directly than the older terminal baseline.
+- It keeps the launch decision record aligned with the live implementation instead of preserving a retired baseline in planning docs.
+- Proposal 1 helped de-risk the first MVP planning pass, but keeping it as the active baseline would now misstate the shipped experience.
 
-Proposal 2 and Proposal 3 are not rejected as design directions in general. They are deferred because each would require a more substantial typography and component-system redesign than is justified for the MVP.
+Proposal 1, Proposal 2, and Proposal 3 are not rejected as design directions in general. They remain reference explorations rather than the launch baseline.
 
 ## Alignment With Current Token And Styling Strategy
 
@@ -25,33 +28,33 @@ The selected direction aligns with the current implementation in the following a
 
 ### Theme tokens
 
-- [src/styles/themes.css](../../src/styles/themes.css) already uses a slate-based light and dark theme with indigo and teal accents.
-- The current token names, `--bg`, `--surface`, `--text-main`, `--text-muted`, `--border`, and `--accent`, are sufficient for the launch baseline.
-- The PRD's broader color intent is preserved even though the implementation uses a simplified token naming scheme.
+- [src/styles/themes.css](../../src/styles/themes.css) and [src/styles/global.css](../../src/styles/global.css) now support the signal-graph atmosphere, layered shell framing, and accent treatment used across the live experience.
+- The current token names, `--bg`, `--surface`, `--text-main`, `--text-muted`, `--border`, and `--accent`, remain sufficient for the launch baseline even though the naming stays implementation-oriented.
+- The PRD's broader color intent is preserved through the current blue-black, cyan, mint, and indigo-leaning signal treatment.
 
 ### Typography roles
 
-- [src/styles/global.css](../../src/styles/global.css) already separates display and body roles.
-- Monospaced typography is used for headings, navigation, and terminal-style UI moments.
-- The body type remains readable and visually distinct from the monospace shell language.
+- [src/styles/global.css](../../src/styles/global.css) already separates display, body, and system-label roles.
+- Exo 2, Azeret Mono, and supporting monospace usage now give the interface the intended Proposal 7 control-layer and signal-label language.
+- The body type remains readable while the mono surfaces carry the graph, rail, and metadata cues.
 
 ### Shell and navigation
 
-- [src/components/layout/Header.astro](../../src/components/layout/Header.astro) already matches the proposal's simple top-bar navigation with a terminal-like active state.
-- [src/layouts/Layout.astro](../../src/layouts/Layout.astro) provides the persistent shell and theme bootstrapping needed for the selected direction.
+- [src/components/layout/Header.astro](../../src/components/layout/Header.astro) already exposes the indexed control-layer navigation and signal-graph framing used by the launch shell.
+- [src/layouts/Layout.astro](../../src/layouts/Layout.astro) provides the persistent signal stage, route rails, and theme bootstrapping needed for the selected direction.
 
 ### Hero and content cards
 
-- [src/pages/index.astro](../../src/pages/index.astro) already implements a text-led hero with a cursor treatment that fits Proposal 1.
-- [src/components/ui/Card.astro](../../src/components/ui/Card.astro) already uses bordered, command-like cards instead of soft editorial or floating playful cards.
+- [src/pages/index.astro](../../src/pages/index.astro) already implements the Proposal 7 home hero as a signal hub with a graph preview and connected modules.
+- The launch routes use graph-oriented module framing instead of relying on Proposal 1's terminal-card baseline.
 
 ## Documented Deviations
 
-The launch baseline is Proposal 1 with the following explicit deviations.
+The launch baseline is Proposal 7 with the following explicit deviations.
 
-1. The live typography stack uses IBM Plex Mono and Syne instead of the Proposal 1 suggestion of JetBrains Mono and Inter.
-2. The implementation uses the existing CSS custom property naming system from [src/styles/themes.css](../../src/styles/themes.css) rather than the more abstract token naming described in the PRD.
-3. The current dark-mode accent is teal-driven, while the PRD describes indigo as the primary accent and teal as secondary. This is acceptable for launch because the overall slate, indigo, and teal strategy is still preserved across themes.
+1. The implementation keeps the existing CSS custom property naming system from [src/styles/themes.css](../../src/styles/themes.css) rather than introducing proposal-specific token names.
+2. Legacy structural class names such as `terminal-window`, `terminal-header`, and `terminal-footer` remain in the code even though the rendered UI now follows the Proposal 7 signal-graph direction.
+3. Proposal 7 is adapted into the current Astro layout and route structure instead of being rebuilt as an entirely new component system, which keeps the launch scope contained while preserving the intended visual direction.
 
 These deviations are acceptable for the MVP because they do not change the chosen visual direction. They are implementation details that can be revisited later without reopening the design-direction decision.
 
@@ -60,7 +63,7 @@ These deviations are acceptable for the MVP because they do not change the chose
 This decision closes Story 0.1 only.
 
 - Included: selecting the launch direction, documenting rationale, documenting deviations, and confirming styling alignment.
-- Excluded: refactoring typography, redesigning components, changing tokens, or rebuilding the home page.
+- Excluded: reopening already-shipped Proposal 7 implementation work beyond keeping the launch-direction record accurate.
 
 ## Follow-On Work
 
@@ -68,4 +71,4 @@ If the team wants tighter PRD alignment after launch planning is complete, creat
 
 - typography refinement
 - token naming normalization
-- deeper exploration of the editorial or interactive alternatives
+- deeper exploration of alternative directions beyond the Proposal 7 launch baseline

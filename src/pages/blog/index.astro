@@ -70,11 +70,11 @@ const tagSignals = availableTags.map((tag) => {
 				<dl class="archive-stats" aria-label="Blog archive summary">
 					<div>
 						<dt class="mono">visible nodes</dt>
-						<dd data-archive-visible-nodes>{String(visiblePosts.length).padStart(2, '0')}</dd>
+						<dd data-archive-visible-nodes>{visiblePosts.length}</dd>
 					</div>
 					<div>
 						<dt class="mono">tag clusters</dt>
-						<dd data-archive-tag-clusters>{String(availableTags.length).padStart(2, '0')}</dd>
+						<dd data-archive-tag-clusters>{availableTags.length}</dd>
 					</div>
 					<div>
 						<dt class="mono">focus</dt>
@@ -151,7 +151,6 @@ const tagSignals = availableTags.map((tag) => {
 							style={`--motion-delay: ${(index + 2) * 80}ms`}
 						>
 							<div class="signal-entry__trace" aria-hidden="true">
-								<span class="mono signal-entry__index">N{String(index + 1).padStart(2, '0')}</span>
 								<span class="signal-entry__line"></span>
 							</div>
 							<div class="signal-entry__body">
@@ -205,7 +204,7 @@ const tagSignals = availableTags.map((tag) => {
 									data-filter-label={signal.tag}
 								>
 									<span class="mono">{signal.tag}</span>
-									<strong>{String(signal.count).padStart(2, '0')}</strong>
+									<strong>{signal.count}</strong>
 								</a>
 							</li>
 						))}
@@ -236,7 +235,7 @@ const tagSignals = availableTags.map((tag) => {
 
 			const abortController = new AbortController();
 			const normalizeTag = (value) => value.trim().toLocaleLowerCase();
-			const formatCount = (value) => String(Math.max(value, 0)).padStart(2, '0');
+			const formatCount = (value) => String(Math.max(value, 0));
 			const allSignalsLabel = 'All signals';
 
 			const syncArchiveState = () => {
@@ -646,15 +645,7 @@ const tagSignals = availableTags.map((tag) => {
 	.signal-entry__trace {
 		display: grid;
 		justify-items: center;
-		gap: 0.85rem;
-		min-width: 3rem;
-	}
-
-	.signal-entry__index {
-		font-size: 0.72rem;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		color: var(--accent-2);
+		min-width: 1rem;
 	}
 
 	.signal-entry__line {

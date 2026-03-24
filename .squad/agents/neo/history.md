@@ -22,3 +22,4 @@
 - For Proposal 7 cleanup slices, Playwright expectations should key off the live route surface such as `.signal-module` and `.home-hero`, not legacy implementation classes that can survive longer than the UX contract.
 - When route copy changes a public metadata contract, keep `tests/e2e/fixtures/routes.ts` in sync immediately or the SEO suite becomes the first failing signal even when the page implementation is correct.
 - The home/tools continuation slice closed cleanly once the route-local module work stayed out of `Card.astro` and validation keyed off the visible `.signal-module` and `.home-hero` contracts instead of legacy shared-component selectors.
+- When a newer design direction becomes the shipped product surface, update both the canonical decision record and downstream story summaries together; otherwise planning docs keep pointing at a retired baseline.

@@ -9,6 +9,8 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- Theme chooser trigger width can be reduced safely by removing trigger-only badge copy in `ThemeToggle.astro` while keeping the richer `theme-option-meta` labels inside the dropdown menu and leaving the chooser semantics untouched.
+- Shared-shell copy cleanups in Proposal 7 land best when the edit removes internal-status language from the live UI, keeps the graph framing through neutral rail labels, and trims stale shell wording instead of reopening structure or tokens.
 - Home and about redesigns can move decisively into Proposal 7 without touching shared helpers when the pages keep their existing headings, data sources, and route contracts, then shift the metaphor through page-local graph panels, metrics, and module framing.
 - Archive pages can adopt Proposal 7 most effectively when the route keeps semantic list and filter behavior intact, and the graph/module metaphor lives in surrounding panels, trace lines, and metrics rather than replacing headings or links with ornamental chrome.
 - Proposal 7 lands cleanly in this codebase when the graph metaphor stays in the shared shell and token layer: structural rails, node-and-wire field cues, and control-surface chrome can shift the site identity without touching route content or the theme lifecycle API.
@@ -34,3 +36,5 @@
 - The home featured-content strip can finish its Proposal 7 migration without touching `src/components/ui/Card.astro`; replacing it with page-local signal modules in `src/pages/index.astro` keeps the data flow intact and avoids reopening the shared component layer.
 - The tools archive sidebar copy must stay honest about shipped detail-page work; once tool detail pages share the migrated connected-module language, `src/pages/tools.astro` should describe the archive as the registry view rather than an archive-only interim slice.
 - For the current Proposal 7 cleanup passes, the practical validation set is `pnpm check` plus a focused `pnpm test:e2e` grep on the touched route behavior, because the broader smoke file still contains separate shared-shell debt outside the slice.
+- The smallest clean way to remove the header's extra brand copy is to delete the `brand-kicker` and `brand-meta` nodes in `src/components/layout/Header.astro`; the existing `.brand` grid collapses cleanly to the logo without requiring spacing or token changes.
+- When a route-local graph panel duplicates the same labels already listed below it, the clean fix is to remove the decorative field markup and its page-scoped selectors entirely while keeping the header and legend structure intact.
