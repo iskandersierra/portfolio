@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- Removing the home sidebar cards in `src/pages/index.astro` is cleanest when the featured modules section absorbs the existing motion classes and the page-local sidebar/layout selectors are deleted with the markup.
 - The home-page signal-module rail in `src/pages/index.astro` is drawn by the card `::after` pseudo-element, so top-edge alignment fixes stay route-local by adjusting that inset instead of changing shared card or layout styles.
 - Home featured-module label cleanup in `src/pages/index.astro` should remove redundant static label nodes and the matching page-local data fields while preserving the actual path, status, summary, and metadata values.
 - Theme chooser trigger width can be reduced safely by removing trigger-only badge copy in `ThemeToggle.astro` while keeping the richer `theme-option-meta` labels inside the dropdown menu and leaving the chooser semantics untouched.
@@ -44,3 +45,4 @@
 - Hero asset regeneration should follow the prompt doc literally: convert the sibling PNG to `public/img/hero.webp` with Sharp at WebP quality 85, preserve the source dimensions, and validate the output metadata after writing.
 - Theme-specific hero art can swap cleanly in `src/pages/index.astro` by keeping both image nodes inside the existing figure and letting `html[data-theme]` selectors control visibility, which preserves the dark-theme path and avoids new theme script logic.
 - When the home hero image needs more discipline, a page-local frame with restrained padding and a visible inner border reads cleaner than surface-to-image blending and still keeps the artwork secondary to the copy column.
+- Shared bottom-rail copy in `src/layouts/Layout.astro` reads stronger when it names Iskander or the portfolio field directly; concise shell labels can stay terminal-like without falling back to generic system text.

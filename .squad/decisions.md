@@ -2,6 +2,84 @@
 
 ## Active Decisions
 
+### 2026-03-25: Bottom rail copy should point at Iskander's portfolio, not a generic system
+
+**By:** Trinity
+
+**What:**
+- Rephrase the two shared bottom-rail labels in `src/layouts/Layout.astro` to reference Iskander's theme state and portfolio field directly.
+- Keep the existing concise terminal voice, rail structure, and styling unchanged.
+
+**Why:**
+- The previous labels read like generic interface telemetry instead of portfolio-specific UI copy.
+- A copy-only change keeps Proposal 7 shell framing intact while making the shared chrome feel more authored and personal.
+
+### 2026-03-25: Hero image border treatment prefers defined framing over blend integration
+
+**By:** Iskander (via Copilot)
+
+**What:**
+- Prefer explicit border limits for the home hero images instead of blend-based integration.
+- Treat the current blend-heavy image treatment as the problem to remove rather than a cue to add more atmospheric effects.
+
+**Why:**
+- The user explicitly redirected the team toward clear image boundaries because the existing blending treatment was not working well.
+
+### 2026-03-25: Home hero blend cleanup stays route-local and CSS-only
+
+**By:** Trinity
+
+**What:**
+- Keep the home hero image cleanup route-local to `src/pages/index.astro` with CSS-only tone, edge, and crop adjustments.
+- Update the image-generation prompt to ask for a calmer, less busy signal-network visual instead of terminal or sci-fi drama.
+- Do not add new decorative overlays, graph chrome, or hero markup for this pass.
+
+**Why:**
+- The current issue is blend quality, not missing structure.
+- A quieter source image plus restrained tonal control solves the mismatch without reopening the approved Proposal 7 composition.
+- Keeping the change CSS-only in the page avoids unnecessary shared-shell or component churn.
+
+### 2026-03-25: Home hero images use restrained framing instead of blend-heavy integration
+
+**By:** Trinity
+
+**What:**
+- Replace the home hero image's blend-heavy treatment in `src/pages/index.astro` with a restrained framed container and explicit inner image border.
+- Keep the existing dark and light asset swap, current hero markup, and route-local CSS ownership.
+- Keep the image visually secondary by constraining its desktop width instead of enlarging or decorating it.
+
+**Why:**
+- The updated preference is for clear image limits rather than atmospheric blending.
+- A minimal frame solves that directly without reintroducing the busier Proposal 7 decoration language.
+- The change stays isolated to the home route and preserves the existing responsive and theme behavior.
+
+### 2026-03-25: Home sidebar card removal stays route-local
+
+**By:** Trinity
+
+**What:**
+- Remove the two secondary sidebar modules from `src/pages/index.astro` on the home route.
+- Collapse the remaining lower home section to the featured-signal panel instead of replacing the removed content elsewhere.
+- Delete the page-local sidebar, compact-heading, and module-link styles that become unused after the markup removal.
+
+**Why:**
+- The request was to remove only the two visible home sidebar cards, and the cleanest implementation is a route-local deletion rather than a shared-shell or cross-route redesign.
+- Removing the dead wrapper and page-scoped styles in the same file avoids leaving unused layout code behind.
+
+### 2026-03-25: Light hero variant path uses theme-scoped asset swapping
+
+**By:** Trinity
+
+**What:**
+- Keep the home hero image implementation in `src/pages/index.astro` route-local by reusing the existing figure and swapping between dark and light assets with `html[data-theme]` selectors.
+- Add `public/img/hero-light.webp` immediately as a temporary copy of the current dark asset so the UI path is complete before final light-theme art is ready.
+- Update the hero prompt doc to define both assets with shared constraints and light-theme-specific guidance.
+
+**Why:**
+- The request is for a related but distinct light-theme composition, not a hero redesign.
+- Theme-scoped image swapping is the smallest technical change because the layout already exposes the resolved theme on `html[data-theme]`.
+- Shipping the placeholder path now keeps implementation, docs, and replacement workflow aligned without adding JS or decorative UI.
+
 ### 2026-03-25: Home-page UI decluttering stays route-local and removes only redundant visible labels
 
 **By:** Trinity
