@@ -1,137 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { aboutViewModel, buildAboutProfileSchema, canonicalCv } from '../utils/cv';
 
-const expertise = [
-	{
-		signal: 'N01',
-		label: '.NET architecture',
-		detail: 'Feature-driven services, dependable boundaries, and systems that stay understandable as they grow.',
-	},
-	{
-		signal: 'N02',
-		label: 'Team technical leadership',
-		detail: 'Leading through clarity, design reviews, and delivery habits that raise the technical floor for the team.',
-	},
-	{
-		signal: 'N03',
-		label: 'TypeScript and JavaScript',
-		detail: 'Building interfaces and tooling that feel considered, not assembled, while keeping performance and semantics intact.',
-	},
-	{
-		signal: 'N04',
-		label: 'Azure and cloud delivery',
-		detail: 'Shipping cloud systems with operational discipline, practical observability, and steady release flow.',
-	},
-	{
-		signal: 'N05',
-		label: 'Docker and Kubernetes',
-		detail: 'Containerized development and deployment patterns that support repeatable environments and calm operations.',
-	},
-	{
-		signal: 'N06',
-		label: 'Computer science fundamentals',
-		detail: 'The foundations that keep architecture, debugging, and tradeoff decisions grounded in first principles.',
-	},
-];
+const {
+	heroIntro,
+	profileRoles,
+	expertise,
+	profileModules,
+	experienceTimeline,
+	educationModules,
+	profileLinks,
+} = aboutViewModel;
 
-const profileModules = [
-	{
-		title: 'System role',
-		copy: 'Full-stack developer, software architect, and technical lead working across product delivery and engineering quality.',
-	},
-	{
-		title: 'Operating mode',
-		copy: 'I do my best work where architecture and implementation stay connected, so strategy still cashes out as working software.',
-	},
-	{
-		title: 'What this site does',
-		copy: 'It makes long-term learning visible through real posts, tools, and design decisions instead of a static list of claims.',
-	},
-];
-
-const experienceTimeline = [
-	{
-		signal: 'A01',
-		span: '25 years in software',
-		title: 'Engineering depth before abstraction',
-		copy:
-			'The foundation is still hands-on software delivery: building features, debugging real systems, and learning which fundamentals keep paying off as stacks change.',
-		points: ['application delivery', 'debugging discipline', 'computer science fundamentals'],
-	},
-	{
-		signal: 'A02',
-		span: 'architecture + delivery leadership',
-		title: 'Systems thinking at product scale',
-		copy:
-			'That experience grew into architecture work, technical direction, and release planning where reliability, maintainability, and team clarity matter as much as raw implementation speed.',
-		points: ['architecture decisions', 'technical leadership', 'delivery flow'],
-	},
-	{
-		signal: 'A03',
-		span: 'current operating mode',
-		title: 'Learning in public through shipped work',
-		copy:
-			'The current arc connects writing, tools, and design experiments so the portfolio shows how ideas move from principles to implementation instead of living as disconnected claims.',
-		points: ['writing', 'tooling', 'continuous learning'],
-	},
-];
-
-const educationModules = [
-	{
-		signal: 'E01',
-		title: 'Computer science background',
-		copy:
-			'A computer science foundation still anchors the way I reason about architecture, debugging, tradeoffs, and long-term maintainability.',
-	},
-	{
-		signal: 'E02',
-		title: 'Working philosophy',
-		copy:
-			'I prefer systems where architecture remains close to implementation, teams can explain why the design exists, and learning keeps improving the work instead of staying theoretical.',
-	},
-];
-
-const profileLinks = [
-	{
-		signal: 'L01',
-		label: 'GitHub',
-		href: 'https://github.com/iskandersierra',
-		copy: 'Code, experiments, and the public trail of shipped work.',
-	},
-	{
-		signal: 'L02',
-		label: 'LinkedIn',
-		href: 'https://www.linkedin.com/in/iskandersierra/',
-		copy: 'Professional profile, background context, and direct contact path.',
-	},
-];
-
-const profileSchema = JSON.stringify({
-	'@context': 'https://schema.org',
-	'@type': 'Person',
-	'@id': 'https://isksz.com/about/#person',
-	name: 'Iskander Sierra',
-	url: 'https://isksz.com/about/',
-	description:
-		'Senior full-stack developer, software architect, and technical lead with 25 years of experience building software, leading delivery, and documenting continuous learning.',
-		jobTitle: 'Full-Stack Developer, Software Architect, and Technical Lead',
-		sameAs: profileLinks.map((link) => link.href),
-		knowsAbout: expertise.map((item) => item.label),
-	});
-
-const profileRoles = [
-	{ label: 'architect' },
-	{ label: 'developer' },
-	{ label: 'technical lead' },
-	{ label: 'continuous learner' },
-];
+const profileSchema = JSON.stringify(buildAboutProfileSchema());
 ---
 
 <Layout
 	seo={{
 		title: 'About',
 		description:
-			'Learn more about Iskander Sierra, a senior full-stack developer, architect, and technical lead with 25 years of experience building software and teams.',
+			`Learn more about ${canonicalCv.basics.name}, a senior full-stack developer, architect, and technical lead with ${canonicalCv.basics.yearsOfExperience} years of experience building software and teams.`,
 		pageType: 'website',
 	}}
 >
@@ -142,14 +30,12 @@ const profileRoles = [
 				<p class="mono page-kicker">profile graph / capability map</p>
 				<h1>About</h1>
 				<p class="page-intro">
-					I am a full-stack developer, software architect, and team technical lead focused on
-					building dependable systems, helping teams move with clarity, and staying curious enough
-					to keep learning.
+					{heroIntro}
 				</p>
 				<dl class="about-stats" aria-label="About page summary">
 					<div>
 						<dt class="mono">experience arc</dt>
-						<dd>25 years</dd>
+						<dd>{canonicalCv.basics.yearsOfExperience} years</dd>
 					</div>
 					<div>
 						<dt class="mono">active roles</dt>
@@ -178,26 +64,55 @@ const profileRoles = [
 		</header>
 
 		<div class="about-grid motion-enter motion-delay-2">
-			<section class="section-block expertise-network" aria-labelledby="expertise-network-title">
-				<div class="section-heading">
-					<p class="mono section-kicker">capability nodes</p>
-					<h2 id="expertise-network-title">Expertise that travels together</h2>
-					<p>
-						These are not isolated tags. They reinforce each other in real delivery work, which is
-						why they are presented as linked nodes instead of a flat skill dump.
-					</p>
-				</div>
-				<div class="expertise-grid">
-					{expertise.map((item) => (
-						<article class="expertise-node">
-							<h3>{item.label}</h3>
-							<p>{item.detail}</p>
-						</article>
-					))}
-				</div>
-			</section>
+			<div class="about-column about-column--primary">
+				<section class="section-block expertise-network" aria-labelledby="expertise-network-title">
+					<div class="section-heading">
+						<p class="mono section-kicker">capability nodes</p>
+						<h2 id="expertise-network-title">Expertise that travels together</h2>
+						<p>
+							These are not isolated tags. They reinforce each other in real delivery work, which is
+							why they are presented as linked nodes instead of a flat skill dump.
+						</p>
+					</div>
+					<div class="expertise-grid">
+						{expertise.map((item) => (
+							<article class="expertise-node">
+								<h3>{item.label}</h3>
+								<p>{item.detail}</p>
+							</article>
+						))}
+					</div>
+				</section>
 
-			<aside class="about-sidebar" aria-label="Profile context modules">
+				<section class="section-block profile-modules">
+					<div class="section-heading section-heading--compact">
+						<p class="mono section-kicker">profile modules</p>
+						<h2>How I work</h2>
+					</div>
+					<div class="profile-module-list">
+						{profileModules.map((module) => (
+							<article class="profile-module-card">
+								<h3>{module.title}</h3>
+								<p>{module.copy}</p>
+							</article>
+						))}
+					</div>
+				</section>
+
+				<section class="section-block profile-note motion-enter motion-delay-3">
+					<div class="section-heading section-heading--compact">
+						<p class="mono section-kicker">system note</p>
+						<h2>Why this page exists</h2>
+					</div>
+					<p>
+						This site sits at the intersection of architecture, delivery, and continuous learning.
+						It is a place to share practical experience, document new ideas, and make long-term
+						growth visible through real work.
+					</p>
+				</section>
+			</div>
+
+			<div class="about-column about-column--secondary">
 				<section class="section-block timeline-panel" aria-labelledby="experience-timeline-title">
 					<div class="section-heading section-heading--compact">
 						<p class="mono section-kicker">experience arc</p>
@@ -226,21 +141,6 @@ const profileRoles = [
 							</li>
 						))}
 					</ol>
-				</section>
-
-				<section class="section-block profile-modules">
-					<div class="section-heading section-heading--compact">
-						<p class="mono section-kicker">profile modules</p>
-						<h2>How I work</h2>
-					</div>
-					<div class="profile-module-list">
-						{profileModules.map((module) => (
-							<article class="profile-module-card">
-								<h3>{module.title}</h3>
-								<p>{module.copy}</p>
-							</article>
-						))}
-					</div>
 				</section>
 
 				<section class="section-block education-panel" aria-labelledby="education-panel-title">
@@ -283,19 +183,7 @@ const profileRoles = [
 						</article>
 					</div>
 				</section>
-
-				<section class="section-block profile-note motion-enter motion-delay-3">
-					<div class="section-heading section-heading--compact">
-						<p class="mono section-kicker">system note</p>
-						<h2>Why this page exists</h2>
-					</div>
-					<p>
-						This site sits at the intersection of architecture, delivery, and continuous learning.
-						It is a place to share practical experience, document new ideas, and make long-term
-						growth visible through real work.
-					</p>
-				</section>
-			</aside>
+			</div>
 		</div>
 	</main>
 </Layout>
@@ -331,8 +219,9 @@ const profileRoles = [
 
 	.about-hero {
 		display: grid;
-		grid-template-columns: minmax(0, 1.18fr) minmax(18rem, 0.92fr);
+		grid-template-columns: minmax(0, 1.08fr) minmax(18rem, 0.92fr);
 		gap: 1.25rem;
+		align-items: start;
 		padding: clamp(1.1rem, 2.8vw, 1.7rem);
 		margin-bottom: 1.25rem;
 	}
@@ -430,8 +319,15 @@ const profileRoles = [
 
 	.about-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+		grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
 		gap: 1.25rem;
+		align-items: start;
+	}
+
+	.about-column {
+		display: grid;
+		gap: 1rem;
+		align-content: start;
 	}
 
 	.section-block {
@@ -452,7 +348,6 @@ const profileRoles = [
 		font-size: clamp(1.45rem, 2.5vw, 2rem);
 	}
 
-	.about-sidebar,
 	.profile-module-list,
 	.expertise-grid,
 	.education-grid,
@@ -463,8 +358,12 @@ const profileRoles = [
 	}
 
 	.expertise-grid {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
 		counter-reset: expertise-counter;
+	}
+
+	.profile-module-list {
+		grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
 	}
 
 	.expertise-node,
@@ -622,13 +521,14 @@ const profileRoles = [
 
 	.education-grid,
 	.profile-link-grid {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-columns: 1fr;
 	}
 
 	.profile-link-card {
 		display: flex;
+		flex-direction: column;
 		justify-content: space-between;
-		align-items: flex-end;
+		align-items: flex-start;
 		gap: 1rem;
 		text-decoration: none;
 		color: inherit;
@@ -662,8 +562,8 @@ const profileRoles = [
 		}
 
 		.about-stats,
-		expertise-grid,
-		education-grid,
+		.expertise-grid,
+		.education-grid,
 		.profile-link-grid {
 			grid-template-columns: 1fr;
 		}
@@ -684,10 +584,6 @@ const profileRoles = [
 			background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 78%, transparent), transparent 88%);
 		}
 
-		.profile-link-card {
-			flex-direction: column;
-			align-items: flex-start;
-		}
 	}
 
 	@media (max-width: 420px) {
