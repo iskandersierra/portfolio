@@ -103,6 +103,16 @@ that connect them.
 <p class="mono home-graph__eyebrow" id="home-graph-title">Signal graph preview</p>
 <p class="mono home-graph__status">network://live</p>
 </div>
+<div class="home-graph__field" aria-hidden="true">
+	<span class="hg-orbit hg-orbit--a"></span>
+	<span class="hg-orbit hg-orbit--b"></span>
+	<span class="hg-wire hg-wire--a"></span>
+	<span class="hg-wire hg-wire--b"></span>
+	<span class="hg-wire hg-wire--c"></span>
+	<span class="hg-node hg-node--a"></span>
+	<span class="hg-node hg-node--b"></span>
+	<span class="hg-node hg-node--c"></span>
+</div>
 <ul class="home-graph__legend" aria-label="Connected route modules">
 {graphNodes.map((node) => (
 <li>
@@ -273,6 +283,10 @@ margin: 0.6rem 0 0.9rem;
 font-size: clamp(2.8rem, 5vw, 4.8rem);
 line-height: 0.96;
 max-width: 8ch;
+background: linear-gradient(135deg, var(--text-main) 38%, var(--accent));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
 }
 
 .home-hero__lead,
@@ -323,19 +337,110 @@ margin: 1.5rem 0 0;
 .home-metrics div {
 padding: 0.95rem 1rem;
 border: 1px solid var(--border);
+border-top: 2px solid var(--accent);
 background: color-mix(in srgb, var(--surface-soft) 84%, transparent);
 }
 
 .home-metrics dd {
 margin: 0.4rem 0 0;
-font-size: 1rem;
+font-size: 1.25rem;
 font-weight: 700;
-color: var(--text-main);
+color: var(--accent);
 }
 
 .home-graph {
 display: grid;
 gap: 1rem;
+}
+
+.home-graph__field {
+position: relative;
+min-height: 8.5rem;
+border: 1px solid color-mix(in srgb, var(--border-strong) 48%, transparent);
+background:
+	radial-gradient(circle at 18% 30%, color-mix(in srgb, var(--accent) 14%, transparent) 0, transparent 28%),
+	radial-gradient(circle at 82% 20%, color-mix(in srgb, var(--accent-2) 10%, transparent) 0, transparent 22%),
+	color-mix(in srgb, var(--surface-soft) 72%, transparent);
+overflow: hidden;
+}
+
+.hg-orbit,
+.hg-wire,
+.hg-node {
+position: absolute;
+display: block;
+}
+
+.hg-orbit {
+border: 1px solid color-mix(in srgb, var(--border-strong) 44%, transparent);
+border-radius: 999px;
+opacity: 0.36;
+}
+
+.hg-orbit--a {
+top: 0.6rem;
+left: 0.6rem;
+width: 5.5rem;
+height: 5.5rem;
+}
+
+.hg-orbit--b {
+bottom: 0.5rem;
+right: 0.8rem;
+width: 4rem;
+height: 4rem;
+}
+
+.hg-wire {
+height: 1px;
+background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+transform-origin: left center;
+}
+
+.hg-wire--a {
+top: 2.2rem;
+left: 2.4rem;
+width: 7rem;
+transform: rotate(12deg);
+}
+
+.hg-wire--b {
+top: 4.8rem;
+right: 2.8rem;
+width: 5.5rem;
+transform: rotate(138deg);
+}
+
+.hg-wire--c {
+bottom: 2rem;
+left: 3.2rem;
+width: 8.5rem;
+transform: rotate(-6deg);
+}
+
+.hg-node {
+width: 0.7rem;
+height: 0.7rem;
+border-radius: 999px;
+border: 1px solid color-mix(in srgb, var(--accent-2) 55%, var(--border));
+background: radial-gradient(circle, color-mix(in srgb, var(--node-core) 92%, white) 0 36%, transparent 37%);
+box-shadow: 0 0 0 0.35rem color-mix(in srgb, var(--node-ring) 100%, transparent);
+animation: pulse-node 3.4s ease-in-out infinite;
+}
+
+.hg-node--a {
+top: 1rem;
+left: 0.9rem;
+}
+
+.hg-node--b {
+top: 2.2rem;
+right: 1.2rem;
+}
+
+.hg-node--c {
+bottom: 1.2rem;
+right: 3.6rem;
 }
 
 .home-graph__header,
@@ -381,15 +486,33 @@ display: grid;
 	gap: 0.22rem;
 padding: 0.7rem 0.8rem;
 border: 1px solid var(--border);
+border-left: 2px solid color-mix(in srgb, var(--accent-2) 50%, var(--border));
 background: color-mix(in srgb, var(--surface-soft) 72%, transparent);
 color: var(--text-main);
+transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.home-graph__legend li a::after {
+content: '→';
+display: block;
+font-size: 0.7rem;
+color: var(--accent);
+opacity: 0;
+transition: opacity 0.2s ease;
+margin-top: 0.2rem;
 }
 
 .home-graph__legend li a:hover,
 .home-graph__legend li a:focus-visible {
 border-color: var(--accent);
+border-left-color: var(--accent);
 background: color-mix(in srgb, var(--accent) 12%, var(--surface-strong));
 text-decoration: none;
+}
+
+.home-graph__legend li a:hover::after,
+.home-graph__legend li a:focus-visible::after {
+opacity: 1;
 }
 
 .home-layout {
@@ -536,9 +659,13 @@ margin: 0.4rem 0 0;
 .signal-module__status {
 display: inline-flex;
 align-items: center;
-padding: 0.45rem 0.65rem;
-border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
-background: color-mix(in srgb, var(--surface) 60%, transparent);
+padding: 0.38rem 0.6rem;
+border: 1px solid color-mix(in srgb, var(--accent-2) 36%, var(--border));
+border-radius: 999px;
+background: color-mix(in srgb, var(--accent-2) 10%, var(--surface));
+color: var(--accent-2);
+box-shadow: 0 0 10px color-mix(in srgb, var(--accent-2) 14%, transparent);
+font-size: 0.65rem;
 }
 
 .signal-module__body > p,

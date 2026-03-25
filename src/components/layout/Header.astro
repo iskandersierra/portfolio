@@ -124,10 +124,12 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		font-size: clamp(1.15rem, 1rem + 0.5vw, 1.45rem);
 		white-space: nowrap;
 		letter-spacing: -0.04em;
+		transition: color 0.2s ease, text-shadow 0.2s ease;
 	}
 
 	.logo:hover {
 		color: var(--accent);
+		text-shadow: 0 0 18px var(--accent-glow, rgba(23, 168, 225, 0.22));
 		text-decoration: none;
 	}
 
@@ -159,6 +161,22 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		text-transform: uppercase;
 		font-size: 0.78rem;
 		box-shadow: inset 0 1px 0 color-mix(in srgb, var(--surface-strong) 36%, transparent);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.nav-link::after {
+		content: '';
+		position: absolute;
+		bottom: 0.45rem;
+		left: 1rem;
+		right: 1rem;
+		height: 1px;
+		background: var(--accent);
+		transform: scaleX(0);
+		transform-origin: left center;
+		transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+		border-radius: 999px;
 	}
 
 	.nav-link-label {
@@ -173,6 +191,10 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		text-decoration: none;
 	}
 
+	.nav-link:hover::after {
+		transform: scaleX(1);
+	}
+
 	.nav-link.active {
 		color: var(--accent);
 		border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
@@ -180,6 +202,23 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		box-shadow:
 			inset 0 0 0 1px color-mix(in srgb, var(--accent-2) 18%, transparent),
 			0 14px 28px color-mix(in srgb, var(--shadow-color) 12%, transparent);
+	}
+
+	.nav-link.active::before {
+		content: '';
+		display: inline-block;
+		width: 5px;
+		height: 5px;
+		border-radius: 999px;
+		background: var(--accent-2);
+		margin-right: 0.45rem;
+		box-shadow: 0 0 6px var(--accent-glow, rgba(23, 168, 225, 0.22));
+		animation: pulse-node 2.6s ease-in-out infinite;
+		flex-shrink: 0;
+	}
+
+	.nav-link.active::after {
+		display: none;
 	}
 
 	.actions {
