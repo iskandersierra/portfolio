@@ -9,6 +9,8 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- The home-page signal-module rail in `src/pages/index.astro` is drawn by the card `::after` pseudo-element, so top-edge alignment fixes stay route-local by adjusting that inset instead of changing shared card or layout styles.
+- Home featured-module label cleanup in `src/pages/index.astro` should remove redundant static label nodes and the matching page-local data fields while preserving the actual path, status, summary, and metadata values.
 - Theme chooser trigger width can be reduced safely by removing trigger-only badge copy in `ThemeToggle.astro` while keeping the richer `theme-option-meta` labels inside the dropdown menu and leaving the chooser semantics untouched.
 - Shared-shell copy cleanups in Proposal 7 land best when the edit removes internal-status language from the live UI, keeps the graph framing through neutral rail labels, and trims stale shell wording instead of reopening structure or tokens.
 - Home and about redesigns can move decisively into Proposal 7 without touching shared helpers when the pages keep their existing headings, data sources, and route contracts, then shift the metaphor through page-local graph panels, metrics, and module framing.

@@ -2,6 +2,19 @@
 
 ## Active Decisions
 
+### 2026-03-25: Home-page UI decluttering stays route-local and removes only redundant visible labels
+
+**By:** Trinity
+
+**What:**
+- Remove the featured-module eyebrow label and the static metadata term from `src/pages/index.astro`.
+- Keep the useful home-page values intact and limit the cleanup to route-local markup on the home page.
+- Leave shared shell components, cross-route patterns, and unrelated home content structure unchanged.
+
+**Why:**
+- The removed labels were redundant visible chrome on the home route rather than useful information.
+- Keeping the change route-local satisfies the cleanup request without reopening broader layout or shared-component scope.
+
 ### 2026-03-24: Home and about graph-field cleanup stays route-local, and the home hero title remains width-constrained
 
 **By:** Trinity, Tank, Switch

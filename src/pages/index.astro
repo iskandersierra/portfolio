@@ -14,7 +14,6 @@ const featuredToolHref = featuredTool ? getToolHref(featuredTool.id) : '/tools';
 const featuredModules = [
 	{
 		signal: '03',
-		eyebrow: 'Writing signal',
 		title: featuredPost?.data.title ?? 'Blog archive',
 		summary:
 			featuredPost?.data.excerpt ??
@@ -32,7 +31,6 @@ const featuredModules = [
 	},
 	{
 		signal: '04',
-		eyebrow: 'Tool module',
 		title: featuredTool?.data.title ?? 'Tools registry',
 		summary: featuredTool
 			? `${featuredTool.data.framework} module for ${featuredTool.data.description}`
@@ -117,7 +115,6 @@ stay connected here as adjacent modules instead of falling back to the older sha
 {featuredModules.map((module, index) => (
 <article class={`signal-module motion-enter motion-hover-lift motion-delay-${index + 3}`}>
 <div class="signal-module__body">
-<p class="mono signal-module__eyebrow">{module.eyebrow}</p>
 <div class="signal-module__head">
 <div>
 <h3>{module.title}</h3>
@@ -128,7 +125,6 @@ stay connected here as adjacent modules instead of falling back to the older sha
 <p>{module.summary}</p>
 <dl class="signal-module__meta" aria-label={`${module.title} metadata`}>
 <div>
-<dt class="mono">signal meta</dt>
 <dd>{module.meta}</dd>
 </div>
 </dl>
@@ -422,7 +418,7 @@ mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.62), transparent 86%);
 .signal-module::after {
 	content: '';
 	position: absolute;
-	inset: 1rem auto 1rem 0;
+	inset: 0 auto 1rem 0;
 	width: 2px;
 	background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 80%, transparent), transparent 88%);
 	opacity: 0.8;
