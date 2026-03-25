@@ -71,24 +71,11 @@ always another relationship worth understanding. This portfolio is the active gr
 that work: architecture notes, shipped tools, leadership signals, and the learning loops
 that connect them.
 </p>
-<div class="home-hero__actions">
-<a class="home-action home-action--primary mono" href="/about">open profile modules</a>
-<a class="home-action mono" href="/blog">trace the writing graph</a>
-</div>
-<dl class="home-metrics" aria-label="Home page signal metrics">
-<div>
-<dt class="mono">active focus</dt>
-<dd>systems thinking</dd>
-</div>
-<div>
-<dt class="mono">featured nodes</dt>
-						<dd>2</dd>
-</div>
-<div>
-<dt class="mono">route map</dt>
-<dd>home / about / blog / tools</dd>
-</div>
-</dl>
+<p class="home-hero__byline">
+Full-stack developer · software architect · technical team lead —
+twenty-five years of staying hands-on, shipping real things, and treating
+every new problem as an honest experiment worth running.
+</p>
 </div>
 
 <figure class="home-hero__image" aria-label="Hero visual">
@@ -239,8 +226,7 @@ margin-bottom: 1.25rem;
 .home-kicker,
 .section-kicker,
 .home-graph__eyebrow,
-.home-graph__status,
-.home-metrics dt {
+.home-graph__status {
 margin: 0;
 font-size: 0.72rem;
 letter-spacing: 0.12em;
@@ -253,8 +239,7 @@ text-transform: uppercase;
 color: var(--accent-2);
 }
 
-.home-graph__status,
-.home-metrics dt {
+.home-graph__status {
 color: var(--text-soft);
 }
 
@@ -278,54 +263,14 @@ line-height: 1.7;
 max-width: 62ch;
 }
 
-.home-hero__actions {
-display: flex;
-flex-wrap: wrap;
-gap: 0.75rem;
-margin-top: 1.35rem;
-}
-
-.home-action {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-min-height: 2.8rem;
-padding: 0.7rem 1rem;
-border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
-border-radius: 999px;
-background: color-mix(in srgb, var(--surface-soft) 78%, transparent);
-color: var(--text-main);
-letter-spacing: 0.08em;
-text-transform: uppercase;
-}
-
-.home-action:hover,
-.home-action:focus-visible,
-.home-action--primary {
-border-color: var(--accent);
-background: color-mix(in srgb, var(--accent) 12%, var(--surface-strong));
-text-decoration: none;
-}
-
-.home-metrics {
-display: grid;
-grid-template-columns: repeat(3, minmax(0, 1fr));
-gap: 0.75rem;
-margin: 1.5rem 0 0;
-}
-
-.home-metrics div {
-padding: 0.95rem 1rem;
-border: 1px solid var(--border);
-border-top: 2px solid var(--accent);
-background: color-mix(in srgb, var(--surface-soft) 84%, transparent);
-}
-
-.home-metrics dd {
-margin: 0.4rem 0 0;
-font-size: 1.25rem;
-font-weight: 700;
-color: var(--accent);
+.home-hero__byline {
+	margin: 1.5rem 0 0;
+	padding-left: 1rem;
+	border-left: 2px solid color-mix(in srgb, var(--accent) 52%, transparent);
+	font-size: 0.97rem;
+	color: var(--text-soft);
+	line-height: 1.65;
+	max-width: 52ch;
 }
 
 .home-hero__image {
