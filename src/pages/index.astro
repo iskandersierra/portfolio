@@ -8,13 +8,6 @@ import {
 	getToolHref,
 } from '../utils/content';
 
-const graphNodes = [
-{ label: 'Home hub', meta: 'portfolio control layer' },
-{ label: 'About modules', meta: 'profile and expertise graph', href: '/about' },
-{ label: 'Blog archive', meta: 'architecture and learning signals', href: '/blog' },
-{ label: 'Tools registry', meta: 'practical browser modules', href: '/tools' },
-];
-
 const [featuredPost, featuredTool] = await Promise.all([getFeaturedBlogPost(), getFeaturedTool()]);
 const featuredPostHref = featuredPost ? getBlogPostHref(featuredPost.id) : '/blog';
 const featuredToolHref = featuredTool ? getToolHref(featuredTool.id) : '/tools';
@@ -98,39 +91,26 @@ that connect them.
 </dl>
 </div>
 
-<aside class="home-graph" aria-labelledby="home-graph-title">
-<div class="home-graph__header">
-<p class="mono home-graph__eyebrow" id="home-graph-title">Signal graph preview</p>
-<p class="mono home-graph__status">network://live</p>
-</div>
-<div class="home-graph__field" aria-hidden="true">
-	<span class="hg-orbit hg-orbit--a"></span>
-	<span class="hg-orbit hg-orbit--b"></span>
-	<span class="hg-wire hg-wire--a"></span>
-	<span class="hg-wire hg-wire--b"></span>
-	<span class="hg-wire hg-wire--c"></span>
-	<span class="hg-node hg-node--a"></span>
-	<span class="hg-node hg-node--b"></span>
-	<span class="hg-node hg-node--c"></span>
-</div>
-<ul class="home-graph__legend" aria-label="Connected route modules">
-{graphNodes.map((node) => (
-<li>
-{node.href ? (
-<a href={node.href}>
-								<strong>{node.label}</strong>
-								<small>{node.meta}</small>
-</a>
-) : (
-<span>
-								<strong>{node.label}</strong>
-								<small>{node.meta}</small>
-</span>
-)}
-</li>
-))}
-</ul>
-</aside>
+<figure class="home-hero__image" aria-label="Hero visual">
+<img
+  src="/img/hero.webp"
+  alt="Abstract network graph — nodes and wire paths representing 25 years of software architecture"
+	class="home-hero__img home-hero__img--dark"
+	width="826"
+	height="1032"
+	loading="eager"
+	decoding="async"
+/>
+<img
+	src="/img/hero-light.webp"
+	alt="Abstract network graph — nodes and wire paths representing 25 years of software architecture"
+	class="home-hero__img home-hero__img--light"
+  width="826"
+  height="1032"
+  loading="eager"
+  decoding="async"
+/>
+</figure>
 </header>
 
 <div class="home-layout motion-enter motion-delay-3">
@@ -348,102 +328,51 @@ font-weight: 700;
 color: var(--accent);
 }
 
-.home-graph {
-display: grid;
-gap: 1rem;
-}
-
-.home-graph__field {
+.home-hero__image {
+margin: 0;
 position: relative;
-min-height: 8.5rem;
-border: 1px solid color-mix(in srgb, var(--border-strong) 48%, transparent);
-background:
-	radial-gradient(circle at 18% 30%, color-mix(in srgb, var(--accent) 14%, transparent) 0, transparent 28%),
-	radial-gradient(circle at 82% 20%, color-mix(in srgb, var(--accent-2) 10%, transparent) 0, transparent 22%),
-	color-mix(in srgb, var(--surface-soft) 72%, transparent);
+width: min(100%, clamp(18rem, 31vw, 24rem));
+justify-self: end;
+align-self: stretch;
 overflow: hidden;
+min-height: clamp(18rem, 34vw, 31rem);
+aspect-ratio: 4 / 5;
+border: 1px solid color-mix(in srgb, var(--border-strong) 74%, transparent);
+background: color-mix(in srgb, var(--surface-strong) 94%, var(--surface));
+box-shadow:
+	0 0 0 1px color-mix(in srgb, var(--surface) 88%, transparent),
+	inset 0 0 0 1px color-mix(in srgb, var(--border) 76%, transparent);
 }
 
-.hg-orbit,
-.hg-wire,
-.hg-node {
+.home-hero__img {
 position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+transform: none;
+opacity: 1;
+}
+
+.home-hero__img--dark {
+object-position: 58% 52%;
+filter: saturate(0.8) brightness(0.76) contrast(0.94);
+}
+
+.home-hero__img--light {
+display: none;
+object-position: 52% 48%;
+filter: saturate(0.7) brightness(0.99) contrast(0.92);
+}
+
+html[data-theme='light'] .home-hero__img--dark {
+display: none;
+}
+
+html[data-theme='light'] .home-hero__img--light {
 display: block;
 }
 
-.hg-orbit {
-border: 1px solid color-mix(in srgb, var(--border-strong) 44%, transparent);
-border-radius: 999px;
-opacity: 0.36;
-}
-
-.hg-orbit--a {
-top: 0.6rem;
-left: 0.6rem;
-width: 5.5rem;
-height: 5.5rem;
-}
-
-.hg-orbit--b {
-bottom: 0.5rem;
-right: 0.8rem;
-width: 4rem;
-height: 4rem;
-}
-
-.hg-wire {
-height: 1px;
-background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
-transform-origin: left center;
-}
-
-.hg-wire--a {
-top: 2.2rem;
-left: 2.4rem;
-width: 7rem;
-transform: rotate(12deg);
-}
-
-.hg-wire--b {
-top: 4.8rem;
-right: 2.8rem;
-width: 5.5rem;
-transform: rotate(138deg);
-}
-
-.hg-wire--c {
-bottom: 2rem;
-left: 3.2rem;
-width: 8.5rem;
-transform: rotate(-6deg);
-}
-
-.hg-node {
-width: 0.7rem;
-height: 0.7rem;
-border-radius: 999px;
-border: 1px solid color-mix(in srgb, var(--accent-2) 55%, var(--border));
-background: radial-gradient(circle, color-mix(in srgb, var(--node-core) 92%, white) 0 36%, transparent 37%);
-box-shadow: 0 0 0 0.35rem color-mix(in srgb, var(--node-ring) 100%, transparent);
-animation: pulse-node 3.4s ease-in-out infinite;
-}
-
-.hg-node--a {
-top: 1rem;
-left: 0.9rem;
-}
-
-.hg-node--b {
-top: 2.2rem;
-right: 1.2rem;
-}
-
-.hg-node--c {
-bottom: 1.2rem;
-right: 3.6rem;
-}
-
-.home-graph__header,
 .section-heading {
 display: grid;
 gap: 0.35rem;
@@ -459,61 +388,7 @@ font-size: clamp(1.45rem, 2.5vw, 2rem);
 .home-module h2 {
 font-size: 1.2rem;
 }
-.home-graph__legend strong {
-display: block;
-color: var(--text-main);
-font-size: 0.95rem;
-}
-.home-graph__legend small {
-display: block;
-margin-top: 0.2rem;
-color: var(--text-muted);
-font-size: 0.75rem;
-}
 
-.home-graph__legend {
-list-style: none;
-padding: 0;
-margin: 0;
-display: grid;
-grid-template-columns: repeat(2, minmax(0, 1fr));
-gap: 0.6rem;
-}
-
-.home-graph__legend li a,
-.home-graph__legend li > span {
-display: grid;
-	gap: 0.22rem;
-padding: 0.7rem 0.8rem;
-border: 1px solid var(--border);
-border-left: 2px solid color-mix(in srgb, var(--accent-2) 50%, var(--border));
-background: color-mix(in srgb, var(--surface-soft) 72%, transparent);
-color: var(--text-main);
-transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-
-.home-graph__legend li a::after {
-content: '→';
-display: block;
-font-size: 0.7rem;
-color: var(--accent);
-opacity: 0;
-transition: opacity 0.2s ease;
-margin-top: 0.2rem;
-}
-
-.home-graph__legend li a:hover,
-.home-graph__legend li a:focus-visible {
-border-color: var(--accent);
-border-left-color: var(--accent);
-background: color-mix(in srgb, var(--accent) 12%, var(--surface-strong));
-text-decoration: none;
-}
-
-.home-graph__legend li a:hover::after,
-.home-graph__legend li a:focus-visible::after {
-opacity: 1;
-}
 
 .home-layout {
 display: grid;
@@ -740,6 +615,26 @@ text-decoration: none;
 .home-layout {
 grid-template-columns: 1fr;
 }
+
+.home-hero__image {
+	width: 100%;
+	max-width: min(100%, 32rem);
+	justify-self: stretch;
+aspect-ratio: 5 / 4;
+min-height: clamp(18rem, 58vw, 26rem);
+}
+
+.home-hero__img {
+	inset: var(--hero-frame-gap);
+}
+
+.home-hero__img--dark {
+object-position: 50% 46%;
+}
+
+.home-hero__img--light {
+object-position: 50% 44%;
+}
 }
 
 @media (max-width: 720px) {
@@ -780,8 +675,7 @@ background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 78%, transpa
 margin-left: 0;
 }
 
-.home-metrics,
-.home-graph__legend {
+.home-metrics {
 grid-template-columns: 1fr;
 }
 
