@@ -46,3 +46,4 @@
 - Theme-specific hero art can swap cleanly in `src/pages/index.astro` by keeping both image nodes inside the existing figure and letting `html[data-theme]` selectors control visibility, which preserves the dark-theme path and avoids new theme script logic.
 - When the home hero image needs more discipline, a page-local frame with restrained padding and a visible inner border reads cleaner than surface-to-image blending and still keeps the artwork secondary to the copy column.
 - Shared bottom-rail copy in `src/layouts/Layout.astro` reads stronger when it names Iskander or the portfolio field directly; concise shell labels can stay terminal-like without falling back to generic system text.
+- Shared footer copy cleanup is safest when `src/components/layout/Footer.astro` deletes the requested text node and any now-dead component-local selector in the same patch, leaving the rest of the footer structure and copy untouched.
