@@ -2,6 +2,20 @@
 
 ## Active Decisions
 
+### 2026-03-25: Home hero image hides only on small screens and stays route-local
+
+**By:** Trinity
+
+**What:**
+- Hide the home hero figure in `src/pages/index.astro` at the small-screen breakpoint instead of removing it from larger layouts.
+- Keep the change route-local and tighten the mobile hero gap in the same file so the copy stack still reads cleanly after the figure disappears.
+- Correct the malformed preceding home hero breakpoint in the same page so the responsive cascade applies as intended.
+
+**Why:**
+- The request was specifically about the mobile home layout, so desktop and tablet presentation should remain intact.
+- A CSS-only route-local hide preserves the existing markup, theme-specific image swap, and desktop framing without reopening shared components.
+- Fixing the adjacent breakpoint declaration is necessary for the mobile hide to work reliably and keeps the responsive behavior understandable for the rest of the team.
+
 ### 2026-03-25: Bottom rail copy should point at Iskander's portfolio, not a generic system
 
 **By:** Trinity
