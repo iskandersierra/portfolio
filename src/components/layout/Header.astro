@@ -284,7 +284,7 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-2) 20%, transparent);
 	}
 
-	@media (max-width: 640px) {
+	@media (max-width: 720px) {
 		.terminal-header {
 			gap: 1rem;
 			align-items: stretch;
@@ -357,7 +357,7 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		}
 	}
 
-	@media (min-width: 641px) {
+	@media (min-width: 721px) {
 		.mobile-nav-shell {
 			display: none !important;
 		}
@@ -383,7 +383,7 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		const header = document.querySelector('.terminal-header');
 		const toggle = document.querySelector('[data-mobile-nav-toggle]');
 		const panel = document.querySelector('[data-mobile-nav]');
-		const desktopMedia = window.matchMedia('(min-width: 641px)');
+		const desktopMedia = window.matchMedia('(min-width: 721px)');
 
 		if (!(header instanceof HTMLElement)) {
 			return;

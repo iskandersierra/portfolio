@@ -9,10 +9,10 @@ import {
 } from '../utils/content';
 
 const graphNodes = [
-{ signal: '01', label: 'Home hub', meta: 'portfolio control layer' },
-{ signal: '02', label: 'About modules', meta: 'profile and expertise graph', href: '/about' },
-{ signal: '03', label: 'Blog archive', meta: 'architecture and learning signals', href: '/blog' },
-{ signal: '04', label: 'Tools registry', meta: 'practical browser modules', href: '/tools' },
+{ label: 'Home hub', meta: 'portfolio control layer' },
+{ label: 'About modules', meta: 'profile and expertise graph', href: '/about' },
+{ label: 'Blog archive', meta: 'architecture and learning signals', href: '/blog' },
+{ label: 'Tools registry', meta: 'practical browser modules', href: '/tools' },
 ];
 
 const [featuredPost, featuredTool] = await Promise.all([getFeaturedBlogPost(), getFeaturedTool()]);
@@ -102,19 +102,6 @@ that connect them.
 <div class="home-graph__header">
 <p class="mono home-graph__eyebrow" id="home-graph-title">Signal graph preview</p>
 <p class="mono home-graph__status">network://live</p>
-</div>
-<div class="home-graph__field" aria-hidden="true">
-<span class="home-graph__orbit home-graph__orbit--a"></span>
-<span class="home-graph__orbit home-graph__orbit--b"></span>
-<span class="home-graph__wire home-graph__wire--a"></span>
-<span class="home-graph__wire home-graph__wire--b"></span>
-<span class="home-graph__wire home-graph__wire--c"></span>
-{graphNodes.map((node, index) => (
-<span class={`home-graph__node home-graph__node--${index + 1}`}>
-<strong>{node.label}</strong>
-<small>{node.meta}</small>
-</span>
-))}
 </div>
 <ul class="home-graph__legend" aria-label="Connected route modules">
 {graphNodes.map((node) => (
@@ -283,7 +270,7 @@ color: var(--text-soft);
 
 .home-hero h1 {
 margin: 0.6rem 0 0.9rem;
-font-size: clamp(3rem, 6vw, 5.4rem);
+font-size: clamp(2.8rem, 5vw, 4.8rem);
 line-height: 0.96;
 max-width: 8ch;
 }
@@ -367,113 +354,16 @@ font-size: clamp(1.45rem, 2.5vw, 2rem);
 .home-module h2 {
 font-size: 1.2rem;
 }
-
-.home-graph__field {
-position: relative;
-min-height: 18rem;
-border: 1px solid color-mix(in srgb, var(--border-strong) 60%, transparent);
-background:
-radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--accent) 16%, transparent) 0, transparent 28%),
-radial-gradient(circle at 80% 16%, color-mix(in srgb, var(--accent-2) 12%, transparent) 0, transparent 24%),
-color-mix(in srgb, var(--surface-soft) 78%, transparent);
-overflow: hidden;
-}
-
-.home-graph__orbit,
-.home-graph__wire,
-.home-graph__node {
-position: absolute;
-display: block;
-}
-
-.home-graph__orbit {
-border: 1px solid color-mix(in srgb, var(--border-strong) 52%, transparent);
-border-radius: 999px;
-opacity: 0.4;
-}
-
-.home-graph__orbit--a {
-left: 1rem;
-top: 1rem;
-width: 12rem;
-height: 12rem;
-}
-
-.home-graph__orbit--b {
-right: 1.4rem;
-bottom: 1rem;
-width: 8rem;
-height: 8rem;
-}
-
-.home-graph__wire {
-height: 1px;
-background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
-transform-origin: left center;
-}
-
-.home-graph__wire--a {
-top: 3.4rem;
-left: 5rem;
-width: 11rem;
-transform: rotate(9deg);
-}
-
-.home-graph__wire--b {
-top: 8.2rem;
-right: 4rem;
-width: 9rem;
-transform: rotate(138deg);
-}
-
-.home-graph__wire--c {
-left: 7rem;
-bottom: 4rem;
-width: 12rem;
-transform: rotate(-7deg);
-}
-
-.home-graph__node {
-padding: 0.6rem 0.7rem;
-border: 1px solid color-mix(in srgb, var(--border-strong) 66%, transparent);
-background: color-mix(in srgb, var(--surface-strong) 90%, transparent);
-box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--frame-glow) 92%, transparent);
-}
-
-.home-graph__node strong,
-
 .home-graph__legend strong {
 display: block;
 color: var(--text-main);
 font-size: 0.95rem;
 }
-
-.home-graph__node small,
 .home-graph__legend small {
 display: block;
 margin-top: 0.2rem;
 color: var(--text-muted);
 font-size: 0.75rem;
-}
-
-.home-graph__node--1 {
-top: 1.35rem;
-left: 1rem;
-}
-
-.home-graph__node--2 {
-top: 4rem;
-right: 1rem;
-}
-
-.home-graph__node--3 {
-left: 4.8rem;
-bottom: 3.7rem;
-}
-
-.home-graph__node--4 {
-right: 2.8rem;
-bottom: 1rem;
 }
 
 .home-graph__legend {
@@ -723,10 +613,6 @@ text-decoration: none;
 .home-layout {
 grid-template-columns: 1fr;
 }
-
-.home-graph__field {
-min-height: 15rem;
-}
 }
 
 @media (max-width: 720px) {
@@ -773,19 +659,8 @@ grid-template-columns: 1fr;
 }
 
 .home-hero h1 {
-font-size: clamp(2.6rem, 13vw, 4rem);
-}
-
-.home-graph__field {
-min-height: 12rem;
-}
-
-.home-graph__node {
-padding: 0.45rem 0.55rem;
-}
-
-.home-graph__node strong {
-font-size: 0.84rem;
+font-size: clamp(2.4rem, 12vw, 3.6rem);
+white-space: normal;
 }
 }
 </style>
