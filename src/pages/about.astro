@@ -42,24 +42,42 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 						<dd>{profileRoles.length}</dd>
 					</div>
 					<div>
-						<dt class="mono">core nodes</dt>
+						<dt class="mono">expertise areas</dt>
 						<dd>{expertise.length}</dd>
 					</div>
 				</dl>
 			</div>
 
-			<aside class="profile-map" aria-labelledby="profile-map-title">
-				<div class="profile-map__header">
-					<p class="mono profile-map__eyebrow" id="profile-map-title">Connected profile modules</p>
-					<p class="mono profile-map__status">identity://resolved</p>
+			<aside class="expertise-hub" aria-labelledby="expertise-hub-title">
+				<div class="expertise-hub__header">
+					<p class="mono expertise-hub__eyebrow" id="expertise-hub-title">Expertise signal hub</p>
+					<p class="mono expertise-hub__status">network://active</p>
 				</div>
-				<ul class="profile-map__legend" aria-label="Profile role labels">
-					{profileRoles.map((role) => (
-						<li class="profile-map__legend-item">
-							<span class="profile-map__legend-label">{role.label}</span>
-						</li>
-					))}
-				</ul>
+				<div class="expertise-hub__visual">
+					<div class="expertise-hub__core">
+						<span class="mono expertise-hub__core-label">expertise areas</span>
+						<span class="expertise-hub__core-count">{expertise.length}</span>
+						<span class="mono expertise-hub__core-state">linked delivery graph</span>
+					</div>
+					<ul class="expertise-hub__signals" aria-label="Expertise signal nodes">
+						{expertise.map((item, index) => (
+							<li
+								class={`expertise-hub__signal ${index % 2 === 0 ? 'expertise-hub__signal--left' : 'expertise-hub__signal--right'}`}
+							>
+								<span class="mono expertise-hub__signal-id">{item.signal}</span>
+								<span class="expertise-hub__signal-label">{item.label}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+				<div class="expertise-hub__roles">
+					<p class="mono expertise-hub__role-label">active roles</p>
+					<ul class="expertise-hub__role-list" aria-label="Profile role labels">
+						{profileRoles.map((role) => (
+							<li>{role.label}</li>
+						))}
+					</ul>
+				</div>
 			</aside>
 		</header>
 
@@ -219,7 +237,7 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 
 	.about-hero {
 		display: grid;
-		grid-template-columns: minmax(0, 1.08fr) minmax(18rem, 0.92fr);
+		grid-template-columns: minmax(0, 1.02fr) minmax(20rem, 0.98fr);
 		gap: 1.25rem;
 		align-items: start;
 		padding: clamp(1.1rem, 2.8vw, 1.7rem);
@@ -228,8 +246,12 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 
 	.page-kicker,
 	.section-kicker,
-	.profile-map__eyebrow,
-	.profile-map__status,
+	.expertise-hub__eyebrow,
+	.expertise-hub__status,
+	.expertise-hub__role-label,
+	.expertise-hub__signal-id,
+	.expertise-hub__core-label,
+	.expertise-hub__core-state,
 	.about-stats dt {
 		margin: 0;
 		font-size: 0.72rem;
@@ -239,11 +261,15 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 
 	.page-kicker,
 	.section-kicker,
-	.profile-map__eyebrow {
+	.expertise-hub__eyebrow,
+	.expertise-hub__role-label,
+	.expertise-hub__signal-id,
+	.expertise-hub__core-label {
 		color: var(--accent-2);
 	}
 
-	.profile-map__status,
+	.expertise-hub__status,
+	.expertise-hub__core-state,
 	.about-stats dt {
 		color: var(--text-soft);
 	}
@@ -284,37 +310,172 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 		color: var(--text-main);
 	}
 
-	.profile-map {
+	.expertise-hub {
 		display: grid;
 		gap: 1rem;
+		align-content: start;
 	}
 
-	.profile-map__header,
+	.expertise-hub__header,
 	.section-heading {
 		display: grid;
 		gap: 0.35rem;
 	}
 
-	.profile-map__legend {
+	.expertise-hub__visual {
+		position: relative;
+		isolation: isolate;
+		min-height: clamp(22rem, 34vw, 27rem);
+		padding: clamp(0.95rem, 1.8vw, 1.35rem);
+		border: 1px solid color-mix(in srgb, var(--border-strong) 74%, transparent);
+		background:
+			radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 18%, transparent) 0, transparent 42%),
+			linear-gradient(145deg, color-mix(in srgb, var(--surface-soft) 86%, transparent), color-mix(in srgb, var(--surface) 95%, transparent));
+		overflow: hidden;
+	}
+
+	.expertise-hub__visual::before,
+	.expertise-hub__visual::after {
+		content: '';
+		position: absolute;
+		left: 50%;
+		border-radius: 999px;
+		transform: translateX(-50%);
+		pointer-events: none;
+	}
+
+	.expertise-hub__visual::before {
+		top: 14%;
+		width: min(88%, 23rem);
+		height: min(72%, 18rem);
+		border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
+		opacity: 0.6;
+	}
+
+	.expertise-hub__visual::after {
+		top: 25%;
+		width: min(58%, 13.5rem);
+		height: min(42%, 10rem);
+		border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+		opacity: 0.5;
+	}
+
+	.expertise-hub__core {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		z-index: 2;
+		display: grid;
+		justify-items: center;
+		align-content: center;
+		gap: 0.25rem;
+		width: clamp(8rem, 15vw, 9.6rem);
+		aspect-ratio: 1;
+		padding: 1rem;
+		border-radius: 50%;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 82%, transparent);
+		background:
+			radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--node-core) 76%, white) 0 12%, transparent 13%),
+			radial-gradient(circle, color-mix(in srgb, var(--accent) 20%, transparent) 0, color-mix(in srgb, var(--surface-strong) 92%, transparent) 68%);
+		box-shadow:
+			0 0 0 1px color-mix(in srgb, var(--surface) 86%, transparent),
+			0 0 24px color-mix(in srgb, var(--accent) 14%, transparent);
+		transform: translate(-50%, -50%);
+	}
+
+	.expertise-hub__core-count {
+		font-size: clamp(2.5rem, 4.2vw, 3.25rem);
+		font-weight: 700;
+		line-height: 0.9;
+		color: var(--text-main);
+	}
+
+	.expertise-hub__signals {
 		list-style: none;
 		margin: 0;
 		padding: 0;
 		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 0.65rem;
+		grid-template-columns: minmax(0, 9.25rem) clamp(8rem, 15vw, 9.6rem) minmax(0, 9.25rem);
+		grid-auto-rows: minmax(4.15rem, auto);
+		gap: 0.75rem 0.8rem;
+		justify-content: center;
+		align-items: center;
+		min-height: 100%;
 	}
 
-	.profile-map__legend-item {
-		display: block;
-		padding: 0.75rem 0.8rem;
-		border: 1px solid var(--border);
-		background: color-mix(in srgb, var(--surface-soft) 78%, transparent);
+	.expertise-hub__signal {
+		position: relative;
+		display: grid;
+		gap: 0.25rem;
+		width: 100%;
+		max-width: 9.25rem;
+		padding: 0.7rem 0.8rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
+		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--surface) 32%, transparent);
 	}
 
-	.profile-map__legend-label {
+	.expertise-hub__signal--left {
+		grid-column: 1;
+		justify-self: start;
+	}
+
+	.expertise-hub__signal--right {
+		grid-column: 3;
+		justify-self: end;
+		text-align: right;
+	}
+
+	.expertise-hub__signal::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		width: 1.15rem;
+		height: 1px;
+		background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 54%, transparent), transparent);
+		transform: translateY(-50%);
+	}
+
+	.expertise-hub__signal--left::after {
+		right: -1.15rem;
+	}
+
+	.expertise-hub__signal--right::after {
+		left: -1.15rem;
+		background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 54%, transparent));
+	}
+
+	.expertise-hub__signal-label {
 		color: var(--text-main);
-		text-transform: lowercase;
 		font-weight: 600;
+		font-size: 0.96rem;
+		line-height: 1.4;
+		text-wrap: balance;
+	}
+
+	.expertise-hub__roles {
+		display: grid;
+		gap: 0.6rem;
+	}
+
+	.expertise-hub__role-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.55rem;
+	}
+
+	.expertise-hub__role-list li {
+		padding: 0.45rem 0.65rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 66%, transparent);
+		background: color-mix(in srgb, var(--surface-soft) 80%, transparent);
+		color: var(--text-main);
+		font-family: 'Azeret Mono', monospace;
+		font-size: 0.72rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 	}
 
 	.about-grid {
@@ -549,12 +710,6 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 		}
 	}
 
-	@media (max-width: 560px) {
-		.profile-map__legend {
-			grid-template-columns: 1fr;
-		}
-	}
-
 	@media (max-width: 720px) {
 		.about-hero,
 		.section-block {
@@ -566,6 +721,36 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 		.education-grid,
 		.profile-link-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.expertise-hub__visual {
+			min-height: auto;
+		}
+
+		.expertise-hub__core {
+			position: relative;
+			top: auto;
+			left: auto;
+			margin: 0 auto 1rem;
+			transform: none;
+		}
+
+		.expertise-hub__signals {
+			grid-template-columns: 1fr;
+			gap: 0.75rem;
+		}
+
+		.expertise-hub__signal,
+		.expertise-hub__signal--left,
+		.expertise-hub__signal--right {
+			grid-column: 1;
+			justify-self: stretch;
+			width: 100%;
+			text-align: left;
+		}
+
+		.expertise-hub__signal::after {
+			display: none;
 		}
 
 		.timeline-entry {
@@ -587,8 +772,13 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 	}
 
 	@media (max-width: 420px) {
-		.profile-map__legend-item {
-			padding-inline: 0.7rem;
+		.expertise-hub__visual {
+			padding: 0.85rem;
+		}
+
+		.expertise-hub__role-list li {
+			width: 100%;
+			text-align: center;
 		}
 	}
 </style>
