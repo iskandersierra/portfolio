@@ -103,22 +103,6 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 		min-width: 0;
 	}
 
-	.brand-kicker {
-		margin: 0;
-		font-size: 0.72rem;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		color: var(--accent-2);
-	}
-
-	.brand-meta {
-		margin: 0;
-		font-size: 0.68rem;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		color: var(--text-soft);
-	}
-
 	.logo {
 		color: var(--text-main);
 		font-weight: 700;
@@ -253,10 +237,10 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 
 	.nav-toggle {
 		display: none;
-		grid-template-columns: auto 1fr;
+		grid-template-columns: auto auto;
 		align-items: center;
 		justify-content: center;
-		gap: 0.55rem;
+		column-gap: 0.55rem;
 		min-width: 5.4rem;
 		height: 2.75rem;
 		padding: 0.65rem 0.8rem;
@@ -271,6 +255,15 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 			color 0.2s ease,
 			transform 0.2s ease,
 			box-shadow 0.2s ease;
+	}
+
+	.nav-toggle-icon {
+		display: grid;
+		grid-template-rows: repeat(3, 1px);
+		align-content: center;
+		row-gap: 0.26rem;
+		width: 1rem;
+		flex-shrink: 0;
 	}
 
 	.nav-toggle:hover {
@@ -290,6 +283,7 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 	.nav-toggle-line {
 		display: block;
 		width: 100%;
+		min-width: 0;
 		height: 1px;
 		background: currentColor;
 	}
@@ -352,16 +346,6 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 			min-width: 0;
 		}
 
-		.brand-kicker {
-			font-size: 0.64rem;
-			letter-spacing: 0.12em;
-		}
-
-		.brand-meta {
-			font-size: 0.62rem;
-			letter-spacing: 0.1em;
-		}
-
 		.logo {
 			font-size: 1rem;
 		}
@@ -378,7 +362,13 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 
 		.nav-toggle {
 			min-width: 4.65rem;
+			column-gap: 0.48rem;
 			padding-inline: 0.7rem;
+		}
+
+		.nav-toggle-icon {
+			row-gap: 0.24rem;
+			width: 0.92rem;
 		}
 
 		.terminal-header[data-mobile-nav-ready='true'] .nav-links-desktop {
@@ -391,13 +381,15 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 	}
 
 	@media (max-width: 360px) {
-		.brand-meta {
-			display: none;
-		}
-
 		.nav-toggle {
 			min-width: 4.2rem;
+			column-gap: 0.42rem;
 			padding-inline: 0.62rem;
+		}
+
+		.nav-toggle-icon {
+			row-gap: 0.22rem;
+			width: 0.84rem;
 		}
 
 		.nav-toggle-label {

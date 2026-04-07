@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- The header hamburger bars in `src/components/layout/Header.astro` render reliably only when `.nav-toggle-icon` owns an explicit three-row stack with a fixed width and row gap; leaving the button grid to size the icon implicitly can collapse the bars into a single row.
 - The blog archive empty-state in `src/pages/blog/index.astro` must stay mounted in the DOM even when posts exist, because the inline `syncArchiveState()` script is the source of truth for toggling `[data-empty-state]` during query-string filtering.
 - Removing the home sidebar cards in `src/pages/index.astro` is cleanest when the featured modules section absorbs the existing motion classes and the page-local sidebar/layout selectors are deleted with the markup.
 - The home-page signal-module rail in `src/pages/index.astro` is drawn by the card `::after` pseudo-element, so top-edge alignment fixes stay route-local by adjusting that inset instead of changing shared card or layout styles.

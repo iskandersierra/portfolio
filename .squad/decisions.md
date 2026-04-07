@@ -2,6 +2,86 @@
 
 ## Active Decisions
 
+### 2026-04-07: About role-list regression coverage pins the accessible list at narrow widths
+
+**By:** Tank
+
+**What:**
+- Extend the existing About-page smoke coverage in `tests/e2e/smoke.spec.ts` to assert the named role list and its four expected labels.
+- Add a separate 320px-width About regression check that scrolls the role list into view and verifies each list item remains visible.
+
+**Why:**
+- The reported regression is specifically about the role list disappearing or becoming inaccessible below the tablet breakpoint.
+- Keeping the assertions inside the current smoke file makes the coverage small, local, and aligned with the repo's existing Playwright style.
+
+### 2026-04-07: About mobile role list stays visible while the expertise map hides
+
+**By:** Trinity
+
+**What:**
+- Keep the existing `profileRoles` list markup in `src/pages/about.astro` as the single source of truth for the About hero roles.
+- At `@media (max-width: 980px)`, hide only the decorative `.expertise-hub__visual` node map and keep `.expertise-hub__roles` visible inside a framed panel.
+- Leave the desktop expertise hub and role-list presentation unchanged above the breakpoint.
+
+**Why:**
+- The previous breakpoint hid the entire `.expertise-hub`, which removed the semantic `ul[aria-label="Profile role labels"]` on tablet and mobile.
+- A CSS-only route-local change restores the accessible role list without duplicating markup or reopening shared styles.
+
+### 2026-04-07: Home hero should use one theme-driven image node
+
+**By:** Trinity
+
+**What:**
+- Replace the dual-mounted home hero images in `src/pages/index.astro` with a single `<img>` element.
+- Set the image source and theme-specific tuning from `window.__portfolioTheme.getResolvedTheme()` and keep it synchronized with the existing `portfolio:theme-change` event.
+- Keep the implementation route-local to the home page instead of extending shared layout logic.
+
+**Why:**
+- Mounting both eager hero variants allows both files to be fetched even though only one should render.
+- The shared layout already exposes the resolved theme and lifecycle event, so reusing that controller avoids parallel theme storage logic.
+- Keeping the fix in the home route contains the change and preserves the current shared theme contract.
+
+### 2026-04-07: Blog archive empty state stays permanently mounted
+
+**By:** Trinity
+
+**What:**
+- Keep the blog archive empty-state node in `src/pages/blog/index.astro` rendered at all times.
+- Let the existing inline `syncArchiveState()` logic remain the only source of truth for showing or hiding `[data-empty-state]` during query-string tag filtering.
+- Cover the no-match tag path in `tests/e2e/smoke.spec.ts` by asserting the mounted empty-state node becomes visible.
+
+**Why:**
+- The archive now renders all posts at build time, so template-level omission of the empty-state node prevents the client-side filter sync from toggling it when a selected tag yields zero visible posts.
+- Keeping the fix route-local avoids reopening shared archive patterns or changing the current visual language.
+
+### 2026-04-07: Header toggle layout fix stays CSS-only and icon-owned
+
+**By:** Trinity
+
+**What:**
+- Keep the mobile navigation toggle fix in `src/components/layout/Header.astro` CSS-only.
+- Preserve the existing button markup, ARIA wiring, theme behavior, responsive breakpoints, and `data-mobile-nav-ready='true'` display gating.
+- Make `.nav-toggle-icon` the explicit three-bar layout owner with a fixed width and row gap, and keep the responsive `.nav-toggle` sizing aligned with that icon width.
+
+**Why:**
+- The icon bars were relying on implicit layout sizing from the button grid, which is brittle and can render the three lines as a single horizontal row instead of a stacked hamburger.
+- Moving the stacking responsibility into `.nav-toggle-icon` is the smallest stable fix because it does not require script, markup, or behavior changes.
+- Keeping the adjustment scoped to the existing toggle selectors avoids reopening unrelated header work already in the dirty tree.
+
+### 2026-03-25: About hero rebalance uses a route-local expertise hub panel
+
+**By:** Trinity
+
+**What:**
+- Replace the About hero's right-column legend in `src/pages/about.astro` with a route-local expertise hub panel.
+- Keep the existing two-column desktop hero and the current About copy hierarchy intact.
+- Use a CSS-only signal-graph treatment: centered expertise count, surrounding expertise nodes, and role chips as secondary support data.
+
+**Why:**
+- The previous legend block was too light to balance the heading and stat cards on the left.
+- Reusing the existing `expertise` and `profileRoles` data keeps the implementation localized, dynamic, and low risk.
+- The stronger panel better matches the accepted Signal Graph Studio launch direction without adding a new asset or touching shared styles.
+
 ### 2026-03-25: Home hero image hides only on small screens and stays route-local
 
 **By:** Trinity
