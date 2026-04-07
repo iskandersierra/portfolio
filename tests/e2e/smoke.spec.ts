@@ -173,6 +173,12 @@ test.describe('site shell', () => {
 		await expect(page.locator('.graph-panel__metrics dd').nth(1)).toHaveText('/blog?tag=Career');
 		await expect(page.locator('.signal-entry:not([hidden])')).toHaveCount(2);
 
+		await page.goto('/blog?tag=NoMatch');
+
+		await expect(page.locator('.signal-entry:not([hidden])')).toHaveCount(0);
+		await expect(page.locator('[data-empty-state]')).toBeVisible();
+		await expect(page.locator('[data-empty-state]')).toHaveText('No posts match the NoMatch tag yet.');
+
 		await page.getByRole('link', { name: 'All posts' }).click();
 
 		await expect(page).toHaveURL(/\/blog\/?$/);

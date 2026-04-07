@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- The blog archive empty-state in `src/pages/blog/index.astro` must stay mounted in the DOM even when posts exist, because the inline `syncArchiveState()` script is the source of truth for toggling `[data-empty-state]` during query-string filtering.
 - Removing the home sidebar cards in `src/pages/index.astro` is cleanest when the featured modules section absorbs the existing motion classes and the page-local sidebar/layout selectors are deleted with the markup.
 - The home-page signal-module rail in `src/pages/index.astro` is drawn by the card `::after` pseudo-element, so top-edge alignment fixes stay route-local by adjusting that inset instead of changing shared card or layout styles.
 - Home featured-module label cleanup in `src/pages/index.astro` should remove redundant static label nodes and the matching page-local data fields while preserving the actual path, status, summary, and metadata values.

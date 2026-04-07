@@ -430,6 +430,45 @@
 - The copy needed to make the connected-system metaphor feel earned by the actual work on the site rather than reading like decoration.
 - Review found the about-page field broke down at 320px and needed an accessible equivalent for the role labels, so the fix had to address both layout stability and content access.
 
+### 2026-04-07: About role-list regression coverage pins the accessible list at narrow widths
+
+**By:** Tank
+
+**What:**
+- Extend the existing About-page smoke coverage in `tests/e2e/smoke.spec.ts` to assert the named role list and its four expected labels.
+- Add a separate 320px-width About regression check that scrolls the role list into view and verifies each list item remains visible.
+
+**Why:**
+- The reported regression is specifically about the role list disappearing or becoming inaccessible below the tablet breakpoint.
+- Keeping the assertions inside the current smoke file makes the coverage small, local, and aligned with the repo's existing Playwright style.
+
+### 2026-03-25: About hero rebalance
+
+**By:** Trinity
+
+**What:**
+- Replace the About hero's right-column legend in `src/pages/about.astro` with a route-local expertise hub panel.
+- Keep the existing two-column desktop hero and the current About copy hierarchy intact.
+- Use a CSS-only signal-graph treatment: centered expertise count, surrounding expertise nodes, and role chips as secondary support data.
+
+**Why:**
+- The previous legend block was too light to balance the heading and stat cards on the left.
+- Reusing the existing `expertise` and `profileRoles` data keeps the implementation localized, dynamic, and low risk.
+- The stronger panel better matches the accepted Signal Graph Studio launch direction without adding a new asset or touching shared styles.
+
+### 2026-04-07: About mobile role list stays visible while the expertise map hides
+
+**By:** Trinity
+
+**What:**
+- Keep the existing `profileRoles` list markup in `src/pages/about.astro` as the single source of truth for the About hero roles.
+- At `@media (max-width: 980px)`, hide only the decorative `.expertise-hub__visual` node map and keep `.expertise-hub__roles` visible inside a framed panel.
+- Leave the desktop expertise hub and role-list presentation unchanged above the breakpoint.
+
+**Why:**
+- The previous breakpoint hid the entire `.expertise-hub`, which removed the semantic `ul[aria-label="Profile role labels"]` on tablet and mobile.
+- A CSS-only route-local change restores the accessible role list without duplicating markup or reopening shared styles.
+
 ## Governance
 
 - All meaningful changes require team consensus

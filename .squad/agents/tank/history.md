@@ -39,3 +39,4 @@
 - After the home/tools slice was approved, the only remaining canonical smoke debt was the reduced-motion hover-lift test still looking for `.brutalist-card`; that should be tracked as shared test maintenance rather than as a product-slice blocker.
 - Final continuation validation on 2026-03-23: `pnpm check` passed cleanly, `pnpm test:seo` passed cleanly, and the canonical smoke file now starts on port `4331` without the old environment blocker.
 - The remaining closure blocker is one stale canonical smoke assertion in `tests/e2e/smoke.spec.ts` that still looks for `.brutalist-card` in the reduced-motion hover-lift test; the live home route now renders `.signal-module`, so that single locator fails in Chromium, Firefox, and WebKit while the other 42 smoke checks pass.
+- On 2026-04-07, a full `pnpm test:e2e` run completed cleanly with all 69 Playwright tests passing, so the earlier smoke-suite locator debt is no longer reproducing on the current branch.

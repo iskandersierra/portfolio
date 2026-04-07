@@ -139,52 +139,49 @@ const tagSignals = availableTags.map((tag) => {
 
 		<div class="archive-grid motion-enter motion-delay-2">
 			<section class="signal-feed" aria-label="Blog archive feed">
-				{visiblePosts.length > 0 ? (
-					visiblePosts.map((post, index) => (
-						<article
-							class="signal-entry motion-enter motion-hover-lift"
-							data-post-card
-							data-post-tags={post.data.tags
-								.map((tag) => tag.trim().toLocaleLowerCase())
-								.filter(Boolean)
-								.join('|')}
-							style={`--motion-delay: ${(index + 2) * 80}ms`}
-						>
-							<div class="signal-entry__trace" aria-hidden="true">
-								<span class="signal-entry__line"></span>
-							</div>
-							<div class="signal-entry__body">
-								<div class="signal-entry__header">
-									<div class="post-meta mono">
-										<span>{formatContentDate(post.data.date)}</span>
-										<span>{post.data.readTime} min read</span>
-									</div>
-									<p class="mono signal-entry__state" data-signal-state>live signal</p>
+				{visiblePosts.map((post, index) => (
+					<article
+						class="signal-entry motion-enter motion-hover-lift"
+						data-post-card
+						data-post-tags={post.data.tags
+							.map((tag) => tag.trim().toLocaleLowerCase())
+							.filter(Boolean)
+							.join('|')}
+						style={`--motion-delay: ${(index + 2) * 80}ms`}
+					>
+						<div class="signal-entry__trace" aria-hidden="true">
+							<span class="signal-entry__line"></span>
+						</div>
+						<div class="signal-entry__body">
+							<div class="signal-entry__header">
+								<div class="post-meta mono">
+									<span>{formatContentDate(post.data.date)}</span>
+									<span>{post.data.readTime} min read</span>
 								</div>
-								<h2>
-									<a class="post-link" href={getBlogPostHref(post.id)}>
-										{post.data.title}
-									</a>
-								</h2>
-								<p>{post.data.excerpt}</p>
-								<ul class="tag-list" aria-label={`Tags for ${post.data.title}`}>
-									{post.data.tags.map((tag) => (
-										<li>
-											<a href={getBlogTagHref(tag)}>{tag}</a>
-										</li>
-									))}
-								</ul>
+								<p class="mono signal-entry__state" data-signal-state>live signal</p>
 							</div>
-							<span class="post-link-cta mono" aria-hidden="true">
-								open ./blog/{post.id}.md →
-							</span>
-						</article>
-					))
-				) : (
-					<p class="empty-state" role="status" aria-live="polite" data-empty-state hidden>
-						No posts match the selected tag yet.
-					</p>
-				)}
+							<h2>
+								<a class="post-link" href={getBlogPostHref(post.id)}>
+									{post.data.title}
+								</a>
+							</h2>
+							<p>{post.data.excerpt}</p>
+							<ul class="tag-list" aria-label={`Tags for ${post.data.title}`}>
+								{post.data.tags.map((tag) => (
+									<li>
+										<a href={getBlogTagHref(tag)}>{tag}</a>
+									</li>
+								))}
+							</ul>
+						</div>
+						<span class="post-link-cta mono" aria-hidden="true">
+							open ./blog/{post.id}.md →
+						</span>
+					</article>
+				))}
+				<p class="empty-state" role="status" aria-live="polite" data-empty-state hidden>
+					No posts match the selected tag yet.
+				</p>
 			</section>
 
 			<aside class="archive-sidebar" aria-label="Blog archive context modules">
