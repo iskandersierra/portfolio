@@ -47,9 +47,11 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 				aria-label="Open navigation menu"
 			>
 				<span class="nav-toggle-label mono" aria-hidden="true">menu</span>
-				<span class="nav-toggle-line"></span>
-				<span class="nav-toggle-line"></span>
-				<span class="nav-toggle-line"></span>
+				<span class="nav-toggle-icon" aria-hidden="true">
+					<span class="nav-toggle-line"></span>
+					<span class="nav-toggle-line"></span>
+					<span class="nav-toggle-line"></span>
+				</span>
 				<span class="sr-only">Toggle navigation</span>
 			</button>
 		</div>
@@ -410,6 +412,10 @@ const isActivePath = (itemPath: string, currentPath: string) =>
 	}
 
 	@media (prefers-reduced-motion: reduce) {
+		.nav-link.active::before {
+			animation: none;
+		}
+
 		.nav-toggle {
 			transition: none;
 		}

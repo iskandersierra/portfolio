@@ -80,8 +80,13 @@ const keepSrc  = opts['keep'];
 // ── Validate ───────────────────────────────────────────────────────────────────
 
 if ([patchW, patchH, quality].some(Number.isNaN)) {
-  console.error('Error: --patch-w, --patch-h, and --quality must be integers.');
-  process.exit(1);
+	console.error('Error: --patch-w, --patch-h, and --quality must be integers.');
+	process.exit(1);
+}
+
+if (patchW <= 0 || patchH <= 0 || quality < 1 || quality > 100) {
+	console.error('Error: --patch-w and --patch-h must be positive, and --quality must be between 1 and 100.');
+	process.exit(1);
 }
 
 // ── Process ────────────────────────────────────────────────────────────────────
@@ -89,14 +94,42 @@ if ([patchW, patchH, quality].some(Number.isNaN)) {
 const meta = await sharp(src).metadata();
 const { width, height } = meta;
 
-// Sample a 10×10 block just inside the patch boundary so the fill blends naturally
-const sampleX = Math.max(0, width  - patchW - 10);
-const sampleY = Math.max(0, height - patchH - 10);
+if (!width || !height) {
+	console.error('Error: Could not determine source image dimensions.');
+	process.exit(1);
+}
 
-const { data } = await sharp(src)
-  .extract({ left: sampleX, top: sampleY, width: 10, height: 10 })
-  .raw()
-  .toBuffer({ resolveWithObject: true });
+const sampleWidth = Math.min(10, width - patchW);
+const sampleHeight = Math.min(10, height - patchH);
+
+if (sampleWidth < 1 || sampleHeight < 1) {
+	console.error('Error: patch must leave at least 1px above and to the left for sampling.');
+	process.exit(1);
+}
+
+// Sample a 10×10 block just inside the patch boundary so the fill blends naturally
+const sampleX = width - patchW - sampleWidth;
+const sampleY = height - patchH - sampleHeight;
+
+const { data, info } = await sharp(src)
+	.extract({ left: sampleX, top: sampleY, width: sampleWidth, height: sampleHeight })
+	.raw()
+	.toBuffer({ resolveWithObject: true });
+
+// Average the sampled block to compute fill color
+const channels = info.channels;
+const pixelCount = sampleWidth * sampleHeight;
+let sumR = 0, sumG = 0, sumB = 0;
+
+for (let i = 0; i < data.length; i += channels) {
+	sumR += data[i];
+	sumG += data[i + 1];
+	sumB += data[i + 2];
+}
+
+const r = Math.round(sumR / pixelCount);
+const g = Math.round(sumG / pixelCount);
+const b = Math.round(sumB / pixelCount);
 
 const r = data[0], g = data[1], b = data[2];
 console.log(`Image:       ${width}×${height}`);
