@@ -72,9 +72,9 @@ if (positionals.length < 2) {
 }
 
 const [src, dst] = positionals;
-const patchW   = parseInt(opts['patch-w'], 10);
-const patchH   = parseInt(opts['patch-h'], 10);
-const quality  = parseInt(opts['quality'],  10);
+const patchW   = Number.parseInt(opts['patch-w'], 10);
+const patchH   = Number.parseInt(opts['patch-h'], 10);
+const quality  = Number.parseInt(opts['quality'],  10);
 const keepSrc  = opts['keep'];
 
 // ── Validate ───────────────────────────────────────────────────────────────────
@@ -130,8 +130,6 @@ for (let i = 0; i < data.length; i += channels) {
 const r = Math.round(sumR / pixelCount);
 const g = Math.round(sumG / pixelCount);
 const b = Math.round(sumB / pixelCount);
-
-const r = data[0], g = data[1], b = data[2];
 console.log(`Image:       ${width}×${height}`);
 console.log(`Patch:       ${patchW}×${patchH} px, bottom-right corner`);
 console.log(`Fill colour: rgb(${r},${g},${b})  (sampled at ${sampleX},${sampleY})`);

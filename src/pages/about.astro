@@ -710,7 +710,24 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 		}
 
 		.expertise-hub {
+			gap: 0.85rem;
+		}
+
+		.expertise-hub__header {
+			grid-template-columns: minmax(0, 1fr) auto;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		.expertise-hub__visual {
 			display: none;
+		}
+
+		.expertise-hub__roles {
+			padding: 1rem;
+			border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
+			background:
+				linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
 		}
 	}
 

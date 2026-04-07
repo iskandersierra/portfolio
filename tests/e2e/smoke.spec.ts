@@ -97,11 +97,19 @@ test.describe('site shell', () => {
 	test('about page exposes experience arc, grounding layers, and external profile routes', async ({ page }) => {
 		await page.goto('/about');
 		const linksPanel = page.locator('.links-panel');
+		const roleList = page.getByRole('list', { name: 'Profile role labels' });
 
 		await expect(page.getByRole('heading', { level: 2, name: 'How the profile evolved' })).toBeVisible();
 		await expect(page.getByRole('heading', { level: 3, name: 'Engineering depth before abstraction' })).toBeVisible();
 		await expect(page.getByRole('heading', { level: 2, name: 'Grounding layers' })).toBeVisible();
 		await expect(page.getByRole('heading', { level: 3, name: 'Computer science background' })).toBeVisible();
+		await expect(roleList).toBeVisible();
+		await expect(roleList.getByRole('listitem')).toHaveText([
+			'architect',
+			'developer',
+			'technical lead',
+			'continuous learner',
+		]);
 		await expect(page.getByRole('heading', { level: 2, name: 'Profile links and CV status' })).toBeVisible();
 		await expect(linksPanel.getByRole('link', { name: /GitHub/i })).toHaveAttribute(
 			'href',
@@ -113,6 +121,27 @@ test.describe('site shell', () => {
 		);
 		await expect(linksPanel.getByLabel('CV download status')).toContainText('status / explicitly deferred');
 		await expect(linksPanel.getByRole('link', { name: /CV/i })).toHaveCount(0);
+	});
+
+	test('about page keeps the profile role list visible at 320px width', async ({ page }) => {
+		await page.setViewportSize({ width: 320, height: 720 });
+		await page.goto('/about');
+
+		const roleList = page.getByRole('list', { name: 'Profile role labels' });
+		const roleItems = roleList.getByRole('listitem');
+
+		await roleList.scrollIntoViewIfNeeded();
+		await expect(roleList).toBeVisible();
+		await expect(roleItems).toHaveText([
+			'architect',
+			'developer',
+			'technical lead',
+			'continuous learner',
+		]);
+
+		for (const item of await roleItems.all()) {
+			await expect(item).toBeVisible();
+		}
 	});
 
 	test('blog archive filters by tag from the query string', async ({ page }) => {
