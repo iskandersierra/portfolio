@@ -129,8 +129,10 @@ test.describe('site shell', () => {
 
 		const roleList = page.getByRole('list', { name: 'Profile role labels' });
 		const roleItems = roleList.getByRole('listitem');
+		const expertiseVisual = page.locator('.expertise-hub__visual');
 
 		await roleList.scrollIntoViewIfNeeded();
+		await expect(expertiseVisual).toBeHidden();
 		await expect(roleList).toBeVisible();
 		await expect(roleItems).toHaveText([
 			'architect',
