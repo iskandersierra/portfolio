@@ -666,6 +666,13 @@ const tagSignals = availableTags.map((tag) => {
 		flex-shrink: 0;
 	}
 
+	@media (prefers-reduced-motion: reduce) {
+		.signal-entry__trace::before {
+			animation: none;
+			transition: none;
+		}
+	}
+
 	.signal-entry__line {
 		width: 2px;
 		min-height: 100%;

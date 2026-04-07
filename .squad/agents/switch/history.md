@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- Route-local reduced-motion fixes for decorative pulses should target the exact animated pseudo-element and explicitly zero both `animation` and `transition`, so selector specificity does not leave the motion cue active.
 - The home hero heading can look stable in isolation and still break the desktop two-column composition; forcing `white-space: nowrap` on that line lets the title and cursor intrude into the sidebar, so the safer pattern is a constrained multi-line measure.
 - Review outcome for the home-and-tools continuation pass is still a rejection: the home featured strip inherits the legacy `Card.astro` treatment, so the key entry modules on `/` still read as terminal-era cards instead of Proposal 7 connected modules.
 - `src/pages/tools.astro` still contains stale archive-only and terminal-era copy even though tool detail pages already shipped in the Proposal 7 language, so archive messaging now contradicts the product surface.
