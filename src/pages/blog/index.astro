@@ -633,7 +633,7 @@ const tagSignals = availableTags.map((tag) => {
 
 	.signal-entry {
 		display: grid;
-		grid-template-columns: auto minmax(0, 1fr) auto;
+		grid-template-columns: auto minmax(0, 1fr);
 		gap: 1rem;
 		padding: 1.2rem;
 		align-items: start;
@@ -693,14 +693,19 @@ const tagSignals = availableTags.map((tag) => {
 	}
 
 	.post-link-cta {
-		display: inline-flex;
-		align-self: center;
-		padding: 0.65rem 0.8rem;
+		grid-column: 2;
+		display: flex;
+		padding: 0.5rem 0.8rem;
 		border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
 		background: color-mix(in srgb, var(--surface-soft) 74%, transparent);
 		color: var(--accent);
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
+		font-size: 0.72rem;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 100%;
 	}
 
 	.signal-entry:hover .post-link-cta,
