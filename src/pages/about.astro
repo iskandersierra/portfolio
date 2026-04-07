@@ -708,6 +708,51 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 		.about-grid {
 			grid-template-columns: 1fr;
 		}
+
+		.expertise-hub {
+			display: none;
+		}
+	}
+
+	@media (max-width: 1120px) and (min-width: 981px) {
+		.expertise-hub__visual {
+			min-height: clamp(20.5rem, 30vw, 24rem);
+			padding: clamp(0.9rem, 1.3vw, 1.15rem);
+		}
+
+		.expertise-hub__visual::before {
+			width: min(82%, 21rem);
+			height: min(66%, 16.5rem);
+		}
+
+		.expertise-hub__visual::after {
+			width: min(52%, 12.4rem);
+			height: min(38%, 9rem);
+		}
+
+		.expertise-hub__core {
+			width: clamp(7.6rem, 11vw, 8.8rem);
+			padding: 0.85rem;
+		}
+
+		.expertise-hub__core-count {
+			font-size: clamp(2.3rem, 3.5vw, 2.9rem);
+		}
+
+		.expertise-hub__signals {
+			grid-template-columns: minmax(0, 8.4rem) clamp(7.6rem, 11vw, 8.8rem) minmax(0, 8.4rem);
+			grid-auto-rows: minmax(3.85rem, auto);
+			gap: 0.65rem 0.65rem;
+		}
+
+		.expertise-hub__signal {
+			max-width: 8.4rem;
+			padding: 0.6rem 0.7rem;
+		}
+
+		.expertise-hub__signal-label {
+			font-size: 0.9rem;
+		}
 	}
 
 	@media (max-width: 720px) {
