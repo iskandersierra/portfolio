@@ -78,24 +78,63 @@ every new problem as an honest experiment worth running.
 
 <figure class="home-hero__image" aria-label="Hero visual">
 <img
-  src="/img/hero.webp"
-  alt="Abstract network graph — nodes and wire paths representing 25 years of software architecture"
-	class="home-hero__img home-hero__img--dark"
+	alt="Abstract network graph — nodes and wire paths representing 25 years of software architecture"
+	class="home-hero__img"
 	width="826"
 	height="1032"
 	loading="eager"
 	decoding="async"
-/>
-<img
-	src="/img/hero-light.webp"
-	alt="Abstract network graph — nodes and wire paths representing 25 years of software architecture"
-	class="home-hero__img home-hero__img--light"
-  width="826"
-  height="1032"
-  loading="eager"
-  decoding="async"
+	data-home-hero-image
+	data-src-dark="/img/hero.webp"
+	data-src-light="/img/hero-light.webp"
 />
 </figure>
+
+<script is:inline>
+	(() => {
+		const lifecycleState = window.__portfolioHomeHeroLifecycle ?? { controller: null };
+
+		lifecycleState.controller?.abort();
+		lifecycleState.controller = new AbortController();
+		window.__portfolioHomeHeroLifecycle = lifecycleState;
+
+		const { signal } = lifecycleState.controller;
+
+		const applyHeroTheme = (resolvedTheme) => {
+			const heroImage = document.querySelector('[data-home-hero-image]');
+
+			if (!(heroImage instanceof HTMLImageElement)) {
+				return;
+			}
+
+			const nextTheme = resolvedTheme === 'light' ? 'light' : 'dark';
+			const nextSrc =
+				nextTheme === 'light' ? heroImage.dataset.srcLight : heroImage.dataset.srcDark;
+
+			heroImage.dataset.themeVariant = nextTheme;
+
+			if (nextSrc && heroImage.getAttribute('src') !== nextSrc) {
+				heroImage.setAttribute('src', nextSrc);
+			}
+		};
+
+		const syncHeroTheme = () => {
+			const resolvedTheme = window.__portfolioTheme?.getResolvedTheme?.();
+			applyHeroTheme(resolvedTheme);
+		};
+
+		syncHeroTheme();
+
+		window.addEventListener(
+			'portfolio:theme-change',
+			(event) => {
+				applyHeroTheme(event.detail?.resolvedTheme);
+			},
+			{ signal },
+		);
+		document.addEventListener('astro:page-load', syncHeroTheme, { signal });
+	})();
+</script>
 </header>
 
 <section class="recent-posts motion-enter motion-delay-3" aria-labelledby="featured-signals-title">
@@ -122,11 +161,7 @@ stay connected here as adjacent modules instead of falling back to the older sha
 <span class="mono signal-module__status">{module.status}</span>
 </div>
 <p>{module.summary}</p>
-<dl class="signal-module__meta" aria-label={`${module.title} metadata`}>
-<div>
-<dd>{module.meta}</dd>
-</div>
-</dl>
+<p class="signal-module__meta" aria-label={`${module.title} metadata`}>{module.meta}</p>
 </div>
 <a href={module.href} class="signal-module__link mono" aria-label={module.ariaLabel}>
 {module.linkText}
@@ -250,23 +285,14 @@ transform: none;
 opacity: 1;
 }
 
-.home-hero__img--dark {
+.home-hero__img[data-theme-variant='dark'] {
 object-position: 58% 52%;
 filter: saturate(0.8) brightness(0.76) contrast(0.94);
 }
 
-.home-hero__img--light {
-display: none;
+.home-hero__img[data-theme-variant='light'] {
 object-position: 52% 48%;
 filter: saturate(0.7) brightness(0.99) contrast(0.92);
-}
-
-html[data-theme='light'] .home-hero__img--dark {
-display: none;
-}
-
-html[data-theme='light'] .home-hero__img--light {
-display: block;
 }
 
 .section-heading {
@@ -419,17 +445,13 @@ font-size: 0.65rem;
 }
 
 .signal-module__body > p,
-.signal-module__meta dd {
+.signal-module__meta {
 margin: 0;
 color: var(--text-muted);
 line-height: 1.72;
 }
 
 .signal-module__meta {
-margin: 0;
-}
-
-.signal-module__meta div {
 display: grid;
 gap: 0.3rem;
 padding-top: 0.75rem;
@@ -471,11 +493,11 @@ min-height: clamp(18rem, 58vw, 26rem);
 	inset: var(--hero-frame-gap);
 }
 
-.home-hero__img--dark {
+.home-hero__img[data-theme-variant='dark'] {
 object-position: 50% 46%;
 }
 
-.home-hero__img--light {
+.home-hero__img[data-theme-variant='light'] {
 object-position: 50% 44%;
 }
 }

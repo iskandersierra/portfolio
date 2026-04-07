@@ -24,3 +24,4 @@
 - When late review or QA inbox notes arrive after an initial logging pass, write a second delta session entry and refresh `now.md` to the active slice instead of rewriting the earlier log as if the interim state never existed.
 - When a rejected route-local slice closes on the next revision cycle, replace the rejection-focused `now.md` narrative with the accepted validation evidence and shift the focus note to the next remaining candidate instead of preserving stale in-progress language.
 - When final approval arrives with a narrow shared-test caveat, log the product slice as closed and carry the leftover automation debt separately so the focus note does not misstate a live regression.
+- When a completed route-local accessibility fix has no matching decision inbox note, append it to the current squad session log and leave `decisions.md` unchanged rather than inventing a new canonical decision.

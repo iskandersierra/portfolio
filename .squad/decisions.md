@@ -469,6 +469,33 @@
 - The previous breakpoint hid the entire `.expertise-hub`, which removed the semantic `ul[aria-label="Profile role labels"]` on tablet and mobile.
 - A CSS-only route-local change restores the accessible role list without duplicating markup or reopening shared styles.
 
+### 2026-04-07: Blog archive empty state stays permanently mounted
+
+**By:** Trinity
+
+**What:**
+- Keep the blog archive empty-state node in `src/pages/blog/index.astro` rendered at all times.
+- Let the existing inline `syncArchiveState()` logic remain the only source of truth for showing or hiding `[data-empty-state]` during query-string tag filtering.
+- Cover the no-match tag path in `tests/e2e/smoke.spec.ts` by asserting the mounted empty-state node becomes visible.
+
+**Why:**
+- The archive now renders all posts at build time, so template-level omission of the empty-state node prevents the client-side filter sync from toggling it when a selected tag yields zero visible posts.
+- Keeping the fix route-local avoids reopening shared archive patterns or changing the current visual language.
+
+### 2026-04-07: Home hero should use one theme-driven image node
+
+**By:** Trinity
+
+**What:**
+- Replace the dual-mounted home hero images in `src/pages/index.astro` with a single `<img>` element.
+- Set the image source and theme-specific tuning from `window.__portfolioTheme.getResolvedTheme()` and keep it synchronized with the existing `portfolio:theme-change` event.
+- Keep the implementation route-local to the home page instead of extending shared layout logic.
+
+**Why:**
+- Mounting both eager hero variants allows both files to be fetched even though only one should render.
+- The shared layout already exposes the resolved theme and lifecycle event, so reusing that controller avoids parallel theme storage logic.
+- Keeping the fix in the home route contains the change and preserves the current shared theme contract.
+
 ## Governance
 
 - All meaningful changes require team consensus
