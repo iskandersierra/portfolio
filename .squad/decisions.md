@@ -2,6 +2,32 @@
 
 ## Active Decisions
 
+### 2026-04-20: Projects cutover is project-first with temporary compatibility shims
+
+**By:** Neo, Iskander (via Copilot)
+
+**What:**
+- Make `projects` the canonical content and route surface, using `ProjectEntry`, `getPublishedProjects`, `getProjectHref`, and `getAdjacentProjects` from `src/utils/content.ts`.
+- Keep temporary tool-era helper and type aliases in `src/utils/content.ts` during the cutover so unmigrated callers can move incrementally without blocking the schema shift.
+- Keep the project detail layout's interactive area slot-based instead of coupling it to a specific island implementation.
+
+**Why:**
+- The clean-slate refactor replaces tools with projects, but the migration still needs a low-risk compatibility bridge while remaining pages and layouts move to project-first imports.
+- Preserving the interactive slot keeps migrated entries like the UUID/ULID generator compatible without hard-wiring a single detail-page implementation.
+
+### 2026-04-20: Clean-slate launch surface stays neutral while preserving accessibility and QA hooks
+
+**By:** Switch, Tank
+
+**What:**
+- Treat the launch verification surface as Home, Blog, Projects, About, plus the UUID/ULID project detail route.
+- Assume the blog launches with an empty collection and remove smoke and SEO expectations that published blog detail routes exist at launch.
+- Rebuild About from `canonicalCv`, preserve `ul[aria-label="Profile role labels"]`, and keep the blog archive and article surfaces neutral while retaining the existing tag-filter data attributes and metric nodes used by current scripts and tests.
+
+**Why:**
+- The clean-slate launch removes the old tools and terminal-era assumptions, but the route semantics, accessibility hooks, and proven filter/test hooks still need to stay stable during the reset.
+- Making the launch QA surface explicit prevents false failures while the shipped content state is intentionally sparse.
+
 ### 2026-04-07: About role-list regression coverage pins the accessible list at narrow widths
 
 **By:** Tank
@@ -575,6 +601,67 @@
 - Mounting both eager hero variants allows both files to be fetched even though only one should render.
 - The shared layout already exposes the resolved theme and lifecycle event, so reusing that controller avoids parallel theme storage logic.
 - Keeping the fix in the home route contains the change and preserves the current shared theme contract.
+
+### 2026-04-21: refactor/start-over has five cleanup gaps requiring follow-up
+
+**By:** Neo
+
+**What:**
+- Delete `src/content/tools/uuid-ulid-generator.md` and the now-empty `src/content/tools/` directory.
+- Delete the empty `src/pages/tools/` directory.
+- Remove the seven dead `Tool*` aliases from `src/utils/content.ts`: `ToolEntry`, `sortToolEntries`, `getToolHref`, `getAdjacentTools`, `getFeaturedToolFromEntries`, `getPublishedTools`, `getFeaturedTool`.
+- Replace the "signal graph" kicker and `~/iskander` title in `src/components/layout/Footer.astro` with neutral copy.
+- Remove `--node-core` and `--node-ring` CSS custom properties from both `:root` and `[data-theme='dark']` blocks in `src/styles/themes.css`.
+
+**Why:**
+- The clean-slate decision record (§7) explicitly listed these files for deletion and called for removing all signal-graph design language and replacing all theme tokens with neutral values.
+- The aliases are dead code with no callers; keeping them misleads future contributors into thinking a `tools` collection still exists.
+- The footer kicker and unused tokens are semantic noise that contradicts the neutral-placeholder intent.
+
+### 2026-04-21: Launch blog state enforcement
+
+**By:** Neo
+
+**What:**
+- Enforce the clean-slate launch decision of zero blog posts by deleting the three placeholder markdown files from `src/content/blog/` instead of keeping non-launch content on disk.
+- Rely on the existing empty-state handling in `src/pages/blog/index.astro` and `src/pages/index.astro` when `getPublishedBlogPosts()` returns no entries.
+
+**Why:**
+- Leaving published placeholder posts in source makes the launch archive non-empty and contradicts the approved launch content state.
+- The route logic already supports an empty collection, so deleting the source entries is the smallest, clearest way to align content with the launch decision.
+
+### 2026-04-21: refactor/start-over test suite has two pending fix confirmations and one missing coverage gap
+
+**By:** Tank
+
+**What:**
+- Confirm the blog empty-state visibility test (`smoke.spec.ts:35`) passes on a fresh dev build after the placeholder blog posts are deleted; if it still fails, investigate whether Astro SSR is rendering `hidden={false}` as `hidden=""`.
+- Confirm the About page assertion (`smoke.spec.ts:44`) passes after the old-title check was replaced with `canonicalCv.basics.description` text and role-list label assertions.
+- Add smoke coverage for the home page "Latest writing" section asserting `section[aria-labelledby="latest-writing-title"]` and its `.empty-state` node are visible.
+
+**Why:**
+- Both failing tests were captured against a stale build state; they are expected to pass after content and markup changes land, but a fresh run is required to close them definitively.
+- The home "Latest writing" section is a distinct render surface from the `/blog` archive and currently has no executable coverage, leaving a real gap in launch-surface QA.
+
+### 2026-04-21: Clean-slate QA fixtures should track current route contracts
+
+**By:** Tank
+
+**What:**
+- Align Playwright SEO fixtures with the current home and projects metadata copy.
+- Treat the About hero intro sourced from `canonicalCv.basics.description` as the stable smoke-test contract.
+- Keep reduced-motion hover-lift coverage on always-rendered launch surfaces like `.project-card.motion-hover-lift` instead of removed legacy home selectors.
+
+**Why:**
+- The clean-slate refactor changed public copy and removed older DOM hooks, so the QA contract needs to follow the shipped route surfaces rather than retired implementation details.
+
+### 2026-04-21: Legacy `/tools` route source files removed; tool aliases retained as compatibility wrappers
+
+**By:** Trinity
+
+**What:** Remove the legacy `/tools` route source files entirely and keep the narrow `src/utils/content.ts` tool aliases in place as compatibility wrappers unless a later cleanup needs them.
+
+**Why:** Astro was still generating `/tools` pages because the legacy route files and layout still existed even though the launch surface had already moved to `/projects`.
 
 ## Governance
 

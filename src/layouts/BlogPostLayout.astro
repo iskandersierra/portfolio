@@ -8,7 +8,7 @@ import {
 	type BlogEntry,
 } from '../utils/content';
 
-export interface Props {
+interface Props {
 	post: BlogEntry;
 	adjacentPosts?: {
 		previous?: BlogEntry;
@@ -16,9 +16,27 @@ export interface Props {
 	};
 }
 
+interface BlogSeriesLink {
+	part: number;
+	title: string;
+	slug: string;
+}
+
+interface BlogSeriesData {
+	series?: {
+		name: string;
+		part: number;
+	};
+	seriesSummary?: string;
+	seriesLinks?: BlogSeriesLink[];
+}
+
 const { post, adjacentPosts = {} } = Astro.props as Props;
 const formattedDate = formatContentDate(post.data.date);
 const readTimeLabel = `${post.data.readTime} min read`;
+const seriesData = post.data as typeof post.data & BlogSeriesData;
+const seriesLinks = Array.isArray(seriesData.seriesLinks) ? seriesData.seriesLinks : [];
+const hasSeriesBlock = Boolean(seriesData.series && seriesLinks.length > 0);
 ---
 
 <Layout
@@ -33,13 +51,13 @@ const readTimeLabel = `${post.data.readTime} min read`;
 		<article class="blog-post-article blog-post-layout post-shell detail-shell">
 			<header class="detail-hero detail-hero--blog motion-enter motion-delay-1">
 				<div class="blog-post-header post-header detail-module detail-module--hero">
-					<p class="blog-post-kicker mono">Article signal</p>
+					<p class="blog-post-kicker mono">Article</p>
 					<h1 class="post-title">{post.data.title}</h1>
 					<p class="blog-post-excerpt">{post.data.excerpt}</p>
 					<div class="blog-post-meta post-meta mono" aria-label="Post metadata">
 						<span>Published {formattedDate}</span>
 						<span>Reading time {readTimeLabel}</span>
-						<span>Field note</span>
+						<span>Article</span>
 					</div>
 					<ul class="blog-post-tags post-tag-list" aria-label="Post tags">
 						{post.data.tags.map((tag) => (
@@ -50,21 +68,10 @@ const readTimeLabel = `${post.data.readTime} min read`;
 					</ul>
 				</div>
 
-				<aside class="detail-hero__graph detail-module" aria-labelledby="blog-detail-map-title">
+				<aside class="detail-summary detail-module" aria-labelledby="blog-detail-summary-title">
 					<div class="detail-module__header">
-						<p class="mono detail-module__eyebrow" id="blog-detail-map-title">Reading map</p>
-						<p class="mono detail-module__status">Knowledge node</p>
-					</div>
-					<div class="detail-hero__field detail-hero__field--blog" aria-hidden="true">
-						<span class="detail-orbit detail-orbit--a"></span>
-						<span class="detail-orbit detail-orbit--b"></span>
-						<span class="detail-wire detail-wire--a"></span>
-						<span class="detail-wire detail-wire--b"></span>
-						<span class="detail-wire detail-wire--c"></span>
-						<span class="detail-node detail-node--a"><span>archive</span></span>
-						<span class="detail-node detail-node--b"><span>article</span></span>
-						<span class="detail-node detail-node--c"><span>author</span></span>
-						<span class="detail-node detail-node--d"><span>tags</span></span>
+						<p class="mono detail-module__eyebrow" id="blog-detail-summary-title">Summary</p>
+						<p class="mono detail-module__status">Post details</p>
 					</div>
 					<dl class="detail-hero__metrics" aria-label="Blog article overview">
 						<div>
@@ -85,6 +92,40 @@ const readTimeLabel = `${post.data.readTime} min read`;
 
 			<div class="detail-grid detail-grid--blog">
 				<div class="detail-main">
+					{hasSeriesBlock ? (
+						<section class="detail-module detail-module--series motion-enter motion-delay-2" aria-labelledby="series-title">
+							<div class="detail-module__header">
+								<p class="mono detail-module__eyebrow" id="series-title">Series</p>
+								<p class="mono detail-module__status">
+									Part {seriesData.series?.part} of {seriesLinks.length}
+								</p>
+							</div>
+							<h2 class="series-title">{seriesData.series?.name}</h2>
+							{seriesData.seriesSummary ? <p class="series-summary">{seriesData.seriesSummary}</p> : null}
+							<ol class="series-links" aria-label={`${seriesData.series?.name} parts`}>
+								{seriesLinks.map((link) => {
+									const isCurrentPart = link.slug === post.id;
+
+									return (
+										<li>
+											{isCurrentPart ? (
+												<span class="series-link series-link--current" aria-current="page">
+													<span class="mono">Part {link.part}</span>
+													<strong>{link.title}</strong>
+												</span>
+											) : (
+												<a class="series-link" href={getBlogPostHref(link.slug)}>
+													<span class="mono">Part {link.part}</span>
+													<strong>{link.title}</strong>
+												</a>
+											)}
+										</li>
+									);
+								})}
+							</ol>
+						</section>
+					) : null}
+
 					<section class="detail-module detail-module--body motion-enter motion-delay-2">
 						<div class="detail-module__header">
 							<p class="mono detail-module__eyebrow">Article</p>
@@ -103,8 +144,8 @@ const readTimeLabel = `${post.data.readTime} min read`;
 							<p class="mono detail-module__status">Article context</p>
 						</div>
 						<p class="detail-context-copy">
-							This article stays easy to scan by keeping the publication details, topics, and nearby reading
-							paths visible without crowding the main text.
+							This layout keeps the publication details, related navigation, and tags visible without
+							competing with the reading experience.
 						</p>
 						<dl class="detail-fact-list" aria-label="Blog article facts">
 							<div>
@@ -183,9 +224,8 @@ const readTimeLabel = `${post.data.readTime} min read`;
 
 	.detail-main,
 	.detail-sidebar,
-	.detail-hero__graph,
+	.detail-summary,
 	.detail-module,
-	.detail-hero__field,
 	.blog-post-body {
 		min-width: 0;
 	}
@@ -196,31 +236,11 @@ const readTimeLabel = `${post.data.readTime} min read`;
 	}
 
 	.detail-module {
-		position: relative;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
-		background:
-			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
+		border: 1px solid var(--border);
+		border-radius: 1rem;
+		background: var(--surface);
 		box-shadow: var(--panel-shadow-soft);
 		padding: clamp(1.1rem, 2.7vw, 1.65rem);
-		overflow: clip;
-	}
-
-	.detail-module::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-		background:
-			linear-gradient(var(--grid-line) 1px, transparent 1px),
-			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-		background-size: 3rem 3rem;
-		opacity: 0.42;
-		mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 86%);
-	}
-
-	.detail-module > * {
-		position: relative;
-		z-index: 1;
 	}
 
 	.detail-module__header {
@@ -244,115 +264,15 @@ const readTimeLabel = `${post.data.readTime} min read`;
 	}
 
 	.detail-module__eyebrow,
-		.blog-post-kicker,
-		.detail-route-link__label {
-		color: var(--accent-2);
+	.blog-post-kicker,
+	.detail-route-link__label {
+		color: var(--text-soft);
 	}
 
 	.detail-module__status,
 	.detail-hero__metrics dt,
 	.detail-fact-list dt {
 		color: var(--text-soft);
-	}
-
-	.detail-hero__field {
-		position: relative;
-		min-height: 16rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 60%, transparent);
-		background:
-			radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--accent) 15%, transparent) 0, transparent 26%),
-			radial-gradient(circle at 78% 18%, color-mix(in srgb, var(--accent-2) 12%, transparent) 0, transparent 22%),
-			color-mix(in srgb, var(--surface-soft) 78%, transparent);
-		overflow: hidden;
-	}
-
-	.detail-orbit,
-	.detail-wire,
-	.detail-node {
-		position: absolute;
-		display: block;
-	}
-
-	.detail-orbit {
-		border: 1px solid color-mix(in srgb, var(--border-strong) 52%, transparent);
-		border-radius: 999px;
-		opacity: 0.36;
-	}
-
-	.detail-orbit--a {
-		left: 1rem;
-		top: 1rem;
-		width: 8rem;
-		height: 8rem;
-	}
-
-	.detail-orbit--b {
-		right: 0.9rem;
-		bottom: 1.1rem;
-		width: 6.5rem;
-		height: 6.5rem;
-	}
-
-	.detail-wire {
-		height: 1px;
-		background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
-	}
-
-	.detail-wire--a {
-		top: 28%;
-		left: 20%;
-		width: 42%;
-		transform: rotate(16deg);
-	}
-
-	.detail-wire--b {
-		top: 53%;
-		left: 38%;
-		width: 30%;
-		transform: rotate(-10deg);
-	}
-
-	.detail-wire--c {
-		bottom: 24%;
-		left: 18%;
-		width: 52%;
-		transform: rotate(5deg);
-	}
-
-	.detail-node {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.38rem 0.65rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 60%, transparent);
-		border-radius: 999px;
-		background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
-		box-shadow: 0 12px 24px color-mix(in srgb, var(--shadow-color) 20%, transparent);
-		font-family: 'Azeret Mono', monospace;
-		font-size: 0.68rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--text-main);
-	}
-
-	.detail-node--a {
-		left: 1.15rem;
-		top: 2rem;
-	}
-
-	.detail-node--b {
-		left: 43%;
-		top: 42%;
-	}
-
-	.detail-node--c {
-		right: 1rem;
-		top: 1.9rem;
-	}
-
-	.detail-node--d {
-		left: 2rem;
-		bottom: 1.4rem;
 	}
 
 	.detail-hero__metrics,
@@ -370,8 +290,9 @@ const readTimeLabel = `${post.data.readTime} min read`;
 	.detail-hero__metrics div,
 	.detail-fact-list div {
 		padding: 0.85rem 0.95rem;
-		border: 1px solid var(--border);
-		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		border: 1px solid var(--border-muted);
+		border-radius: 0.875rem;
+		background: var(--surface-subtle);
 	}
 
 	.detail-hero__metrics dd,
@@ -381,13 +302,16 @@ const readTimeLabel = `${post.data.readTime} min read`;
 		font-weight: 600;
 	}
 
-	.blog-post-kicker {
+	.blog-post-kicker,
+	.blog-post-excerpt,
+	.detail-context-copy,
+	.series-summary {
 		margin: 0;
 	}
 
 	.blog-post-excerpt,
-	.detail-context-copy {
-		margin: 0;
+	.detail-context-copy,
+	.series-summary {
 		max-width: 65ch;
 		color: var(--text-muted);
 		font-size: 1.02rem;
@@ -408,16 +332,17 @@ const readTimeLabel = `${post.data.readTime} min read`;
 		display: grid;
 		gap: 0.3rem;
 		padding: 0.9rem 1rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
-		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		border: 1px solid var(--border-muted);
+		border-radius: 0.875rem;
+		background: var(--surface-subtle);
 		color: var(--text-main);
 		text-decoration: none;
 	}
 
 	.detail-route-link:hover,
 	.detail-route-link:focus-visible {
-		border-color: var(--accent);
-		background: color-mix(in srgb, var(--accent) 10%, var(--surface-strong));
+		border-color: var(--border-strong);
+		background: var(--surface-hover);
 		text-decoration: none;
 	}
 
@@ -425,6 +350,41 @@ const readTimeLabel = `${post.data.readTime} min read`;
 		margin: 0;
 		font-size: 1rem;
 		line-height: 1.4;
+	}
+
+	.series-title {
+		margin: 0;
+	}
+
+	.series-links {
+		list-style: none;
+		padding: 0;
+		margin: 1rem 0 0;
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.series-link {
+		display: grid;
+		gap: 0.25rem;
+		padding: 0.85rem 0.95rem;
+		border: 1px solid var(--border-muted);
+		border-radius: 0.875rem;
+		background: var(--surface-subtle);
+		color: var(--text-main);
+		text-decoration: none;
+	}
+
+	.series-link:hover,
+	.series-link:focus-visible {
+		border-color: var(--border-strong);
+		background: var(--surface-hover);
+		text-decoration: none;
+	}
+
+	.series-link--current {
+		border-color: var(--border-strong);
+		background: var(--surface-hover);
 	}
 
 	@media (max-width: 960px) {
@@ -459,19 +419,6 @@ const readTimeLabel = `${post.data.readTime} min read`;
 
 		.detail-module {
 			padding: 1rem;
-		}
-
-		.detail-hero__field {
-			min-height: 13rem;
-		}
-
-		.detail-node {
-			font-size: 0.62rem;
-			letter-spacing: 0.05em;
-		}
-
-		.detail-node--b {
-			left: 35%;
 		}
 	}
 </style>

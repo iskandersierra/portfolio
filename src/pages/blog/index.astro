@@ -1,11 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import {
-	formatContentDate,
-	getAllBlogTags,
-	getBlogPostHref,
-	getBlogTagHref,
-	getPublishedBlogPosts,
+formatContentDate,
+getAllBlogTags,
+getBlogPostHref,
+getBlogTagHref,
+getPublishedBlogPosts,
 } from '../../utils/content';
 
 const allPosts = await getPublishedBlogPosts();
@@ -14,841 +14,534 @@ const availableTags = getAllBlogTags(allPosts);
 const tagCounts = new Map<string, { label: string; count: number }>();
 
 for (const post of allPosts) {
-	for (const rawTag of post.data.tags) {
-		const label = rawTag.trim();
-		const normalizedTag = label.toLocaleLowerCase();
+for (const rawTag of post.data.tags) {
+const label = rawTag.trim();
+const normalizedTag = label.toLocaleLowerCase();
 
-		if (!normalizedTag) {
-			continue;
-		}
+if (!normalizedTag) {
+continue;
+}
 
-		const existingTag = tagCounts.get(normalizedTag);
+const existingTag = tagCounts.get(normalizedTag);
 
-		if (existingTag) {
-			existingTag.count += 1;
-			continue;
-		}
+if (existingTag) {
+existingTag.count += 1;
+continue;
+}
 
-		tagCounts.set(normalizedTag, { label, count: 1 });
-	}
+tagCounts.set(normalizedTag, { label, count: 1 });
+}
 }
 
 const tagSignals = availableTags.map((tag) => {
-	const normalizedTag = tag.toLocaleLowerCase();
+const normalizedTag = tag.toLocaleLowerCase();
 
-	return {
-		tag,
-		count: tagCounts.get(normalizedTag)?.count ?? 0,
-		href: getBlogTagHref(tag),
-		normalizedTag,
-	};
+return {
+tag,
+count: tagCounts.get(normalizedTag)?.count ?? 0,
+href: getBlogTagHref(tag),
+normalizedTag,
+};
 });
 ---
 
 <Layout
-	seo={{
-		title: 'Blog',
-		description:
-			'Read notes on software architecture, technical leadership, cloud delivery, and long-term learning from Iskander Sierra.',
-		pageType: 'website',
-	}}
+seo={{
+title: 'Blog',
+description:
+'Read notes on software architecture, technical leadership, cloud delivery, and long-term learning from Iskander Sierra.',
+pageType: 'website',
+}}
 >
-	<main
-		class="container page-shell archive-shell archive-shell--blog"
-		data-blog-archive
-		data-total-post-count={String(allPosts.length)}
-		data-total-tag-count={String(availableTags.length)}
-	>
-		<header class="archive-hero motion-enter motion-delay-1">
-			<div class="archive-hero__copy">
-				<p class="mono page-kicker">$ trace --surface blog --mode graph</p>
-				<h1>Blog</h1>
-				<p class="page-intro">
-					Notes on software architecture, technical leadership, cloud delivery, and the habits that
-					help a long engineering career stay sharp.
-				</p>
-				<dl class="archive-stats" aria-label="Blog archive summary">
-					<div>
-						<dt class="mono">visible nodes</dt>
-						<dd data-archive-visible-nodes>{visiblePosts.length}</dd>
-					</div>
-					<div>
-						<dt class="mono">tag clusters</dt>
-						<dd data-archive-tag-clusters>{availableTags.length}</dd>
-					</div>
-					<div>
-						<dt class="mono">focus</dt>
-						<dd data-archive-focus>All signals</dd>
-					</div>
-				</dl>
-				<nav class="filter-row" aria-label="Blog tag filters">
-					<a
-						href={getBlogTagHref()}
-						class="filter-chip mono active"
-						data-filter-chip
-						data-filter-tag=""
-						data-filter-label="All posts"
-						aria-current="page"
-					>
-					All posts
-					</a>
-					{availableTags.map((tag) => (
-						<a
-							href={getBlogTagHref(tag)}
-							class="filter-chip mono"
-							data-filter-chip
-							data-filter-tag={tag.toLocaleLowerCase()}
-							data-filter-label={tag}
-						>
-							{tag}
-						</a>
-					))}
-				</nav>
-			</div>
+<main
+class="container page-shell archive-shell archive-shell--blog"
+data-blog-archive
+data-total-post-count={String(allPosts.length)}
+data-total-tag-count={String(availableTags.length)}
+>
+<header class="archive-hero motion-enter motion-delay-1">
+<div class="archive-hero__copy">
+<p class="mono page-kicker">Writing archive</p>
+<h1>Blog</h1>
+<p class="page-intro">
+Notes on software architecture, technical leadership, cloud delivery, and the habits that
+help a long engineering career stay sharp.
+</p>
+<dl class="archive-stats" aria-label="Blog archive summary">
+<div>
+<dt class="mono">Visible posts</dt>
+<dd data-archive-visible-nodes>{visiblePosts.length}</dd>
+</div>
+<div>
+<dt class="mono">Tag groups</dt>
+<dd data-archive-tag-clusters>{availableTags.length}</dd>
+</div>
+<div>
+<dt class="mono">Focus</dt>
+<dd data-archive-focus>All posts</dd>
+</div>
+</dl>
+<nav class="filter-row" aria-label="Blog tag filters">
+<a
+href={getBlogTagHref()}
+class="filter-chip mono active"
+data-filter-chip
+data-filter-tag=""
+data-filter-label="All posts"
+aria-current="page"
+>
+All posts
+</a>
+{availableTags.map((tag) => (
+<a
+href={getBlogTagHref(tag)}
+class="filter-chip mono"
+data-filter-chip
+data-filter-tag={tag.toLocaleLowerCase()}
+data-filter-label={tag}
+>
+{tag}
+</a>
+))}
+</nav>
+</div>
 
-			<aside class="graph-panel" aria-labelledby="blog-graph-title">
-				<div class="graph-panel__header">
-					<p class="mono graph-panel__eyebrow" id="blog-graph-title">
-						Knowledge graph feed
-					</p>
-					<p class="mono graph-panel__status" data-archive-status>focus://all-signals</p>
-				</div>
-				<div class="graph-panel__field" aria-hidden="true">
-					<span class="graph-panel__orbit graph-panel__orbit--large"></span>
-					<span class="graph-panel__orbit graph-panel__orbit--small"></span>
-					<span class="graph-panel__wire graph-panel__wire--a"></span>
-					<span class="graph-panel__wire graph-panel__wire--b"></span>
-					<span class="graph-panel__wire graph-panel__wire--c"></span>
-					<span class="graph-node graph-node--a"><span>career</span></span>
-					<span class="graph-node graph-node--b"><span>architecture</span></span>
-					<span class="graph-node graph-node--c"><span>leadership</span></span>
-					<span class="graph-node graph-node--d"><span>learning loops</span></span>
-				</div>
-				<dl class="graph-panel__metrics" aria-label="Blog graph metrics">
-					<div>
-						<dt class="mono">signal density</dt>
-						<dd data-archive-density>open</dd>
-					</div>
-					<div>
-						<dt class="mono">active route</dt>
-						<dd data-archive-route>/blog</dd>
-					</div>
-				</dl>
-			</aside>
-		</header>
+<aside class="graph-panel" aria-labelledby="blog-summary-title">
+<div class="graph-panel__header">
+<p class="mono graph-panel__eyebrow" id="blog-summary-title">Archive summary</p>
+<p class="mono graph-panel__status" data-archive-status>Viewing all posts</p>
+</div>
+<p class="graph-panel__copy">
+The archive stays simple: filter by tag, scan summaries, and move into the full article when a
+piece is relevant.
+</p>
+<dl class="graph-panel__metrics" aria-label="Blog archive metrics">
+<div>
+<dt class="mono">Filter state</dt>
+<dd data-archive-density>open</dd>
+</div>
+<div>
+<dt class="mono">Active route</dt>
+<dd data-archive-route>/blog</dd>
+</div>
+</dl>
+</aside>
+</header>
 
-		<div class="archive-grid motion-enter motion-delay-2">
-			<section class="signal-feed" aria-label="Blog archive feed">
-				{visiblePosts.map((post, index) => (
-					<article
-						class="signal-entry motion-enter motion-hover-lift"
-						data-post-card
-						data-post-tags={post.data.tags
-							.map((tag) => tag.trim().toLocaleLowerCase())
-							.filter(Boolean)
-							.join('|')}
-						style={`--motion-delay: ${(index + 2) * 80}ms`}
-					>
-						<div class="signal-entry__trace" aria-hidden="true">
-							<span class="signal-entry__line"></span>
-						</div>
-						<div class="signal-entry__body">
-							<div class="signal-entry__header">
-								<div class="post-meta mono">
-									<span>{formatContentDate(post.data.date)}</span>
-									<span>{post.data.readTime} min read</span>
-								</div>
-								<p class="mono signal-entry__state" data-signal-state>live signal</p>
-							</div>
-							<h2>
-								<a class="post-link" href={getBlogPostHref(post.id)}>
-									{post.data.title}
-								</a>
-							</h2>
-							<p>{post.data.excerpt}</p>
-							<ul class="tag-list" aria-label={`Tags for ${post.data.title}`}>
-								{post.data.tags.map((tag) => (
-									<li>
-										<a href={getBlogTagHref(tag)}>{tag}</a>
-									</li>
-								))}
-							</ul>
-						</div>
-						<span class="post-link-cta mono" aria-hidden="true">
-							open ./blog/{post.id}.md →
-						</span>
-					</article>
-				))}
-				<p class="empty-state" role="status" aria-live="polite" data-empty-state hidden>
-					No posts match the selected tag yet.
-				</p>
-			</section>
+<div class="archive-grid motion-enter motion-delay-2">
+<section class="signal-feed" aria-label="Blog archive feed">
+{visiblePosts.map((post, index) => (
+<article
+class="signal-entry motion-enter motion-hover-lift"
+data-post-card
+data-post-tags={post.data.tags
+.map((tag) => tag.trim().toLocaleLowerCase())
+.filter(Boolean)
+.join('|')}
+style={`--motion-delay: ${(index + 2) * 80}ms`}
+>
+<div class="signal-entry__header">
+<div class="post-meta mono">
+<span>{formatContentDate(post.data.date)}</span>
+<span>{post.data.readTime} min read</span>
+</div>
+<p class="mono signal-entry__state" data-signal-state>Published</p>
+</div>
+<h2>
+<a class="post-link" href={getBlogPostHref(post.id)}>{post.data.title}</a>
+</h2>
+<p>{post.data.excerpt}</p>
+<ul class="tag-list" aria-label={`Tags for ${post.data.title}`}>
+{post.data.tags.map((tag) => (
+<li>
+<a href={getBlogTagHref(tag)}>{tag}</a>
+</li>
+))}
+</ul>
+</article>
+))}
+<p class="empty-state" role="status" aria-live="polite" data-empty-state hidden={visiblePosts.length > 0}>
+{visiblePosts.length === 0 ? 'No published posts yet.' : 'No posts match the selected tag yet.'}
+</p>
+</section>
 
-			<aside class="archive-sidebar" aria-label="Blog archive context modules">
-				<section class="sidebar-module">
-					<div class="sidebar-module__header">
-						<h2>Tag map</h2>
-						<p class="mono">Resolved from published entries</p>
-					</div>
-					<ul class="tag-map">
-						{tagSignals.map((signal) => (
-							<li>
-								<a
-									href={signal.href}
-									class="tag-map__link"
-									data-tag-map-link
-									data-filter-tag={signal.normalizedTag}
-									data-filter-label={signal.tag}
-								>
-									<span class="mono">{signal.tag}</span>
-									<strong>{signal.count}</strong>
-								</a>
-							</li>
-						))}
-					</ul>
-				</section>
+<aside class="archive-sidebar" aria-label="Blog archive context modules">
+<section class="sidebar-module">
+<div class="sidebar-module__header">
+<h2>Tag map</h2>
+<p class="mono">Resolved from published entries</p>
+</div>
+<ul class="tag-map">
+{tagSignals.map((signal) => (
+<li>
+<a
+href={signal.href}
+class="tag-map__link"
+data-tag-map-link
+data-filter-tag={signal.normalizedTag}
+data-filter-label={signal.tag}
+>
+<span class="mono">{signal.tag}</span>
+<strong>{signal.count}</strong>
+</a>
+</li>
+))}
+</ul>
+</section>
 
-				<section class="sidebar-module sidebar-module--notes">
-					<div class="sidebar-module__header">
-						<h2>Reading mode</h2>
-						<p class="mono">Proposal 7 archive slice</p>
-					</div>
-					<p>
-						The archive stays list-first for scanning and keyboard navigation, but the surrounding
-						modules frame each post as part of a connected body of practice rather than an isolated
-						article card.
-					</p>
-				</section>
-			</aside>
-		</div>
-	</main>
+<section class="sidebar-module sidebar-module--notes">
+<div class="sidebar-module__header">
+<h2>Archive notes</h2>
+<p class="mono">Placeholder system</p>
+</div>
+<p>
+This pass keeps the archive readable and filterable while the final design system is still a
+separate workstream.
+</p>
+</section>
+</aside>
+</div>
+</main>
 
-	<script is:inline>
-		(() => {
-			const globalKey = '__portfolioBlogArchive';
-			const previousState = window[globalKey];
+<script is:inline>
+(() => {
+const globalKey = '__portfolioBlogArchive';
+const previousState = window[globalKey];
 
-			previousState?.abortController?.abort();
+previousState?.abortController?.abort();
 
-			const abortController = new AbortController();
-			const normalizeTag = (value) => value.trim().toLocaleLowerCase();
-			const formatCount = (value) => String(Math.max(value, 0));
-			const allSignalsLabel = 'All signals';
+const abortController = new AbortController();
+const normalizeTag = (value) => value.trim().toLocaleLowerCase();
+const formatCount = (value) => String(Math.max(value, 0));
+const allSignalsLabel = 'All posts';
 
-			const syncArchiveState = () => {
-				const archive = document.querySelector('[data-blog-archive]');
+const syncArchiveState = () => {
+const archive = document.querySelector('[data-blog-archive]');
 
-				if (!archive) {
-					return;
-				}
+if (!archive) {
+return;
+}
 
-				const posts = [...archive.querySelectorAll('[data-post-card]')];
-				const chips = [...archive.querySelectorAll('[data-filter-chip]')];
-				const tagMapLinks = [...archive.querySelectorAll('[data-tag-map-link]')];
-				const visibleNodes = archive.querySelector('[data-archive-visible-nodes]');
-				const focus = archive.querySelector('[data-archive-focus]');
-				const density = archive.querySelector('[data-archive-density]');
-				const route = archive.querySelector('[data-archive-route]');
-				const status = archive.querySelector('[data-archive-status]');
-				const emptyState = archive.querySelector('[data-empty-state]');
-				const totalTagCount = Number.parseInt(archive.dataset.totalTagCount ?? '0', 10);
-				const rawTag = new URL(window.location.href).searchParams.get('tag')?.trim() ?? '';
-				const normalizedSelectedTag = normalizeTag(rawTag);
-				const activeChip = chips.find((chip) => (chip.dataset.filterTag ?? '') === normalizedSelectedTag);
-				const activeLabel = normalizedSelectedTag
-					? activeChip?.dataset.filterLabel ?? rawTag
-					: allSignalsLabel;
+const posts = [...archive.querySelectorAll('[data-post-card]')];
+const chips = [...archive.querySelectorAll('[data-filter-chip]')];
+const tagMapLinks = [...archive.querySelectorAll('[data-tag-map-link]')];
+const visibleNodes = archive.querySelector('[data-archive-visible-nodes]');
+const focus = archive.querySelector('[data-archive-focus]');
+const density = archive.querySelector('[data-archive-density]');
+const route = archive.querySelector('[data-archive-route]');
+const status = archive.querySelector('[data-archive-status]');
+const emptyState = archive.querySelector('[data-empty-state]');
+const totalTagCount = Number.parseInt(archive.dataset.totalTagCount ?? '0', 10);
+const rawTag = new URL(window.location.href).searchParams.get('tag')?.trim() ?? '';
+const normalizedSelectedTag = normalizeTag(rawTag);
+const activeChip = chips.find((chip) => (chip.dataset.filterTag ?? '') === normalizedSelectedTag);
+const activeLabel = normalizedSelectedTag
+? activeChip?.dataset.filterLabel ?? rawTag
+: allSignalsLabel;
 
-				let visibleCount = 0;
+let visibleCount = 0;
 
-				for (const post of posts) {
-					const postTags = (post.dataset.postTags ?? '').split('|').filter(Boolean);
-					const isVisible = !normalizedSelectedTag || postTags.includes(normalizedSelectedTag);
-					const state = post.querySelector('[data-signal-state]');
+for (const post of posts) {
+const postTags = (post.dataset.postTags ?? '').split('|').filter(Boolean);
+const isVisible = !normalizedSelectedTag || postTags.includes(normalizedSelectedTag);
+const state = post.querySelector('[data-signal-state]');
 
-					post.hidden = !isVisible;
+post.hidden = !isVisible;
 
-					if (state) {
-						state.textContent = normalizedSelectedTag ? 'matched cluster' : 'live signal';
-					}
+if (state) {
+state.textContent = normalizedSelectedTag ? 'Matching tag' : 'Published';
+}
 
-					if (isVisible) {
-						visibleCount += 1;
-					}
-				}
+if (isVisible) {
+visibleCount += 1;
+}
+}
 
-				for (const chip of chips) {
-					const isActive = (chip.dataset.filterTag ?? '') === normalizedSelectedTag;
-					chip.classList.toggle('active', isActive);
-					if (isActive) {
-						chip.setAttribute('aria-current', 'page');
-					} else {
-						chip.removeAttribute('aria-current');
-					}
-				}
+for (const chip of chips) {
+const isActive = (chip.dataset.filterTag ?? '') === normalizedSelectedTag;
+chip.classList.toggle('active', isActive);
+if (isActive) {
+chip.setAttribute('aria-current', 'page');
+} else {
+chip.removeAttribute('aria-current');
+}
+}
 
-				for (const link of tagMapLinks) {
-					const isActive = (link.dataset.filterTag ?? '') === normalizedSelectedTag;
-					link.classList.toggle('active', isActive);
-					if (isActive) {
-						link.setAttribute('aria-current', 'page');
-					} else {
-						link.removeAttribute('aria-current');
-					}
-				}
+for (const link of tagMapLinks) {
+const isActive = (link.dataset.filterTag ?? '') === normalizedSelectedTag;
+link.classList.toggle('active', isActive);
+if (isActive) {
+link.setAttribute('aria-current', 'page');
+} else {
+link.removeAttribute('aria-current');
+}
+}
 
-				if (visibleNodes) {
-					visibleNodes.textContent = formatCount(visibleCount);
-				}
+if (visibleNodes) {
+visibleNodes.textContent = formatCount(visibleCount);
+}
 
-				if (focus) {
-					focus.textContent = activeLabel;
-				}
+if (focus) {
+focus.textContent = activeLabel;
+}
 
-				if (density) {
-					density.textContent = normalizedSelectedTag ? 'filtered' : 'open';
-				}
+if (density) {
+density.textContent = normalizedSelectedTag ? 'filtered' : 'open';
+}
 
-				if (route) {
-					route.textContent = normalizedSelectedTag ? `/blog?tag=${activeLabel}` : '/blog';
-				}
+if (route) {
+route.textContent = normalizedSelectedTag ? `/blog?tag=${activeLabel}` : '/blog';
+}
 
-				if (status) {
-					status.textContent = normalizedSelectedTag ? `focus://${normalizedSelectedTag}` : 'focus://all-signals';
-				}
+if (status) {
+status.textContent = normalizedSelectedTag ? `Viewing ${activeLabel}` : 'Viewing all posts';
+}
 
-				if (emptyState) {
-					emptyState.hidden = visibleCount > 0;
-					emptyState.textContent = normalizedSelectedTag
-						? `No posts match the ${activeLabel} tag yet.`
-						: 'No published posts yet.';
-				}
+if (emptyState) {
+emptyState.hidden = visibleCount > 0;
+emptyState.textContent = normalizedSelectedTag
+? `No posts match the ${activeLabel} tag yet.`
+: 'No published posts yet.';
+}
 
-				const tagClusterCount = archive.querySelector('[data-archive-tag-clusters]');
+const tagClusterCount = archive.querySelector('[data-archive-tag-clusters]');
 
-				if (tagClusterCount) {
-					tagClusterCount.textContent = formatCount(totalTagCount);
-				}
-			};
+if (tagClusterCount) {
+tagClusterCount.textContent = formatCount(totalTagCount);
+}
+};
 
-			window[globalKey] = {
-				abortController,
-				syncArchiveState,
-			};
+window[globalKey] = {
+abortController,
+syncArchiveState,
+};
 
-			syncArchiveState();
-			window.addEventListener('popstate', syncArchiveState, { signal: abortController.signal });
-			document.addEventListener('astro:page-load', syncArchiveState, { signal: abortController.signal });
-		})();
-	</script>
+syncArchiveState();
+window.addEventListener('popstate', syncArchiveState, { signal: abortController.signal });
+document.addEventListener('astro:page-load', syncArchiveState, { signal: abortController.signal });
+})();
+</script>
 </Layout>
 
 <style>
-	.archive-shell {
-		padding-block: 2rem 4rem;
-	}
-
-	.archive-hero {
-		display: grid;
-		grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.9fr);
-		gap: 1.25rem;
-		align-items: stretch;
-		margin-bottom: 1.5rem;
-	}
-
-	.archive-hero__copy,
-	.graph-panel,
-	.signal-entry,
-	.sidebar-module,
-	.empty-state {
-		position: relative;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
-		background:
-			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
-		box-shadow: var(--panel-shadow-soft);
-		overflow: clip;
-	}
-
-	.archive-hero__copy,
-	.graph-panel,
-	.sidebar-module,
-	.empty-state {
-		padding: clamp(1.1rem, 2.6vw, 1.5rem);
-	}
-
-	.archive-hero__copy::before,
-	.graph-panel::before,
-	.signal-entry::before,
-	.sidebar-module::before,
-	.empty-state::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-		background:
-			linear-gradient(var(--grid-line) 1px, transparent 1px),
-			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-		background-size: 3rem 3rem;
-		opacity: 0.45;
-		mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 86%);
-	}
-
-	.page-kicker {
-		margin: 0;
-		color: var(--accent-2);
-		letter-spacing: 0.12em;
-		font-size: 0.74rem;
-		text-transform: uppercase;
-	}
-
-	.archive-hero h1 {
-		margin: 0.55rem 0 0.85rem;
-		font-size: clamp(2.6rem, 5.2vw, 4.6rem);
-		line-height: 0.96;
-		max-width: 7ch;
-	}
-
-	.page-intro,
-	.signal-entry p,
-	.sidebar-module p,
-	.empty-state {
-		max-width: 70ch;
-		line-height: 1.72;
-		color: var(--text-muted);
-	}
-
-	.archive-stats {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 0.75rem;
-		margin: 1.3rem 0 0;
-	}
-
-	.archive-stats div,
-	.graph-panel__metrics div {
-		padding: 0.9rem 1rem;
-		border: 1px solid var(--border);
-		background: color-mix(in srgb, var(--surface-soft) 84%, transparent);
-	}
-
-	.archive-stats dt,
-	.graph-panel__metrics dt {
-		font-size: 0.68rem;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		color: var(--text-soft);
-	}
-
-	.archive-stats dd,
-	.graph-panel__metrics dd {
-		margin: 0.4rem 0 0;
-		font-size: 1.1rem;
-		font-weight: 700;
-		color: var(--text-main);
-	}
-
-	.filter-row {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-		margin-top: 1.5rem;
-	}
-
-	.filter-chip {
-		padding: 0.45rem 0.8rem;
-		border: 1px solid var(--border);
-		background: color-mix(in srgb, var(--surface-soft) 74%, transparent);
-		color: var(--text-muted);
-		text-decoration: none;
-		letter-spacing: 0.05em;
-	}
-
-	.filter-chip.active,
-	.filter-chip:hover,
-	.filter-chip:focus-visible {
-		color: var(--accent);
-		border-color: var(--accent);
-		text-decoration: none;
-		background: color-mix(in srgb, var(--accent) 12%, var(--surface-strong));
-	}
-
-	.filter-chip.active {
-		box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 22%, transparent);
-	}
-
-	.graph-panel {
-		display: grid;
-		gap: 1rem;
-	}
-
-	.graph-panel__header,
-	.sidebar-module__header,
-	.signal-entry__header {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		gap: 0.75rem;
-		flex-wrap: wrap;
-	}
-
-	.graph-panel__eyebrow,
-	.graph-panel__status,
-	.signal-entry__state,
-	.sidebar-module__header p {
-		margin: 0;
-		font-size: 0.72rem;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		color: var(--text-soft);
-	}
-
-	.graph-panel__status,
-	.signal-entry__state {
-		color: var(--accent-2);
-	}
-
-	.graph-panel__field {
-		position: relative;
-		min-height: 17rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 60%, transparent);
-		background:
-			radial-gradient(circle at 18% 20%, color-mix(in srgb, var(--accent) 16%, transparent) 0, transparent 24%),
-			radial-gradient(circle at 82% 18%, color-mix(in srgb, var(--accent-2) 12%, transparent) 0, transparent 22%),
-			color-mix(in srgb, var(--surface-soft) 78%, transparent);
-		overflow: hidden;
-	}
-
-	.graph-panel__orbit,
-	.graph-panel__wire,
-	.graph-node {
-		position: absolute;
-		display: block;
-	}
-
-	.graph-panel__orbit {
-		border: 1px solid color-mix(in srgb, var(--border-strong) 50%, transparent);
-		border-radius: 999px;
-		opacity: 0.38;
-	}
-
-	.graph-panel__orbit--large {
-		inset: 1.2rem auto auto 1.2rem;
-		width: 12rem;
-		height: 12rem;
-	}
-
-	.graph-panel__orbit--small {
-		right: 1.4rem;
-		bottom: 1.2rem;
-		width: 8.6rem;
-		height: 8.6rem;
-	}
-
-	.graph-panel__wire {
-		height: 1px;
-		background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
-		transform-origin: left center;
-	}
-
-	.graph-panel__wire--a {
-		top: 3.3rem;
-		left: 5.4rem;
-		width: 10rem;
-		transform: rotate(10deg);
-	}
-
-	.graph-panel__wire--b {
-		top: 8.2rem;
-		right: 4.8rem;
-		width: 8.2rem;
-		transform: rotate(140deg);
-	}
-
-	.graph-panel__wire--c {
-		left: 7rem;
-		bottom: 4.2rem;
-		width: 12rem;
-		transform: rotate(-7deg);
-	}
-
-	.graph-node {
-		padding: 0.55rem 0.7rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 66%, transparent);
-		background: color-mix(in srgb, var(--surface-strong) 90%, transparent);
-		box-shadow:
-			inset 0 0 0 1px color-mix(in srgb, var(--frame-glow) 92%, transparent),
-			0 0 12px color-mix(in srgb, var(--accent-2) 12%, transparent);
-	}
-
-	.graph-node span {
-		display: block;
-		font-family: 'Azeret Mono', monospace;
-		font-size: 0.68rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--text-main);
-	}
-
-	.graph-node--a {
-		top: 1.5rem;
-		left: 1rem;
-	}
-
-	.graph-node--b {
-		top: 3.8rem;
-		right: 1rem;
-	}
-
-	.graph-node--c {
-		left: 4.6rem;
-		bottom: 3.4rem;
-	}
-
-	.graph-node--d {
-		right: 3.2rem;
-		bottom: 1rem;
-	}
-
-	.graph-panel__metrics {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 0.75rem;
-		margin: 0;
-	}
-
-	.archive-grid {
-		display: grid;
-		grid-template-columns: minmax(0, 1.36fr) minmax(18rem, 0.84fr);
-		gap: 1.25rem;
-	}
-
-	.signal-feed,
-	.archive-sidebar {
-		display: grid;
-		gap: 1rem;
-	}
-
-	.signal-entry {
-		display: grid;
-		grid-template-columns: auto minmax(0, 1fr);
-		gap: 1rem;
-		padding: 1.2rem;
-		align-items: start;
-	}
-
-	.post-meta {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-		margin-bottom: 0.8rem;
-		color: var(--text-muted);
-		font-size: 0.9rem;
-	}
-
-	.signal-entry__trace {
-		display: grid;
-		justify-items: center;
-		min-width: 1rem;
-		padding-top: 0.2rem;
-	}
-
-	.signal-entry__trace::before {
-		content: '';
-		display: block;
-		width: 8px;
-		height: 8px;
-		border-radius: 999px;
-		border: 1px solid color-mix(in srgb, var(--accent-2) 70%, var(--border));
-		background: radial-gradient(circle, color-mix(in srgb, var(--node-core) 92%, white) 0 36%, transparent 37%);
-		box-shadow: 0 0 6px color-mix(in srgb, var(--accent-2) 32%, transparent);
-		margin-bottom: 0.3rem;
-		animation: pulse-node 3.4s ease-in-out infinite;
-		flex-shrink: 0;
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.signal-entry__trace::before {
-			animation: none;
-			transition: none;
-		}
-	}
-
-	.signal-entry__line {
-		width: 2px;
-		min-height: 100%;
-		background: linear-gradient(180deg, var(--accent-2), transparent);
-		border-radius: 999px;
-	}
-
-	.signal-entry h2 {
-		margin: 0 0 0.75rem;
-		font-size: clamp(1.35rem, 2vw, 1.85rem);
-	}
-
-	.post-link {
-		color: inherit;
-		text-decoration: none;
-	}
-
-	.post-link:hover,
-	.post-link:focus-visible {
-		color: var(--accent);
-		text-decoration: none;
-	}
-
-	.post-link-cta {
-		grid-column: 2;
-		display: flex;
-		padding: 0.5rem 0.8rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
-		background: color-mix(in srgb, var(--surface-soft) 74%, transparent);
-		color: var(--accent);
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		font-size: 0.72rem;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		max-width: 100%;
-	}
-
-	.signal-entry:hover .post-link-cta,
-	.signal-entry:focus-within .post-link-cta {
-		border-color: var(--accent);
-		background: color-mix(in srgb, var(--accent) 14%, var(--surface-strong));
-	}
-
-	.empty-state {
-		padding: 1.2rem 1.3rem;
-		color: var(--text-muted);
-	}
-
-	.tag-list {
-		list-style: none;
-		padding: 0;
-		margin: 1rem 0 0;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-	}
-
-	.tag-list li {
-		border: 1px solid color-mix(in srgb, var(--accent-3) 38%, var(--border));
-		font-size: 0.9rem;
-		background: color-mix(in srgb, var(--accent-3) 8%, var(--surface-soft));
-		border-radius: 999px;
-	}
-
-	.tag-list a {
-		display: inline-flex;
-		padding: 0.3rem 0.75rem;
-		color: var(--accent-3);
-	}
-
-	.archive-sidebar {
-		align-content: start;
-	}
-
-	.sidebar-module {
-		display: grid;
-		gap: 1rem;
-	}
-
-	.sidebar-module h2 {
-		margin: 0;
-		font-size: 1.1rem;
-	}
-
-	.tag-map {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: grid;
-		gap: 0.55rem;
-	}
-
-	.tag-map__link {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		gap: 0.75rem;
-		padding: 0.7rem 0.8rem;
-		border: 1px solid var(--border);
-		background: color-mix(in srgb, var(--surface-soft) 74%, transparent);
-		color: var(--text-main);
-	}
-
-	.tag-map__link:hover,
-	.tag-map__link:focus-visible,
-	.tag-map__link.active {
-		border-color: var(--accent);
-		background: color-mix(in srgb, var(--accent) 12%, var(--surface-strong));
-		text-decoration: none;
-	}
-
-	.tag-map__link strong {
-		font-size: 0.9rem;
-		color: var(--accent-2);
-	}
-
-	@media (max-width: 980px) {
-		.archive-hero,
-		.archive-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.graph-panel__field {
-			min-height: 13.5rem;
-		}
-	}
-
-	@media (max-width: 720px) {
-		.archive-hero__copy,
-		.graph-panel,
-		.sidebar-module,
-		.empty-state {
-			padding: 1rem;
-		}
-
-		.archive-stats,
-		.graph-panel__metrics {
-			grid-template-columns: 1fr;
-		}
-
-		.graph-panel {
-			gap: 0.85rem;
-		}
-
-		.graph-panel__field {
-			min-height: 10.75rem;
-		}
-
-		.graph-node {
-			padding: 0.4rem 0.55rem;
-		}
-
-		.graph-node span {
-			font-size: 0.62rem;
-		}
-
-		.signal-entry {
-			grid-template-columns: 1fr;
-		}
-
-		.signal-entry__trace {
-			grid-template-columns: auto 1fr;
-			justify-items: start;
-		}
-
-		.signal-entry__line {
-			width: 100%;
-			height: 1px;
-			min-height: 1px;
-			background: linear-gradient(90deg, var(--accent-2), transparent);
-		}
-
-		.post-link-cta {
-			justify-self: start;
-		}
-	}
+.archive-shell {
+padding-block: 2rem 4rem;
+}
+
+.archive-hero,
+.archive-grid {
+display: grid;
+gap: 1.25rem;
+}
+
+.archive-hero {
+grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.9fr);
+margin-bottom: 1.5rem;
+}
+
+.archive-grid {
+grid-template-columns: minmax(0, 1.36fr) minmax(18rem, 0.84fr);
+}
+
+.archive-hero__copy,
+.graph-panel,
+.signal-entry,
+.sidebar-module,
+.empty-state {
+padding: clamp(1.1rem, 2.6vw, 1.5rem);
+border: 1px solid var(--border);
+border-radius: 1rem;
+background: var(--surface);
+box-shadow: var(--panel-shadow-soft);
+}
+
+.page-kicker,
+.archive-stats dt,
+.graph-panel__eyebrow,
+.graph-panel__status,
+.signal-entry__state,
+.sidebar-module__header p {
+margin: 0;
+font-size: 0.72rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--text-soft);
+}
+
+.archive-hero h1,
+.signal-entry h2,
+.sidebar-module__header h2 {
+margin: 0;
+}
+
+.archive-hero h1 {
+margin-block: 0.55rem 0.85rem;
+font-size: clamp(2.6rem, 5.2vw, 4.6rem);
+line-height: 0.96;
+max-width: 7ch;
+}
+
+.page-intro,
+.graph-panel__copy,
+.signal-entry p,
+.sidebar-module p,
+.empty-state {
+color: var(--text-muted);
+line-height: 1.72;
+}
+
+.archive-stats,
+.graph-panel__metrics,
+.signal-feed,
+.archive-sidebar,
+.graph-panel,
+.tag-map {
+display: grid;
+gap: 0.75rem;
+}
+
+.archive-stats {
+grid-template-columns: repeat(3, minmax(0, 1fr));
+margin: 1.3rem 0 0;
+}
+
+.graph-panel__metrics {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+margin: 0;
+}
+
+.archive-stats div,
+.graph-panel__metrics div {
+padding: 0.9rem 1rem;
+border: 1px solid var(--border-muted);
+border-radius: 0.875rem;
+background: var(--surface-subtle);
+}
+
+.archive-stats dd,
+.graph-panel__metrics dd {
+margin: 0.4rem 0 0;
+font-size: 1.1rem;
+font-weight: 700;
+color: var(--text-main);
+}
+
+.filter-row,
+.post-meta,
+.graph-panel__header,
+.sidebar-module__header,
+.signal-entry__header,
+.tag-list {
+display: flex;
+flex-wrap: wrap;
+gap: 0.75rem;
+}
+
+.filter-row {
+margin-top: 1.5rem;
+}
+
+.graph-panel__header,
+.sidebar-module__header,
+.signal-entry__header {
+justify-content: space-between;
+align-items: flex-start;
+}
+
+.post-meta {
+margin-bottom: 0.8rem;
+font-size: 0.9rem;
+color: var(--text-muted);
+}
+
+.filter-chip,
+.tag-list a,
+.tag-map__link {
+display: inline-flex;
+align-items: center;
+justify-content: space-between;
+gap: 0.75rem;
+padding: 0.45rem 0.75rem;
+border: 1px solid var(--border-muted);
+border-radius: 999px;
+background: var(--surface-subtle);
+color: var(--text-main);
+text-decoration: none;
+}
+
+.filter-chip {
+letter-spacing: 0.05em;
+color: var(--text-muted);
+}
+
+.filter-chip.active,
+.filter-chip:hover,
+.filter-chip:focus-visible,
+.tag-list a:hover,
+.tag-list a:focus-visible,
+.tag-map__link:hover,
+.tag-map__link:focus-visible,
+.tag-map__link.active,
+.post-link:hover,
+.post-link:focus-visible {
+border-color: var(--border-strong);
+background: var(--surface-hover);
+color: var(--text-main);
+text-decoration: none;
+}
+
+.signal-entry h2 {
+margin-bottom: 0.75rem;
+font-size: clamp(1.35rem, 2vw, 1.85rem);
+}
+
+.post-link {
+color: inherit;
+text-decoration: none;
+}
+
+.tag-list,
+.tag-map {
+list-style: none;
+padding: 0;
+margin: 1rem 0 0;
+}
+
+.tag-map {
+margin-top: 0;
+}
+
+.empty-state {
+margin: 0;
+background: var(--surface-subtle);
+}
+
+@media (max-width: 960px) {
+.archive-hero,
+.archive-grid,
+.archive-sidebar {
+grid-template-columns: 1fr;
+}
+}
+
+@media (max-width: 720px) {
+.archive-stats,
+.graph-panel__metrics {
+grid-template-columns: 1fr;
+}
+}
+
+@media (max-width: 640px) {
+.archive-shell {
+padding-block: 1.5rem 3rem;
+}
+
+.archive-hero__copy,
+.graph-panel,
+.signal-entry,
+.sidebar-module,
+.empty-state {
+padding: 1rem;
+}
+}
 </style>

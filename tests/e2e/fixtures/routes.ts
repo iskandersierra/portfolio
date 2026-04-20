@@ -1,8 +1,8 @@
 export const primaryRoutes = [
-	{ navLabel: 'Home', path: '/', heading: '"Never stop learning."' },
-	{ navLabel: 'About', path: '/about', heading: 'About' },
+	{ navLabel: 'Home', path: '/', heading: 'Never stop learning.' },
 	{ navLabel: 'Blog', path: '/blog', heading: 'Blog' },
-	{ navLabel: 'Tools', path: '/tools', heading: 'Tools' },
+	{ navLabel: 'Projects', path: '/projects', heading: 'Projects' },
+	{ navLabel: 'About', path: '/about', heading: 'About' },
 ] as const;
 
 interface SeoExpectation {
@@ -24,7 +24,7 @@ export const seoExpectations: SeoExpectation[] = [
 		path: '/',
 		title: 'Iskander Sierra | ~/iskander',
 		description:
-			"After 25 years in software, the most valuable thing I've learned is that there's always more to learn. This is my living portfolio, where I share what I know, experiment with new ideas, and document the journey.",
+			"After 25 years in software, the most valuable thing I've learned is that there's always more to learn. This is the portfolio for current writing, current projects, and the work that connects them.",
 		canonicalUrl: 'https://isksz.com/',
 		pageType: 'website',
 		twitterCard: 'summary_large_image',
@@ -58,36 +58,24 @@ export const seoExpectations: SeoExpectation[] = [
 		socialImageUrl: 'https://isksz.com/social-card.png',
 	},
 	{
-		name: 'blog post',
-		path: '/blog/vertical-slice-architecture-in-dotnet',
-		title: 'Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure | Iskander Sierra',
+		name: 'projects',
+		path: '/projects',
+		title: 'Projects | Iskander Sierra',
 		description:
-			'A launch post about organizing .NET applications around features instead of forcing every change through a layered folder maze.',
-		canonicalUrl: 'https://isksz.com/blog/vertical-slice-architecture-in-dotnet/',
-		pageType: 'article',
-		twitterCard: 'summary_large_image',
-		siteName: 'Iskander Sierra',
-		socialImageUrl: 'https://isksz.com/social-card.png',
-	},
-	{
-		name: 'tools',
-		path: '/tools',
-		title: 'Tools | Iskander Sierra',
-		description:
-			'Browse developer tools and experiments from Iskander Sierra, presented as connected modules with detail views that extend the site\'s shipped Proposal 7 system language.',
-		canonicalUrl: 'https://isksz.com/tools/',
+			'Browse projects from Iskander Sierra, including tools, repositories, and experiments collected under a single projects surface.',
+		canonicalUrl: 'https://isksz.com/projects/',
 		pageType: 'website',
 		twitterCard: 'summary_large_image',
 		siteName: 'Iskander Sierra',
 		socialImageUrl: 'https://isksz.com/social-card.png',
 	},
 	{
-		name: 'tool detail',
-		path: '/tools/uuid-ulid-generator',
-		title: 'UUID / ULID generator | Iskander Sierra',
+		name: 'project detail',
+		path: '/projects/uuid-ulid-generator',
+		title: 'UUID / ULID Generator | Iskander Sierra',
 		description:
 			'Generate UUID v4 or ULID values in the browser with copy-friendly output and a lightweight interface.',
-		canonicalUrl: 'https://isksz.com/tools/uuid-ulid-generator/',
+		canonicalUrl: 'https://isksz.com/projects/uuid-ulid-generator/',
 		pageType: 'website',
 		twitterCard: 'summary_large_image',
 		siteName: 'Iskander Sierra',

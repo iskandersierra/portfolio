@@ -65,52 +65,6 @@ export interface CanonicalCv {
 	publications: CvPublicationEntry[];
 }
 
-export interface AboutExpertiseNode {
-	signal: string;
-	label: string;
-	detail: string;
-}
-
-export interface AboutProfileModule {
-	title: string;
-	copy: string;
-}
-
-export interface AboutExperienceArcEntry {
-	signal: string;
-	span: string;
-	title: string;
-	copy: string;
-	points: string[];
-}
-
-export interface AboutEducationModule {
-	signal: string;
-	title: string;
-	copy: string;
-}
-
-export interface AboutProfileLink {
-	signal: string;
-	label: string;
-	href: string;
-	copy: string;
-}
-
-export interface AboutProfileRole {
-	label: string;
-}
-
-export interface AboutViewModel {
-	heroIntro: string;
-	profileRoles: AboutProfileRole[];
-	expertise: AboutExpertiseNode[];
-	profileModules: AboutProfileModule[];
-	experienceTimeline: AboutExperienceArcEntry[];
-	educationModules: AboutEducationModule[];
-	profileLinks: AboutProfileLink[];
-}
-
 export const canonicalCv: CanonicalCv = {
 	basics: {
 		name: 'Iskander Sierra',
@@ -407,107 +361,42 @@ export const canonicalCv: CanonicalCv = {
 	],
 };
 
-export const aboutViewModel: AboutViewModel = {
-	heroIntro:
-		'I am a full-stack developer, software architect, and team technical lead focused on building dependable systems, helping teams move with clarity, and staying curious enough to keep learning.',
-	profileRoles: [
-		{ label: 'architect' },
-		{ label: 'developer' },
-		{ label: 'technical lead' },
-		{ label: 'continuous learner' },
-	],
-	expertise: [
-		{
-			signal: 'N01',
-			label: '.NET architecture',
-			detail: 'Feature-driven services, dependable boundaries, and systems that stay understandable as they grow.',
-		},
-		{
-			signal: 'N02',
-			label: 'Team technical leadership',
-			detail: 'Leading through clarity, design reviews, and delivery habits that raise the technical floor for the team.',
-		},
-		{
-			signal: 'N03',
-			label: 'TypeScript and JavaScript',
-			detail: 'Building interfaces and tooling that feel considered, not assembled, while keeping performance and semantics intact.',
-		},
-		{
-			signal: 'N04',
-			label: 'Azure and cloud delivery',
-			detail: 'Shipping cloud systems with operational discipline, practical observability, and steady release flow.',
-		},
-		{
-			signal: 'N05',
-			label: 'Docker and Kubernetes',
-			detail: 'Containerized development and deployment patterns that support repeatable environments and calm operations.',
-		},
-		{
-			signal: 'N06',
-			label: 'Computer science fundamentals',
-			detail: 'The foundations that keep architecture, debugging, and tradeoff decisions grounded in first principles.',
-		},
-	],
-	profileModules: [
-		{
-			title: 'System role',
-			copy: 'Full-stack developer, software architect, and technical lead working across product delivery and engineering quality.',
-		},
-		{
-			title: 'Operating mode',
-			copy: 'I do my best work where architecture and implementation stay connected, so strategy still cashes out as working software.',
-		},
-		{
-			title: 'What this site does',
-			copy: 'It makes long-term learning visible through real posts, tools, and design decisions instead of a static list of claims.',
-		},
-	],
-	experienceTimeline: [
-		{
-			signal: 'A01',
-			span: '25 years in software',
-			title: 'Engineering depth before abstraction',
-			copy:
-				'The foundation is still hands-on software delivery: building features, debugging real systems, and learning which fundamentals keep paying off as stacks change.',
-			points: ['application delivery', 'debugging discipline', 'computer science fundamentals'],
-		},
-		{
-			signal: 'A02',
-			span: 'architecture + delivery leadership',
-			title: 'Systems thinking at product scale',
-			copy:
-				'That experience grew into architecture work, technical direction, and release planning where reliability, maintainability, and team clarity matter as much as raw implementation speed.',
-			points: ['architecture decisions', 'technical leadership', 'delivery flow'],
-		},
-		{
-			signal: 'A03',
-			span: 'current operating mode',
-			title: 'Learning in public through shipped work',
-			copy:
-				'The current arc connects writing, tools, and design experiments so the portfolio shows how ideas move from principles to implementation instead of living as disconnected claims.',
-			points: ['writing', 'tooling', 'continuous learning'],
-		},
-	],
-	educationModules: [
-		{
-			signal: 'E01',
-			title: 'Computer science background',
-			copy:
-				'A computer science foundation still anchors the way I reason about architecture, debugging, tradeoffs, and long-term maintainability.',
-		},
-		{
-			signal: 'E02',
-			title: 'Working philosophy',
-			copy:
-				'I prefer systems where architecture remains close to implementation, teams can explain why the design exists, and learning keeps improving the work instead of staying theoretical.',
-		},
-	],
-	profileLinks: canonicalCv.externalProfiles.map((profile, index) => ({
-		signal: `L0${index + 1}`,
-		label: profile.label,
-		href: profile.href,
-		copy: profile.copy,
-	})),
+const collectCanonicalTopics = () => {
+	const topics = new Set<string>();
+
+	for (const label of canonicalCv.basics.title.split(/,| and /)) {
+		const cleanedLabel = label.trim();
+
+		if (cleanedLabel) {
+			topics.add(cleanedLabel);
+		}
+	}
+
+	for (const language of canonicalCv.spokenLanguages) {
+		topics.add(language.language);
+	}
+
+	for (const group of [
+		...canonicalCv.programmingLanguages,
+		...canonicalCv.backendTechnologies,
+		...canonicalCv.frontendTechnologies,
+	]) {
+		for (const entry of group.entries) {
+			topics.add(entry.name);
+		}
+	}
+
+	for (const role of canonicalCv.workHistory) {
+		topics.add(role.role);
+
+		for (const experience of role.experiences) {
+			if (experience.trim()) {
+				topics.add(experience);
+			}
+		}
+	}
+
+	return [...topics];
 };
 
 export const buildAboutProfileSchema = () => ({
@@ -519,5 +408,5 @@ export const buildAboutProfileSchema = () => ({
 	description: canonicalCv.basics.description,
 	jobTitle: canonicalCv.basics.title,
 	sameAs: canonicalCv.externalProfiles.map((profile) => profile.href),
-	knowsAbout: aboutViewModel.expertise.map((item) => item.label),
+	knowsAbout: collectCanonicalTopics(),
 });

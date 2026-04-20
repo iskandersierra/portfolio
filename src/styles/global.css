@@ -1,8 +1,3 @@
-@import '@fontsource/azeret-mono/400.css';
-@import '@fontsource/azeret-mono/500.css';
-@import '@fontsource/exo-2/400.css';
-@import '@fontsource/exo-2/600.css';
-@import '@fontsource/exo-2/700.css';
 @import './themes.css';
 
 *,
@@ -14,19 +9,14 @@
 body {
 	margin: 0;
 	padding: 0;
-	font-family: 'Exo 2', sans-serif;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 	line-height: 1.6;
 	-webkit-font-smoothing: antialiased;
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	position: relative;
-	overflow-x: hidden;
-	background:
-		radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--accent) 22%, transparent) 0, transparent 30%),
-		radial-gradient(circle at 82% 10%, color-mix(in srgb, var(--accent-2) 15%, transparent) 0, transparent 24%),
-		radial-gradient(circle at 74% 84%, color-mix(in srgb, var(--accent-3) 16%, transparent) 0, transparent 32%),
-		linear-gradient(180deg, color-mix(in srgb, var(--bg-depth) 28%, var(--bg-elevated)) 0%, var(--bg) 100%);
+	background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg) 100%);
 	color: var(--text-main);
 }
 
@@ -40,14 +30,14 @@ h1,
 h2,
 h3,
 h4 {
-	font-family: 'Exo 2', sans-serif;
+	font-family: inherit;
 	font-weight: 700;
 	letter-spacing: -0.03em;
 	margin-top: 0;
 }
 
 .mono {
-	font-family: 'Azeret Mono', monospace;
+	font-family: ui-monospace, 'SFMono-Regular', 'SF Mono', Consolas, 'Liberation Mono', monospace;
 	font-weight: 600;
 }
 
@@ -66,7 +56,6 @@ body[data-mobile-nav-open] {
 	overflow: hidden;
 }
 
-/* Brutalist Terminal Elements */
 .container {
 	max-width: 1120px;
 	margin: 0 auto;
@@ -78,250 +67,29 @@ body[data-mobile-nav-open] {
 	view-transition-name: page-shell;
 }
 
-.signal-stage {
-	position: relative;
-	width: min(100%, 1320px);
-	margin: 0 auto;
-	padding: clamp(1rem, 2.8vw, 2rem);
+.site-shell {
+	width: 100%;
 	flex: 1;
-	z-index: 1;
-}
-
-.signal-stage::before,
-.signal-stage::after {
-	content: '';
-	position: absolute;
-	pointer-events: none;
-	border-radius: 999px;
-	filter: blur(18px);
-	z-index: 0;
-}
-
-.signal-stage::before {
-	top: 3rem;
-	left: 3%;
-	width: 16rem;
-	height: 16rem;
-	background: color-mix(in srgb, var(--accent) 8%, transparent);
-}
-
-.signal-stage::after {
-	right: 5%;
-	bottom: 6rem;
-	width: 14rem;
-	height: 14rem;
-	background: color-mix(in srgb, var(--accent-2) 7%, transparent);
-}
-
-.signal-stage__field {
-	position: absolute;
-	inset: 0;
-	pointer-events: none;
-	overflow: clip;
-	z-index: 0;
-}
-
-.signal-stage__frame {
-	position: relative;
-	z-index: 1;
-	display: grid;
-	gap: 0.85rem;
-}
-
-.signal-stage__rail {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 1rem;
-	padding-inline: clamp(0.4rem, 2vw, 1rem);
-	color: var(--text-soft);
-	font-size: 0.69rem;
-	letter-spacing: 0.16em;
-	text-transform: uppercase;
-	line-height: 1;
-	text-shadow: 0 0 20px color-mix(in srgb, var(--frame-glow) 90%, transparent);
-}
-
-.signal-stage__rail::before,
-.signal-stage__rail::after {
-	content: '';
-	flex: 1;
-	height: 1px;
-	background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--line-strong) 86%, transparent));
-	min-width: 2.5rem;
-}
-
-.signal-stage__rail--bottom::before {
-	background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent-3) 70%, transparent));
-}
-
-.signal-stage__rail--bottom::after {
-	background: linear-gradient(90deg, color-mix(in srgb, var(--accent-2) 72%, transparent), transparent);
-}
-
-.signal-node,
-.signal-wire,
-.signal-orbit {
-	position: absolute;
-	display: block;
-	border-radius: 999px;
-	opacity: 0.7;
-}
-
-.signal-node {
-	width: 0.9rem;
-	height: 0.9rem;
-	border: 1px solid color-mix(in srgb, var(--accent-2) 55%, var(--border));
-	background:
-		radial-gradient(circle, color-mix(in srgb, var(--node-core) 96%, white) 0 36%, transparent 37%),
-		color-mix(in srgb, var(--surface-strong) 76%, transparent);
-	box-shadow:
-		0 0 0 0.45rem color-mix(in srgb, var(--node-ring) 100%, transparent),
-		0 0 24px color-mix(in srgb, var(--accent-2) 16%, transparent);
-	animation: pulse-node 3.4s ease-in-out infinite;
-}
-
-.signal-wire {
-	height: 1px;
-	background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
-	transform-origin: left center;
-}
-
-.signal-orbit {
-	border: 1px solid color-mix(in srgb, var(--border-strong) 44%, transparent);
-	background: radial-gradient(circle, color-mix(in srgb, var(--frame-glow) 76%, transparent) 0, transparent 70%);
-	opacity: 0.34;
-}
-
-.signal-orbit-a {
-	left: 14%;
-	top: 10%;
-	width: 22rem;
-	height: 22rem;
-}
-
-.signal-orbit-b {
-	right: 10%;
-	bottom: 12%;
-	width: 16rem;
-	height: 16rem;
-}
-
-.signal-node-a {
-	top: 8%;
-	left: 5%;
-}
-
-.signal-node-b {
-	top: 18%;
-	right: 8%;
-}
-
-.signal-node-c {
-	bottom: 18%;
-	left: 10%;
-}
-
-.signal-node-d {
-	bottom: 10%;
-	right: 16%;
-}
-
-.signal-node-e {
-	top: 44%;
-	right: 12%;
-}
-
-.signal-wire-a {
-	top: 11%;
-	left: 7%;
-	width: 18rem;
-	transform: rotate(8deg);
-}
-
-.signal-wire-b {
-	top: 26%;
-	right: 13%;
-	width: 15rem;
-	transform: rotate(138deg);
-}
-
-.signal-wire-c {
-	bottom: 15%;
-	left: 13%;
-	width: 20rem;
-	transform: rotate(-5deg);
-}
-
-.signal-wire-d {
-	bottom: 28%;
-	left: 28%;
-	width: 22rem;
-	transform: rotate(22deg);
-}
-
-.signal-wire-e {
-	top: 38%;
-	right: 6%;
-	width: 18rem;
-	transform: rotate(110deg);
 }
 
 .terminal-window {
-	border: 1px solid color-mix(in srgb, var(--border-strong) 82%, transparent);
-	border-radius: 1.85rem;
-	min-height: calc(100vh - 5rem);
+	border-inline: 1px solid var(--border);
+	min-height: 100vh;
 	margin: 0 auto;
-	max-width: 1200px;
+	max-width: 1280px;
 	position: relative;
-	overflow: clip;
-	background:
-		linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 90%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
-	backdrop-filter: blur(18px);
-	box-shadow:
-		var(--panel-shadow),
-		inset 0 1px 0 color-mix(in srgb, var(--surface-strong) 84%, transparent),
-		0 0 0 1px color-mix(in srgb, var(--frame-edge) 100%, transparent);
-}
-
-.terminal-window::before,
-.terminal-window::after {
-	content: '';
-	position: absolute;
-	inset: 0;
-	pointer-events: none;
-	border-radius: inherit;
-}
-
-.terminal-window::before {
-	background:
-		linear-gradient(var(--grid-line) 1px, transparent 1px),
-		linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-	background-size: 3.25rem 3.25rem;
-	mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.72), transparent 44%);
-	opacity: 0.6;
-}
-
-.terminal-window::after {
-	background:
-		radial-gradient(circle at top, color-mix(in srgb, var(--accent) 12%, transparent), transparent 42%),
-		linear-gradient(180deg, color-mix(in srgb, var(--surface-soft) 68%, transparent) 0%, transparent 28%);
-}
-
-.terminal-window > * {
-	position: relative;
-	z-index: 1;
+	background: var(--surface-strong);
+	box-shadow: var(--panel-shadow);
 }
 
 .terminal-header {
-	border-bottom: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
+	border-bottom: 1px solid var(--border);
 	padding: clamp(1rem, 2vw, 1.35rem) clamp(1rem, 2.4vw, 1.75rem);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	gap: 1rem;
-	background:
-		linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface-contrast) 82%, transparent) 100%);
+	background: var(--surface-strong);
 }
 
 .cursor {
@@ -445,22 +213,6 @@ body[data-mobile-nav-open] {
 	}
 }
 
-@keyframes pulse-node {
-	0%, 100% {
-		opacity: 0.7;
-		box-shadow:
-			0 0 0 0.45rem color-mix(in srgb, var(--node-ring) 100%, transparent),
-			0 0 24px color-mix(in srgb, var(--accent-2) 16%, transparent);
-	}
-	50% {
-		opacity: 1;
-		box-shadow:
-			0 0 0 0.7rem color-mix(in srgb, var(--node-ring) 70%, transparent),
-			0 0 36px color-mix(in srgb, var(--accent-2) 28%, transparent);
-	}
-}
-
-/* Staggered Boot Sequence */
 .boot-seq {
 	animation: none;
 	opacity: 1;
@@ -513,7 +265,7 @@ body[data-mobile-nav-open] {
 	flex-wrap: wrap;
 	gap: 0.6rem 0.9rem;
 	align-items: center;
-	font-family: 'Azeret Mono', monospace;
+	font-family: ui-monospace, 'SFMono-Regular', 'SF Mono', Consolas, 'Liberation Mono', monospace;
 	font-size: 0.95rem;
 	color: var(--text-muted);
 	list-style: none;
@@ -589,7 +341,7 @@ body[data-mobile-nav-open] {
 
 .post-body li::marker {
 	color: var(--accent);
-	font-family: 'IBM Plex Mono', monospace;
+	font-family: ui-monospace, 'SFMono-Regular', 'SF Mono', Consolas, 'Liberation Mono', monospace;
 }
 
 .post-body strong {
@@ -627,7 +379,7 @@ body[data-mobile-nav-open] {
 }
 
 .post-body code {
-	font-family: 'Azeret Mono', monospace;
+	font-family: ui-monospace, 'SFMono-Regular', 'SF Mono', Consolas, 'Liberation Mono', monospace;
 	font-size: 0.92em;
 	padding: 0.08rem 0.35rem;
 	border: 1px solid color-mix(in srgb, var(--border-strong) 60%, transparent);
@@ -698,44 +450,9 @@ body[data-mobile-nav-open] {
 		animation-duration: 1ms;
 	}
 }
-
-.grain-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	pointer-events: none;
-	z-index: 0;
-	background-image:
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E"),
-		linear-gradient(var(--grid-line) 1px, transparent 1px),
-		linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
-		radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--accent) 6%, transparent), transparent 38%),
-		radial-gradient(circle at 20% 100%, color-mix(in srgb, var(--accent-2) 4%, transparent), transparent 30%);
-	background-size: 200px 200px, 3.75rem 3.75rem, 3.75rem 3.75rem, 100% 100%;
-	opacity: 0.52;
-	mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.42));
-}
-
 @media (max-width: 640px) {
-	.signal-stage {
-		padding: 0.75rem;
-	}
-
-	.signal-stage::before,
-	.signal-stage::after,
-	.signal-stage__rail {
-		display: none;
-	}
-
-	.signal-stage__field {
-		display: none;
-	}
-
 	.terminal-window {
-		min-height: calc(100vh - 1.5rem);
-		border-radius: 1.1rem;
+		border-inline: 0;
 	}
 
 	.post-shell {

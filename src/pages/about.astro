@@ -1,18 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { aboutViewModel, buildAboutProfileSchema, canonicalCv } from '../utils/cv';
-
-const {
-	heroIntro,
-	profileRoles,
-	expertise,
-	profileModules,
-	experienceTimeline,
-	educationModules,
-	profileLinks,
-} = aboutViewModel;
+import { buildAboutProfileSchema, canonicalCv } from '../utils/cv';
 
 const profileSchema = JSON.stringify(buildAboutProfileSchema());
+
+const roleLabels = canonicalCv.basics.title
+	.split(/,| and /)
+	.map((label) => label.trim())
+	.filter(Boolean);
+
+const capabilitySections = [
+	{ title: 'Programming languages', groups: canonicalCv.programmingLanguages },
+	{ title: 'Backend technologies', groups: canonicalCv.backendTechnologies },
+	{ title: 'Frontend technologies', groups: canonicalCv.frontendTechnologies },
+];
+
+const currentRole = canonicalCv.workHistory[0];
 ---
 
 <Layout
@@ -24,182 +27,168 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 	}}
 >
 	<script is:inline type="application/ld+json" set:html={profileSchema}></script>
-	<main class="container page-shell about-surface">
+	<main class="container page-shell about-page">
 		<header class="about-hero motion-enter motion-delay-1">
 			<div class="about-hero__copy">
-				<p class="mono page-kicker">profile graph / capability map</p>
+				<p class="mono about-kicker">Profile</p>
 				<h1>About</h1>
-				<p class="page-intro">
-					{heroIntro}
-				</p>
+				<p class="about-intro">{canonicalCv.basics.description}</p>
 				<dl class="about-stats" aria-label="About page summary">
 					<div>
-						<dt class="mono">experience arc</dt>
+						<dt class="mono">Experience</dt>
 						<dd>{canonicalCv.basics.yearsOfExperience} years</dd>
 					</div>
 					<div>
-						<dt class="mono">active roles</dt>
-						<dd>{profileRoles.length}</dd>
+						<dt class="mono">Work history</dt>
+						<dd>{canonicalCv.workHistory.length} roles</dd>
 					</div>
 					<div>
-						<dt class="mono">expertise areas</dt>
-						<dd>{expertise.length}</dd>
+						<dt class="mono">Publications</dt>
+						<dd>{canonicalCv.publications.length} entries</dd>
 					</div>
 				</dl>
 			</div>
 
-			<aside class="expertise-hub" aria-labelledby="expertise-hub-title">
-				<div class="expertise-hub__header">
-					<p class="mono expertise-hub__eyebrow" id="expertise-hub-title">Expertise signal hub</p>
-					<p class="mono expertise-hub__status">network://active</p>
-				</div>
-				<div class="expertise-hub__visual">
-					<div class="expertise-hub__core">
-						<span class="mono expertise-hub__core-label">expertise areas</span>
-						<span class="expertise-hub__core-count">{expertise.length}</span>
-						<span class="mono expertise-hub__core-state">linked delivery graph</span>
-					</div>
-					<ul class="expertise-hub__signals" aria-label="Expertise signal nodes">
-						{expertise.map((item, index) => (
-							<li
-								class={`expertise-hub__signal ${index % 2 === 0 ? 'expertise-hub__signal--left' : 'expertise-hub__signal--right'}`}
-							>
-								<span class="mono expertise-hub__signal-id">{item.signal}</span>
-								<span class="expertise-hub__signal-label">{item.label}</span>
-							</li>
-						))}
-					</ul>
-				</div>
-				<div class="expertise-hub__roles">
-					<p class="mono expertise-hub__role-label">active roles</p>
-					<ul class="expertise-hub__role-list" aria-label="Profile role labels">
-						{profileRoles.map((role) => (
-							<li>{role.label}</li>
-						))}
-					</ul>
+			<aside class="about-summary-card" aria-labelledby="about-summary-title">
+				<p class="mono about-summary-card__eyebrow" id="about-summary-title">Current focus</p>
+				<h2>{currentRole.role}</h2>
+				<p>
+					{currentRole.company} · {currentRole.location}
+				</p>
+				<p>{currentRole.summary}</p>
+				<ul class="about-role-list" aria-label="Profile role labels">
+					{roleLabels.map((role) => (
+						<li>{role}</li>
+					))}
+				</ul>
+				<div class="about-profile-links">
+					{canonicalCv.externalProfiles.map((profile) => (
+						<a href={profile.href} target="_blank" rel="noreferrer">
+							<span>{profile.label}</span>
+							<span class="mono">Open profile</span>
+						</a>
+					))}
 				</div>
 			</aside>
 		</header>
 
 		<div class="about-grid motion-enter motion-delay-2">
-			<div class="about-column about-column--primary">
-				<section class="section-block expertise-network" aria-labelledby="expertise-network-title">
+			<div class="about-column">
+				<section class="about-section" aria-labelledby="experience-title">
 					<div class="section-heading">
-						<p class="mono section-kicker">capability nodes</p>
-						<h2 id="expertise-network-title">Expertise that travels together</h2>
+						<p class="mono">Work history</p>
+						<h2 id="experience-title">Experience</h2>
 						<p>
-							These are not isolated tags. They reinforce each other in real delivery work, which is
-							why they are presented as linked nodes instead of a flat skill dump.
+							A direct view of the roles, delivery environments, and technologies that shape the way I
+							build software.
 						</p>
 					</div>
-					<div class="expertise-grid">
-						{expertise.map((item) => (
-							<article class="expertise-node">
-								<h3>{item.label}</h3>
-								<p>{item.detail}</p>
-							</article>
-						))}
-					</div>
-				</section>
-
-				<section class="section-block profile-modules">
-					<div class="section-heading section-heading--compact">
-						<p class="mono section-kicker">profile modules</p>
-						<h2>How I work</h2>
-					</div>
-					<div class="profile-module-list">
-						{profileModules.map((module) => (
-							<article class="profile-module-card">
-								<h3>{module.title}</h3>
-								<p>{module.copy}</p>
-							</article>
-						))}
-					</div>
-				</section>
-
-				<section class="section-block profile-note motion-enter motion-delay-3">
-					<div class="section-heading section-heading--compact">
-						<p class="mono section-kicker">system note</p>
-						<h2>Why this page exists</h2>
-					</div>
-					<p>
-						This site sits at the intersection of architecture, delivery, and continuous learning.
-						It is a place to share practical experience, document new ideas, and make long-term
-						growth visible through real work.
-					</p>
-				</section>
-			</div>
-
-			<div class="about-column about-column--secondary">
-				<section class="section-block timeline-panel" aria-labelledby="experience-timeline-title">
-					<div class="section-heading section-heading--compact">
-						<p class="mono section-kicker">experience arc</p>
-						<h2 id="experience-timeline-title">How the profile evolved</h2>
-						<p>
-							A scannable arc instead of a resume dump: the through-line is hands-on delivery,
-							architecture thinking, and the habit of keeping learning visible.
-						</p>
-					</div>
-					<ol class="timeline-list">
-						{experienceTimeline.map((entry) => (
-							<li class="timeline-entry">
-								<div class="timeline-entry__rail" aria-hidden="true">
-									<span class="timeline-entry__line"></span>
+					<ol class="experience-list">
+						{canonicalCv.workHistory.map((entry) => (
+							<li class="experience-item">
+								<div class="experience-item__header">
+									<div>
+										<p class="mono experience-item__years">
+											{entry.startYear} - {entry.endYear}
+										</p>
+										<h3>{entry.role}</h3>
+										<p class="experience-item__meta">
+											{entry.company} · {entry.location}
+										</p>
+									</div>
 								</div>
-								<div class="timeline-entry__body">
-									<p class="mono timeline-entry__span">{entry.span}</p>
-									<h3>{entry.title}</h3>
-									<p>{entry.copy}</p>
-									<ul class="timeline-entry__points" aria-label={`${entry.title} focus points`}>
-										{entry.points.map((point) => (
-											<li>{point}</li>
+								<p>{entry.summary}</p>
+								{entry.experiences.length > 0 ? (
+									<ul class="experience-tags" aria-label={`${entry.role} technologies`}>
+										{entry.experiences.map((experience) => (
+											<li>{experience}</li>
 										))}
 									</ul>
-								</div>
+								) : null}
 							</li>
 						))}
 					</ol>
 				</section>
 
-				<section class="section-block education-panel" aria-labelledby="education-panel-title">
-					<div class="section-heading section-heading--compact">
-						<p class="mono section-kicker">education + philosophy</p>
-						<h2 id="education-panel-title">Grounding layers</h2>
+				<section class="about-section" aria-labelledby="capabilities-title">
+					<div class="section-heading">
+						<p class="mono">Skills</p>
+						<h2 id="capabilities-title">Capabilities</h2>
+						<p>
+							The grouping stays close to the CV data so the page remains maintainable while still being
+							easy to scan.
+						</p>
 					</div>
-					<div class="education-grid">
-						{educationModules.map((module) => (
-							<article class="education-card">
-								<h3>{module.title}</h3>
-								<p>{module.copy}</p>
-							</article>
+					<div class="capability-sections">
+						{capabilitySections.map((section) => (
+							<section class="capability-section">
+								<h3>{section.title}</h3>
+								<div class="capability-groups">
+									{section.groups.map((group) => (
+										<article class="capability-group">
+											<h4>{group.title}</h4>
+											<ul>
+												{group.entries.map((entry) => (
+													<li>{entry.name}</li>
+												))}
+											</ul>
+										</article>
+									))}
+								</div>
+							</section>
 						))}
 					</div>
 				</section>
+			</div>
 
-				<section class="section-block links-panel" aria-labelledby="links-panel-title">
-					<div class="section-heading section-heading--compact">
-						<p class="mono section-kicker">external routes</p>
-						<h2 id="links-panel-title">Profile links and CV status</h2>
+			<div class="about-column">
+				<section class="about-section" aria-labelledby="education-title">
+					<div class="section-heading">
+						<p class="mono">Education</p>
+						<h2 id="education-title">Education and languages</h2>
 					</div>
-					<div class="profile-link-grid">
-						{profileLinks.map((link) => (
-							<a class="profile-link-card" href={link.href} target="_blank" rel="noreferrer">
-								<div>
-									<h3>{link.label}</h3>
-									<p>{link.copy}</p>
-								</div>
-								<span class="mono profile-link-card__cta">open profile →</span>
-							</a>
+					<div class="stack-list">
+						{canonicalCv.education.map((entry) => (
+							<article class="stack-card">
+								<h3>{entry.degree}</h3>
+								<p class="stack-card__meta">
+									{entry.institution} · {entry.location} · {entry.year}
+								</p>
+								{entry.thesis ? <p>{entry.thesis}</p> : null}
+							</article>
 						))}
-						<article class="cv-status-card" aria-label="CV download status">
-							<h3>CV download</h3>
-							<p>
-								No placeholder PDF ships here. The public CV download stays deferred until there is a
-								real document ready to publish.
-							</p>
-							<p class="mono cv-status-card__state">status / explicitly deferred</p>
+						<article class="stack-card">
+							<h3>Spoken languages</h3>
+							<ul class="language-list">
+								{canonicalCv.spokenLanguages.map((language) => (
+									<li>
+										<span>{language.language}</span>
+										<span class="mono">{language.proficiency}</span>
+									</li>
+								))}
+							</ul>
 						</article>
 					</div>
+				</section>
+
+				<section class="about-section" aria-labelledby="publications-title">
+					<div class="section-heading">
+						<p class="mono">Publications</p>
+						<h2 id="publications-title">Selected publications</h2>
+					</div>
+					<ul class="publication-list">
+						{canonicalCv.publications.map((publication) => (
+							<li class="publication-item">
+								<p class="mono publication-item__meta">
+									{publication.year} · {publication.type}
+								</p>
+								<h3>{publication.title}</h3>
+								<p>{publication.venue}</p>
+								{publication.detail ? <p>{publication.detail}</p> : null}
+								{publication.identifier ? <p class="mono">{publication.identifier}</p> : null}
+							</li>
+						))}
+					</ul>
 				</section>
 			</div>
 		</div>
@@ -207,90 +196,72 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 </Layout>
 
 <style>
-	.about-surface {
+	.about-page {
 		padding-block: 2rem 4rem;
 	}
 
 	.about-hero,
-	.section-block {
-		position: relative;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
-		background:
-			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
+	.about-section,
+	.about-summary-card,
+	.experience-item,
+	.capability-group,
+	.stack-card,
+	.publication-item {
+		border: 1px solid var(--border);
+		border-radius: 1rem;
+		background: var(--surface);
 		box-shadow: var(--panel-shadow-soft);
-		overflow: clip;
-	}
-
-	.about-hero::before,
-	.section-block::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-		background:
-			linear-gradient(var(--grid-line) 1px, transparent 1px),
-			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-		background-size: 3rem 3rem;
-		opacity: 0.45;
-		mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.62), transparent 86%);
 	}
 
 	.about-hero {
 		display: grid;
-		grid-template-columns: minmax(0, 1.02fr) minmax(20rem, 0.98fr);
+		grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.9fr);
 		gap: 1.25rem;
-		align-items: start;
-		padding: clamp(1.1rem, 2.8vw, 1.7rem);
+		padding: clamp(1.25rem, 3vw, 2rem);
 		margin-bottom: 1.25rem;
 	}
 
-	.page-kicker,
-	.section-kicker,
-	.expertise-hub__eyebrow,
-	.expertise-hub__status,
-	.expertise-hub__role-label,
-	.expertise-hub__signal-id,
-	.expertise-hub__core-label,
-	.expertise-hub__core-state,
-	.about-stats dt {
+	.about-kicker,
+	.about-stats dt,
+	.about-summary-card__eyebrow,
+	.experience-item__years,
+	.publication-item__meta {
 		margin: 0;
 		font-size: 0.72rem;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.1em;
 		text-transform: uppercase;
-	}
-
-	.page-kicker,
-	.section-kicker,
-	.expertise-hub__eyebrow,
-	.expertise-hub__role-label,
-	.expertise-hub__signal-id,
-	.expertise-hub__core-label {
-		color: var(--accent-2);
-	}
-
-	.expertise-hub__status,
-	.expertise-hub__core-state,
-	.about-stats dt {
 		color: var(--text-soft);
 	}
 
+	.about-hero h1,
+	.section-heading h2 {
+		margin: 0;
+		text-wrap: balance;
+	}
+
 	.about-hero h1 {
-		margin: 0.55rem 0 0.9rem;
-		font-size: clamp(2.8rem, 5.4vw, 4.6rem);
-		line-height: 0.96;
+		font-size: clamp(2.6rem, 5vw, 4.5rem);
+		line-height: 0.95;
+		margin-top: 0.5rem;
 	}
 
-	.page-intro,
+	.about-intro,
 	.section-heading p,
-	.expertise-node p,
-	.profile-module-card p,
-	.profile-note p {
-		max-width: 64ch;
-		line-height: 1.7;
+	.about-summary-card p,
+	.experience-item p,
+	.stack-card p,
+	.publication-item p {
 		color: var(--text-muted);
+		line-height: 1.7;
 	}
 
-	.about-stats {
+	.about-intro {
+		max-width: 64ch;
+		font-size: 1.05rem;
+	}
+
+	.about-stats,
+	.graph-panel__metrics {
 		display: grid;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 0.75rem;
@@ -298,191 +269,93 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 	}
 
 	.about-stats div {
-		padding: 0.95rem 1rem;
-		border: 1px solid var(--border);
-		background: color-mix(in srgb, var(--surface-soft) 84%, transparent);
-}
+		padding: 1rem;
+		border: 1px solid var(--border-muted);
+		border-radius: 0.875rem;
+		background: var(--surface-subtle);
+	}
 
 	.about-stats dd {
-		margin: 0.4rem 0 0;
+		margin: 0.35rem 0 0;
 		font-size: 1rem;
 		font-weight: 700;
 		color: var(--text-main);
 	}
 
-	.expertise-hub {
+	.about-summary-card {
 		display: grid;
 		gap: 1rem;
 		align-content: start;
+		padding: 1.25rem;
 	}
 
-	.expertise-hub__header,
-	.section-heading {
-		display: grid;
-		gap: 0.35rem;
+	.about-summary-card h2,
+	.experience-item h3,
+	.capability-section h3,
+	.capability-group h4,
+	.stack-card h3,
+	.publication-item h3 {
+		margin: 0;
 	}
 
-	.expertise-hub__visual {
-		position: relative;
-		isolation: isolate;
-		min-height: clamp(22rem, 34vw, 27rem);
-		padding: clamp(0.95rem, 1.8vw, 1.35rem);
-		border: 1px solid color-mix(in srgb, var(--border-strong) 74%, transparent);
-		background:
-			radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 18%, transparent) 0, transparent 42%),
-			linear-gradient(145deg, color-mix(in srgb, var(--surface-soft) 86%, transparent), color-mix(in srgb, var(--surface) 95%, transparent));
-		overflow: hidden;
-	}
-
-	.expertise-hub__visual::before,
-	.expertise-hub__visual::after {
-		content: '';
-		position: absolute;
-		left: 50%;
-		border-radius: 999px;
-		transform: translateX(-50%);
-		pointer-events: none;
-	}
-
-	.expertise-hub__visual::before {
-		top: 14%;
-		width: min(88%, 23rem);
-		height: min(72%, 18rem);
-		border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
-		opacity: 0.6;
-	}
-
-	.expertise-hub__visual::after {
-		top: 25%;
-		width: min(58%, 13.5rem);
-		height: min(42%, 10rem);
-		border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
-		opacity: 0.5;
-	}
-
-	.expertise-hub__core {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		z-index: 2;
-		display: grid;
-		justify-items: center;
-		align-content: center;
-		gap: 0.25rem;
-		width: clamp(8rem, 15vw, 9.6rem);
-		aspect-ratio: 1;
-		padding: 1rem;
-		border-radius: 50%;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 82%, transparent);
-		background:
-			radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--node-core) 76%, white) 0 12%, transparent 13%),
-			radial-gradient(circle, color-mix(in srgb, var(--accent) 20%, transparent) 0, color-mix(in srgb, var(--surface-strong) 92%, transparent) 68%);
-		box-shadow:
-			0 0 0 1px color-mix(in srgb, var(--surface) 86%, transparent),
-			0 0 24px color-mix(in srgb, var(--accent) 14%, transparent);
-		transform: translate(-50%, -50%);
-	}
-
-	.expertise-hub__core-count {
-		font-size: clamp(2.5rem, 4.2vw, 3.25rem);
-		font-weight: 700;
-		line-height: 0.9;
-		color: var(--text-main);
-	}
-
-	.expertise-hub__signals {
+	.about-role-list,
+	.experience-tags,
+	.capability-group ul,
+	.language-list,
+	.publication-list,
+	.experience-list {
 		list-style: none;
 		margin: 0;
 		padding: 0;
-		display: grid;
-		grid-template-columns: minmax(0, 9.25rem) clamp(8rem, 15vw, 9.6rem) minmax(0, 9.25rem);
-		grid-auto-rows: minmax(4.15rem, auto);
-		gap: 0.75rem 0.8rem;
-		justify-content: center;
-		align-items: center;
-		min-height: 100%;
 	}
 
-	.expertise-hub__signal {
-		position: relative;
-		display: grid;
-		gap: 0.25rem;
-		width: 100%;
-		max-width: 9.25rem;
-		padding: 0.7rem 0.8rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
-		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
-		box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--surface) 32%, transparent);
-	}
-
-	.expertise-hub__signal--left {
-		grid-column: 1;
-		justify-self: start;
-	}
-
-	.expertise-hub__signal--right {
-		grid-column: 3;
-		justify-self: end;
-		text-align: right;
-	}
-
-	.expertise-hub__signal::after {
-		content: '';
-		position: absolute;
-		top: 50%;
-		width: 1.15rem;
-		height: 1px;
-		background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 54%, transparent), transparent);
-		transform: translateY(-50%);
-	}
-
-	.expertise-hub__signal--left::after {
-		right: -1.15rem;
-	}
-
-	.expertise-hub__signal--right::after {
-		left: -1.15rem;
-		background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 54%, transparent));
-	}
-
-	.expertise-hub__signal-label {
-		color: var(--text-main);
-		font-weight: 600;
-		font-size: 0.96rem;
-		line-height: 1.4;
-		text-wrap: balance;
-	}
-
-	.expertise-hub__roles {
-		display: grid;
+	.about-role-list,
+	.experience-tags {
+		display: flex;
+		flex-wrap: wrap;
 		gap: 0.6rem;
 	}
 
-	.expertise-hub__role-list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.55rem;
+	.about-role-list li,
+	.experience-tags li,
+	.capability-group li {
+		padding: 0.45rem 0.7rem;
+		border: 1px solid var(--border-muted);
+		border-radius: 999px;
+		background: var(--surface-subtle);
 	}
 
-	.expertise-hub__role-list li {
-		padding: 0.45rem 0.65rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 66%, transparent);
-		background: color-mix(in srgb, var(--surface-soft) 80%, transparent);
+	.about-profile-links,
+	.capability-groups,
+	.stack-list {
+		display: grid;
+		gap: 0.85rem;
+	}
+
+	.about-profile-links a {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		align-items: center;
+		padding: 0.9rem 1rem;
+		border: 1px solid var(--border-muted);
+		border-radius: 0.875rem;
+		background: var(--surface-subtle);
 		color: var(--text-main);
-		font-family: 'Azeret Mono', monospace;
-		font-size: 0.72rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	.about-profile-links a:hover,
+	.about-profile-links a:focus-visible {
+		border-color: var(--border-strong);
+		background: var(--surface-hover);
+		text-decoration: none;
 	}
 
 	.about-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+		grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
 		gap: 1.25rem;
-		align-items: start;
 	}
 
 	.about-column {
@@ -491,216 +364,82 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 		align-content: start;
 	}
 
-	.section-block {
-		padding: clamp(1.1rem, 2.6vw, 1.5rem);
+	.about-section {
+		padding: clamp(1.1rem, 2.5vw, 1.6rem);
 	}
 
-	.section-heading h2,
-	.expertise-node h3,
-	.profile-module-card h3,
-	.timeline-entry__body h3,
-	.education-card h3,
-	.profile-link-card h3,
-	.cv-status-card h3 {
+	.section-heading {
+		display: grid;
+		gap: 0.35rem;
+		margin-bottom: 1rem;
+	}
+
+	.section-heading p,
+	.experience-item__meta,
+	.stack-card__meta {
 		margin: 0;
 	}
 
-	.section-heading h2 {
-		font-size: clamp(1.45rem, 2.5vw, 2rem);
-	}
-
-	.profile-module-list,
-	.expertise-grid,
-	.education-grid,
-	.profile-link-grid,
-	.timeline-list {
+	.experience-list,
+	.publication-list,
+	.capability-sections {
 		display: grid;
 		gap: 1rem;
 	}
 
-	.expertise-grid {
-		grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-		counter-reset: expertise-counter;
-	}
-
-	.profile-module-list {
-		grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-	}
-
-	.expertise-node,
-	.profile-module-card,
-	.timeline-entry,
-	.education-card,
-	.profile-link-card,
-	.cv-status-card {
-		position: relative;
+	.experience-item,
+	.stack-card,
+	.publication-item,
+	.capability-group {
 		padding: 1rem;
-		border: 1px solid var(--border);
-		background: color-mix(in srgb, var(--surface-soft) 78%, transparent);
-		transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 	}
 
-	.expertise-node {
-		border-left: 2px solid color-mix(in srgb, var(--accent-3) 56%, var(--border));
-		counter-increment: expertise-counter;
-	}
-
-	.expertise-node:hover {
-		border-color: var(--accent);
-		border-left-color: var(--accent);
-		background: color-mix(in srgb, var(--accent) 7%, var(--surface-soft));
-		box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 12%, transparent);
-	}
-
-	.expertise-node::before {
-		content: counter(expertise-counter, decimal-leading-zero);
-		position: absolute;
-		top: 0.6rem;
-		right: 0.7rem;
-		font-family: 'Azeret Mono', monospace;
-		font-size: 0.62rem;
-		letter-spacing: 0.1em;
-		color: var(--text-soft);
-		opacity: 0.7;
-	}
-
-	.expertise-node h3,
-	.profile-module-card h3,
-	.timeline-entry__body h3,
-	.education-card h3,
-	.profile-link-card h3,
-	.cv-status-card h3 {
-		font-size: 1.1rem;
-	}
-
-	.expertise-node::after,
-	.profile-module-card::after,
-	.education-card::after,
-	.cv-status-card::after {
-		content: '';
-		position: absolute;
-		inset: auto auto 0.7rem 1rem;
-		width: 3rem;
-		height: 1px;
-		background: linear-gradient(90deg, var(--accent-2), transparent);
-	}
-
-	.timeline-list {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-
-	.timeline-entry {
+	.experience-item {
 		display: grid;
-		grid-template-columns: auto minmax(0, 1fr);
-		gap: 0.9rem;
-		padding-bottom: 1.1rem;
+		gap: 0.8rem;
 	}
 
-	.timeline-entry__rail {
+	.capability-section {
 		display: grid;
-		justify-items: center;
-		min-width: 1rem;
-		padding-top: 0.15rem;
+		gap: 0.75rem;
 	}
 
-	.timeline-entry__rail::before {
-		content: '';
-		display: block;
-		width: 9px;
-		height: 9px;
-		border-radius: 999px;
-		border: 1px solid color-mix(in srgb, var(--accent-2) 70%, var(--border));
-		background: radial-gradient(circle, color-mix(in srgb, var(--node-core) 90%, white) 0 36%, transparent 37%);
-		box-shadow: 0 0 7px color-mix(in srgb, var(--accent-2) 30%, transparent);
-		margin-bottom: 0.3rem;
-		flex-shrink: 0;
+	.capability-groups {
+		grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
 	}
 
-	.profile-note p,
-	ul.timeline-entry__points li {
-		font-size: 0.72rem;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-	}
-
-	.timeline-entry__span,
-	.cv-status-card__state,
-	.profile-link-card__cta,
-	.timeline-entry__points li {
-		font-size: 0.72rem;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-	}
-
-	.profile-note {
-		border-left: 3px solid var(--accent);
-	}
-
-	.timeline-entry__line {
-		width: 1px;
-		min-height: 100%;
-		background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 78%, transparent), transparent 88%);
-	}
-
-	.timeline-entry__body {
+	.capability-group {
 		display: grid;
-		gap: 0.7rem;
+		gap: 0.75rem;
 	}
 
-	.timeline-entry__span,
-	.cv-status-card__state,
-	.profile-link-card__cta {
-		color: var(--text-soft);
-	}
-
-	.timeline-entry__body p,
-	.education-card p,
-	.profile-link-card p,
-	.cv-status-card p {
-		margin: 0;
-		line-height: 1.7;
-		color: var(--text-muted);
-	}
-
-	.timeline-entry__points {
+	.capability-group ul {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.55rem;
-		list-style: none;
-		padding: 0;
-		margin: 0;
 	}
 
-	.timeline-entry__points li {
-		padding: 0.4rem 0.55rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 64%, transparent);
-		background: color-mix(in srgb, var(--surface) 64%, transparent);
-		color: var(--text-soft);
+	.language-list {
+		display: grid;
+		gap: 0.75rem;
 	}
 
-	.education-grid,
-	.profile-link-grid {
-		grid-template-columns: 1fr;
-	}
-
-	.profile-link-card {
+	.language-list li {
 		display: flex;
-		flex-direction: column;
 		justify-content: space-between;
-		align-items: flex-start;
 		gap: 1rem;
-		text-decoration: none;
-		color: inherit;
-		padding-top: 1.15rem;
+		padding-bottom: 0.75rem;
+		border-bottom: 1px solid var(--border-muted);
 	}
 
-	.profile-link-card:hover,
-	.profile-link-card:focus-visible {
-		border-color: var(--accent);
-		background: color-mix(in srgb, var(--accent) 10%, var(--surface-strong));
-		text-decoration: none;
+	.language-list li:last-child {
+		padding-bottom: 0;
+		border-bottom: 0;
+	}
+
+	.publication-item {
+		display: grid;
+		gap: 0.35rem;
 	}
 
 	@media (max-width: 980px) {
@@ -708,159 +447,41 @@ const profileSchema = JSON.stringify(buildAboutProfileSchema());
 		.about-grid {
 			grid-template-columns: 1fr;
 		}
-
-		.expertise-hub {
-			display: grid;
-			gap: 0.85rem;
-		}
-
-		.expertise-hub__header {
-			grid-template-columns: minmax(0, 1fr) auto;
-			align-items: center;
-			gap: 0.5rem;
-		}
-
-		.expertise-hub__visual {
-			display: none;
-		}
-
-		.expertise-hub__roles {
-			display: grid;
-			align-content: start;
-			padding: 1rem;
-			border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
-			background:
-				linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
-		}
-
-		.expertise-hub__role-list {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
-			gap: 0.55rem;
-		}
-
-		.expertise-hub__role-list li {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			min-height: 2.4rem;
-			text-align: center;
-		}
-	}
-
-	@media (max-width: 1120px) and (min-width: 981px) {
-		.expertise-hub__visual {
-			min-height: clamp(20.5rem, 30vw, 24rem);
-			padding: clamp(0.9rem, 1.3vw, 1.15rem);
-		}
-
-		.expertise-hub__visual::before {
-			width: min(82%, 21rem);
-			height: min(66%, 16.5rem);
-		}
-
-		.expertise-hub__visual::after {
-			width: min(52%, 12.4rem);
-			height: min(38%, 9rem);
-		}
-
-		.expertise-hub__core {
-			width: clamp(7.6rem, 11vw, 8.8rem);
-			padding: 0.85rem;
-		}
-
-		.expertise-hub__core-count {
-			font-size: clamp(2.3rem, 3.5vw, 2.9rem);
-		}
-
-		.expertise-hub__signals {
-			grid-template-columns: minmax(0, 8.4rem) clamp(7.6rem, 11vw, 8.8rem) minmax(0, 8.4rem);
-			grid-auto-rows: minmax(3.85rem, auto);
-			gap: 0.65rem 0.65rem;
-		}
-
-		.expertise-hub__signal {
-			max-width: 8.4rem;
-			padding: 0.6rem 0.7rem;
-		}
-
-		.expertise-hub__signal-label {
-			font-size: 0.9rem;
-		}
 	}
 
 	@media (max-width: 720px) {
+		.about-stats {
+			grid-template-columns: 1fr;
+		}
+
+		.capability-groups {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.about-page {
+			padding-block: 1.5rem 3rem;
+		}
+
 		.about-hero,
-		.section-block {
+		.about-section,
+		.about-summary-card,
+		.experience-item,
+		.stack-card,
+		.publication-item,
+		.capability-group {
 			padding: 1rem;
 		}
 
-		.about-stats,
-		.expertise-grid,
-		.education-grid,
-		.profile-link-grid {
-			grid-template-columns: 1fr;
+		.about-hero h1 {
+			font-size: clamp(2.3rem, 11vw, 3.2rem);
 		}
 
-		.expertise-hub__visual {
-			min-height: auto;
-		}
-
-		.expertise-hub__core {
-			position: relative;
-			top: auto;
-			left: auto;
-			margin: 0 auto 1rem;
-			transform: none;
-		}
-
-		.expertise-hub__signals {
-			grid-template-columns: 1fr;
-			gap: 0.75rem;
-		}
-
-		.expertise-hub__signal,
-		.expertise-hub__signal--left,
-		.expertise-hub__signal--right {
-			grid-column: 1;
-			justify-self: stretch;
-			width: 100%;
-			text-align: left;
-		}
-
-		.expertise-hub__signal::after {
-			display: none;
-		}
-
-		.timeline-entry {
-			grid-template-columns: 1fr;
-		}
-
-		.timeline-entry__rail {
-			grid-auto-flow: column;
-			justify-content: start;
-		}
-
-		.timeline-entry__line {
-			width: 2.8rem;
-			min-height: 1px;
-			margin-top: 0.45rem;
-			background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 78%, transparent), transparent 88%);
-		}
-
-	}
-
-	@media (max-width: 420px) {
-		.expertise-hub__visual {
-			padding: 0.85rem;
-		}
-
-		.expertise-hub__role-list {
-			grid-template-columns: 1fr;
-		}
-
-		.expertise-hub__role-list li {
-			width: auto;
+		.about-profile-links a,
+		.language-list li {
+			align-items: flex-start;
+			flex-direction: column;
 		}
 	}
 </style>

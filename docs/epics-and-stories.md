@@ -9,7 +9,7 @@ Included in scope:
 - Home page
 - About page
 - Blog index and post pages
-- Tools index and tool page
+- Projects index and project page
 - Dark and light theme support
 - Responsive layout
 - SEO basics
@@ -20,7 +20,6 @@ Excluded from scope:
 
 - Games
 - Personal page
-- Projects page
 - Contact form
 - Comments
 - Newsletter
@@ -41,7 +40,7 @@ Excluded from scope:
 - [x] Epic 2: Content Platform And Shared Content UI
 - [ ] Epic 3: Home And About Experience
 - [ ] Epic 4: Blog Publishing MVP
-- [ ] Epic 5: Tools Publishing MVP
+- [ ] Epic 5: Projects Publishing MVP
 - [ ] Epic 6: SEO, Analytics, And Launch Hardening
 
 ## Epic 0: Product Decisions And Launch Planning
@@ -54,8 +53,8 @@ Story checklist:
 - [x] Story 0.2: Choose analytics platform
 - [x] Story 0.3: Decide Markdown or MDX for blog MVP
 - [x] Story 0.4: Lock production domain
-- [x] Story 0.5: Select first launch tool
-- [ ] Story 0.6: Finalize the three launch blog posts
+- [x] Story 0.5: Select first launch project
+- [x] Story 0.6: Decide launch blog seeding approach
 
 ### Story 0.1: Select launch design direction
 
@@ -121,39 +120,39 @@ Acceptance criteria:
 
 Decision: **isksz.com** (`https://isksz.com`) (2026-03-17). See `docs/decisions/production-domain.md`.
 
-### Story 0.5: Select first launch tool
+### Story 0.5: Select first launch project
 
-Choose the first developer tool to publish at launch.
+Choose the first project entry to publish at launch.
 
 Issue: #7
 
 Acceptance criteria:
 
-- One tool is selected from the PRD candidate list.
-- Inputs, outputs, and target framework are defined.
-- The tool fits MVP scope.
+- One launch project is selected from the PRD candidate list.
+- Inputs, outputs, and target implementation approach are defined.
+- The project fits MVP scope.
 
-Decision: **UUID / ULID generator** (2026-03-17). See `docs/decisions/launch-tool.md`.
+Decision: **UUID / ULID generator** as the first migrated tool-type project (2026-03-17). See `docs/decisions/launch-tool.md`.
 
-### Story 0.6: Finalize the three launch blog posts
+### Story 0.6: Decide launch blog seeding approach
 
-Define the initial launch content set for the blog.
+Decide whether the clean-slate launch seeds blog content or starts empty.
 
 Issue: #9
 
 Acceptance criteria:
 
-- Three post titles are approved.
-- Each post has a rough outline and tag direction.
-- The set covers architecture, leadership, and learning philosophy.
+- The launch blog content policy is explicit.
+- Placeholder posts are either retained intentionally or removed.
+- Home and blog launch behavior is defined if no posts ship.
 
-Decision: Three launch post titles and tag direction are documented in `docs/decisions/launch-blog-posts.md`. Rough outlines remain pending, so Story 0.6 stays open.
+Decision: The clean-slate refactor supersedes the earlier three-post launch plan. Launch blog content is intentionally empty, the three placeholder posts are deleted, and the product docs should no longer treat seeded launch posts as required. See `docs/decisions/refactor-clean-slate-2026-04-20.md`.
 
 Delivery notes:
 
-- Completed: the three launch post titles were selected and the set covers architecture, leadership, and learning philosophy.
-- Completed: initial tag direction is documented in `docs/decisions/launch-blog-posts.md`.
-- Remaining: rough outlines are still pending before Story 0.6 can be closed.
+- Historical note: `docs/decisions/launch-blog-posts.md` remains as a record of the earlier launch-content plan.
+- Current baseline: the clean-slate launch does not require seeded blog posts.
+- Follow-on work: future real posts can be planned independently of launch readiness.
 
 ## Epic 1: Shared Shell And UX Foundations
 
@@ -186,7 +185,7 @@ Issue: #12
 
 Acceptance criteria:
 
-- Header navigation covers Home, About, Blog, and Tools.
+- Header navigation covers Home, About, Blog, and Projects.
 - Footer includes social and quick links.
 - Active state behavior works correctly.
 
@@ -252,24 +251,24 @@ Delivery notes:
 
 ## Epic 2: Content Platform And Shared Content UI
 
-Purpose: build the content model and shared presentation layers that power Blog and Tools.
+Purpose: build the content model and shared presentation layers that power Blog and Projects.
 
 Story checklist:
 
 - [x] Story 2.1: Add Astro content collections
 - [x] Story 2.2: Build shared content helpers
 - [x] Story 2.3: Create blog post layout
-- [x] Story 2.4: Create tool page layout
+- [x] Story 2.4: Create project page layout
 - [x] Story 2.5: Define featured content rules
 
 ### Story 2.1: Add Astro content collections
 
-Define content collections for blog posts and tools.
+Define content collections for blog posts and projects.
 
 Acceptance criteria:
 
 - Blog schema matches the PRD.
-- Tool schema matches the PRD.
+- Projects schema matches the PRD.
 - Draft handling exists.
 
 ### Story 2.2: Build shared content helpers
@@ -284,9 +283,9 @@ Acceptance criteria:
 
 Delivery notes:
 
-- Added `src/utils/content.ts` as the shared content-helper layer for blog and tools collections, including published-only filtering, deterministic date sorting, tag extraction and filtering, adjacent blog navigation lookup, and shared date formatting.
+- Added `src/utils/content.ts` as the shared content-helper layer for blog and project collections, including published-only filtering, deterministic date sorting, tag extraction and filtering, adjacent blog navigation lookup, and shared date formatting.
 - The `/blog` page now renders published collection entries instead of placeholders and exposes tag filtering through query-string links.
-- The `/tools` page now renders published tool metadata from the content collection instead of hardcoded cards.
+- The `/projects` page is the clean-slate target for published project metadata from the content collection instead of hardcoded cards.
 
 ### Story 2.3: Create blog post layout
 
@@ -299,16 +298,16 @@ Acceptance criteria:
 - Code blocks render cleanly.
 - An author block is available.
 
-### Story 2.4: Create tool page layout
+### Story 2.4: Create project page layout
 
-Build the shared layout and presentation pieces for tool pages.
+Build the shared layout and presentation pieces for project detail pages.
 
 Acceptance criteria:
 
-- Tool pages render metadata and description.
+- Project pages render metadata and description.
 - Framework badges are supported.
 - Usage notes can be displayed.
-- The interactive tool area fits within the layout.
+- The interactive project area fits within the layout.
 
 ### Story 2.5: Define featured content rules
 
@@ -317,15 +316,14 @@ Allow the home page to surface real featured content.
 Acceptance criteria:
 
 - Latest published post can be selected programmatically.
-- Featured tool can be selected programmatically.
+- Featured projects can be selected programmatically.
 - The home page no longer depends on hardcoded placeholders.
 
 Delivery notes:
 
-- The current MVP rule is date-driven: the home page features the first published blog post and first published tool after descending publish-date sort.
-- `src/utils/content.ts` implements that rule through published-only collection reads, descending sort helpers, and `getFeaturedBlogPostFromEntries` / `getFeaturedToolFromEntries`, each returning the first item.
-- `src/pages/index.astro` consumes `getFeaturedBlogPost()` and `getFeaturedTool()` directly, so the home page featured strip no longer depends on hardcoded placeholders.
-- Closure evidence: the learning-philosophy launch post is now dated 2026-03-18 while the other two launch posts remain dated 2026-03-17, making it the intentionally newest featured launch post under the current MVP rule.
+- Clean-slate baseline: the home page should surface up to 3 `featured: true` blog posts by `date` and up to 3 `featured: true` projects by `publishedAt`.
+- The home page must not depend on hardcoded placeholder content for either section.
+- Launch must tolerate an empty writing section because the seeded three-post assumption has been removed.
 
 ## Epic 3: Home And About Experience
 
@@ -345,7 +343,7 @@ Replace placeholder content on the home page with real routed and featured conte
 Acceptance criteria:
 
 - Hero remains aligned with the PRD.
-- Quick navigation cards exist for About, Blog, and Tools.
+- Quick navigation cards are removed from the clean-slate launch baseline.
 - Featured content uses published items.
 
 ### Story 3.2: Build About page
@@ -387,7 +385,7 @@ Story checklist:
 - [ ] Story 4.1: Build blog index page
 - [ ] Story 4.2: Build blog post route
 - [ ] Story 4.3: Add post navigation and author metadata
-- [ ] Story 4.4: Publish three launch posts
+- [x] Story 4.4: Remove the seeded launch-post requirement
 - [ ] Story 4.5: Add blog SEO and structured data
 
 ### Story 4.1: Build blog index page
@@ -419,15 +417,15 @@ Acceptance criteria:
 - Previous and next links appear where applicable.
 - Author block is shown consistently.
 
-### Story 4.4: Publish three launch posts
+### Story 4.4: Remove the seeded launch-post requirement
 
-Create the initial published blog content for the MVP.
+Align blog launch assumptions with the clean-slate refactor.
 
 Acceptance criteria:
 
-- Three published posts exist.
-- Frontmatter validates.
-- The posts align with the tone defined in the PRD.
+- The MVP no longer requires three seeded launch posts.
+- Placeholder launch posts are not treated as required launch assets.
+- Empty-state behavior remains acceptable for launch.
 
 ### Story 4.5: Add blog SEO and structured data
 
@@ -439,55 +437,55 @@ Acceptance criteria:
 - Open Graph and Twitter metadata are page-specific.
 - Canonical URLs are set.
 
-## Epic 5: Tools Publishing MVP
+## Epic 5: Projects Publishing MVP
 
-Purpose: launch the first developer tool and the tools catalog.
+Purpose: launch the first project entry and the projects catalog.
 
 Story checklist:
 
-- [ ] Story 5.1: Build tools index page
-- [ ] Story 5.2: Build tool detail route
-- [ ] Story 5.3: Implement first interactive tool
-- [ ] Story 5.4: Publish tool metadata and copy
+- [ ] Story 5.1: Build projects index page
+- [ ] Story 5.2: Build project detail route
+- [ ] Story 5.3: Implement first interactive project entry
+- [ ] Story 5.4: Publish project metadata and copy
 
-### Story 5.1: Build tools index page
+### Story 5.1: Build projects index page
 
-Create the tools listing page.
-
-Acceptance criteria:
-
-- Published tools display name, description, framework badge, and link.
-- Draft tools are not shown.
-
-### Story 5.2: Build tool detail route
-
-Create the route for individual tool pages.
+Create the projects listing page.
 
 Acceptance criteria:
 
-- Each published tool resolves by slug.
+- Published projects display name, description, type, and relevant badges or links.
+- Draft projects are not shown.
+
+### Story 5.2: Build project detail route
+
+Create the route for individual project pages.
+
+Acceptance criteria:
+
+- Each published project resolves by slug when it has a detail page.
 - Metadata and usage notes render on the page.
-- Navigation back to the tools index exists.
+- Navigation back to the projects index exists.
 
-### Story 5.3: Implement first interactive tool
+### Story 5.3: Implement first interactive project entry
 
-Build the selected launch tool.
+Build the selected launch project entry.
 
 Acceptance criteria:
 
-- The tool is functional in-browser.
+- The interactive project surface is functional in-browser.
 - It uses the selected island framework.
-- It fits within the shared tool page layout.
+- It fits within the shared project page layout.
 
-### Story 5.4: Publish tool metadata and copy
+### Story 5.4: Publish project metadata and copy
 
-Complete the launch tool as a content and discovery asset.
+Complete the launch project as a content and discovery asset.
 
 Acceptance criteria:
 
-- The tool entry validates against the collection schema.
+- The project entry validates against the collection schema.
 - Descriptive copy is complete.
-- The tool appears on the tools index and can be featured on the home page.
+- The project appears on the projects index and can be featured on the home page.
 
 ## Epic 6: SEO, Analytics, And Launch Hardening
 

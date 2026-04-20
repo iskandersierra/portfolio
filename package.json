@@ -6,12 +6,14 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "clean": "node -e \"const fs = require('node:fs'); for (const target of ['dist', '.astro', 'node_modules/.astro']) { fs.rmSync(target, { recursive: true, force: true }); }\"",
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "pnpm clean && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "test": "pnpm test:e2e",
     "test:e2e": "playwright test",
+    "test:seo": "pnpm test:e2e -- tests/e2e/seo.spec.ts",
     "check:md": "markdownlint-cli2",
     "check:ts": "astro check",
     "check:lint": "eslint .",

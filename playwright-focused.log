@@ -1,0 +1,187 @@
+
+> astro-dir@0.0.1 test:e2e E:\repos\portfolio
+> playwright test "tests/e2e/smoke.spec.ts" "--grep" "blog index shows the launch empty state when no posts are published|about page reads from canonical CV content instead of the retired graph view model" "--reporter=line" "--workers=1"
+
+
+Running 6 tests using 1 worker
+
+[1A[2K[1/6] [chromium] › tests\e2e\smoke.spec.ts:35:2 › site shell › blog index shows the launch empty state when no posts are published
+[1A[2K  1) [chromium] › tests\e2e\smoke.spec.ts:35:2 › site shell › blog index shows the launch empty state when no posts are published 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator:  locator('[data-empty-state]')
+    Expected: visible
+    Received: hidden
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('[data-empty-state]')[22m
+    [2m    - locator resolved to <p hidden="" role="status" aria-live="polite" class="empty-state" data-empty-state="" data-astro-cid-5tznm7mj="" data-astro-source-loc="163:107" data-astro-source-file="E:/repos/portfolio/src/pages/blog/index.astro">No published posts yet.</p>[22m
+    [2m    8 × unexpected value "hidden"[22m
+    [2m      - locator resolved to <p hidden="" role="status" aria-live="polite" class="empty-state" data-empty-state="" data-astro-cid-5tznm7mj="">No published posts yet.</p>[22m
+    [2m    - unexpected value "hidden"[22m
+
+
+      37 |
+      38 | 		await expect(page.getByRole('heading', { level: 1, name: 'Blog' })).toBeVisible();
+    > 39 | 		await expect(page.locator('[data-empty-state]')).toBeVisible();
+         | 		                                                 ^
+      40 | 		await expect(page.locator('[data-empty-state]')).toContainText(/No posts/i);
+      41 | 		await expect(page.locator('a[href^="/blog/"]')).toHaveCount(0);
+      42 | 	});
+        at E:\repos\portfolio\tests\e2e\smoke.spec.ts:39:52
+
+    Error Context: test-results\smoke-site-shell-blog-inde-3d018-when-no-posts-are-published-chromium\error-context.md
+
+
+[1A[2K[2/6] [chromium] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model
+[1A[2K  2) [chromium] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Full-Stack Developer, Software Architect, and Technical Lead', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('Full-Stack Developer, Software Architect, and Technical Lead', { exact: true })[22m
+
+
+      50 | 		await expect(
+      51 | 			page.getByText('Full-Stack Developer, Software Architect, and Technical Lead', { exact: true }),
+    > 52 | 		).toBeVisible();
+         | 		  ^
+      53 | 		await expect(
+      54 | 			page.getByText(
+      55 | 				'Senior full-stack developer, software architect, and technical lead with 25 years of experience building software, leading delivery, and documenting continuous learning.',
+        at E:\repos\portfolio\tests\e2e\smoke.spec.ts:52:5
+
+    Error Context: test-results\smoke-site-shell-about-pag-da5d0-he-retired-graph-view-model-chromium\error-context.md
+
+
+[1A[2K[3/6] [firefox] › tests\e2e\smoke.spec.ts:35:2 › site shell › blog index shows the launch empty state when no posts are published
+[1A[2K  3) [firefox] › tests\e2e\smoke.spec.ts:35:2 › site shell › blog index shows the launch empty state when no posts are published 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator:  locator('[data-empty-state]')
+    Expected: visible
+    Received: hidden
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('[data-empty-state]')[22m
+    [2m    9 × locator resolved to <p hidden="" role="status" aria-live="polite" class="empty-state" data-empty-state="" data-astro-cid-5tznm7mj="">No published posts yet.</p>[22m
+    [2m      - unexpected value "hidden"[22m
+
+
+      37 |
+      38 | 		await expect(page.getByRole('heading', { level: 1, name: 'Blog' })).toBeVisible();
+    > 39 | 		await expect(page.locator('[data-empty-state]')).toBeVisible();
+         | 		                                                 ^
+      40 | 		await expect(page.locator('[data-empty-state]')).toContainText(/No posts/i);
+      41 | 		await expect(page.locator('a[href^="/blog/"]')).toHaveCount(0);
+      42 | 	});
+        at E:\repos\portfolio\tests\e2e\smoke.spec.ts:39:52
+
+    Error Context: test-results\smoke-site-shell-blog-inde-3d018-when-no-posts-are-published-firefox\error-context.md
+
+
+[1A[2K[4/6] [firefox] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model
+[1A[2K  4) [firefox] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Full-Stack Developer, Software Architect, and Technical Lead', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('Full-Stack Developer, Software Architect, and Technical Lead', { exact: true })[22m
+
+
+      50 | 		await expect(
+      51 | 			page.getByText('Full-Stack Developer, Software Architect, and Technical Lead', { exact: true }),
+    > 52 | 		).toBeVisible();
+         | 		  ^
+      53 | 		await expect(
+      54 | 			page.getByText(
+      55 | 				'Senior full-stack developer, software architect, and technical lead with 25 years of experience building software, leading delivery, and documenting continuous learning.',
+        at E:\repos\portfolio\tests\e2e\smoke.spec.ts:52:5
+
+    Error Context: test-results\smoke-site-shell-about-pag-da5d0-he-retired-graph-view-model-firefox\error-context.md
+
+
+[1A[2K[5/6] [webkit] › tests\e2e\smoke.spec.ts:35:2 › site shell › blog index shows the launch empty state when no posts are published
+[1A[2K  5) [webkit] › tests\e2e\smoke.spec.ts:35:2 › site shell › blog index shows the launch empty state when no posts are published 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator:  locator('[data-empty-state]')
+    Expected: visible
+    Received: hidden
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('[data-empty-state]')[22m
+    [2m    3 × locator resolved to <p hidden="" role="status" aria-live="polite" class="empty-state" data-empty-state="" data-astro-cid-5tznm7mj="" data-astro-source-loc="163:107" data-astro-source-file="E:/repos/portfolio/src/pages/blog/index.astro">No published posts yet.</p>[22m
+    [2m      - unexpected value "hidden"[22m
+    [2m    6 × locator resolved to <p hidden="" role="status" aria-live="polite" class="empty-state" data-empty-state="" data-astro-cid-5tznm7mj="">No published posts yet.</p>[22m
+    [2m      - unexpected value "hidden"[22m
+
+
+      37 |
+      38 | 		await expect(page.getByRole('heading', { level: 1, name: 'Blog' })).toBeVisible();
+    > 39 | 		await expect(page.locator('[data-empty-state]')).toBeVisible();
+         | 		                                                 ^
+      40 | 		await expect(page.locator('[data-empty-state]')).toContainText(/No posts/i);
+      41 | 		await expect(page.locator('a[href^="/blog/"]')).toHaveCount(0);
+      42 | 	});
+        at E:\repos\portfolio\tests\e2e\smoke.spec.ts:39:52
+
+    Error Context: test-results\smoke-site-shell-blog-inde-3d018-when-no-posts-are-published-webkit\error-context.md
+
+
+[1A[2K[6/6] [webkit] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model
+[1A[2K  6) [webkit] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Full-Stack Developer, Software Architect, and Technical Lead', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('Full-Stack Developer, Software Architect, and Technical Lead', { exact: true })[22m
+
+
+      50 | 		await expect(
+      51 | 			page.getByText('Full-Stack Developer, Software Architect, and Technical Lead', { exact: true }),
+    > 52 | 		).toBeVisible();
+         | 		  ^
+      53 | 		await expect(
+      54 | 			page.getByText(
+      55 | 				'Senior full-stack developer, software architect, and technical lead with 25 years of experience building software, leading delivery, and documenting continuous learning.',
+        at E:\repos\portfolio\tests\e2e\smoke.spec.ts:52:5
+
+    Error Context: test-results\smoke-site-shell-about-pag-da5d0-he-retired-graph-view-model-webkit\error-context.md
+
+
+[1A[2K  6 failed
+    [chromium] › tests\e2e\smoke.spec.ts:35:2 › site shell › blog index shows the launch empty state when no posts are published 
+    [chromium] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model 
+    [firefox] › tests\e2e\smoke.spec.ts:35:2 › site shell › blog index shows the launch empty state when no posts are published 
+    [firefox] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model 
+    [webkit] › tests\e2e\smoke.spec.ts:35:2 › site shell › blog index shows the launch empty state when no posts are published 
+    [webkit] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model 
+ ELIFECYCLE  Command failed with exit code 1.

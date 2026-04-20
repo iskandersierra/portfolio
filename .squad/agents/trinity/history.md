@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- Removing the legacy `/tools` route surface is a clean delete in this repo when `src/pages/tools.astro`, `src/pages/tools/[slug].astro`, and `src/layouts/ToolLayout.astro` are the only remaining route owners; the narrow `getToolHref` and `getPublishedTools` aliases in `src/utils/content.ts` can stay as compatibility wrappers without causing Astro to generate `/tools` pages.
 - The header hamburger bars in `src/components/layout/Header.astro` render reliably only when `.nav-toggle-icon` owns an explicit three-row stack with a fixed width and row gap; leaving the button grid to size the icon implicitly can collapse the bars into a single row.
 - The blog archive empty-state in `src/pages/blog/index.astro` must stay mounted in the DOM even when posts exist, because the inline `syncArchiveState()` script is the source of truth for toggling `[data-empty-state]` during query-string filtering.
 - Removing the home sidebar cards in `src/pages/index.astro` is cleanest when the featured modules section absorbs the existing motion classes and the page-local sidebar/layout selectors are deleted with the markup.
@@ -54,3 +55,4 @@
 - When the home hero should keep its image to the right through tablet widths, remove only the early grid collapse in the wider breakpoint and leave the image sizing or crop tuning there so mobile remains the only layout exit.
 - About hero balance on `src/pages/about.astro` improves when the right column becomes a denser expertise hub with a centered live count and surrounding signal nodes, while role labels move into lighter support chips so the heading column keeps visual parity without changing the route's content hierarchy.
 - A single home hero image can stay in sync with theme changes by reading `window.__portfolioTheme.getResolvedTheme()` on load and listening for `portfolio:theme-change`, which avoids mounting both assets or duplicating localStorage logic.
+- The projects cutover stays isolated when the UI switches to `ProjectEntry` plus `getPublishedProjects`, `getProjectHref`, and `getAdjacentProjects`, while `ProjectLayout.astro` keeps the interactive surface slot-based so future islands can mount without changing the page contract.
