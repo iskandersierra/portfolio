@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;700&amp;family=Manrope:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "navy-darkest": "#0a0f1a",
+                        "navy-dark": "#0f172a",
+                        "navy-surface": "#1e293b",
+                        "slate-accent": "#94a3b8", // Adjusted for better visibility on dark
+                        "amber-vibrant": "#f97316", // Vibrant sunset orange
+                        "amber-soft": "#fbbf24", // Golden amber
+                        "coral-vibrant": "#ff7f50", // Soft coral
+                        "sunset-offwhite": "#fef3c7", // Warm light amber/off-white for body
+                        "sunset-muted": "#d97706", // Muted sunset tone
+                        background: "#0c141b",
+                        surface: "#0c141b",
+                        "on-background": "#fef3c7",
+                        "on-surface": "#fef3c7",
+                        "on-surface-variant": "#d1d5db",
+                        outline: "#334155",
+                        primary: "#f97316",
+                    },
+                    fontFamily: {
+                        sans: ["Manrope", "sans-serif"],
+                        headline: ["Newsreader"],
+                        body: ["Manrope"],
+                        label: ["Manrope"],
+                        display: "Newsreader"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.125rem",
+                        lg: "0.25rem",
+                        xl: "0.5rem",
+                        full: "0.75rem"
+                    }
+                }
+            }
+        };
+    </script>
+<style type="text/tailwindcss">
+        body {
+            background-color: #05080f;
+            color: #fef3c7;
+            font-family: 'Manrope', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .dashboard-border { border: 1px solid #1e293b; }
+        .sunset-glow { filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.3)); }
+        .grid-bg {
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .stat-badge {
+            @apply px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase border border-amber-vibrant/30 bg-amber-vibrant/5 text-amber-vibrant rounded;
+        }
+    </style>
+</head>
+<body class="selection:bg-amber-vibrant/30 selection:text-amber-vibrant">
+<nav class="fixed top-0 w-full z-50 bg-navy-darkest/95 border-b border-outline backdrop-blur-md">
+<div class="flex justify-between items-center h-14 px-6 max-w-[1600px] mx-auto">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 bg-amber-vibrant flex items-center justify-center rounded">
+<span class="material-symbols-outlined text-navy-darkest font-bold text-xl">terminal</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold tracking-tight text-sunset-offwhite leading-none">ISKANDER SIERRA</span>
+<span class="text-[10px] text-amber-soft font-mono uppercase tracking-[0.2em]">Sys.Arch v25.0</span>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest">
+<a class="px-4 py-2 text-amber-vibrant bg-white/5 border-b-2 border-amber-vibrant" href="#">Console</a>
+<a class="px-4 py-2 text-slate-accent hover:text-sunset-offwhite transition-colors" href="#">Assets</a>
+<a class="px-4 py-2 text-slate-accent hover:text-sunset-offwhite transition-colors" href="#">Documentation</a>
+<a class="px-4 py-2 text-slate-accent hover:text-sunset-offwhite transition-colors" href="#">Logs</a>
+</div>
+<div class="flex items-center gap-3">
+<div class="hidden sm:flex flex-col text-right mr-4">
+<span class="text-[10px] text-slate-accent uppercase font-mono">Uptime: 219,000h</span>
+<span class="text-[10px] text-amber-soft font-mono">Status: Operational</span>
+</div>
+<button class="bg-amber-vibrant hover:bg-coral-vibrant text-navy-darkest px-4 py-1.5 rounded text-[11px] font-extrabold uppercase tracking-widest transition-all">
+                Connect
+            </button>
+</div>
+</div>
+</nav>
+<main class="pt-14 grid-bg min-h-screen">
+<section class="max-w-[1600px] mx-auto px-6 py-12 lg:py-20">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<div class="lg:col-span-5 flex flex-col gap-6">
+<div class="bg-navy-dark/80 p-8 border border-outline rounded-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl text-amber-soft">settings_input_component</span>
+</div>
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 bg-coral-vibrant rounded-full animate-pulse"></span>
+<span class="text-xs font-mono text-coral-vibrant tracking-widest uppercase">System Core / Profile</span>
+</div>
+<h1 class="text-4xl lg:text-5xl font-display font-extrabold tracking-tighter text-coral-vibrant mb-6 uppercase leading-tight">
+                        Engineering <span class="text-amber-soft">Intentional</span> Systems.
+                    </h1>
+<p class="text-sunset-offwhite/80 leading-relaxed text-sm lg:text-base mb-8 max-w-lg font-body">
+                        Processing complex architectural challenges into high-performance, resilient reality. Over 25 years of full-stack engineering evolution, bridging the gap between hardware constraints and user experience.
+                    </p>
+<div class="grid grid-cols-2 gap-4 border-t border-outline/50 pt-8">
+<div>
+<span class="block text-[10px] text-slate-accent uppercase tracking-widest mb-1">Experience</span>
+<span class="text-2xl font-black text-sunset-offwhite font-mono">25<span class="text-amber-soft">Y</span></span>
+</div>
+<div>
+<span class="block text-[10px] text-slate-accent uppercase tracking-widest mb-1">Architecture</span>
+<span class="text-2xl font-black text-sunset-offwhite font-mono">Full<span class="text-amber-soft">S</span></span>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="flex-1 bg-white/5 border border-outline hover:border-coral-vibrant text-sunset-offwhite py-4 rounded-sm text-xs font-bold uppercase tracking-[0.2em] transition-all group flex items-center justify-center gap-2">
+                        View Repository
+                        <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
+</button>
+<button class="flex-1 bg-white/5 border border-outline hover:bg-white/10 text-sunset-offwhite py-4 rounded-sm text-xs font-bold uppercase tracking-[0.2em] transition-all">
+                        Logic.md
+                    </button>
+</div>
+</div>
+<div class="lg:col-span-7">
+<div class="bg-navy-dark/90 border border-coral-vibrant/20 rounded-sm h-full relative p-1 overflow-hidden group">
+<div class="absolute top-0 left-0 w-full p-2 flex justify-between bg-navy-dark border-b border-outline">
+<div class="flex gap-1.5">
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+</div>
+<span class="text-[9px] font-mono text-slate-accent">ARCHITECTURE_RENDERER_V4.0</span>
+</div>
+<div class="w-full h-full min-h-[450px] flex items-center justify-center p-12 bg-black/40">
+<div class="relative w-full max-w-md aspect-square flex items-center justify-center">
+<svg class="w-full h-full opacity-60 group-hover:opacity-80 transition-opacity" viewbox="0 0 400 400">
+<defs>
+<lineargradient id="sunsetGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#ff7f50;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#f97316;stop-opacity:1"></stop>
+</lineargradient>
+</defs>
+<rect class="sunset-glow" fill="none" height="100" stroke="url(#sunsetGrad)" stroke-width="2" width="100" x="150" y="150"></rect>
+<circle cx="200" cy="200" fill="none" r="30" stroke="#fbbf24" stroke-dasharray="4 4" stroke-width="1"></circle>
+<line stroke="#334155" stroke-width="1" x1="200" x2="200" y1="150" y2="50"></line>
+<line stroke="#334155" stroke-width="1" x1="200" x2="200" y1="250" y2="350"></line>
+<line stroke="#334155" stroke-width="1" x1="150" x2="50" y1="200" y2="200"></line>
+<line stroke="#334155" stroke-width="1" x1="250" x2="350" y1="200" y2="200"></line>
+<rect fill="#1e293b" height="30" stroke="#64748b" width="50" x="175" y="20"></rect>
+<rect fill="#1e293b" height="30" stroke="#64748b" width="50" x="175" y="350"></rect>
+<rect fill="#1e293b" height="30" stroke="#64748b" width="30" x="20" y="185"></rect>
+<rect fill="#1e293b" height="30" stroke="#64748b" width="30" x="350" y="185"></rect>
+<circle cx="80" cy="80" fill="#f97316" r="4"></circle>
+<circle cx="320" cy="80" fill="#f97316" r="4"></circle>
+<circle cx="80" cy="320" fill="#f97316" r="4"></circle>
+<circle cx="320" cy="320" fill="#f97316" r="4"></circle>
+</svg>
+<div class="absolute top-1/4 left-1/4 animate-bounce duration-[3000ms]">
+<div class="stat-badge">K8S CLUSTER</div>
+</div>
+<div class="absolute bottom-1/4 right-1/4 animate-pulse">
+<div class="stat-badge">DB_SYNC_ACTIVE</div>
+</div>
+<div class="absolute top-1/2 left-0 -translate-y-1/2">
+<div class="stat-badge">LEGACY_IO</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-3 flex items-center justify-between bg-navy-darkest/80 text-[9px] font-mono uppercase tracking-[0.2em] border-t border-outline">
+<div class="flex gap-4">
+<span class="text-slate-accent">LATENCY: 12ms</span>
+<span class="text-coral-vibrant">LOAD: OPTIMAL</span>
+</div>
+<div class="text-slate-accent">ENCRYPTION: AES-256</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 border-y border-outline bg-navy-darkest/50">
+<div class="max-w-[1600px] mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+<div class="md:col-span-3 text-right">
+<h2 class="text-[10px] text-coral-vibrant font-black uppercase tracking-[0.5em] mb-2">Core Kernel</h2>
+<div class="text-3xl font-black text-sunset-offwhite font-mono">0xLEARN</div>
+</div>
+<div class="md:col-span-6 bg-navy-surface p-10 border border-outline border-l-4 border-l-coral-vibrant shadow-2xl relative">
+<span class="material-symbols-outlined absolute -top-4 -left-4 text-coral-vibrant bg-navy-surface p-2 rounded-full border border-outline">psychology</span>
+<h3 class="text-2xl font-display font-bold text-coral-vibrant mb-6 uppercase tracking-tight">"Never stop learning."</h3>
+<p class="text-sunset-offwhite leading-relaxed text-sm mb-6 font-medium font-body">
+                        In an industry where the baseline resets every 18 months, curiosity is the only sustainable competitive advantage. Seniority is not a destination, but a commitment to iterative improvement. My process focuses on understanding first principles—the "why" that remains constant beneath the shifting "how".
+                    </p>
+<div class="flex items-center gap-3">
+<div class="h-[1px] w-12 bg-coral-vibrant"></div>
+<span class="text-[10px] text-amber-soft font-mono tracking-widest">EXECUTING PHILOSOPHY_LOOP</span>
+</div>
+</div>
+<div class="md:col-span-3">
+<div class="flex flex-col gap-2">
+<div class="bg-navy-dark p-3 border border-outline rounded flex items-center justify-between">
+<span class="text-[10px] text-slate-accent uppercase font-mono">Adaptability</span>
+<span class="text-xs font-mono text-amber-soft">99.9%</span>
+</div>
+<div class="bg-navy-dark p-3 border border-outline rounded flex items-center justify-between">
+<span class="text-[10px] text-slate-accent uppercase font-mono">Precision</span>
+<span class="text-xs font-mono text-amber-soft">HIGH</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 max-w-[1600px] mx-auto px-6">
+<div class="flex items-end justify-between mb-12 border-b border-outline pb-6">
+<div>
+<span class="text-[10px] text-coral-vibrant font-black uppercase tracking-[0.3em] block mb-2">Capabilities</span>
+<h3 class="text-4xl font-display font-black text-coral-vibrant uppercase tracking-tighter">Functional Mastery</h3>
+</div>
+<div class="hidden md:block text-right">
+<span class="text-[10px] text-slate-accent font-mono">MODULES_DETECTED: 04</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-4">
+<div class="lg:col-span-8 bg-navy-dark/60 p-8 border border-outline hover:border-coral-vibrant/50 transition-all group flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-10">
+<span class="material-symbols-outlined text-coral-vibrant text-4xl">architecture</span>
+<span class="text-[10px] font-mono text-slate-accent">ID: ARCH_SYST_01</span>
+</div>
+<h4 class="text-2xl font-display font-bold text-sunset-offwhite mb-4 uppercase tracking-tight group-hover:text-amber-soft transition-colors">Enterprise System Design</h4>
+<p class="text-sunset-offwhite/80 font-body text-sm leading-relaxed max-w-2xl mb-8">
+                        Specializing in the orchestration of distributed systems that balance scale with maintainability. From microservices decomposition to legacy modernization, I build foundations that survive growth.
+                    </p>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="stat-badge">KUBERNETES</span>
+<span class="stat-badge">EVENT-DRIVEN</span>
+<span class="stat-badge">CLOUD-NATIVE</span>
+<span class="stat-badge">GRPC</span>
+</div>
+</div>
+<div class="lg:col-span-4 bg-navy-dark/60 p-8 border border-outline hover:border-coral-vibrant/50 transition-all flex flex-col">
+<div class="flex justify-between items-start mb-10">
+<span class="material-symbols-outlined text-coral-vibrant text-4xl">database</span>
+<span class="text-[10px] font-mono text-slate-accent">ID: DATA_CORE_02</span>
+</div>
+<h4 class="text-2xl font-display font-bold text-sunset-offwhite mb-4 uppercase tracking-tight">Data Strategy</h4>
+<p class="text-sunset-offwhite/80 font-body text-sm leading-relaxed flex-grow">
+                    Treating data as the primary asset. Expertise in SQL/NoSQL optimization, real-time analytics pipelines, and building the ethical data frameworks required for modern AI.
+                </p>
+</div>
+<div class="lg:col-span-4 bg-navy-dark/60 p-8 border border-outline hover:border-coral-vibrant/50 transition-all flex flex-col">
+<div class="flex justify-between items-start mb-10">
+<span class="material-symbols-outlined text-coral-vibrant text-4xl">code</span>
+<span class="text-[10px] font-mono text-slate-accent">ID: CODE_ENGN_03</span>
+</div>
+<h4 class="text-2xl font-display font-bold text-sunset-offwhite mb-4 uppercase tracking-tight">Full-Stack Dev</h4>
+<p class="text-sunset-offwhite/80 font-body text-sm leading-relaxed flex-grow">
+                    Fluency across the entire stack. From React/Next.js interfaces to high-performance Go/Rust backends, I write clean, documented, and production-ready code.
+                </p>
+</div>
+<div class="lg:col-span-8 bg-navy-dark/60 p-8 border border-outline hover:border-coral-vibrant/50 transition-all flex flex-col lg:flex-row justify-between gap-8">
+<div class="max-w-md">
+<div class="flex justify-between items-start mb-10">
+<span class="material-symbols-outlined text-coral-vibrant text-4xl">groups</span>
+<span class="text-[10px] font-mono text-slate-accent">ID: LEAD_STRT_04</span>
+</div>
+<h4 class="text-2xl font-display font-bold text-sunset-offwhite mb-4 uppercase tracking-tight">Technical Leadership</h4>
+<p class="text-sunset-offwhite/80 font-body text-sm leading-relaxed mb-6">
+                        Mentoring high-performing teams and aligning technical roadmaps with business objectives. I bridge the gap between stakeholders and engineering squads.
+                    </p>
+</div>
+<div class="bg-black/20 p-6 rounded border border-outline/30 self-center w-full lg:w-72">
+<div class="flex flex-col gap-4">
+<div class="space-y-1">
+<div class="flex justify-between text-[9px] text-slate-accent font-mono uppercase tracking-widest">
+<span>Strategic Alignment</span>
+<span class="text-amber-soft">95%</span>
+</div>
+<div class="h-1 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-amber-soft w-[95%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[9px] text-slate-accent font-mono uppercase tracking-widest">
+<span>Mentorship</span>
+<span class="text-amber-soft">90%</span>
+</div>
+<div class="h-1 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-amber-soft w-[90%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[9px] text-slate-accent font-mono uppercase tracking-widest">
+<span>Agile Delivery</span>
+<span class="text-amber-soft">100%</span>
+</div>
+<div class="h-1 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-amber-soft w-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="max-w-[1600px] mx-auto px-6 py-20 pb-40">
+<div class="bg-navy-dark border border-coral-vibrant/20 p-12 lg:p-24 rounded-sm relative overflow-hidden text-center">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-coral-vibrant/50 to-transparent"></div>
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-coral-vibrant/5 rounded-full blur-[100px]"></div>
+<span class="text-[10px] text-amber-soft font-black tracking-[0.4em] uppercase mb-6 block">Ready for integration?</span>
+<h2 class="text-4xl md:text-6xl text-coral-vibrant font-display font-black mb-10 max-w-4xl mx-auto uppercase tracking-tighter leading-tight">
+                Initiate a discussion on your next <span class="text-amber-soft">Architectural</span> Challenge.
+            </h2>
+<div class="flex flex-col md:flex-row justify-center gap-4">
+<button class="bg-coral-vibrant text-navy-darkest px-10 py-4 rounded-sm font-black text-[11px] tracking-[0.2em] uppercase hover:bg-amber-soft transition-all shadow-lg shadow-coral-vibrant/10">
+                    Schedule Consultation
+                </button>
+<button class="border border-outline text-sunset-offwhite px-10 py-4 rounded-sm font-black text-[11px] tracking-[0.2em] uppercase hover:bg-white/5 transition-colors">
+                    Download Manifest.pdf
+                </button>
+</div>
+<div class="mt-16 flex justify-center gap-12 border-t border-outline/30 pt-12">
+<div class="text-center">
+<span class="block text-2xl font-black text-sunset-offwhite font-mono">25+</span>
+<span class="text-[9px] text-slate-accent font-mono uppercase">Years XP</span>
+</div>
+<div class="text-center">
+<span class="block text-2xl font-black text-sunset-offwhite font-mono">100+</span>
+<span class="text-[9px] text-slate-accent font-mono uppercase">Deployments</span>
+</div>
+<div class="text-center">
+<span class="block text-2xl font-black text-sunset-offwhite font-mono">0</span>
+<span class="text-[9px] text-slate-accent font-mono uppercase">Hard Failures</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="w-full py-8 bg-navy-darkest border-t border-outline">
+<div class="flex flex-col md:flex-row justify-between items-center px-6 max-w-[1600px] mx-auto gap-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-coral-vibrant"></div>
+<span class="text-[10px] font-mono tracking-wide uppercase text-slate-accent">
+                © 2024 ISKANDER SIERRA. SYSTEM VERSION 25.0.4. COMPILED WITH INTENTIONALITY.
+            </span>
+</div>
+<div class="flex gap-6">
+<a class="text-[10px] font-mono tracking-widest uppercase text-slate-accent hover:text-coral-vibrant transition-colors" href="#">LinkedIn</a>
+<a class="text-[10px] font-mono tracking-widest uppercase text-slate-accent hover:text-coral-vibrant transition-colors" href="#">GitHub</a>
+<a class="text-[10px] font-mono tracking-widest uppercase text-slate-accent hover:text-coral-vibrant transition-colors" href="#">Terminal_Access</a>
+<a class="text-[10px] font-mono tracking-widest uppercase text-slate-accent hover:text-coral-vibrant transition-colors" href="#">Legal</a>
+</div>
+</div>
+</footer>
+</body></html>
