@@ -2,6 +2,39 @@
 
 ## Active Decisions
 
+### 2026-04-21: Temporary tool compatibility shims are removed once search and impact checks are clean
+
+**By:** Neo
+
+**What:**
+- Delete the leftover tool-era content and route artifacts under `src/content/tools/` and `src/pages/tools/` once workspace search confirms they are no longer referenced.
+- Remove the dead `Tool*` helper and type aliases from `src/utils/content.ts` while keeping the active project and blog helper surface unchanged.
+
+**Why:**
+- The project-first cutover explicitly allowed temporary compatibility shims during migration, but leaving them in place after callers are gone creates dead surface area and weakens future cleanup signal.
+
+### 2026-04-21: Footer brand remnants and stale theme node tokens are removed in place
+
+**By:** Trinity
+
+**What:**
+- Replace the footer kicker copy in `src/components/layout/Footer.astro` from `signal graph` to `portfolio`.
+- Remove the unused `--node-core` and `--node-ring` tokens from both theme roots in `src/styles/themes.css` after confirming they are no longer referenced.
+
+**Why:**
+- The clean-slate pass is meant to leave a neutral portfolio surface, and the remaining footer brand remnant plus dead theme tokens were stale implementation leftovers rather than intentional product language.
+
+### 2026-04-21: Five-item cleanup is validated with focused checks while deletion guardrails remain open QA debt
+
+**By:** Tank
+
+**What:**
+- Treat focused `astro check`, `eslint`, `prettier`, and narrow Chromium smoke coverage as sufficient closure for the current five-item cleanup batch.
+- Record the remaining QA debt separately: no automated guardrail yet asserts that `/tools` links, tool compatibility exports, and other removed clean-slate surfaces stay absent.
+
+**Why:**
+- The current focused validation proves the shipped user flows and touched surfaces still behave, but it does not yet automate regression detection for the deletion semantics introduced by the clean-slate cleanup.
+
 ### 2026-04-20: Projects cutover is project-first with temporary compatibility shims
 
 **By:** Neo, Iskander (via Copilot)
