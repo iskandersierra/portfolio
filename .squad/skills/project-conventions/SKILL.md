@@ -47,6 +47,8 @@ One-off or reusable Node utility scripts live in `scripts/`. They are `.mjs` ESM
 
 Samples the background colour just outside the patch boundary, paints over the watermark region, and converts the image. Useful whenever an AI-generated image carries a provider badge.
 
+Only use it for images the team owns or is explicitly authorized to modify. Do not use it to remove attribution, branding, or provenance from assets you are not permitted to alter.
+
 ```sh
 # Basic: remove 320×160 px badge from bottom-right, output WebP, delete source
 node scripts/remove-watermark.mjs <src.png> <dst.webp>
@@ -63,6 +65,8 @@ node scripts/remove-watermark.mjs src.png out.webp --keep
 # Full help
 node scripts/remove-watermark.mjs --help
 ```
+
+The script rejects identical source and destination paths before writing or deleting anything.
 
 **Available options:**
 

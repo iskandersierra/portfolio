@@ -13,6 +13,7 @@ export interface Props {
 const { project, adjacentProjects = {} } = Astro.props as Props;
 const formattedDate = formatContentDate(project.data.publishedAt);
 const hasInteractiveSlot = Astro.slots.has('interactive');
+const hasInteractiveSection = project.data.hasInteractivePage && hasInteractiveSlot;
 const projectStatus = project.data.status ?? 'active';
 const projectTypeLabel =
 	project.data.type === 'repo'
@@ -47,7 +48,7 @@ const overviewFacts = [
 						<span>Published {formattedDate}</span>
 						<span>Status {projectStatus}</span>
 						{project.data.framework ? <span>{project.data.framework}</span> : null}
-						{project.data.hasInteractivePage ? <span>Interactive page</span> : null}
+						{hasInteractiveSection ? <span>Interactive page</span> : null}
 					</div>
 					<ul class="project-tag-list post-tag-list" aria-label="Project tags">
 						{project.data.tags.map((tag) => (
@@ -91,7 +92,7 @@ const overviewFacts = [
 						</div>
 					</section>
 
-					{hasInteractiveSlot ? (
+					{hasInteractiveSection ? (
 						<section class="detail-module motion-enter motion-delay-3" aria-label="Interactive project module">
 							<div class="detail-module__header">
 								<p class="project-section-kicker mono">Interactive project</p>

@@ -1,6 +1,10 @@
 /**
  * remove-watermark.mjs
  *
+ * Use this only for images you own or are explicitly authorized to modify.
+ * Do not use it to remove attribution, branding, or provenance from assets you
+ * are not permitted to alter.
+ *
  * Covers a rectangular watermark in the bottom-right corner of an image by
  * sampling the nearby background colour and painting over that region, then
  * converts the result to any output format Sharp supports (WebP, PNG, AVIF…).
@@ -29,7 +33,13 @@
 
 import sharp from 'sharp';
 import { unlink } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
+
+const normalizeCliPath = (inputPath) => {
+  const absolutePath = resolve(inputPath);
+  return process.platform === 'win32' ? absolutePath.toLowerCase() : absolutePath;
+};
 
 // ── CLI parsing ────────────────────────────────────────────────────────────────
 
@@ -47,6 +57,9 @@ const { values: opts, positionals } = parseArgs({
 
 const HELP = `
 Usage: node scripts/remove-watermark.mjs <src> <dst> [options]
+
+Only run this for images you own or are explicitly authorized to edit.
+Do not use it to remove attribution or provider marks from assets you are not permitted to modify.
 
 Arguments:
   src            Source image path (any format Sharp accepts)
@@ -71,22 +84,33 @@ if (positionals.length < 2) {
   process.exit(1);
 }
 
+const parseIntegerOption = (name, value) => {
+  if (!/^\d+$/.test(value)) {
+    console.error(`Error: --${name} must be an integer.`);
+    process.exit(1);
+  }
+
+  return Number(value);
+};
+
 const [src, dst] = positionals;
-const patchW   = Number.parseInt(opts['patch-w'], 10);
-const patchH   = Number.parseInt(opts['patch-h'], 10);
-const quality  = Number.parseInt(opts['quality'],  10);
+const patchW   = parseIntegerOption('patch-w', opts['patch-w']);
+const patchH   = parseIntegerOption('patch-h', opts['patch-h']);
+const quality  = parseIntegerOption('quality', opts['quality']);
 const keepSrc  = opts['keep'];
+const normalizedSrc = normalizeCliPath(src);
+const normalizedDst = normalizeCliPath(dst);
 
 // ── Validate ───────────────────────────────────────────────────────────────────
-
-if ([patchW, patchH, quality].some(Number.isNaN)) {
-	console.error('Error: --patch-w, --patch-h, and --quality must be integers.');
-	process.exit(1);
-}
 
 if (patchW <= 0 || patchH <= 0 || quality < 1 || quality > 100) {
 	console.error('Error: --patch-w and --patch-h must be positive, and --quality must be between 1 and 100.');
 	process.exit(1);
+}
+
+if (normalizedSrc === normalizedDst) {
+  console.error('Error: <src> and <dst> must be different paths. Refusing to overwrite the source image in place.');
+  process.exit(1);
 }
 
 // ── Process ────────────────────────────────────────────────────────────────────
@@ -139,7 +163,7 @@ const patch = await sharp({
     width:      patchW,
     height:     patchH,
     channels:   4,
-    background: { r, g, b, alpha: 255 },
+    background: { r, g, b, alpha: 1 },
   },
 }).png().toBuffer();
 

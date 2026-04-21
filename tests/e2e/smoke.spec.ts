@@ -30,6 +30,9 @@ test.describe('site shell', () => {
 		await expect(page.getByText(
 			'A focused developer utility for generating identifiers client-side without external services.',
 		)).toBeVisible();
+		await expect(page.getByText('Interactive page', { exact: true })).toHaveCount(0);
+		await expect(page.getByText('Interactive project', { exact: true })).toHaveCount(0);
+		await expect(page.locator('[aria-label="Interactive project module"]')).toHaveCount(0);
 	});
 
 	test('blog index shows the launch empty state when no posts are published', async ({ page }) => {
