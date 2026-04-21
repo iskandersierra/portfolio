@@ -70,15 +70,15 @@ Acceptance criteria:
 
 Decision:
 
-- The clean-slate portfolio baseline is the current MVP launch direction.
-- The shipped baseline is the neutral, current-state portfolio surface defined by the clean-slate refactor, not the earlier Proposal 7 Signal Graph Studio treatment.
-- Decision record: [docs/decisions/refactor-clean-slate-2026-04-20.md](./decisions/refactor-clean-slate-2026-04-20.md)
+- Story 0.1 is aligned to the clean-slate launch baseline: Proposal 7, Signal Graph Studio, as referenced in docs/design/launch-design-direction.md.
+- The PR's neutral placeholder styling is a temporary visual shim for the clean-slate refactor, not a change to the recorded launch baseline.
+- Implementation record: [docs/decisions/refactor-clean-slate-2026-04-20.md](./decisions/refactor-clean-slate-2026-04-20.md)
 
 Delivery notes:
 
-- The current baseline is the clean-slate portfolio shell and content model captured in the April 2026 refactor decision record.
-- Earlier design proposals, including Proposal 7, remain reference explorations rather than the shipped launch baseline.
-- Story 0.1 is closed by documentation and baseline alignment only. Any future visual system changes belong in later implementation stories.
+- Story 0.1 remains closed by documentation and design-direction alignment only. The recorded launch baseline is still the clean-slate Proposal 7, Signal Graph Studio direction.
+- The neutral placeholder styling in this PR is only a temporary visual shim while the implementation catches up to that baseline.
+- Any visual refinements or system-level styling work belong in later implementation stories.
 
 ### Story 0.2: Choose analytics platform
 
