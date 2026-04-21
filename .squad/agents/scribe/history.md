@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- When review follow-up notes show the current product behavior is already correct, merge the closure evidence into one canonical decision, clear any stale duplicate inbox notes, and keep coordinator-side thread bookkeeping in the session log instead of duplicating it in the ledger.
 - When a route-local UI cleanup is rejected for a temporary layout regression and then approved after a narrow follow-up, merge the implementation, rejection, and revision into one canonical decision and let the session log carry the review sequence.
 - When implementation and QA inbox entries describe the same fix, merge them into one consolidated decision block and keep the approval trail in session and orchestration logs.
 - When the inbox includes user directives alongside implementation and review notes, fold the directives into the main ledger as scope constraints and keep the execution evidence in the log files.

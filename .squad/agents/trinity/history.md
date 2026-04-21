@@ -9,6 +9,9 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- Once PR comment 2 is closed, the durable squad record should treat the standalone `canonicalCv.basics.title` line as the canonical About-page source of truth and the separate `Profile role labels` list as supporting UI; the focused Chromium grep on the single About smoke assertion is sufficient closure evidence for that regression.
+- About page smoke coverage depends on `canonicalCv.basics.title` being rendered verbatim as one DOM text node; keeping the role chip list is fine, but it cannot be the only presentation of that copy.
+- PR comment 1 is currently green locally without frontend edits: the targeted `/blog` empty-state and `/about` canonical-CV smoke assertions both pass on chromium, firefox, and webkit when rerun through `pnpm test:e2e`; the only local blocker I hit was a stale Astro dev server already bound to port `4331`.
 - Shared footer metadata cleanup is safest as a one-line title swap in `src/components/layout/Footer.astro`; the active neutral label in this repo is `Iskander Sierra`, so the old `~/iskander` shell prompt can be removed without touching footer structure or styles.
 - Removing the legacy `/tools` route surface is a clean delete in this repo when `src/pages/tools.astro`, `src/pages/tools/[slug].astro`, and `src/layouts/ToolLayout.astro` are the only remaining route owners; the narrow `getToolHref` and `getPublishedTools` aliases in `src/utils/content.ts` can stay as compatibility wrappers without causing Astro to generate `/tools` pages.
 - The header hamburger bars in `src/components/layout/Header.astro` render reliably only when `.nav-toggle-icon` owns an explicit three-row stack with a fixed width and row gap; leaving the button grid to size the icon implicitly can collapse the bars into a single row.

@@ -52,6 +52,7 @@ const currentRole = canonicalCv.workHistory[0];
 			<aside class="about-summary-card" aria-labelledby="about-summary-title">
 				<p class="mono about-summary-card__eyebrow" id="about-summary-title">Current focus</p>
 				<h2>{currentRole.role}</h2>
+				<p class="about-summary-card__title">{canonicalCv.basics.title}</p>
 				<p>
 					{currentRole.company} · {currentRole.location}
 				</p>
@@ -296,6 +297,13 @@ const currentRole = canonicalCv.workHistory[0];
 	.stack-card h3,
 	.publication-item h3 {
 		margin: 0;
+	}
+
+	.about-summary-card__title {
+		margin: -0.35rem 0 0;
+		font-size: 1rem;
+		font-weight: 600;
+		color: var(--text-main);
 	}
 
 	.about-role-list,

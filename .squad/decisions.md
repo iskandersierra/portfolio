@@ -2,6 +2,31 @@
 
 ## Active Decisions
 
+### 2026-04-21: About page keeps the canonical CV title as one rendered copy line
+
+**By:** Trinity
+
+**What:**
+- Render `canonicalCv.basics.title` directly in the About summary card as one text node.
+- Keep the existing `ul[aria-label="Profile role labels"]` list for scan-friendly role chips instead of replacing it.
+
+**Why:**
+- PR comment 2 and the focused About smoke assertion depend on the canonical CV title being present verbatim as one rendered line.
+- Keeping the role list preserves the current clean-slate About layout and accessibility affordance without forcing the canonical phrasing to live only in split list items.
+
+### 2026-04-21: PR comment 1 closes on current behavior and focused smoke validation, not a code change
+
+**By:** Trinity, Tank
+
+**What:**
+- Treat PR comment 1 as closed without product edits because the cited `/blog` empty-state and `/about` canonical-CV behavior both pass current local validation.
+- Use the focused Chromium smoke rerun for the two cited assertions plus repo-state confirmation that `.e2e-output.txt` is ignored, absent from the worktree, and not tracked by git as the closure evidence.
+- Record the earlier local Astro dev-server port collision as harness noise rather than a live application regression.
+
+**Why:**
+- Current product behavior already matches the expected launch state, so reopening implementation work would be false churn.
+- The review bookkeeping still needed one canonical record that distinguishes real UI regressions from transient local test-harness startup issues.
+
 ### 2026-04-21: Temporary tool compatibility shims are removed once search and impact checks are clean
 
 **By:** Neo
