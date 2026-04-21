@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- Shared footer metadata cleanup is safest as a one-line title swap in `src/components/layout/Footer.astro`; the active neutral label in this repo is `Iskander Sierra`, so the old `~/iskander` shell prompt can be removed without touching footer structure or styles.
 - Removing the legacy `/tools` route surface is a clean delete in this repo when `src/pages/tools.astro`, `src/pages/tools/[slug].astro`, and `src/layouts/ToolLayout.astro` are the only remaining route owners; the narrow `getToolHref` and `getPublishedTools` aliases in `src/utils/content.ts` can stay as compatibility wrappers without causing Astro to generate `/tools` pages.
 - The header hamburger bars in `src/components/layout/Header.astro` render reliably only when `.nav-toggle-icon` owns an explicit three-row stack with a fixed width and row gap; leaving the button grid to size the icon implicitly can collapse the bars into a single row.
 - The blog archive empty-state in `src/pages/blog/index.astro` must stay mounted in the DOM even when posts exist, because the inline `syncArchiveState()` script is the source of truth for toggling `[data-empty-state]` during query-string filtering.
