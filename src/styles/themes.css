@@ -22,8 +22,6 @@
 	--grid-line: rgba(23, 23, 23, 0.05);
 	--line-strong: rgba(23, 23, 23, 0.16);
 	--frame-glow: rgba(23, 23, 23, 0.04);
-	--node-core: rgba(82, 82, 82, 0.2);
-	--node-ring: rgba(23, 23, 23, 0.08);
 	--shadow-color: rgba(23, 23, 23, 0.12);
 	--panel-shadow: 0 24px 60px rgba(23, 23, 23, 0.08);
 	--panel-shadow-soft: 0 12px 30px rgba(23, 23, 23, 0.06);
@@ -56,8 +54,6 @@
 	--grid-line: rgba(255, 255, 255, 0.06);
 	--line-strong: rgba(255, 255, 255, 0.16);
 	--frame-glow: rgba(255, 255, 255, 0.05);
-	--node-core: rgba(255, 255, 255, 0.2);
-	--node-ring: rgba(255, 255, 255, 0.08);
 	--shadow-color: rgba(0, 0, 0, 0.32);
 	--panel-shadow: 0 32px 72px rgba(0, 0, 0, 0.22);
 	--panel-shadow-soft: 0 14px 34px rgba(0, 0, 0, 0.18);

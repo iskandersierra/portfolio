@@ -2,7 +2,6 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type BlogEntry = CollectionEntry<'blog'>;
 export type ProjectEntry = CollectionEntry<'projects'>;
-export type ToolEntry = ProjectEntry;
 
 const descendingDateOrder = (left: Date, right: Date) => right.getTime() - left.getTime();
 const caseInsensitiveSortOrder = (left: string, right: string) =>
@@ -15,8 +14,6 @@ export const sortBlogEntries = (entries: BlogEntry[]) =>
 
 export const sortProjectEntries = (entries: ProjectEntry[]) =>
 	[...entries].sort((left, right) => descendingDateOrder(left.data.publishedAt, right.data.publishedAt));
-
-export const sortToolEntries = (entries: ToolEntry[]) => sortProjectEntries(entries);
 
 export const filterBlogPostsByTag = (entries: BlogEntry[], tag?: string | null) => {
 	const normalizedTag = tag?.trim().toLocaleLowerCase();
@@ -51,8 +48,6 @@ export const getBlogPostHref = (slug: string) => `/blog/${slug}`;
 
 export const getProjectHref = (slug: string) => `/projects/${slug}`;
 
-export const getToolHref = (slug: string) => getProjectHref(slug);
-
 export const getBlogTagHref = (tag?: string | null) =>
 	tag ? `/blog?tag=${encodeURIComponent(tag)}` : '/blog';
 
@@ -78,8 +73,6 @@ export const getAdjacentBlogPosts = (entries: BlogEntry[], slug: string) =>
 export const getAdjacentProjects = (entries: ProjectEntry[], slug: string) =>
 	getAdjacentEntries(entries, slug);
 
-export const getAdjacentTools = (entries: ToolEntry[], slug: string) => getAdjacentProjects(entries, slug);
-
 export const getFeaturedBlogPostsFromEntries = (entries: BlogEntry[], limit = 3) =>
 	sortBlogEntries(entries.filter((entry) => entry.data.featured)).slice(0, limit);
 
@@ -91,8 +84,6 @@ export const getFeaturedProjectsFromEntries = (entries: ProjectEntry[], limit = 
 
 export const getFeaturedProjectFromEntries = (entries: ProjectEntry[]) =>
 	getFeaturedProjectsFromEntries(entries, 1)[0];
-
-export const getFeaturedToolFromEntries = (entries: ToolEntry[]) => getFeaturedProjectFromEntries(entries);
 
 export const formatContentDate = (date: Date) =>
 	new Intl.DateTimeFormat('en', {
@@ -114,8 +105,6 @@ export const getPublishedProjects = async () => {
 	return sortProjectEntries(entries.filter(isPublished));
 };
 
-export const getPublishedTools = async () => getPublishedProjects();
-
 export const getFeaturedBlogPosts = async (limit = 3) =>
 	getFeaturedBlogPostsFromEntries(await getPublishedBlogPosts(), limit);
 
@@ -125,5 +114,3 @@ export const getFeaturedProjects = async (limit = 3) =>
 	getFeaturedProjectsFromEntries(await getPublishedProjects(), limit);
 
 export const getFeaturedProject = async () => getFeaturedProjectFromEntries(await getPublishedProjects());
-
-export const getFeaturedTool = async () => getFeaturedProject();

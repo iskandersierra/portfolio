@@ -31,6 +31,11 @@ playwright-report/
 .playwright-cli/
 .playwright-mcp/
 test-results/
+
+# Log files
+logs/
+*.log
+
 # Squad: ignore runtime state (logs, inbox, sessions)
 .squad/orchestration-log/
 .squad/log/
