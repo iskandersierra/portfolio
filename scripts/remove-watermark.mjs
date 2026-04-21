@@ -84,7 +84,9 @@ if (positionals.length < 2) {
   process.exit(1);
 }
 
-const parseIntegerOption = (name, value) => {
+const parseIntegerOption = (name) => {
+  const value = opts[name];
+
   if (!/^\d+$/.test(value)) {
     console.error(`Error: --${name} must be an integer.`);
     process.exit(1);
@@ -94,9 +96,9 @@ const parseIntegerOption = (name, value) => {
 };
 
 const [src, dst] = positionals;
-const patchW   = parseIntegerOption('patch-w', opts['patch-w']);
-const patchH   = parseIntegerOption('patch-h', opts['patch-h']);
-const quality  = parseIntegerOption('quality', opts['quality']);
+const patchW   = parseIntegerOption('patch-w');
+const patchH   = parseIntegerOption('patch-h');
+const quality  = parseIntegerOption('quality');
 const keepSrc  = opts['keep'];
 const normalizedSrc = normalizeCliPath(src);
 const normalizedDst = normalizeCliPath(dst);

@@ -14,17 +14,7 @@ const projectTypeLabels = {
 	experiment: 'Experiment',
 } as const;
 
-const getProjectSummary = (project: (typeof projects)[number]) => {
-	if (project.data.type === 'tool' && project.data.framework) {
-		return `${project.data.framework} / ${project.data.description}`;
-	}
-
-	if (project.data.type === 'repo' && project.data.externalUrl) {
-		return `External repository / ${project.data.description}`;
-	}
-
-	return project.data.description;
-};
+const getProjectSummary = (project: (typeof projects)[number]) => project.data.description;
 ---
 
 <Layout

@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- Project detail cleanup is safer when comment-resolution notes match the actual slot contract: if the route does not provide an `interactive` slot, gate both the metadata label and the module on `Astro.slots.has('interactive')` instead of advertising frontmatter-only capability.
 - Epic 1 implementation is ahead of planning status: stories 1.3, 1.4, and 1.5 are already implemented in source and covered by Playwright smoke tests; the remaining work is tracker/documentation alignment, not product code.
 - Astro layout scripts that can re-run on client navigation should keep browser-side public APIs stable and isolate listener cleanup behind an internal singleton plus `AbortController`.
 - Blog tag filtering and chip active-state logic need to normalize the same trimmed lowercase value, otherwise whitespace-padded query params produce inconsistent results between filtering and UI state.

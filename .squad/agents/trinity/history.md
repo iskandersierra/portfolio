@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- Archival HTML mocks under `docs/design/` close review comments cleanly only when they are self-contained artifacts: inline the CSS, remove Tailwind CDN dependencies, and keep any mock controls explicitly non-interactive.
 - Once PR comment 2 is closed, the durable squad record should treat the standalone `canonicalCv.basics.title` line as the canonical About-page source of truth and the separate `Profile role labels` list as supporting UI; the focused Chromium grep on the single About smoke assertion is sufficient closure evidence for that regression.
 - About page smoke coverage depends on `canonicalCv.basics.title` being rendered verbatim as one DOM text node; keeping the role chip list is fine, but it cannot be the only presentation of that copy.
 - PR comment 1 is currently green locally without frontend edits: the targeted `/blog` empty-state and `/about` canonical-CV smoke assertions both pass on chromium, firefox, and webkit when rerun through `pnpm test:e2e`; the only local blocker I hit was a stale Astro dev server already bound to port `4331`.

@@ -2,6 +2,30 @@
 
 ## Active Decisions
 
+### 2026-04-21: Clean-slate docs baseline stays project-first and archival mocks must be self-contained
+
+**By:** Morpheus, Trinity, Tank
+
+**What:**
+- Rewrite the active planning and story docs to the clean-slate, project-first baseline instead of leaving Proposal 7 or `/tools` language framed as the shipped direction.
+- Treat `docs/design/design-1.html` as an archival standalone mock with inline CSS and explicitly non-interactive controls, not as a production-bound artifact or a Tailwind CDN-backed reference.
+
+**Why:**
+- Team-facing docs should describe the current portfolio baseline directly so review comments 8-12 close against the real shipped direction.
+- Comment 9 was only accepted after the archival mock became literally self-contained, so the canonical record should reflect the approved end state rather than the earlier interim note.
+
+### 2026-04-21: Project interactive UI stays gated by real slot availability
+
+**By:** Trinity
+
+**What:**
+- Use one shared `hasInteractiveSection` condition in `src/layouts/ProjectLayout.astro`, derived from `project.data.hasInteractivePage && Astro.slots.has('interactive')`, for both the metadata label and the optional interactive module.
+- Keep `src/pages/projects/[slug].astro` unchanged in this pass instead of wiring a new named slot just to satisfy the metadata label.
+
+**Why:**
+- The project detail route should not advertise an interactive surface that does not actually render.
+- This preserves the earlier project-first, slot-based detail-layout contract while keeping the comment-resolution scope narrow.
+
 ### 2026-04-21: About page keeps the canonical CV title as one rendered copy line
 
 **By:** Trinity

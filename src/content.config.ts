@@ -2,30 +2,34 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
+const nonEmptyString = z.string().trim().min(1);
+const nonEmptyTags = z.array(nonEmptyString).min(1);
+const positiveInt = z.number().int().positive();
+
 const blog = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
 	schema: z.object({
-		title: z.string(),
+		title: nonEmptyString,
 		date: z.coerce.date(),
-		tags: z.array(z.string()),
-		excerpt: z.string(),
-		readTime: z.number(),
+		tags: nonEmptyTags,
+		excerpt: nonEmptyString,
+		readTime: positiveInt,
 		draft: z.boolean().default(false),
 		featured: z.boolean().default(false),
 		coverImage: z.string().optional(),
 		projectSlug: z.string().optional(),
 		series: z
 			.object({
-				name: z.string(),
-				part: z.number(),
+				name: nonEmptyString,
+				part: positiveInt,
 			})
 			.optional(),
-		seriesSummary: z.string().optional(),
+		seriesSummary: nonEmptyString.optional(),
 		seriesLinks: z
 			.array(
 				z.object({
-					part: z.number(),
-					title: z.string(),
+					part: positiveInt,
+					title: nonEmptyString,
 					slug: z.string(),
 				}),
 			)
@@ -36,9 +40,9 @@ const blog = defineCollection({
 const projects = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
 	schema: z.object({
-		title: z.string(),
-		description: z.string(),
-		tags: z.array(z.string()),
+		title: nonEmptyString,
+		description: nonEmptyString,
+		tags: nonEmptyTags,
 		type: z.enum(['tool', 'repo', 'experiment']),
 		publishedAt: z.coerce.date(),
 		draft: z.boolean().default(false),
@@ -46,7 +50,7 @@ const projects = defineCollection({
 		status: z.enum(['active', 'archived', 'wip']).optional(),
 		externalUrl: z.url().optional(),
 		hasInteractivePage: z.boolean().default(false),
-		framework: z.string().optional(),
+		framework: nonEmptyString.optional(),
 		coverImage: z.string().optional(),
 	}),
 });

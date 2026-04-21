@@ -9,6 +9,7 @@
 ## Learnings
 
 <!-- Append learnings below -->
+- QA should reject archival-mock follow-ups that only relabel the file in notes; for comment closure, a docs/design HTML artifact is not literally fixed until external dependencies like the Tailwind CDN are removed from the file itself.
 - For route-local hero cleanups, treat single-line containment hacks on the home title as suspect; if `white-space: nowrap` lets the heading or cursor intrude into the sidebar, reject the batch until the title returns to a constrained multi-line measure.
 - The stale reduced-motion hover-lift assertion in `tests/e2e/smoke.spec.ts` is now aligned to the live Proposal 7 home surface by targeting `.recent-posts .signal-module` instead of the removed `.brutalist-card` selector.
 - After that one-line smoke-spec fix, `pnpm test:e2e -- tests/e2e/smoke.spec.ts` still exits 1, but the repaired reduced-motion hover-lift check passes; the remaining failures are six Chromium-only navigation and server-stability regressions outside this locator change.
