@@ -29,8 +29,8 @@
 **By:** Tank
 
 **What:**
-- Treat focused `astro check`, `eslint`, `prettier`, and narrow Chromium smoke coverage as sufficient closure for the current five-item cleanup batch.
-- Record the remaining QA debt separately: no automated guardrail yet asserts that `/tools` links, tool compatibility exports, and other removed clean-slate surfaces stay absent.
+- Treat focused repo-state review plus `astro check`, `eslint`, `prettier`, and narrow Chromium smoke coverage as sufficient closure for the current five-item cleanup batch.
+- Record the remaining QA debt separately: no automated guardrail yet asserts that `/tools` routes or links, tool compatibility exports, and other removed clean-slate surfaces stay absent.
 
 **Why:**
 - The current focused validation proves the shipped user flows and touched surfaces still behave, but it does not yet automate regression detection for the deletion semantics introduced by the clean-slate cleanup.
