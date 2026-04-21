@@ -44,7 +44,7 @@ const projects = defineCollection({
 		draft: z.boolean().default(false),
 		featured: z.boolean().default(false),
 		status: z.enum(['active', 'archived', 'wip']).optional(),
-		externalUrl: z.string().url().optional(),
+		externalUrl: z.url().optional(),
 		hasInteractivePage: z.boolean().default(false),
 		framework: z.string().optional(),
 		coverImage: z.string().optional(),

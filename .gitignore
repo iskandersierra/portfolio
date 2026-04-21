@@ -36,6 +36,10 @@ test-results/
 logs/
 *.log
 
+# Temp files
+.tmp/
+.tmp*
+
 # Squad: ignore runtime state (logs, inbox, sessions)
 .squad/orchestration-log/
 .squad/log/
