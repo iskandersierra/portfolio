@@ -31,7 +31,7 @@ This portfolio is a **living, personal site** — a professional home on the web
 
 > **"Never stop learning."**
 
-This phrase is the philosophical anchor of the site. It explains why a 25-year veteran still builds games for fun, experiments with new frameworks, writes about ideas, and shares tools with the community. It bridges the professional and the personal, and it should be felt throughout the site's tone, copy, and content.
+This phrase is the philosophical anchor of the site. It explains why a 25-year veteran still builds games for fun, experiments with new frameworks, writes about ideas, and shares useful projects with the community. It bridges the professional and the personal, and it should be felt throughout the site's tone, copy, and content.
 
 ---
 
@@ -39,11 +39,11 @@ This phrase is the philosophical anchor of the site. It explains why a 25-year v
 
 | Goal                      | Description                                                     | Success Signal                                                    |
 | ------------------------- | --------------------------------------------------------------- | ----------------------------------------------------------------- |
-| **Living portfolio**      | The site grows continuously with new posts, tools, and projects | Regular content updates post-launch                               |
+| **Living portfolio**      | The site grows continuously with new posts and projects         | Regular content updates post-launch                               |
 | **Professional showcase** | Communicates seniority, breadth, and depth at a glance          | A recruiter or CTO understands Iskander's profile in < 30 seconds |
 | **Personal expression**   | Reflects the human behind the engineer                          | Passions and personality are present, not just a resume           |
-| **Community value**       | Tools and blog posts are genuinely useful to other developers   | Returning visitors, shares, and links to tools/posts              |
-| **Research playground**   | Used to experiment with new frameworks, libraries, and patterns | Each game/tool may use a different tech stack                     |
+| **Community value**       | Projects and blog posts are genuinely useful to other developers | Returning visitors, shares, and links to projects/posts           |
+| **Research playground**   | Used to experiment with new frameworks, libraries, and patterns | Each project or game may use a different tech stack              |
 | **Reference hub**         | A single URL to share with anyone interested in Iskander        | All relevant links, projects, and contact points in one place     |
 
 ---
@@ -55,7 +55,7 @@ This phrase is the philosophical anchor of the site. It explains why a 25-year v
 | **Recruiters**                     | Seniority signals, tech stack breadth, leadership experience                      |
 | **CTOs / Engineering Managers**    | Architecture thinking, .NET depth, cloud/infra experience, team lead track record |
 | **Freelance / Consulting Clients** | Reliability, full-stack capability, communication style                           |
-| **Fellow Developers**              | Useful tools, honest blog posts, shared interests, open source links              |
+| **Fellow Developers**              | Useful projects, honest blog posts, shared interests, open source links           |
 | **Personal Network**               | A complete picture of Iskander — professional and personal                        |
 
 ---
@@ -66,18 +66,17 @@ The site uses **multi-page routing** with a persistent top navigation bar and fo
 
 ### 4.1 Routes
 
-| Route           | Page                   | MVP           |
-| --------------- | ---------------------- | ------------- |
-| `/`             | Home / Hero            | ✅             |
-| `/about`        | Professional Profile   | ✅             |
-| `/blog`         | Blog index             | ✅             |
-| `/blog/[slug]`  | Individual post        | ✅             |
-| `/tools`        | Tools index            | ✅             |
-| `/tools/[slug]` | Individual tool        | ✅             |
-| `/games`        | Games index            | ❌ Post-launch |
-| `/games/[slug]` | Individual game        | ❌ Post-launch |
-| `/personal`     | Personal passions      | ❌ Post-launch |
-| `/projects`     | External project links | ❌ Post-launch |
+| Route              | Page                 | MVP           |
+| ------------------ | -------------------- | ------------- |
+| `/`                | Home / Hero          | ✅             |
+| `/about`           | Professional Profile | ✅             |
+| `/blog`            | Blog index           | ✅             |
+| `/blog/[slug]`     | Individual post      | ✅             |
+| `/projects`        | Projects index       | ✅             |
+| `/projects/[slug]` | Individual project   | ✅             |
+| `/games`           | Games index          | ❌ Post-launch |
+| `/games/[slug]`    | Individual game      | ❌ Post-launch |
+| `/personal`        | Personal passions    | ❌ Post-launch |
 
 ---
 
@@ -89,8 +88,8 @@ The first impression. Should communicate identity immediately.
 
 - **Hero block:** Full-viewport or large hero with name, title(s), and the motto *"Never stop learning."*
 - **Expanded motto copy:** 2–3 sentences elaborating on the philosophy. Something along the lines of: *"After 25 years in software, the most valuable thing I've learned is that there's always more to learn. This site is my living proof — a place where I share what I know, experiment with new ideas, build things for the joy of building, and document the journey."*
-- **Quick-nav cards:** Visual shortcuts to the main sections (About, Blog, Tools, and eventually Games, Personal).
-- **Featured content strip:** Latest blog post + featured tool, auto-updated.
+- **Latest writing section:** Up to 3 featured blog posts, sorted by date descending.
+- **Latest projects section:** Up to 3 featured projects, sorted by publish date descending.
 - **Subtle animated background or entrance animations** (see Design System).
 
 ---
@@ -137,10 +136,20 @@ tags: string[]
 excerpt: string
 readTime: number  # minutes
 draft: boolean
+featured: boolean
 coverImage: string  # optional
+projectSlug: string  # optional
+series:
+  name: string
+  part: number
+seriesSummary: string  # optional, on part 1
+seriesLinks:           # optional, on every series post
+  - part: number
+    title: string
+    slug: string
 ```
 
-**V1 requirement:** At least **3 published posts** at launch.
+**V1 requirement:** The clean-slate launch may ship with **0 published posts**. The three placeholder launch posts were explicitly removed, and the blog should handle an empty launch state cleanly.
 
 ---
 
@@ -156,17 +165,17 @@ coverImage: string  # optional
 
 ---
 
-#### `/tools` — Tools Index
+#### `/projects` — Projects Index
 
-A catalog of small, useful web-based developer tools built by Iskander.
+A unified catalog of projects built by Iskander. The collection can include tools, repos, and experiments.
 
-- **Tool card:** Name, short description, tech stack badge, link.
-- Each tool is an interactive Astro page using **React islands** (or other framework per tool).
-- Tools live under `/tools/[slug]` as full pages.
+- **Project card:** Name, short description, tags, type, and relevant badges or links.
+- **Type behavior:** Tool entries can show a framework badge, repo entries can link out, and experiments stay flexible.
+- **Interactive detail pages:** Projects with `hasInteractivePage: true` render a dedicated detail page at `/projects/[slug]`.
 
-**V1 requirement:** At least **1 published tool** at launch.
+**V1 requirement:** At least **1 published project** at launch. The first migrated launch entry is the UUID / ULID generator.
 
-**Tool ideas (backlog):**
+**Project ideas (backlog):**
 
 - JSON formatter / validator
 - Cron expression builder & explainer
@@ -179,12 +188,12 @@ A catalog of small, useful web-based developer tools built by Iskander.
 
 ---
 
-#### `/tools/[slug]` — Individual Tool
+#### `/projects/[slug]` — Individual Project
 
-- Full-page interactive tool (React island or other framework).
-- Tool description and usage notes.
-- Tech stack badge (framework used for that specific tool).
-- Link back to tools index.
+- Detail page for a project entry when the item warrants more than an outbound link.
+- Optional interactive island for tool-type projects.
+- Description, tags, status, and supporting metadata.
+- Link back to projects index.
 
 ---
 
@@ -210,18 +219,12 @@ A window into Iskander's life outside engineering.
 
 ---
 
-#### `/projects` *(Post-launch)*
-
-Links to more elaborate external projects (GitHub repos, deployed apps, open source contributions). Simple curated list with descriptions and links.
-
----
-
 ### 4.3 Navigation
 
 **Top navigation bar** (persistent, responsive):
 
 - Logo / Name (left) → links to `/`
-- Nav links: About · Blog · Tools · (Games) · (Personal)
+- Nav links: About · Blog · Projects
 - Dark/Light mode toggle (right)
 - Mobile: hamburger menu with slide-in drawer
 
@@ -234,6 +237,8 @@ Links to more elaborate external projects (GitHub repos, deployed apps, open sou
 ---
 
 ## 5. Design System
+
+Clean-slate refactor note: the detailed visual system proposals below are retained as historical design exploration, but they are no longer the launch requirement. The current launch baseline is neutral placeholder styling, system fonts, and no decorative signal-graph treatment until the separate design-system workstream is chosen.
 
 ### 5.1 Philosophy
 
@@ -322,21 +327,21 @@ Subtle, purposeful, non-distracting:
 │   │   ├── layout/                # Header, Footer, Nav
 │   │   ├── ui/                    # Buttons, Cards, Badges, ThemeToggle
 │   │   ├── blog/                  # PostCard, PostList, TagFilter
-│   │   └── tools/                 # ToolCard, ToolList
+│   │   └── projects/              # ProjectCard, ProjectList
 │   ├── content/
 │   │   ├── blog/                  # *.md / *.mdx posts
-│   │   └── tools/                 # *.md tool metadata
+│   │   └── projects/              # *.md project metadata
 │   ├── layouts/
 │   │   ├── Layout.astro           # Base layout
 │   │   ├── BlogPostLayout.astro   # Blog post wrapper
-│   │   └── ToolLayout.astro       # Tool page wrapper
+│   │   └── ProjectLayout.astro    # Project page wrapper
 │   ├── pages/
 │   │   ├── index.astro
 │   │   ├── about.astro
 │   │   ├── blog/
 │   │   │   ├── index.astro
 │   │   │   └── [slug].astro
-│   │   ├── tools/
+│   │   ├── projects/
 │   │   │   ├── index.astro
 │   │   │   └── [slug].astro
 │   │   ├── games/                 # Post-launch
@@ -365,26 +370,44 @@ tags: z.array(z.string())
 excerpt: z.string()
 readTime: z.number()
 draft: z.boolean().default(false)
+featured: z.boolean().default(false)
 coverImage: z.string().optional()
+projectSlug: z.string().optional()
+series: z.object({
+  name: z.string(),
+  part: z.number()
+}).optional()
+seriesSummary: z.string().optional()
+seriesLinks: z.array(z.object({
+  part: z.number(),
+  title: z.string(),
+  slug: z.string()
+})).optional()
 ```
 
-**Tools collection (metadata):**
+**Projects collection (metadata):**
 
 ```ts
 title: z.string()
 description: z.string()
 tags: z.array(z.string())
-framework: z.string()   // e.g. "React", "Svelte", "Vanilla TS"
+type: z.enum(['tool', 'repo', 'experiment'])
 publishedAt: z.date()
 draft: z.boolean().default(false)
+featured: z.boolean().default(false)
+status: z.enum(['active', 'archived', 'wip']).optional()
+externalUrl: z.string().url().optional()
+hasInteractivePage: z.boolean().default(false)
+framework: z.string().optional()
+coverImage: z.string().optional()
 ```
 
 ### 6.4 Interactive Islands
 
 - React is the default island framework.
-- Each tool or game page may use a different framework as an Astro island (`client:load` or `client:visible`).
+- Project detail pages with interactive surfaces may use Astro islands (`client:load` or `client:visible`).
 - This is intentional — the portfolio doubles as a framework experimentation playground.
-- Island framework used should be displayed as a badge on the tool/game card.
+- Island framework used should be displayed where it helps explain a project's implementation.
 
 ### 6.5 Deployment
 
@@ -450,10 +473,10 @@ The v1 launch must include the following and nothing more:
 
 | #   | Feature                                     | Details                                            |
 | --- | ------------------------------------------- | -------------------------------------------------- |
-| 1   | **Professional profile page** (`/about`)    | Full about page per spec in §4.2                   |
-| 2   | **Blog** (`/blog` + `/blog/[slug]`)         | At minimum 3 published posts                       |
-| 3   | **Tools page** (`/tools` + `/tools/[slug]`) | At minimum 1 published tool                        |
-| 4   | **Home / Hero** (`/`)                       | Motto, summary, quick-nav cards, featured content  |
+| 1   | **Professional profile page** (`/about`)             | Full about page per spec in §4.2                      |
+| 2   | **Blog** (`/blog` + `/blog/[slug]`)                  | Launch-ready blog structure; may ship with zero posts |
+| 3   | **Projects page** (`/projects` + `/projects/[slug]`) | At minimum 1 published project                        |
+| 4   | **Home / Hero** (`/`)                                | Motto, summary, latest writing, latest projects      |
 | 5   | **Dark/Light mode**                         | System default + toggle, persisted in localStorage |
 | 6   | **Responsive layout**                       | Mobile, tablet, desktop                            |
 | 7   | **SEO basics**                              | Meta tags, OG tags, sitemap, robots.txt            |
@@ -464,7 +487,6 @@ The v1 launch must include the following and nothing more:
 
 - Games section
 - Personal passions section
-- External projects page
 - Contact form
 - Comments on blog posts
 - Newsletter / email list
@@ -479,14 +501,14 @@ Ordered by rough priority:
 
 1. **`/games`** — Games index + first game (open framework choice).
 2. **`/personal`** — Climbing, health, philosophy sections.
-3. **`/projects`** — Links to external projects and repos.
+3. **`/projects`** — Expand the catalog with more repos, experiments, and outward links.
 4. **Blog search** — Client-side search (e.g. Pagefind).
 5. **RSS feed** — For blog subscribers.
-6. **More tools** — Grow the tools catalog.
+6. **More projects** — Grow the projects catalog across tools, repos, and experiments.
 7. **OG image generation** — Dynamic OG images per post (e.g. via Satori).
 8. **CV download** — PDF export of professional profile.
 9. **Contact** — Simple contact form via Netlify Forms or Formspree, when needed.
-10. **Framework experiments** — Intentionally try Svelte, Vue, Solid, etc. in tools/games.
+10. **Framework experiments** — Intentionally try Svelte, Vue, Solid, etc. in projects/games.
 11. **MDX support** — Enable `@astrojs/mdx` for blog posts that need embedded interactive components. Existing `.md` posts require no migration.
 
 ---
@@ -499,9 +521,9 @@ Ordered by rough priority:
 | 2   | Which analytics platform to use first — Umami, Plausible, or Netlify Analytics?               | Iskander | ✅ Decided — Umami Cloud (free tier). See `docs/decisions/analytics-platform.md`. |
 | 3   | Should the blog support MDX (for interactive components inside posts) or plain Markdown only? | Iskander | ✅ Decided — plain Markdown for MVP. See `docs/superpowers/specs/2026-03-16-content-format-design.md`. |
 | 4   | Should the About page include a downloadable CV PDF?                                          | Iskander | ❓ Open |
-| 5   | Tailwind CSS or plain CSS custom properties for styling?                                      | Iskander | ❓ Open |
-| 6   | What is the first tool to build for v1 launch?                                                | Iskander | ✅ Decided — UUID / ULID generator. Small scope, zero external dependencies, clear inputs/outputs. React island. See `docs/decisions/launch-tool.md`. |
-| 7   | What are the 3 blog posts for launch? Titles / topics?                                        | Iskander | ✅ Decided — see `docs/decisions/launch-blog-posts.md`. |
+| 5   | Which design-system path follows the placeholder launch pass: Google Stitch export or Tailwind? | Iskander | ❓ Open |
+| 6   | What is the first project to migrate for v1 launch?                                             | Iskander | ✅ Decided — UUID / ULID generator as a tool-type project. Small scope, zero external dependencies, clear inputs/outputs. React island. See `docs/decisions/launch-tool.md`. |
+| 7   | Should launch include seeded blog posts, or can the blog start empty?                           | Iskander | ✅ Decided — launch starts empty in the clean-slate refactor; the three placeholder posts are deleted. See `docs/decisions/refactor-clean-slate-2026-04-20.md`. |
 
 ---
 

@@ -1,0 +1,153 @@
+
+> astro-dir@0.0.1 test:e2e E:\repos\portfolio
+> playwright test
+
+
+Running 60 tests using 10 workers
+
+  ✓   1 [chromium] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for projects (1.2s)
+  ✓   3 [chromium] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for home (1.5s)
+  ✓   2 [chromium] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for about (1.9s)
+  ✓   6 [chromium] › tests\e2e\smoke.spec.ts:35:2 › site shell › blog index shows published posts and keeps the empty-state hook hidden by default (1.8s)
+  ✓   5 [chromium] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for blog (1.8s)
+  ✓   4 [chromium] › tests\e2e\smoke.spec.ts:6:2 › site shell › home featured project points to the expected project detail route (1.9s)
+  ✘   7 [chromium] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model (1.9s)
+  ✓   9 [chromium] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for project detail (1.9s)
+  ✓  12 [chromium] › tests\e2e\smoke.spec.ts:152:2 › site shell › desktop header keeps nav centered and theme chooser flush right (1.2s)
+  ✓   8 [chromium] › tests\e2e\smoke.spec.ts:20:2 › site shell › projects index opens the launch project on its generated detail route (2.6s)
+  ✓  11 [chromium] › tests\e2e\smoke.spec.ts:96:2 › site shell › mobile navigation works at 320px width (2.1s)
+  ✓  17 [chromium] › tests\e2e\smoke.spec.ts:348:2 › site shell › reduced motion disables page entrance animation patterns (889ms)
+  ✓  16 [chromium] › tests\e2e\smoke.spec.ts:286:2 › site shell › theme defaults to the system preference when no selection is saved (1.1s)
+  ✓  14 [chromium] › tests\e2e\smoke.spec.ts:233:2 › site shell › theme chooser persists the selected theme (1.7s)
+  ✓  18 [chromium] › tests\e2e\smoke.spec.ts:365:2 › site shell › reduced motion disables theme color transitions (1.1s)
+  ✓  10 [chromium] › tests\e2e\smoke.spec.ts:81:2 › site shell › primary navigation reaches each top-level page (3.5s)
+  ✓  19 [chromium] › tests\e2e\smoke.spec.ts:400:2 › site shell › reduced motion disables hover lift transforms on project cards (925ms)
+  ✓  13 [chromium] › tests\e2e\smoke.spec.ts:204:2 › site shell › footer exposes quick links and social links on every MVP page (2.1s)
+  ✓  15 [chromium] › tests\e2e\smoke.spec.ts:257:2 › site shell › theme stays dark across header-link navigation (2.5s)
+  ✓  20 [chromium] › tests\e2e\smoke.spec.ts:308:2 › site shell › theme chooser supports keyboard access and explicit system selection (903ms)
+  ✓  23 [firefox] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for about (3.1s)
+  ✓  25 [firefox] › tests\e2e\smoke.spec.ts:6:2 › site shell › home featured project points to the expected project detail route (4.2s)
+  ✓  24 [firefox] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for project detail (3.9s)
+  ✓  31 [firefox] › tests\e2e\smoke.spec.ts:96:2 › site shell › mobile navigation works at 320px width (2.6s)
+  ✓  32 [firefox] › tests\e2e\smoke.spec.ts:152:2 › site shell › desktop header keeps nav centered and theme chooser flush right (1.7s)
+  ✓  28 [firefox] › tests\e2e\smoke.spec.ts:35:2 › site shell › blog index shows published posts and keeps the empty-state hook hidden by default (5.4s)
+  ✓  21 [firefox] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for blog (5.1s)
+  ✓  34 [firefox] › tests\e2e\smoke.spec.ts:233:2 › site shell › theme chooser persists the selected theme (3.9s)
+  ✓  36 [firefox] › tests\e2e\smoke.spec.ts:286:2 › site shell › theme defaults to the system preference when no selection is saved (2.1s)
+  ✓  33 [firefox] › tests\e2e\smoke.spec.ts:204:2 › site shell › footer exposes quick links and social links on every MVP page (5.6s)
+  ✓  37 [firefox] › tests\e2e\smoke.spec.ts:308:2 › site shell › theme chooser supports keyboard access and explicit system selection (3.1s)
+  ✓  22 [firefox] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for home (7.1s)
+  ✓  35 [firefox] › tests\e2e\smoke.spec.ts:257:2 › site shell › theme stays dark across header-link navigation (4.7s)
+  ✓  26 [firefox] › tests\e2e\smoke.spec.ts:20:2 › site shell › projects index opens the launch project on its generated detail route (6.6s)
+  ✓  38 [firefox] › tests\e2e\smoke.spec.ts:348:2 › site shell › reduced motion disables page entrance animation patterns (2.3s)
+  ✓  39 [firefox] › tests\e2e\smoke.spec.ts:365:2 › site shell › reduced motion disables theme color transitions (2.7s)
+  ✓  27 [firefox] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for projects (6.8s)
+  ✓  30 [firefox] › tests\e2e\smoke.spec.ts:81:2 › site shell › primary navigation reaches each top-level page (6.8s)
+  ✓  40 [firefox] › tests\e2e\smoke.spec.ts:400:2 › site shell › reduced motion disables hover lift transforms on project cards (5.4s)
+  ✘  29 [firefox] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model (6.6s)
+  ✓  41 [webkit] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for about (1.3s)
+  ✓  42 [webkit] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for home (1.3s)
+  ✓  44 [webkit] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for blog (3.6s)
+  ✓  46 [webkit] › tests\e2e\smoke.spec.ts:152:2 › site shell › desktop header keeps nav centered and theme chooser flush right (3.6s)
+  ✓  43 [webkit] › tests\e2e\smoke.spec.ts:96:2 › site shell › mobile navigation works at 320px width (4.1s)
+  ✓  45 [webkit] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for projects (3.6s)
+  ✓  47 [webkit] › tests\e2e\smoke.spec.ts:35:2 › site shell › blog index shows published posts and keeps the empty-state hook hidden by default (3.6s)
+  ✘  50 [webkit] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model (3.7s)
+  ✓  49 [webkit] › tests\e2e\smoke.spec.ts:6:2 › site shell › home featured project points to the expected project detail route (4.3s)
+  ✓  52 [webkit] › tests\e2e\seo.spec.ts:6:2 › renders expected SEO metadata for project detail (3.1s)
+  ✓  51 [webkit] › tests\e2e\smoke.spec.ts:20:2 › site shell › projects index opens the launch project on its generated detail route (3.9s)
+  ✓  56 [webkit] › tests\e2e\smoke.spec.ts:286:2 › site shell › theme defaults to the system preference when no selection is saved (3.7s)
+  ✓  57 [webkit] › tests\e2e\smoke.spec.ts:308:2 › site shell › theme chooser supports keyboard access and explicit system selection (4.0s)
+  ✓  54 [webkit] › tests\e2e\smoke.spec.ts:204:2 › site shell › footer exposes quick links and social links on every MVP page (4.9s)
+  ✓  59 [webkit] › tests\e2e\smoke.spec.ts:400:2 › site shell › reduced motion disables hover lift transforms on project cards (2.2s)
+  ✓  58 [webkit] › tests\e2e\smoke.spec.ts:365:2 › site shell › reduced motion disables theme color transitions (3.7s)
+  ✓  53 [webkit] › tests\e2e\smoke.spec.ts:233:2 › site shell › theme chooser persists the selected theme (5.9s)
+  ✓  60 [webkit] › tests\e2e\smoke.spec.ts:348:2 › site shell › reduced motion disables page entrance animation patterns (1.4s)
+  ✓  48 [webkit] › tests\e2e\smoke.spec.ts:81:2 › site shell › primary navigation reaches each top-level page (9.8s)
+  ✓  55 [webkit] › tests\e2e\smoke.spec.ts:257:2 › site shell › theme stays dark across header-link navigation (7.8s)
+
+
+  1) [chromium] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('link', { name: /GitHub/i })
+    Expected: [32m"https://github.com/iskandersierra"[39m
+    Error: strict mode violation: getByRole('link', { name: /GitHub/i }) resolved to 2 elements:
+        1) <a target="_blank" rel="noreferrer" data-astro-cid-kh7btl4r="" data-astro-source-loc="66:63" href="https://github.com/iskandersierra" data-astro-source-file="E:/repos/portfolio/src/pages/about.astro">…</a> aka getByRole('link', { name: 'GitHub Open profile' })
+        2) <a target="_blank" rel="noreferrer" class="footer-link" data-astro-cid-35ed7um5="" data-astro-source-loc="51:79" href="https://github.com/iskandersierra" data-astro-source-file="E:/repos/portfolio/src/components/layout/Footer.astro">…</a> aka getByRole('link', { name: 'GitHub', exact: true })
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('link', { name: /GitHub/i })[22m
+
+
+      66 | 		).toBeVisible();
+      67 | 		await expect(page.getByText('Computer Science Degree', { exact: true })).toBeVisible();
+    > 68 | 		await expect(githubLink).toHaveAttribute(
+         | 		                         ^
+      69 | 			'href',
+      70 | 			'https://github.com/iskandersierra',
+      71 | 		);
+        at E:\repos\portfolio\tests\e2e\smoke.spec.ts:68:28
+
+    Error Context: test-results\smoke-site-shell-about-pag-da5d0-he-retired-graph-view-model-chromium\error-context.md
+
+  2) [firefox] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('link', { name: /GitHub/i })
+    Expected: [32m"https://github.com/iskandersierra"[39m
+    Error: strict mode violation: getByRole('link', { name: /GitHub/i }) resolved to 2 elements:
+        1) <a target="_blank" rel="noreferrer" data-astro-cid-kh7btl4r="" href="https://github.com/iskandersierra">…</a> aka getByRole('link', { name: 'GitHub Open profile' })
+        2) <a target="_blank" rel="noreferrer" class="footer-link" data-astro-cid-35ed7um5="" href="https://github.com/iskandersierra">…</a> aka getByRole('link', { name: 'GitHub', exact: true })
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('link', { name: /GitHub/i })[22m
+
+
+      66 | 		).toBeVisible();
+      67 | 		await expect(page.getByText('Computer Science Degree', { exact: true })).toBeVisible();
+    > 68 | 		await expect(githubLink).toHaveAttribute(
+         | 		                         ^
+      69 | 			'href',
+      70 | 			'https://github.com/iskandersierra',
+      71 | 		);
+        at E:\repos\portfolio\tests\e2e\smoke.spec.ts:68:28
+
+    Error Context: test-results\smoke-site-shell-about-pag-da5d0-he-retired-graph-view-model-firefox\error-context.md
+
+  3) [webkit] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('link', { name: /GitHub/i })
+    Expected: [32m"https://github.com/iskandersierra"[39m
+    Error: strict mode violation: getByRole('link', { name: /GitHub/i }) resolved to 2 elements:
+        1) <a target="_blank" rel="noreferrer" data-astro-cid-kh7btl4r="" href="https://github.com/iskandersierra">…</a> aka getByRole('link', { name: 'GitHub Open profile' })
+        2) <a target="_blank" rel="noreferrer" class="footer-link" data-astro-cid-35ed7um5="" href="https://github.com/iskandersierra">…</a> aka getByRole('link', { name: 'GitHub', exact: true })
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('link', { name: /GitHub/i })[22m
+
+
+      66 | 		).toBeVisible();
+      67 | 		await expect(page.getByText('Computer Science Degree', { exact: true })).toBeVisible();
+    > 68 | 		await expect(githubLink).toHaveAttribute(
+         | 		                         ^
+      69 | 			'href',
+      70 | 			'https://github.com/iskandersierra',
+      71 | 		);
+        at E:\repos\portfolio\tests\e2e\smoke.spec.ts:68:28
+
+    Error Context: test-results\smoke-site-shell-about-pag-da5d0-he-retired-graph-view-model-webkit\error-context.md
+
+  3 failed
+    [chromium] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model 
+    [firefox] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model 
+    [webkit] › tests\e2e\smoke.spec.ts:44:2 › site shell › about page reads from canonical CV content instead of the retired graph view model 
+  57 passed (47.5s)
+ ELIFECYCLE  Command failed with exit code 1.

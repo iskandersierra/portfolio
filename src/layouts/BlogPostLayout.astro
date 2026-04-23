@@ -1,15 +1,42 @@
 ---
 import AuthorBlock from '../components/blog/AuthorBlock.astro';
 import Layout from './Layout.astro';
-import { formatContentDate, getBlogTagHref, type BlogEntry } from '../utils/content';
+import {
+	formatContentDate,
+	getBlogPostHref,
+	getBlogTagHref,
+	type BlogEntry,
+} from '../utils/content';
 
 interface Props {
 	post: BlogEntry;
+	adjacentPosts?: {
+		previous?: BlogEntry;
+		next?: BlogEntry;
+	};
 }
 
-const { post } = Astro.props;
+interface BlogSeriesLink {
+	part: number;
+	title: string;
+	slug: string;
+}
+
+interface BlogSeriesData {
+	series?: {
+		name: string;
+		part: number;
+	};
+	seriesSummary?: string;
+	seriesLinks?: BlogSeriesLink[];
+}
+
+const { post, adjacentPosts = {} } = Astro.props as Props;
 const formattedDate = formatContentDate(post.data.date);
 const readTimeLabel = `${post.data.readTime} min read`;
+const seriesData = post.data as typeof post.data & BlogSeriesData;
+const seriesLinks = Array.isArray(seriesData.seriesLinks) ? seriesData.seriesLinks : [];
+const hasSeriesBlock = Boolean(seriesData.series && seriesLinks.length > 0);
 ---
 
 <Layout
@@ -20,66 +47,378 @@ const readTimeLabel = `${post.data.readTime} min read`;
 		socialImage: post.data.coverImage,
 	}}
 >
-	<main class="container page-shell">
-		<article class="blog-post-article blog-post-layout post-shell">
-			<header class="blog-post-header post-header motion-enter motion-delay-1">
-				<p class="blog-post-kicker mono">$ cat ./blog/{post.id}.md</p>
-				<h1 class="post-title">{post.data.title}</h1>
-				<p class="blog-post-excerpt">{post.data.excerpt}</p>
-				<div class="blog-post-meta post-meta mono" aria-label="Post metadata">
-					<span>{formattedDate}</span>
-					<span>{readTimeLabel}</span>
+	<main class="container page-shell detail-surface detail-surface--blog">
+		<article class="blog-post-article blog-post-layout post-shell detail-shell">
+			<header class="detail-hero detail-hero--blog motion-enter motion-delay-1">
+				<div class="blog-post-header post-header detail-module detail-module--hero">
+					<p class="blog-post-kicker mono">Article</p>
+					<h1 class="post-title">{post.data.title}</h1>
+					<p class="blog-post-excerpt">{post.data.excerpt}</p>
+					<div class="blog-post-meta post-meta mono" aria-label="Post metadata">
+						<span>Published {formattedDate}</span>
+						<span>Reading time {readTimeLabel}</span>
+						<span>Article</span>
+					</div>
+					<ul class="blog-post-tags post-tag-list" aria-label="Post tags">
+						{post.data.tags.map((tag) => (
+							<li>
+								<a href={getBlogTagHref(tag)}>{tag}</a>
+							</li>
+						))}
+					</ul>
 				</div>
-				<ul class="blog-post-tags post-tag-list" aria-label="Post tags">
-					{post.data.tags.map((tag) => (
-						<li>
-							<a href={getBlogTagHref(tag)}>{tag}</a>
-						</li>
-					))}
-				</ul>
+
+				<aside class="detail-summary detail-module" aria-labelledby="blog-detail-summary-title">
+					<div class="detail-module__header">
+						<p class="mono detail-module__eyebrow" id="blog-detail-summary-title">Summary</p>
+						<p class="mono detail-module__status">Post details</p>
+					</div>
+					<dl class="detail-hero__metrics" aria-label="Blog article overview">
+						<div>
+							<dt class="mono">Published</dt>
+							<dd>{formattedDate}</dd>
+						</div>
+						<div>
+							<dt class="mono">Topics</dt>
+							<dd>{post.data.tags.length}</dd>
+						</div>
+						<div>
+							<dt class="mono">Format</dt>
+							<dd>Long-form article</dd>
+						</div>
+					</dl>
+				</aside>
 			</header>
 
-			<div class="blog-post-body post-body motion-enter motion-delay-2">
-				<slot />
-			</div>
+			<div class="detail-grid detail-grid--blog">
+				<div class="detail-main">
+					{hasSeriesBlock ? (
+						<section class="detail-module detail-module--series motion-enter motion-delay-2" aria-labelledby="series-title">
+							<div class="detail-module__header">
+								<p class="mono detail-module__eyebrow" id="series-title">Series</p>
+								<p class="mono detail-module__status">
+									Part {seriesData.series?.part} of {seriesLinks.length}
+								</p>
+							</div>
+							<h2 class="series-title">{seriesData.series?.name}</h2>
+							{seriesData.seriesSummary ? <p class="series-summary">{seriesData.seriesSummary}</p> : null}
+							<ol class="series-links" aria-label={`${seriesData.series?.name} parts`}>
+								{seriesLinks.map((link) => {
+									const isCurrentPart = link.slug === post.id;
 
-			<div class="blog-post-footer motion-enter motion-delay-3">
-				<AuthorBlock />
+									return (
+										<li>
+											{isCurrentPart ? (
+												<span class="series-link series-link--current" aria-current="page">
+													<span class="mono">Part {link.part}</span>
+													<strong>{link.title}</strong>
+												</span>
+											) : (
+												<a class="series-link" href={getBlogPostHref(link.slug)}>
+													<span class="mono">Part {link.part}</span>
+													<strong>{link.title}</strong>
+												</a>
+											)}
+										</li>
+									);
+								})}
+							</ol>
+						</section>
+					) : null}
+
+					<section class="detail-module detail-module--body motion-enter motion-delay-2">
+						<div class="detail-module__header">
+							<p class="mono detail-module__eyebrow">Article</p>
+							<p class="mono detail-module__status">Reading view</p>
+						</div>
+						<div class="blog-post-body post-body">
+							<slot />
+						</div>
+					</section>
+				</div>
+
+				<aside class="detail-sidebar">
+					<section class="detail-module detail-module--context motion-enter motion-delay-2" aria-labelledby="blog-context-title">
+						<div class="detail-module__header">
+							<p class="mono detail-module__eyebrow" id="blog-context-title">At a glance</p>
+							<p class="mono detail-module__status">Article context</p>
+						</div>
+						<p class="detail-context-copy">
+							This layout keeps the publication details, related navigation, and tags visible without
+							competing with the reading experience.
+						</p>
+						<dl class="detail-fact-list" aria-label="Blog article facts">
+							<div>
+								<dt class="mono">Published</dt>
+								<dd>{formattedDate}</dd>
+							</div>
+							<div>
+								<dt class="mono">Reading time</dt>
+								<dd>{readTimeLabel}</dd>
+							</div>
+							<div>
+								<dt class="mono">Topics</dt>
+								<dd>{post.data.tags.join(' / ')}</dd>
+							</div>
+						</dl>
+						<nav class="detail-route-nav" aria-label="Adjacent blog posts">
+							{adjacentPosts.next ? (
+								<a class="detail-route-link" href={getBlogPostHref(adjacentPosts.next.id)}>
+									<span class="mono detail-route-link__label">Newer article</span>
+									<strong>{adjacentPosts.next.data.title}</strong>
+								</a>
+							) : null}
+							{adjacentPosts.previous ? (
+								<a class="detail-route-link" href={getBlogPostHref(adjacentPosts.previous.id)}>
+									<span class="mono detail-route-link__label">Earlier article</span>
+									<strong>{adjacentPosts.previous.data.title}</strong>
+								</a>
+							) : null}
+							{!adjacentPosts.next && !adjacentPosts.previous ? (
+								<a class="detail-route-link detail-route-link--solo" href="/blog">
+									<span class="mono detail-route-link__label">Article index</span>
+									<strong>Browse all articles</strong>
+								</a>
+							) : null}
+						</nav>
+					</section>
+
+					<div class="blog-post-footer detail-module detail-module--author motion-enter motion-delay-3">
+						<div class="detail-module__header">
+							<p class="mono detail-module__eyebrow">About the author</p>
+							<p class="mono detail-module__status">Profile</p>
+						</div>
+						<AuthorBlock />
+					</div>
+				</aside>
 			</div>
 		</article>
 	</main>
 </Layout>
 
 <style>
-	.blog-post-header,
-	.blog-post-body,
-	.blog-post-footer {
+	.detail-surface {
+		padding-block: 2rem 4rem;
+	}
+
+	.detail-shell {
+		max-width: none;
+		padding-block: 0;
+		gap: 1.25rem;
+	}
+
+	.detail-hero,
+	.detail-grid {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.detail-hero {
+		grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.92fr);
+	}
+
+	.detail-grid--blog {
+		grid-template-columns: minmax(0, 1.2fr) minmax(17rem, 0.8fr);
+		align-items: start;
+	}
+
+	.detail-main,
+	.detail-sidebar,
+	.detail-summary,
+	.detail-module,
+	.blog-post-body {
+		min-width: 0;
+	}
+
+	.detail-sidebar {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.detail-module {
 		border: 1px solid var(--border);
+		border-radius: 1rem;
 		background: var(--surface);
-		padding: clamp(1.25rem, 3vw, 2rem);
+		box-shadow: var(--panel-shadow-soft);
+		padding: clamp(1.1rem, 2.7vw, 1.65rem);
 	}
 
-	.blog-post-kicker {
-		margin: 0;
-		color: var(--accent);
+	.detail-module__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+		margin-bottom: 1rem;
 	}
 
-	.blog-post-excerpt {
+	.detail-module__eyebrow,
+	.detail-module__status,
+	.detail-hero__metrics dt,
+	.detail-fact-list dt,
+	.detail-route-link__label {
 		margin: 0;
-		max-width: 62ch;
+		font-size: 0.72rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+
+	.detail-module__eyebrow,
+	.blog-post-kicker,
+	.detail-route-link__label {
+		color: var(--text-soft);
+	}
+
+	.detail-module__status,
+	.detail-hero__metrics dt,
+	.detail-fact-list dt {
+		color: var(--text-soft);
+	}
+
+	.detail-hero__metrics,
+	.detail-fact-list {
+		display: grid;
+		gap: 0.75rem;
+		margin: 0;
+	}
+
+	.detail-hero__metrics {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		margin-top: 1rem;
+	}
+
+	.detail-hero__metrics div,
+	.detail-fact-list div {
+		padding: 0.85rem 0.95rem;
+		border: 1px solid var(--border-muted);
+		border-radius: 0.875rem;
+		background: var(--surface-subtle);
+	}
+
+	.detail-hero__metrics dd,
+	.detail-fact-list dd {
+		margin: 0.35rem 0 0;
+		color: var(--text-main);
+		font-weight: 600;
+	}
+
+	.blog-post-kicker,
+	.blog-post-excerpt,
+	.detail-context-copy,
+	.series-summary {
+		margin: 0;
+	}
+
+	.blog-post-excerpt,
+	.detail-context-copy,
+	.series-summary {
+		max-width: 65ch;
 		color: var(--text-muted);
-		font-size: 1.05rem;
-	}
-
-	.blog-post-meta {
-		margin: 0;
-	}
-
-	.blog-post-tags {
-		margin: 0;
+		font-size: 1.02rem;
+		line-height: 1.72;
 	}
 
 	.blog-post-body {
-		min-width: 0;
+		max-width: 68ch;
+	}
+
+	.detail-route-nav {
+		display: grid;
+		gap: 0.75rem;
+		margin-top: 1rem;
+	}
+
+	.detail-route-link {
+		display: grid;
+		gap: 0.3rem;
+		padding: 0.9rem 1rem;
+		border: 1px solid var(--border-muted);
+		border-radius: 0.875rem;
+		background: var(--surface-subtle);
+		color: var(--text-main);
+		text-decoration: none;
+	}
+
+	.detail-route-link:hover,
+	.detail-route-link:focus-visible {
+		border-color: var(--border-strong);
+		background: var(--surface-hover);
+		text-decoration: none;
+	}
+
+	.detail-route-link strong {
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.4;
+	}
+
+	.series-title {
+		margin: 0;
+	}
+
+	.series-links {
+		list-style: none;
+		padding: 0;
+		margin: 1rem 0 0;
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.series-link {
+		display: grid;
+		gap: 0.25rem;
+		padding: 0.85rem 0.95rem;
+		border: 1px solid var(--border-muted);
+		border-radius: 0.875rem;
+		background: var(--surface-subtle);
+		color: var(--text-main);
+		text-decoration: none;
+	}
+
+	.series-link:hover,
+	.series-link:focus-visible {
+		border-color: var(--border-strong);
+		background: var(--surface-hover);
+		text-decoration: none;
+	}
+
+	.series-link--current {
+		border-color: var(--border-strong);
+		background: var(--surface-hover);
+	}
+
+	@media (max-width: 960px) {
+		.detail-hero,
+		.detail-grid--blog {
+			grid-template-columns: 1fr;
+		}
+
+		.detail-sidebar {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 720px) {
+		.detail-hero__metrics {
+			grid-template-columns: 1fr;
+		}
+
+		.detail-sidebar {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.detail-surface {
+			padding-block: 1.5rem 3rem;
+		}
+
+		.detail-shell {
+			gap: 1rem;
+		}
+
+		.detail-module {
+			padding: 1rem;
+		}
 	}
 </style>

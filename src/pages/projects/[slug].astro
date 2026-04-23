@@ -1,0 +1,29 @@
+---
+import { render } from 'astro:content';
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import { getAdjacentProjects, getPublishedProjects, type ProjectEntry } from '../../utils/content';
+
+interface Props {
+	project: ProjectEntry;
+	adjacentProjects: ReturnType<typeof getAdjacentProjects>;
+}
+
+export async function getStaticPaths() {
+	const projects = await getPublishedProjects();
+
+	return projects.map((project) => ({
+		params: { slug: project.id },
+		props: {
+			project,
+			adjacentProjects: getAdjacentProjects(projects, project.id),
+		},
+	}));
+}
+
+const { project, adjacentProjects } = Astro.props as Props;
+const { Content } = await render(project);
+---
+
+<ProjectLayout project={project} adjacentProjects={adjacentProjects}>
+	<Content />
+</ProjectLayout>

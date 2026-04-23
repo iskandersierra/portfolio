@@ -21,7 +21,7 @@ Run all commands from the repository root.
 | :--------------------- | :----------------------------------- |
 | `pnpm install`         | Install dependencies                 |
 | `pnpm dev`             | Start the local Astro dev server     |
-| `pnpm build`           | Build the production site to `dist/` |
+| `pnpm build`           | Clean generated artifacts, then build the production site to `dist/` |
 | `pnpm preview`         | Preview the production build locally |
 | `pnpm check`           | Run markdown, type, lint, and format checks |
 | `pnpm fix`             | Apply markdown, lint, and format fixes |

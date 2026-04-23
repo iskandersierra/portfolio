@@ -1,95 +1,495 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { buildAboutProfileSchema, canonicalCv } from '../utils/cv';
 
-const expertise = [
-	'.NET architecture',
-	'Team technical leadership',
-	'TypeScript and JavaScript',
-	'Azure and cloud delivery',
-	'Docker and Kubernetes',
-	'Computer science fundamentals',
+const profileSchema = JSON.stringify(buildAboutProfileSchema());
+
+const roleLabels = canonicalCv.basics.title
+	.split(/,| and /)
+	.map((label) => label.trim())
+	.filter(Boolean);
+
+const capabilitySections = [
+	{ title: 'Programming languages', groups: canonicalCv.programmingLanguages },
+	{ title: 'Backend technologies', groups: canonicalCv.backendTechnologies },
+	{ title: 'Frontend technologies', groups: canonicalCv.frontendTechnologies },
 ];
+
+const currentRole = canonicalCv.workHistory[0];
 ---
 
 <Layout
 	seo={{
 		title: 'About',
 		description:
-			'Learn more about Iskander Sierra, a senior full-stack developer, architect, and technical lead with 25 years of experience building software and teams.',
+			`Learn more about ${canonicalCv.basics.name}, a senior full-stack developer, architect, and technical lead with ${canonicalCv.basics.yearsOfExperience} years of experience building software and teams.`,
 		pageType: 'website',
 	}}
 >
-	<main class="container page-shell">
-		<header class="page-header motion-enter motion-delay-1">
-			<p class="mono page-kicker">$ cat ./about/profile.txt</p>
-			<h1>About</h1>
-			<p class="page-intro">
-				I am a full-stack developer, software architect, and team technical lead focused on
-				building dependable systems, helping teams move with clarity, and staying curious enough
-				to keep learning.
-			</p>
+	<script is:inline type="application/ld+json" set:html={profileSchema}></script>
+	<main class="container page-shell about-page">
+		<header class="about-hero motion-enter motion-delay-1">
+			<div class="about-hero__copy">
+				<p class="mono about-kicker">Profile</p>
+				<h1>About</h1>
+				<p class="about-intro">{canonicalCv.basics.description}</p>
+				<dl class="about-stats" aria-label="About page summary">
+					<div>
+						<dt class="mono">Experience</dt>
+						<dd>{canonicalCv.basics.yearsOfExperience} years</dd>
+					</div>
+					<div>
+						<dt class="mono">Work history</dt>
+						<dd>{canonicalCv.workHistory.length} roles</dd>
+					</div>
+					<div>
+						<dt class="mono">Publications</dt>
+						<dd>{canonicalCv.publications.length} entries</dd>
+					</div>
+				</dl>
+			</div>
+
+			<aside class="about-summary-card" aria-labelledby="about-summary-title">
+				<p class="mono about-summary-card__eyebrow" id="about-summary-title">Current focus</p>
+				<h2>{currentRole.role}</h2>
+				<p class="about-summary-card__title">{canonicalCv.basics.title}</p>
+				<p>
+					{currentRole.company} · {currentRole.location}
+				</p>
+				<p>{currentRole.summary}</p>
+				<ul class="about-role-list" aria-label="Profile role labels">
+					{roleLabels.map((role) => (
+						<li>{role}</li>
+					))}
+				</ul>
+				<div class="about-profile-links">
+					{canonicalCv.externalProfiles.map((profile) => (
+						<a href={profile.href} target="_blank" rel="noreferrer">
+							<span>{profile.label}</span>
+							<span class="mono">Open profile</span>
+						</a>
+					))}
+				</div>
+			</aside>
 		</header>
 
-		<section class="section-block motion-enter motion-delay-2">
-			<h2 class="mono section-title">$ ls ./core-expertise</h2>
-			<ul class="tag-list">
-				{expertise.map((item) => <li>{item}</li>)}
-			</ul>
-		</section>
+		<div class="about-grid motion-enter motion-delay-2">
+			<div class="about-column">
+				<section class="about-section" aria-labelledby="experience-title">
+					<div class="section-heading">
+						<p class="mono">Work history</p>
+						<h2 id="experience-title">Experience</h2>
+						<p>
+							A direct view of the roles, delivery environments, and technologies that shape the way I
+							build software.
+						</p>
+					</div>
+					<ol class="experience-list">
+						{canonicalCv.workHistory.map((entry) => (
+							<li class="experience-item">
+								<div class="experience-item__header">
+									<div>
+										<p class="mono experience-item__years">
+											{entry.startYear} - {entry.endYear}
+										</p>
+										<h3>{entry.role}</h3>
+										<p class="experience-item__meta">
+											{entry.company} · {entry.location}
+										</p>
+									</div>
+								</div>
+								<p>{entry.summary}</p>
+								{entry.experiences.length > 0 ? (
+									<ul class="experience-tags" aria-label={`${entry.role} technologies`}>
+										{entry.experiences.map((experience) => (
+											<li>{experience}</li>
+										))}
+									</ul>
+								) : null}
+							</li>
+						))}
+					</ol>
+				</section>
 
-		<section class="section-block motion-enter motion-delay-3">
-			<h2 class="mono section-title">$ tail -n 3 ./notes.txt</h2>
-			<p>
-				This site sits at the intersection of architecture, delivery, and continuous learning.
-				It is a place to share practical experience, document new ideas, and make long-term
-				growth visible through real work.
-			</p>
-		</section>
+				<section class="about-section" aria-labelledby="capabilities-title">
+					<div class="section-heading">
+						<p class="mono">Skills</p>
+						<h2 id="capabilities-title">Capabilities</h2>
+						<p>
+							The grouping stays close to the CV data so the page remains maintainable while still being
+							easy to scan.
+						</p>
+					</div>
+					<div class="capability-sections">
+						{capabilitySections.map((section) => (
+							<section class="capability-section">
+								<h3>{section.title}</h3>
+								<div class="capability-groups">
+									{section.groups.map((group) => (
+										<article class="capability-group">
+											<h4>{group.title}</h4>
+											<ul>
+												{group.entries.map((entry) => (
+													<li>{entry.name}</li>
+												))}
+											</ul>
+										</article>
+									))}
+								</div>
+							</section>
+						))}
+					</div>
+				</section>
+			</div>
+
+			<div class="about-column">
+				<section class="about-section" aria-labelledby="education-title">
+					<div class="section-heading">
+						<p class="mono">Education</p>
+						<h2 id="education-title">Education and languages</h2>
+					</div>
+					<div class="stack-list">
+						{canonicalCv.education.map((entry) => (
+							<article class="stack-card">
+								<h3>{entry.degree}</h3>
+								<p class="stack-card__meta">
+									{entry.institution} · {entry.location} · {entry.year}
+								</p>
+								{entry.thesis ? <p>{entry.thesis}</p> : null}
+							</article>
+						))}
+						<article class="stack-card">
+							<h3>Spoken languages</h3>
+							<ul class="language-list">
+								{canonicalCv.spokenLanguages.map((language) => (
+									<li>
+										<span>{language.language}</span>
+										<span class="mono">{language.proficiency}</span>
+									</li>
+								))}
+							</ul>
+						</article>
+					</div>
+				</section>
+
+				<section class="about-section" aria-labelledby="publications-title">
+					<div class="section-heading">
+						<p class="mono">Publications</p>
+						<h2 id="publications-title">Selected publications</h2>
+					</div>
+					<ul class="publication-list">
+						{canonicalCv.publications.map((publication) => (
+							<li class="publication-item">
+								<p class="mono publication-item__meta">
+									{publication.year} · {publication.type}
+								</p>
+								<h3>{publication.title}</h3>
+								<p>{publication.venue}</p>
+								{publication.detail ? <p>{publication.detail}</p> : null}
+								{publication.identifier ? <p class="mono">{publication.identifier}</p> : null}
+							</li>
+						))}
+					</ul>
+				</section>
+			</div>
+		</div>
 	</main>
 </Layout>
 
 <style>
-	.page-shell {
+	.about-page {
 		padding-block: 2rem 4rem;
 	}
 
-	.page-header {
-		margin-bottom: 2.5rem;
+	.about-hero,
+	.about-section,
+	.about-summary-card,
+	.experience-item,
+	.capability-group,
+	.stack-card,
+	.publication-item {
+		border: 1px solid var(--border);
+		border-radius: 1rem;
+		background: var(--surface);
+		box-shadow: var(--panel-shadow-soft);
 	}
 
-	.page-kicker,
-	.section-title {
-		color: var(--accent);
-	}
-
-	.page-header h1 {
-		margin: 0.5rem 0 1rem;
-		font-size: clamp(2rem, 4vw, 3rem);
-	}
-
-	.page-intro,
-	.section-block p {
-		max-width: 720px;
-		line-height: 1.7;
-		color: var(--text-muted);
-	}
-
-	.section-block + .section-block {
-		margin-top: 2rem;
-	}
-
-	.tag-list {
-		list-style: none;
-		padding: 0;
-		margin: 1rem 0 0;
+	.about-hero {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.9fr);
+		gap: 1.25rem;
+		padding: clamp(1.25rem, 3vw, 2rem);
+		margin-bottom: 1.25rem;
+	}
+
+	.about-kicker,
+	.about-stats dt,
+	.about-summary-card__eyebrow,
+	.experience-item__years,
+	.publication-item__meta {
+		margin: 0;
+		font-size: 0.72rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--text-soft);
+	}
+
+	.about-hero h1,
+	.section-heading h2 {
+		margin: 0;
+		text-wrap: balance;
+	}
+
+	.about-hero h1 {
+		font-size: clamp(2.6rem, 5vw, 4.5rem);
+		line-height: 0.95;
+		margin-top: 0.5rem;
+	}
+
+	.about-intro,
+	.section-heading p,
+	.about-summary-card p,
+	.experience-item p,
+	.stack-card p,
+	.publication-item p {
+		color: var(--text-muted);
+		line-height: 1.7;
+	}
+
+	.about-intro {
+		max-width: 64ch;
+		font-size: 1.05rem;
+	}
+
+	.about-stats,
+	.graph-panel__metrics {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.75rem;
+		margin: 1.5rem 0 0;
+	}
+
+	.about-stats div {
+		padding: 1rem;
+		border: 1px solid var(--border-muted);
+		border-radius: 0.875rem;
+		background: var(--surface-subtle);
+	}
+
+	.about-stats dd {
+		margin: 0.35rem 0 0;
+		font-size: 1rem;
+		font-weight: 700;
+		color: var(--text-main);
+	}
+
+	.about-summary-card {
+		display: grid;
+		gap: 1rem;
+		align-content: start;
+		padding: 1.25rem;
+	}
+
+	.about-summary-card h2,
+	.experience-item h3,
+	.capability-section h3,
+	.capability-group h4,
+	.stack-card h3,
+	.publication-item h3 {
+		margin: 0;
+	}
+
+	.about-summary-card__title {
+		margin: -0.35rem 0 0;
+		font-size: 1rem;
+		font-weight: 600;
+		color: var(--text-main);
+	}
+
+	.about-role-list,
+	.experience-tags,
+	.capability-group ul,
+	.language-list,
+	.publication-list,
+	.experience-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.about-role-list,
+	.experience-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+	}
+
+	.about-role-list li,
+	.experience-tags li,
+	.capability-group li {
+		padding: 0.45rem 0.7rem;
+		border: 1px solid var(--border-muted);
+		border-radius: 999px;
+		background: var(--surface-subtle);
+	}
+
+	.about-profile-links,
+	.capability-groups,
+	.stack-list {
+		display: grid;
+		gap: 0.85rem;
+	}
+
+	.about-profile-links a {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		align-items: center;
+		padding: 0.9rem 1rem;
+		border: 1px solid var(--border-muted);
+		border-radius: 0.875rem;
+		background: var(--surface-subtle);
+		color: var(--text-main);
+		text-decoration: none;
+	}
+
+	.about-profile-links a:hover,
+	.about-profile-links a:focus-visible {
+		border-color: var(--border-strong);
+		background: var(--surface-hover);
+		text-decoration: none;
+	}
+
+	.about-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+		gap: 1.25rem;
+	}
+
+	.about-column {
+		display: grid;
+		gap: 1rem;
+		align-content: start;
+	}
+
+	.about-section {
+		padding: clamp(1.1rem, 2.5vw, 1.6rem);
+	}
+
+	.section-heading {
+		display: grid;
+		gap: 0.35rem;
+		margin-bottom: 1rem;
+	}
+
+	.section-heading p,
+	.experience-item__meta,
+	.stack-card__meta {
+		margin: 0;
+	}
+
+	.experience-list,
+	.publication-list,
+	.capability-sections {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.experience-item,
+	.stack-card,
+	.publication-item,
+	.capability-group {
+		padding: 1rem;
+	}
+
+	.experience-item {
+		display: grid;
+		gap: 0.8rem;
+	}
+
+	.capability-section {
+		display: grid;
 		gap: 0.75rem;
 	}
 
-	.tag-list li {
-		padding: 0.8rem 1rem;
-		border: 1px solid var(--border);
-		background: var(--surface);
+	.capability-groups {
+		grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+	}
+
+	.capability-group {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.capability-group ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.55rem;
+	}
+
+	.language-list {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.language-list li {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-bottom: 0.75rem;
+		border-bottom: 1px solid var(--border-muted);
+	}
+
+	.language-list li:last-child {
+		padding-bottom: 0;
+		border-bottom: 0;
+	}
+
+	.publication-item {
+		display: grid;
+		gap: 0.35rem;
+	}
+
+	@media (max-width: 980px) {
+		.about-hero,
+		.about-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 720px) {
+		.about-stats {
+			grid-template-columns: 1fr;
+		}
+
+		.capability-groups {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.about-page {
+			padding-block: 1.5rem 3rem;
+		}
+
+		.about-hero,
+		.about-section,
+		.about-summary-card,
+		.experience-item,
+		.stack-card,
+		.publication-item,
+		.capability-group {
+			padding: 1rem;
+		}
+
+		.about-hero h1 {
+			font-size: clamp(2.3rem, 11vw, 3.2rem);
+		}
+
+		.about-profile-links a,
+		.language-list li {
+			align-items: flex-start;
+			flex-direction: column;
+		}
 	}
 </style>

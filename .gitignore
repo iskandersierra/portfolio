@@ -31,6 +31,19 @@ playwright-report/
 .playwright-cli/
 .playwright-mcp/
 test-results/
+.e2e-output.txt
+
+# Log files
+logs/
+*.log
+
+# Temp files
+.tmp/
+.tmp*
+
+# PR review inbox (fetched by get-comments prompt, local only)
+docs/inbox/
+
 # Squad: ignore runtime state (logs, inbox, sessions)
 .squad/orchestration-log/
 .squad/log/

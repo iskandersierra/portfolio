@@ -1,0 +1,508 @@
+  E:\repos\portfolio\.tmp-astro-check.log:9:[2m23:40:42[22m [34m[check][39m Getting diagnostics for Astro files in E:\repos\portfolio...
+> E:\repos\portfolio\.tmp-astro-check.log:10:[96msrc/content.config.ts[0m:[93m47[0m:[93m27[0m - [93mwarning[0m[90m ts(6385): [0m'(params?: string | { normalize?: boolean | undefined; abort?: boolean | undefined; pattern?: RegExp | undefined; hostname?: RegExp | undefined; protocol?: RegExp | undefined; error?: string | ... 1 more ... | undefined; message?: string | undefined; } | undefined): ZodString' is deprecated.
+  E:\repos\portfolio\.tmp-astro-check.log:11:
+  E:\repos\portfolio\.tmp-astro-check.log:12:[7m47[0m   externalUrl: z.string().url().optional(),
+  E:\repos\portfolio\.tmp-astro-check.log:499:
+> E:\repos\portfolio\.tmp-astro-check.log:500:[96msrc/pages/index.astro[0m:[93m595[0m:[93m6[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'size'.
+  E:\repos\portfolio\.tmp-astro-check.log:501:
+  E:\repos\portfolio\.tmp-astro-check.log:502:[7m595[0m font-size: clamp(1.4rem, 6vw, 2rem);
+  E:\repos\portfolio\.tmp-astro-check.log:503:[7m   [0m [91m     ~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:504:[96msrc/pages/index.astro[0m:[93m595[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'font'.
+  E:\repos\portfolio\.tmp-astro-check.log:505:
+  E:\repos\portfolio\.tmp-astro-check.log:506:[7m595[0m font-size: clamp(1.4rem, 6vw, 2rem);
+  E:\repos\portfolio\.tmp-astro-check.log:507:[7m   [0m [91m~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:508:[96msrc/pages/index.astro[0m:[93m591[0m:[93m15[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'columns'.
+  E:\repos\portfolio\.tmp-astro-check.log:509:
+  E:\repos\portfolio\.tmp-astro-check.log:510:[7m591[0m grid-template-columns: 1fr;
+  E:\repos\portfolio\.tmp-astro-check.log:511:[7m   [0m [91m              ~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:512:[96msrc/pages/index.astro[0m:[93m591[0m:[93m6[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'template'.
+  E:\repos\portfolio\.tmp-astro-check.log:513:
+  E:\repos\portfolio\.tmp-astro-check.log:514:[7m591[0m grid-template-columns: 1fr;
+  E:\repos\portfolio\.tmp-astro-check.log:515:[7m   [0m [91m     ~~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:516:[96msrc/pages/index.astro[0m:[93m591[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+  E:\repos\portfolio\.tmp-astro-check.log:517:
+  E:\repos\portfolio\.tmp-astro-check.log:518:[7m591[0m grid-template-columns: 1fr;
+  E:\repos\portfolio\.tmp-astro-check.log:519:[7m   [0m [91m~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:520:[96msrc/pages/index.astro[0m:[93m587[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'left'.
+  E:\repos\portfolio\.tmp-astro-check.log:521:
+  E:\repos\portfolio\.tmp-astro-check.log:522:[7m587[0m margin-left: 0;
+  E:\repos\portfolio\.tmp-astro-check.log:523:[7m   [0m [91m       ~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:524:[96msrc/pages/index.astro[0m:[93m587[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'margin'.
+  E:\repos\portfolio\.tmp-astro-check.log:525:
+  E:\repos\portfolio\.tmp-astro-check.log:526:[7m587[0m margin-left: 0;
+  E:\repos\portfolio\.tmp-astro-check.log:527:[7m   [0m [91m~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:528:[96msrc/pages/index.astro[0m:[93m580[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'width'.
+  E:\repos\portfolio\.tmp-astro-check.log:529:
+  E:\repos\portfolio\.tmp-astro-check.log:530:[7m580[0m width: 2.8rem;
+  E:\repos\portfolio\.tmp-astro-check.log:531:[7m   [0m [91m~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:532:[96msrc/pages/index.astro[0m:[93m574[0m:[93m11[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'flow'.
+  E:\repos\portfolio\.tmp-astro-check.log:533:
+  E:\repos\portfolio\.tmp-astro-check.log:534:[7m574[0m grid-auto-flow: column;
+  E:\repos\portfolio\.tmp-astro-check.log:535:[7m   [0m [91m          ~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:536:[96msrc/pages/index.astro[0m:[93m574[0m:[93m6[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'auto'.
+  E:\repos\portfolio\.tmp-astro-check.log:537:
+  E:\repos\portfolio\.tmp-astro-check.log:538:[7m574[0m grid-auto-flow: column;
+  E:\repos\portfolio\.tmp-astro-check.log:539:[7m   [0m [91m     ~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:540:[96msrc/pages/index.astro[0m:[93m574[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+  E:\repos\portfolio\.tmp-astro-check.log:541:
+  E:\repos\portfolio\.tmp-astro-check.log:542:[7m574[0m grid-auto-flow: column;
+  E:\repos\portfolio\.tmp-astro-check.log:543:[7m   [0m [91m~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:544:[96msrc/pages/index.astro[0m:[93m569[0m:[93m15[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'columns'.
+  E:\repos\portfolio\.tmp-astro-check.log:545:
+  E:\repos\portfolio\.tmp-astro-check.log:546:[7m569[0m grid-template-columns: 1fr;
+  E:\repos\portfolio\.tmp-astro-check.log:547:[7m   [0m [91m              ~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:548:[96msrc/pages/index.astro[0m:[93m569[0m:[93m6[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'template'.
+  E:\repos\portfolio\.tmp-astro-check.log:549:
+  E:\repos\portfolio\.tmp-astro-check.log:550:[7m569[0m grid-template-columns: 1fr;
+  E:\repos\portfolio\.tmp-astro-check.log:551:[7m   [0m [91m     ~~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:552:[96msrc/pages/index.astro[0m:[93m569[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+  E:\repos\portfolio\.tmp-astro-check.log:553:
+  E:\repos\portfolio\.tmp-astro-check.log:554:[7m569[0m grid-template-columns: 1fr;
+  E:\repos\portfolio\.tmp-astro-check.log:555:[7m   [0m [91m~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:556:[96msrc/pages/index.astro[0m:[93m565[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+  E:\repos\portfolio\.tmp-astro-check.log:557:
+  E:\repos\portfolio\.tmp-astro-check.log:558:[7m565[0m display: none;
+  E:\repos\portfolio\.tmp-astro-check.log:559:[7m   [0m [91m~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:560:[96msrc/pages/index.astro[0m:[93m560[0m:[93m9[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'left'.
+  E:\repos\portfolio\.tmp-astro-check.log:561:
+  E:\repos\portfolio\.tmp-astro-check.log:562:[7m560[0m padding-left: 0;
+  E:\repos\portfolio\.tmp-astro-check.log:563:[7m   [0m [91m        ~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:564:[96msrc/pages/index.astro[0m:[93m560[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'padding'.
+  E:\repos\portfolio\.tmp-astro-check.log:565:
+  E:\repos\portfolio\.tmp-astro-check.log:566:[7m560[0m padding-left: 0;
+  E:\repos\portfolio\.tmp-astro-check.log:567:[7m   [0m [91m~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:568:[96msrc/pages/index.astro[0m:[93m556[0m:[93m3[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+  E:\repos\portfolio\.tmp-astro-check.log:569:
+  E:\repos\portfolio\.tmp-astro-check.log:570:[7m556[0m   display: none;
+  E:\repos\portfolio\.tmp-astro-check.log:571:[7m   [0m [91m  ~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:572:[96msrc/pages/index.astro[0m:[93m550[0m:[93m17[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'columns'.
+  E:\repos\portfolio\.tmp-astro-check.log:573:
+  E:\repos\portfolio\.tmp-astro-check.log:574:[7m550[0m   grid-template-columns: 1fr;
+  E:\repos\portfolio\.tmp-astro-check.log:575:[7m   [0m [91m                ~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:576:[96msrc/pages/index.astro[0m:[93m550[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'template'.
+  E:\repos\portfolio\.tmp-astro-check.log:577:
+  E:\repos\portfolio\.tmp-astro-check.log:578:[7m550[0m   grid-template-columns: 1fr;
+  E:\repos\portfolio\.tmp-astro-check.log:579:[7m   [0m [91m       ~~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:580:[96msrc/pages/index.astro[0m:[93m550[0m:[93m3[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+  E:\repos\portfolio\.tmp-astro-check.log:581:
+  E:\repos\portfolio\.tmp-astro-check.log:582:[7m550[0m   grid-template-columns: 1fr;
+  E:\repos\portfolio\.tmp-astro-check.log:583:[7m   [0m [91m  ~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:584:[96msrc/pages/index.astro[0m:[93m549[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'hero'.
+  E:\repos\portfolio\.tmp-astro-check.log:585:
+  E:\repos\portfolio\.tmp-astro-check.log:586:[7m549[0m  .home-hero {
+  E:\repos\portfolio\.tmp-astro-check.log:587:[7m   [0m [91m       ~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:588:[96msrc/pages/index.astro[0m:[93m544[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'position'.
+  E:\repos\portfolio\.tmp-astro-check.log:589:
+  E:\repos\portfolio\.tmp-astro-check.log:590:[7m544[0m object-position: 50% 44%;
+  E:\repos\portfolio\.tmp-astro-check.log:591:[7m   [0m [91m       ~~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:592:[96msrc/pages/index.astro[0m:[93m544[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'object'.
+  E:\repos\portfolio\.tmp-astro-check.log:593:
+  E:\repos\portfolio\.tmp-astro-check.log:594:[7m544[0m object-position: 50% 44%;
+  E:\repos\portfolio\.tmp-astro-check.log:595:[7m   [0m [91m~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:596:[96msrc/pages/index.astro[0m:[93m540[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'position'.
+  E:\repos\portfolio\.tmp-astro-check.log:597:
+  E:\repos\portfolio\.tmp-astro-check.log:598:[7m540[0m object-position: 50% 46%;
+  E:\repos\portfolio\.tmp-astro-check.log:599:[7m   [0m [91m       ~~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:600:[96msrc/pages/index.astro[0m:[93m540[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'object'.
+  E:\repos\portfolio\.tmp-astro-check.log:601:
+  E:\repos\portfolio\.tmp-astro-check.log:602:[7m540[0m object-position: 50% 46%;
+  E:\repos\portfolio\.tmp-astro-check.log:603:[7m   [0m [91m~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:604:[96msrc/pages/index.astro[0m:[93m536[0m:[93m2[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'inset'.
+  E:\repos\portfolio\.tmp-astro-check.log:605:
+  E:\repos\portfolio\.tmp-astro-check.log:606:[7m536[0m  inset: var(--hero-frame-gap);
+  E:\repos\portfolio\.tmp-astro-check.log:607:[7m   [0m [91m ~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:608:[96msrc/pages/index.astro[0m:[93m528[0m:[93m2[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'width'.
+  E:\repos\portfolio\.tmp-astro-check.log:609:
+  E:\repos\portfolio\.tmp-astro-check.log:610:[7m528[0m  width: 100%;
+  E:\repos\portfolio\.tmp-astro-check.log:611:[7m   [0m [91m ~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:612:[96msrc/pages/index.astro[0m:[93m527[0m:[93m7[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'hero__image'.
+  E:\repos\portfolio\.tmp-astro-check.log:613:
+  E:\repos\portfolio\.tmp-astro-check.log:614:[7m527[0m .home-hero__image {
+  E:\repos\portfolio\.tmp-astro-check.log:615:[7m   [0m [91m      ~~~~~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:616:[96msrc/pages/index.astro[0m:[93m521[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'color'.
+  E:\repos\portfolio\.tmp-astro-check.log:617:
+  E:\repos\portfolio\.tmp-astro-check.log:618:[7m521[0m border-color: var(--accent);
+  E:\repos\portfolio\.tmp-astro-check.log:619:[7m   [0m [91m       ~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:620:[96msrc/pages/index.astro[0m:[93m521[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'border'.
+  E:\repos\portfolio\.tmp-astro-check.log:621:
+  E:\repos\portfolio\.tmp-astro-check.log:622:[7m521[0m border-color: var(--accent);
+  E:\repos\portfolio\.tmp-astro-check.log:623:[7m   [0m [91m~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:624:[96msrc/pages/index.astro[0m:[93m505[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+  E:\repos\portfolio\.tmp-astro-check.log:625:
+  E:\repos\portfolio\.tmp-astro-check.log:626:[7m505[0m display: inline-flex;
+  E:\repos\portfolio\.tmp-astro-check.log:627:[7m   [0m [91m~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:628:[96msrc/pages/index.astro[0m:[93m498[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+  E:\repos\portfolio\.tmp-astro-check.log:629:
+  E:\repos\portfolio\.tmp-astro-check.log:630:[7m498[0m display: grid;
+  E:\repos\portfolio\.tmp-astro-check.log:631:[7m   [0m [91m~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:632:[96msrc/pages/index.astro[0m:[93m492[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'margin'.
+  E:\repos\portfolio\.tmp-astro-check.log:633:
+  E:\repos\portfolio\.tmp-astro-check.log:634:[7m492[0m margin: 0;
+  E:\repos\portfolio\.tmp-astro-check.log:635:[7m   [0m [91m~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:636:[96msrc/pages/index.astro[0m:[93m479[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+  E:\repos\portfolio\.tmp-astro-check.log:637:
+  E:\repos\portfolio\.tmp-astro-check.log:638:[7m479[0m display: inline-flex;
+  E:\repos\portfolio\.tmp-astro-check.log:639:[7m   [0m [91m~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:640:[96msrc/pages/index.astro[0m:[93m475[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'margin'.
+  E:\repos\portfolio\.tmp-astro-check.log:641:
+  E:\repos\portfolio\.tmp-astro-check.log:642:[7m475[0m margin: 0.4rem 0 0;
+  E:\repos\portfolio\.tmp-astro-check.log:643:[7m   [0m [91m~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:644:[96msrc/pages/index.astro[0m:[93m471[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'color'.
+  E:\repos\portfolio\.tmp-astro-check.log:645:
+  E:\repos\portfolio\.tmp-astro-check.log:646:[7m471[0m color: var(--text-soft);
+  E:\repos\portfolio\.tmp-astro-check.log:647:[7m   [0m [91m~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:648:[96msrc/pages/index.astro[0m:[93m463[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'margin'.
+  E:\repos\portfolio\.tmp-astro-check.log:649:
+  E:\repos\portfolio\.tmp-astro-check.log:650:[7m463[0m margin: 0.15rem 0 0;
+  E:\repos\portfolio\.tmp-astro-check.log:651:[7m   [0m [91m~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:652:[96msrc/pages/index.astro[0m:[93m455[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+  E:\repos\portfolio\.tmp-astro-check.log:653:
+  E:\repos\portfolio\.tmp-astro-check.log:654:[7m455[0m display: flex;
+  E:\repos\portfolio\.tmp-astro-check.log:655:[7m   [0m [91m~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:656:[96msrc/pages/index.astro[0m:[93m449[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+  E:\repos\portfolio\.tmp-astro-check.log:657:
+  E:\repos\portfolio\.tmp-astro-check.log:658:[7m449[0m display: grid;
+  E:\repos\portfolio\.tmp-astro-check.log:659:[7m   [0m [91m~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:660:[96msrc/pages/index.astro[0m:[93m445[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'color'.
+  E:\repos\portfolio\.tmp-astro-check.log:661:
+  E:\repos\portfolio\.tmp-astro-check.log:662:[7m445[0m color: var(--accent-2);
+  E:\repos\portfolio\.tmp-astro-check.log:663:[7m   [0m [91m~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:664:[96msrc/pages/index.astro[0m:[93m439[0m:[93m7[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'size'.
+  E:\repos\portfolio\.tmp-astro-check.log:665:
+  E:\repos\portfolio\.tmp-astro-check.log:666:[7m439[0m  font-size: 0.68rem;
+  E:\repos\portfolio\.tmp-astro-check.log:667:[7m   [0m [91m      ~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:668:[96msrc/pages/index.astro[0m:[93m439[0m:[93m2[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'font'.
+  E:\repos\portfolio\.tmp-astro-check.log:669:
+  E:\repos\portfolio\.tmp-astro-check.log:670:[7m439[0m  font-size: 0.68rem;
+  E:\repos\portfolio\.tmp-astro-check.log:671:[7m   [0m [91m ~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:672:[96msrc/pages/index.astro[0m:[93m431[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'position'.
+  E:\repos\portfolio\.tmp-astro-check.log:673:
+  E:\repos\portfolio\.tmp-astro-check.log:674:[7m431[0m position: relative;
+  E:\repos\portfolio\.tmp-astro-check.log:675:[7m   [0m [91m~~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:676:[96msrc/pages/index.astro[0m:[93m422[0m:[93m2[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'content'.
+  E:\repos\portfolio\.tmp-astro-check.log:677:
+  E:\repos\portfolio\.tmp-astro-check.log:678:[7m422[0m  content: '';
+  E:\repos\portfolio\.tmp-astro-check.log:679:[7m   [0m [91m ~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:680:[96msrc/pages/index.astro[0m:[93m409[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'content'.
+  E:\repos\portfolio\.tmp-astro-check.log:681:
+  E:\repos\portfolio\.tmp-astro-check.log:682:[7m409[0m content: '';
+  E:\repos\portfolio\.tmp-astro-check.log:683:[7m   [0m [91m~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:684:[96msrc/pages/index.astro[0m:[93m396[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+  E:\repos\portfolio\.tmp-astro-check.log:685:
+  E:\repos\portfolio\.tmp-astro-check.log:686:[7m396[0m display: grid;
+  E:\repos\portfolio\.tmp-astro-check.log:687:[7m   [0m [91m~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:688:[96msrc/pages/index.astro[0m:[93m381[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'left'.
+  E:\repos\portfolio\.tmp-astro-check.log:689:
+  E:\repos\portfolio\.tmp-astro-check.log:690:[7m381[0m left: 0;
+  E:\repos\portfolio\.tmp-astro-check.log:691:[7m   [0m [91m~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:692:[96msrc/pages/index.astro[0m:[93m374[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'left'.
+  E:\repos\portfolio\.tmp-astro-check.log:693:
+  E:\repos\portfolio\.tmp-astro-check.log:694:[7m374[0m left: 0;
+  E:\repos\portfolio\.tmp-astro-check.log:695:[7m   [0m [91m~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:696:[96msrc/pages/index.astro[0m:[93m367[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'position'.
+  E:\repos\portfolio\.tmp-astro-check.log:697:
+  E:\repos\portfolio\.tmp-astro-check.log:698:[7m367[0m position: absolute;
+  E:\repos\portfolio\.tmp-astro-check.log:699:[7m   [0m [91m~~~~~~~~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:700:[96msrc/pages/index.astro[0m:[93m598[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:701:
+  E:\repos\portfolio\.tmp-astro-check.log:702:[7m598[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:703:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:704:[96msrc/pages/index.astro[0m:[93m597[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:705:
+  E:\repos\portfolio\.tmp-astro-check.log:706:[7m597[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:707:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:708:[96msrc/pages/index.astro[0m:[93m595[0m:[93m10[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:709:
+  E:\repos\portfolio\.tmp-astro-check.log:710:[7m595[0m font-size: clamp(1.4rem, 6vw, 2rem);
+  E:\repos\portfolio\.tmp-astro-check.log:711:[7m   [0m [91m         ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:712:[96msrc/pages/index.astro[0m:[93m592[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:713:
+  E:\repos\portfolio\.tmp-astro-check.log:714:[7m592[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:715:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:716:[96msrc/pages/index.astro[0m:[93m591[0m:[93m22[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:717:
+  E:\repos\portfolio\.tmp-astro-check.log:718:[7m591[0m grid-template-columns: 1fr;
+  E:\repos\portfolio\.tmp-astro-check.log:719:[7m   [0m [91m                     ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:720:[96msrc/pages/index.astro[0m:[93m588[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:721:
+  E:\repos\portfolio\.tmp-astro-check.log:722:[7m588[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:723:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:724:[96msrc/pages/index.astro[0m:[93m587[0m:[93m12[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:725:
+  E:\repos\portfolio\.tmp-astro-check.log:726:[7m587[0m margin-left: 0;
+  E:\repos\portfolio\.tmp-astro-check.log:727:[7m   [0m [91m           ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:728:[96msrc/pages/index.astro[0m:[93m584[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:729:
+  E:\repos\portfolio\.tmp-astro-check.log:730:[7m584[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:731:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:732:[96msrc/pages/index.astro[0m:[93m580[0m:[93m6[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:733:
+  E:\repos\portfolio\.tmp-astro-check.log:734:[7m580[0m width: 2.8rem;
+  E:\repos\portfolio\.tmp-astro-check.log:735:[7m   [0m [91m     ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:736:[96msrc/pages/index.astro[0m:[93m577[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:737:
+  E:\repos\portfolio\.tmp-astro-check.log:738:[7m577[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:739:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:740:[96msrc/pages/index.astro[0m:[93m574[0m:[93m15[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:741:
+  E:\repos\portfolio\.tmp-astro-check.log:742:[7m574[0m grid-auto-flow: column;
+  E:\repos\portfolio\.tmp-astro-check.log:743:[7m   [0m [91m              ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:744:[96msrc/pages/index.astro[0m:[93m571[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:745:
+  E:\repos\portfolio\.tmp-astro-check.log:746:[7m571[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:747:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:748:[96msrc/pages/index.astro[0m:[93m569[0m:[93m22[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:749:
+  E:\repos\portfolio\.tmp-astro-check.log:750:[7m569[0m grid-template-columns: 1fr;
+  E:\repos\portfolio\.tmp-astro-check.log:751:[7m   [0m [91m                     ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:752:[96msrc/pages/index.astro[0m:[93m566[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:753:
+  E:\repos\portfolio\.tmp-astro-check.log:754:[7m566[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:755:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:756:[96msrc/pages/index.astro[0m:[93m565[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:757:
+  E:\repos\portfolio\.tmp-astro-check.log:758:[7m565[0m display: none;
+  E:\repos\portfolio\.tmp-astro-check.log:759:[7m   [0m [91m       ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:760:[96msrc/pages/index.astro[0m:[93m561[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:761:
+  E:\repos\portfolio\.tmp-astro-check.log:762:[7m561[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:763:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:764:[96msrc/pages/index.astro[0m:[93m560[0m:[93m13[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:765:
+  E:\repos\portfolio\.tmp-astro-check.log:766:[7m560[0m padding-left: 0;
+  E:\repos\portfolio\.tmp-astro-check.log:767:[7m   [0m [91m            ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:768:[96msrc/pages/index.astro[0m:[93m557[0m:[93m2[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:769:
+  E:\repos\portfolio\.tmp-astro-check.log:770:[7m557[0m  }
+  E:\repos\portfolio\.tmp-astro-check.log:771:[7m   [0m [91m ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:772:[96msrc/pages/index.astro[0m:[93m556[0m:[93m10[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:773:
+  E:\repos\portfolio\.tmp-astro-check.log:774:[7m556[0m   display: none;
+  E:\repos\portfolio\.tmp-astro-check.log:775:[7m   [0m [91m         ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:776:[96msrc/pages/index.astro[0m:[93m553[0m:[93m2[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:777:
+  E:\repos\portfolio\.tmp-astro-check.log:778:[7m553[0m  }
+  E:\repos\portfolio\.tmp-astro-check.log:779:[7m   [0m [91m ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:780:[96msrc/pages/index.astro[0m:[93m550[0m:[93m24[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:781:
+  E:\repos\portfolio\.tmp-astro-check.log:782:[7m550[0m   grid-template-columns: 1fr;
+  E:\repos\portfolio\.tmp-astro-check.log:783:[7m   [0m [91m                       ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:784:[96msrc/pages/index.astro[0m:[93m549[0m:[93m13[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:785:
+  E:\repos\portfolio\.tmp-astro-check.log:786:[7m549[0m  .home-hero {
+  E:\repos\portfolio\.tmp-astro-check.log:787:[7m   [0m [91m            ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:788:[96msrc/pages/index.astro[0m:[93m549[0m:[93m2[0m - [91merror[0m[90m ts(1109): [0mExpression expected.
+  E:\repos\portfolio\.tmp-astro-check.log:789:
+  E:\repos\portfolio\.tmp-astro-check.log:790:[7m549[0m  .home-hero {
+  E:\repos\portfolio\.tmp-astro-check.log:791:[7m   [0m [91m ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:792:[96msrc/pages/index.astro[0m:[93m546[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:793:
+  E:\repos\portfolio\.tmp-astro-check.log:794:[7m546[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:795:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:796:[96msrc/pages/index.astro[0m:[93m545[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:797:
+  E:\repos\portfolio\.tmp-astro-check.log:798:[7m545[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:799:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:800:[96msrc/pages/index.astro[0m:[93m544[0m:[93m16[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:801:
+  E:\repos\portfolio\.tmp-astro-check.log:802:[7m544[0m object-position: 50% 44%;
+  E:\repos\portfolio\.tmp-astro-check.log:803:[7m   [0m [91m               ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:804:[96msrc/pages/index.astro[0m:[93m541[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:805:
+  E:\repos\portfolio\.tmp-astro-check.log:806:[7m541[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:807:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:808:[96msrc/pages/index.astro[0m:[93m540[0m:[93m16[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:809:
+  E:\repos\portfolio\.tmp-astro-check.log:810:[7m540[0m object-position: 50% 46%;
+  E:\repos\portfolio\.tmp-astro-check.log:811:[7m   [0m [91m               ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:812:[96msrc/pages/index.astro[0m:[93m537[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:813:
+  E:\repos\portfolio\.tmp-astro-check.log:814:[7m537[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:815:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:816:[96msrc/pages/index.astro[0m:[93m536[0m:[93m7[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:817:
+  E:\repos\portfolio\.tmp-astro-check.log:818:[7m536[0m  inset: var(--hero-frame-gap);
+  E:\repos\portfolio\.tmp-astro-check.log:819:[7m   [0m [91m      ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:820:[96msrc/pages/index.astro[0m:[93m533[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:821:
+  E:\repos\portfolio\.tmp-astro-check.log:822:[7m533[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:823:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:824:[96msrc/pages/index.astro[0m:[93m528[0m:[93m7[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:825:
+  E:\repos\portfolio\.tmp-astro-check.log:826:[7m528[0m  width: 100%;
+  E:\repos\portfolio\.tmp-astro-check.log:827:[7m   [0m [91m      ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:828:[96msrc/pages/index.astro[0m:[93m527[0m:[93m19[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:829:
+  E:\repos\portfolio\.tmp-astro-check.log:830:[7m527[0m .home-hero__image {
+  E:\repos\portfolio\.tmp-astro-check.log:831:[7m   [0m [91m                  ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:832:[96msrc/pages/index.astro[0m:[93m527[0m:[93m1[0m - [91merror[0m[90m ts(1109): [0mExpression expected.
+  E:\repos\portfolio\.tmp-astro-check.log:833:
+  E:\repos\portfolio\.tmp-astro-check.log:834:[7m527[0m .home-hero__image {
+  E:\repos\portfolio\.tmp-astro-check.log:835:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:836:[96msrc/pages/index.astro[0m:[93m524[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:837:
+  E:\repos\portfolio\.tmp-astro-check.log:838:[7m524[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:839:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:840:[96msrc/pages/index.astro[0m:[93m521[0m:[93m13[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:841:
+  E:\repos\portfolio\.tmp-astro-check.log:842:[7m521[0m border-color: var(--accent);
+  E:\repos\portfolio\.tmp-astro-check.log:843:[7m   [0m [91m            ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:844:[96msrc/pages/index.astro[0m:[93m517[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:845:
+  E:\repos\portfolio\.tmp-astro-check.log:846:[7m517[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:847:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:848:[96msrc/pages/index.astro[0m:[93m505[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:849:
+  E:\repos\portfolio\.tmp-astro-check.log:850:[7m505[0m display: inline-flex;
+  E:\repos\portfolio\.tmp-astro-check.log:851:[7m   [0m [91m       ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:852:[96msrc/pages/index.astro[0m:[93m502[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:853:
+  E:\repos\portfolio\.tmp-astro-check.log:854:[7m502[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:855:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:856:[96msrc/pages/index.astro[0m:[93m498[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:857:
+  E:\repos\portfolio\.tmp-astro-check.log:858:[7m498[0m display: grid;
+  E:\repos\portfolio\.tmp-astro-check.log:859:[7m   [0m [91m       ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:860:[96msrc/pages/index.astro[0m:[93m495[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:861:
+  E:\repos\portfolio\.tmp-astro-check.log:862:[7m495[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:863:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:864:[96msrc/pages/index.astro[0m:[93m492[0m:[93m7[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:865:
+  E:\repos\portfolio\.tmp-astro-check.log:866:[7m492[0m margin: 0;
+  E:\repos\portfolio\.tmp-astro-check.log:867:[7m   [0m [91m      ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:868:[96msrc/pages/index.astro[0m:[93m488[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:869:
+  E:\repos\portfolio\.tmp-astro-check.log:870:[7m488[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:871:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:872:[96msrc/pages/index.astro[0m:[93m479[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:873:
+  E:\repos\portfolio\.tmp-astro-check.log:874:[7m479[0m display: inline-flex;
+  E:\repos\portfolio\.tmp-astro-check.log:875:[7m   [0m [91m       ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:876:[96msrc/pages/index.astro[0m:[93m476[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:877:
+  E:\repos\portfolio\.tmp-astro-check.log:878:[7m476[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:879:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:880:[96msrc/pages/index.astro[0m:[93m475[0m:[93m7[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:881:
+  E:\repos\portfolio\.tmp-astro-check.log:882:[7m475[0m margin: 0.4rem 0 0;
+  E:\repos\portfolio\.tmp-astro-check.log:883:[7m   [0m [91m      ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:884:[96msrc/pages/index.astro[0m:[93m472[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:885:
+  E:\repos\portfolio\.tmp-astro-check.log:886:[7m472[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:887:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:888:[96msrc/pages/index.astro[0m:[93m471[0m:[93m6[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:889:
+  E:\repos\portfolio\.tmp-astro-check.log:890:[7m471[0m color: var(--text-soft);
+  E:\repos\portfolio\.tmp-astro-check.log:891:[7m   [0m [91m     ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:892:[96msrc/pages/index.astro[0m:[93m466[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:893:
+  E:\repos\portfolio\.tmp-astro-check.log:894:[7m466[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:895:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:896:[96msrc/pages/index.astro[0m:[93m463[0m:[93m7[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:897:
+  E:\repos\portfolio\.tmp-astro-check.log:898:[7m463[0m margin: 0.15rem 0 0;
+  E:\repos\portfolio\.tmp-astro-check.log:899:[7m   [0m [91m      ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:900:[96msrc/pages/index.astro[0m:[93m460[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:901:
+  E:\repos\portfolio\.tmp-astro-check.log:902:[7m460[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:903:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:904:[96msrc/pages/index.astro[0m:[93m455[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:905:
+  E:\repos\portfolio\.tmp-astro-check.log:906:[7m455[0m display: flex;
+  E:\repos\portfolio\.tmp-astro-check.log:907:[7m   [0m [91m       ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:908:[96msrc/pages/index.astro[0m:[93m452[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:909:
+  E:\repos\portfolio\.tmp-astro-check.log:910:[7m452[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:911:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:912:[96msrc/pages/index.astro[0m:[93m449[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:913:
+  E:\repos\portfolio\.tmp-astro-check.log:914:[7m449[0m display: grid;
+  E:\repos\portfolio\.tmp-astro-check.log:915:[7m   [0m [91m       ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:916:[96msrc/pages/index.astro[0m:[93m446[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:917:
+  E:\repos\portfolio\.tmp-astro-check.log:918:[7m446[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:919:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:920:[96msrc/pages/index.astro[0m:[93m445[0m:[93m6[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:921:
+  E:\repos\portfolio\.tmp-astro-check.log:922:[7m445[0m color: var(--accent-2);
+  E:\repos\portfolio\.tmp-astro-check.log:923:[7m   [0m [91m     ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:924:[96msrc/pages/index.astro[0m:[93m442[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:925:
+  E:\repos\portfolio\.tmp-astro-check.log:926:[7m442[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:927:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:928:[96msrc/pages/index.astro[0m:[93m439[0m:[93m11[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:929:
+  E:\repos\portfolio\.tmp-astro-check.log:930:[7m439[0m  font-size: 0.68rem;
+  E:\repos\portfolio\.tmp-astro-check.log:931:[7m   [0m [91m          ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:932:[96msrc/pages/index.astro[0m:[93m433[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:933:
+  E:\repos\portfolio\.tmp-astro-check.log:934:[7m433[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:935:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:936:[96msrc/pages/index.astro[0m:[93m431[0m:[93m9[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:937:
+  E:\repos\portfolio\.tmp-astro-check.log:938:[7m431[0m position: relative;
+  E:\repos\portfolio\.tmp-astro-check.log:939:[7m   [0m [91m        ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:940:[96msrc/pages/index.astro[0m:[93m428[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:941:
+  E:\repos\portfolio\.tmp-astro-check.log:942:[7m428[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:943:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:944:[96msrc/pages/index.astro[0m:[93m422[0m:[93m9[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:945:
+  E:\repos\portfolio\.tmp-astro-check.log:946:[7m422[0m  content: '';
+  E:\repos\portfolio\.tmp-astro-check.log:947:[7m   [0m [91m        ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:948:[96msrc/pages/index.astro[0m:[93m419[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:949:
+  E:\repos\portfolio\.tmp-astro-check.log:950:[7m419[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:951:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:952:[96msrc/pages/index.astro[0m:[93m409[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:953:
+  E:\repos\portfolio\.tmp-astro-check.log:954:[7m409[0m content: '';
+  E:\repos\portfolio\.tmp-astro-check.log:955:[7m   [0m [91m       ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:956:[96msrc/pages/index.astro[0m:[93m406[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:957:
+  E:\repos\portfolio\.tmp-astro-check.log:958:[7m406[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:959:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:960:[96msrc/pages/index.astro[0m:[93m396[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:961:
+  E:\repos\portfolio\.tmp-astro-check.log:962:[7m396[0m display: grid;
+  E:\repos\portfolio\.tmp-astro-check.log:963:[7m   [0m [91m       ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:964:[96msrc/pages/index.astro[0m:[93m393[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:965:
+  E:\repos\portfolio\.tmp-astro-check.log:966:[7m393[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:967:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:968:[96msrc/pages/index.astro[0m:[93m392[0m:[93m4[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:969:
+  E:\repos\portfolio\.tmp-astro-check.log:970:[7m392[0m top: calc(50% + 2rem);
+  E:\repos\portfolio\.tmp-astro-check.log:971:[7m   [0m [91m   ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:972:[96msrc/pages/index.astro[0m:[93m389[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:973:
+  E:\repos\portfolio\.tmp-astro-check.log:974:[7m389[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:975:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:976:[96msrc/pages/index.astro[0m:[93m388[0m:[93m4[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:977:
+  E:\repos\portfolio\.tmp-astro-check.log:978:[7m388[0m top: 4.4rem;
+  E:\repos\portfolio\.tmp-astro-check.log:979:[7m   [0m [91m   ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:980:[96msrc/pages/index.astro[0m:[93m385[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:981:
+  E:\repos\portfolio\.tmp-astro-check.log:982:[7m385[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:983:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:984:[96msrc/pages/index.astro[0m:[93m381[0m:[93m5[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:985:
+  E:\repos\portfolio\.tmp-astro-check.log:986:[7m381[0m left: 0;
+  E:\repos\portfolio\.tmp-astro-check.log:987:[7m   [0m [91m    ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:988:[96msrc/pages/index.astro[0m:[93m378[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:989:
+  E:\repos\portfolio\.tmp-astro-check.log:990:[7m378[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:991:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:992:[96msrc/pages/index.astro[0m:[93m374[0m:[93m5[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:993:
+  E:\repos\portfolio\.tmp-astro-check.log:994:[7m374[0m left: 0;
+  E:\repos\portfolio\.tmp-astro-check.log:995:[7m   [0m [91m    ~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:996:[96msrc/pages/index.astro[0m:[93m371[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  E:\repos\portfolio\.tmp-astro-check.log:997:
+  E:\repos\portfolio\.tmp-astro-check.log:998:[7m371[0m }
+  E:\repos\portfolio\.tmp-astro-check.log:999:[7m   [0m [91m~[0m
+> E:\repos\portfolio\.tmp-astro-check.log:1000:[96msrc/pages/index.astro[0m:[93m367[0m:[93m9[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+  E:\repos\portfolio\.tmp-astro-check.log:1001:
+  E:\repos\portfolio\.tmp-astro-check.log:1002:[7m367[0m position: absolute;

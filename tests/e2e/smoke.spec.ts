@@ -3,99 +3,98 @@ import { expect, test } from '@playwright/test';
 import { primaryRoutes } from './fixtures/routes';
 
 test.describe('site shell', () => {
-	test('home featured-content cards point to the expected detail routes', async ({ page }) => {
+	test('home featured project points to the expected project detail route', async ({ page }) => {
 		await page.goto('/');
 
-		const featuredSection = page.locator('section.recent-posts');
-		const featuredBlogCard = featuredSection.locator('.brutalist-card').filter({
-			has: page.getByRole('heading', {
-				level: 3,
-				name: 'How to stay technically current after 25 years',
-			}),
-		});
-		const featuredToolCard = featuredSection.locator('.brutalist-card').filter({
-			has: page.getByRole('heading', {
-				level: 3,
-				name: 'UUID / ULID generator',
-			}),
-		});
+		const featuredProjectLink = page.locator('a[href="/projects/uuid-ulid-generator"]').first();
 
-		await expect(featuredBlogCard).toContainText('How to stay technically current after 25 years');
-		await expect(featuredToolCard).toContainText('UUID / ULID generator');
+		await expect(page.getByText('UUID / ULID Generator', { exact: true }).first()).toBeVisible();
+		await expect(featuredProjectLink).toBeVisible();
 
-		await featuredBlogCard
-			.getByRole('link', { name: 'Open featured blog post How to stay technically current after 25 years' })
-			.click();
-		await expect(page).toHaveURL(/\/blog\/how-to-stay-technically-current-after-25-years\/?$/);
-		await expect(
-			page.getByRole('heading', { level: 1, name: 'How to stay technically current after 25 years' }),
-		).toBeVisible();
+		await featuredProjectLink.click();
 
-		await page.goto('/');
-
-		await featuredToolCard.getByRole('link', { name: 'Open featured tool UUID / ULID generator' }).click();
-		await expect(page).toHaveURL(/\/tools\/uuid-ulid-generator\/?$/);
-		await expect(page.getByRole('heading', { level: 1, name: 'UUID / ULID generator' })).toBeVisible();
+		await expect(page).toHaveURL(/\/projects\/uuid-ulid-generator\/?$/);
+		await expect(page.getByRole('heading', { level: 1, name: 'UUID / ULID Generator' })).toBeVisible();
 	});
 
-	test('published tools open on generated detail routes', async ({ page }) => {
-		await page.goto('/tools');
+	test('projects index opens the launch project on its generated detail route', async ({ page }) => {
+		await page.goto('/projects');
 
-		await page.getByRole('link', { name: 'Open UUID / ULID generator' }).click();
+		await expect(page.getByRole('heading', { level: 1, name: 'Projects' })).toBeVisible();
 
-		await expect(page).toHaveURL(/\/tools\/uuid-ulid-generator\/?$/);
-		await expect(page.getByRole('heading', { level: 1, name: 'UUID / ULID generator' })).toBeVisible();
-		await expect(page.locator('.tool-post-meta')).toContainText('Published Mar 17, 2026');
-		await expect(page.locator('.tool-framework-badge')).toContainText('React island');
-		await expect(page.locator('.tool-tag-list')).toContainText('UUID');
-		await expect(page.locator('.tool-post-body')).toContainText(
+		await page.locator('a[href="/projects/uuid-ulid-generator"]').first().click();
+
+		await expect(page).toHaveURL(/\/projects\/uuid-ulid-generator\/?$/);
+		await expect(page.getByRole('heading', { level: 1, name: 'UUID / ULID Generator' })).toBeVisible();
+		await expect(page.getByText('Generate UUID v4 or ULID values in the browser', { exact: false })).toBeVisible();
+		await expect(page.getByText(
 			'A focused developer utility for generating identifiers client-side without external services.',
-		);
-		await expect(page.getByRole('region', { name: 'Interactive tool area' })).toContainText(
-			'This reserved panel will host the live browser-based tool UI when the interactive surface is implemented.',
-		);
+		)).toBeVisible();
+		await expect(page.getByText('Interactive page', { exact: true })).toHaveCount(0);
+		await expect(page.getByText('Interactive project', { exact: true })).toHaveCount(0);
+		await expect(page.locator('[aria-label="Interactive project module"]')).toHaveCount(0);
 	});
 
-	test('published blog posts open on generated article routes', async ({ page }) => {
+	test('blog index shows the launch empty state when no posts are published', async ({ page }) => {
 		await page.goto('/blog');
 
-		await page.getByRole('link', { name: 'Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure' }).click();
+		await expect(page.getByRole('heading', { level: 1, name: 'Blog' })).toBeVisible();
+		await expect(page.locator('[data-post-card]')).toHaveCount(0);
+		await expect(page.locator('[data-empty-state]')).toBeVisible();
+		await expect(page.locator('[data-empty-state]')).toContainText(/No published posts yet\./i);
+		await expect(page.locator('a[href^="/blog/"]')).toHaveCount(0);
+	});
 
-		await expect(page).toHaveURL(/\/blog\/vertical-slice-architecture-in-dotnet\/?$/);
+	test('about page reads from canonical CV content instead of the retired graph view model', async ({ page }) => {
+		await page.goto('/about');
+		const profileLinks = page.locator('.about-profile-links');
+		const githubLink = profileLinks.getByRole('link', { name: /GitHub/i });
+		const linkedInLink = profileLinks.getByRole('link', { name: /LinkedIn/i });
+
+		await expect(page.getByRole('heading', { level: 1, name: 'About' })).toBeVisible();
 		await expect(
-			page.getByRole('heading', {
-				level: 1,
-				name: 'Vertical Slice Architecture in .NET: Why I stopped fighting the folder structure',
-			}),
+			page.getByText(
+				'Senior full-stack developer, software architect, and technical lead with 25 years of experience building software, leading delivery, and documenting continuous learning.',
+				{ exact: true },
+			),
 		).toBeVisible();
-		await expect(page.locator('.blog-post-meta')).toContainText('Mar 17, 2026');
-		await expect(page.locator('.blog-post-meta')).toContainText('6 min read');
-		await expect(page.locator('.blog-post-body')).toContainText(
-			'Feature-first structure becomes easier to defend once the codebase is large enough',
+		const roleLabels = page.locator('ul[aria-label="Profile role labels"] li');
+		await expect(roleLabels).toHaveCount(3);
+		await expect(roleLabels.nth(0)).toHaveText('Full-Stack Developer');
+		await expect(roleLabels.nth(1)).toHaveText('Software Architect');
+		await expect(roleLabels.nth(2)).toHaveText('Technical Lead');
+		await expect(page.locator('.experience-item__meta').first()).toHaveText(
+			'TEST, Tecnologia de sistemas, S.L.U. · USA',
 		);
-		await expect(page.locator('.blog-post-tags')).toContainText('.NET');
-		const authorBlock = page.locator('.blog-author-block');
-		await expect(authorBlock).toContainText('Iskander Sierra');
-		await expect(authorBlock.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
+		await expect(
+			page.getByText('Freelance Software Analyst, Architect and Developer', { exact: true }).first(),
+		).toBeVisible();
+		await expect(page.getByText('Computer Science Degree', { exact: true })).toBeVisible();
+		await expect(githubLink).toHaveAttribute(
 			'href',
 			'https://github.com/iskandersierra',
 		);
-		await expect(authorBlock.getByRole('link', { name: 'LinkedIn' })).toHaveAttribute(
+		await expect(linkedInLink).toHaveAttribute(
 			'href',
 			'https://www.linkedin.com/in/iskandersierra/',
 		);
+		await expect(page.getByRole('link', { name: /CV/i })).toHaveCount(0);
+		await expect(page.getByText('How the profile evolved', { exact: true })).toHaveCount(0);
+		await expect(page.getByText('Grounding layers', { exact: true })).toHaveCount(0);
 	});
 
 	test('primary navigation reaches each top-level page', async ({ page }) => {
 		await page.goto('/');
+		const header = page.locator('header');
 
 		for (const route of primaryRoutes) {
 			const expectedPathPattern = route.path === '/' ? '/$' : `${route.path}/?$`;
-			await page.getByRole('link', { name: route.navLabel }).first().click();
+			const activeHeaderLink = header.getByRole('link', { name: route.navLabel, exact: true }).first();
+
+			await activeHeaderLink.click();
 			await expect(page).toHaveURL(new RegExp(expectedPathPattern));
 			await expect(page.getByRole('heading', { level: 1, name: route.heading })).toBeVisible();
-			await expect(page.locator('header .nav-link.active')).toHaveText(route.navLabel);
-			await expect(page.locator('header .nav-link.active')).toHaveAttribute('aria-current', 'page');
+			await expect(activeHeaderLink).toHaveAttribute('aria-current', 'page');
 		}
 	});
 
@@ -201,7 +200,7 @@ test.describe('site shell', () => {
 			expect(Math.abs(brandCenterY - navCenterY)).toBeLessThanOrEqual(8);
 			expect(Math.abs(actionsCenterY - navCenterY)).toBeLessThanOrEqual(8);
 			expect(topBox.height).toBeLessThanOrEqual(tallestChild + 12);
-			expect(headerBox.height).toBeLessThan(120);
+			expect(headerBox.height).toBeLessThan(132);
 			expect(brandBox.x + brandBox.width).toBeLessThan(navBox.x);
 			expect(navBox.x + navBox.width).toBeLessThan(actionsBox.x);
 		}
@@ -213,14 +212,18 @@ test.describe('site shell', () => {
 
 			const footer = page.locator('footer');
 			await expect(footer).toBeVisible();
+			await expect(footer.getByRole('navigation', { name: 'Quick links' })).toBeVisible();
+			await expect(footer.getByRole('navigation', { name: 'Social links' })).toBeVisible();
 
 			for (const quickLink of primaryRoutes) {
 				const footerLink = footer.getByRole('link', { name: quickLink.navLabel }).first();
 				await expect(footerLink).toBeVisible();
 			}
 
-			await expect(footer.locator('.footer-link.active')).toHaveText(route.navLabel);
-			await expect(footer.locator('.footer-link.active')).toHaveAttribute('aria-current', 'page');
+			await expect(footer.getByRole('link', { name: route.navLabel, exact: true }).first()).toHaveAttribute(
+				'aria-current',
+				'page',
+			);
 			await expect(footer.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
 				'href',
 				'https://github.com/iskandersierra',
@@ -351,7 +354,9 @@ test.describe('site shell', () => {
 		await page.emulateMedia({ reducedMotion: 'reduce' });
 		await page.goto('/');
 
-		const heroNoLongAnimations = await page.locator('.hero').evaluate((element) => {
+		const homeHero = page.locator('.home-hero');
+
+		const heroNoLongAnimations = await homeHero.evaluate((element) => {
 			return element.getAnimations().every((a) => {
 				const duration = a.effect?.getTiming().duration ?? 0;
 				return typeof duration === 'number' && duration <= 1;
@@ -359,7 +364,7 @@ test.describe('site shell', () => {
 		});
 
 		expect(heroNoLongAnimations).toBe(true);
-		await expect(page.locator('.hero')).toHaveCSS('opacity', '1');
+		await expect(homeHero).toHaveCSS('opacity', '1');
 	});
 
 	test('reduced motion disables theme color transitions', async ({ page }) => {
@@ -397,20 +402,20 @@ test.describe('site shell', () => {
 		expect(after.body).toBe(0);
 	});
 
-	test('reduced motion disables cursor blink and hover lift transforms', async ({ page }) => {
+	test('reduced motion disables hover lift transforms on project cards', async ({ page }) => {
 		await page.emulateMedia({ reducedMotion: 'reduce' });
-		await page.goto('/');
+		await page.goto('/projects');
 
-		const cursorHasLongAnimations = await page.locator('.cursor').evaluate((element) =>
+		const firstCard = page.locator('.project-card.motion-hover-lift').first();
+		await expect(firstCard).toBeVisible();
+
+		const cardHasLongAnimations = await firstCard.evaluate((element) =>
 			element.getAnimations().some((a) => {
 				const duration = a.effect?.getTiming().duration ?? 0;
 				return typeof duration === 'number' && duration > 1;
 			}),
 		);
-		expect(cursorHasLongAnimations).toBe(false);
-
-		const firstCard = page.locator('.brutalist-card').first();
-		await expect(firstCard).toBeVisible();
+		expect(cardHasLongAnimations).toBe(false);
 
 		const transformBefore = await firstCard.evaluate((el) => getComputedStyle(el).transform);
 		await firstCard.hover();

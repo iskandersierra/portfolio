@@ -1,7 +1,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type BlogEntry = CollectionEntry<'blog'>;
-export type ToolEntry = CollectionEntry<'tools'>;
+export type ProjectEntry = CollectionEntry<'projects'>;
 
 const descendingDateOrder = (left: Date, right: Date) => right.getTime() - left.getTime();
 const caseInsensitiveSortOrder = (left: string, right: string) =>
@@ -12,7 +12,7 @@ const isPublished = <T extends { data: { draft: boolean } }>(entry: T) => !entry
 export const sortBlogEntries = (entries: BlogEntry[]) =>
 	[...entries].sort((left, right) => descendingDateOrder(left.data.date, right.data.date));
 
-export const sortToolEntries = (entries: ToolEntry[]) =>
+export const sortProjectEntries = (entries: ProjectEntry[]) =>
 	[...entries].sort((left, right) => descendingDateOrder(left.data.publishedAt, right.data.publishedAt));
 
 export const filterBlogPostsByTag = (entries: BlogEntry[], tag?: string | null) => {
@@ -46,12 +46,12 @@ export const getAllBlogTags = (entries: BlogEntry[]) => {
 
 export const getBlogPostHref = (slug: string) => `/blog/${slug}`;
 
-export const getToolHref = (slug: string) => `/tools/${slug}`;
+export const getProjectHref = (slug: string) => `/projects/${slug}`;
 
 export const getBlogTagHref = (tag?: string | null) =>
 	tag ? `/blog?tag=${encodeURIComponent(tag)}` : '/blog';
 
-export const getAdjacentBlogPosts = (entries: BlogEntry[], slug: string) => {
+const getAdjacentEntries = <T extends { id: string }>(entries: T[], slug: string) => {
 	const currentIndex = entries.findIndex((entry) => entry.id === slug);
 
 	if (currentIndex === -1) {
@@ -67,9 +67,23 @@ export const getAdjacentBlogPosts = (entries: BlogEntry[], slug: string) => {
 	};
 };
 
-export const getFeaturedBlogPostFromEntries = (entries: BlogEntry[]) => entries[0];
+export const getAdjacentBlogPosts = (entries: BlogEntry[], slug: string) =>
+	getAdjacentEntries(entries, slug);
 
-export const getFeaturedToolFromEntries = (entries: ToolEntry[]) => entries[0];
+export const getAdjacentProjects = (entries: ProjectEntry[], slug: string) =>
+	getAdjacentEntries(entries, slug);
+
+export const getFeaturedBlogPostsFromEntries = (entries: BlogEntry[], limit = 3) =>
+	sortBlogEntries(entries.filter((entry) => entry.data.featured)).slice(0, limit);
+
+export const getFeaturedBlogPostFromEntries = (entries: BlogEntry[]) =>
+	getFeaturedBlogPostsFromEntries(entries, 1)[0];
+
+export const getFeaturedProjectsFromEntries = (entries: ProjectEntry[], limit = 3) =>
+	sortProjectEntries(entries.filter((entry) => entry.data.featured)).slice(0, limit);
+
+export const getFeaturedProjectFromEntries = (entries: ProjectEntry[]) =>
+	getFeaturedProjectsFromEntries(entries, 1)[0];
 
 export const formatContentDate = (date: Date) =>
 	new Intl.DateTimeFormat('en', {
@@ -85,12 +99,18 @@ export const getPublishedBlogPosts = async () => {
 	return sortBlogEntries(entries.filter(isPublished));
 };
 
-export const getPublishedTools = async () => {
-	const entries = await getCollection('tools');
+export const getPublishedProjects = async () => {
+	const entries = await getCollection('projects');
 
-	return sortToolEntries(entries.filter(isPublished));
+	return sortProjectEntries(entries.filter(isPublished));
 };
+
+export const getFeaturedBlogPosts = async (limit = 3) =>
+	getFeaturedBlogPostsFromEntries(await getPublishedBlogPosts(), limit);
 
 export const getFeaturedBlogPost = async () => getFeaturedBlogPostFromEntries(await getPublishedBlogPosts());
 
-export const getFeaturedTool = async () => getFeaturedToolFromEntries(await getPublishedTools());
+export const getFeaturedProjects = async (limit = 3) =>
+	getFeaturedProjectsFromEntries(await getPublishedProjects(), limit);
+
+export const getFeaturedProject = async () => getFeaturedProjectFromEntries(await getPublishedProjects());

@@ -132,11 +132,12 @@ const metadata = resolveSeoMetadata(
 		</script>
 	</head>
 	<body>
-		<div class="grain-overlay"></div>
-		<div class="terminal-window">
-			<Header />
-			<slot />
-			<Footer />
+		<div class="site-shell">
+			<div class="terminal-window">
+				<Header />
+				<slot />
+				<Footer />
+			</div>
 		</div>
 	</body>
 </html>

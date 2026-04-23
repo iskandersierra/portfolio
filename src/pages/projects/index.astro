@@ -1,0 +1,341 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { formatContentDate, getProjectHref, getPublishedProjects } from '../../utils/content';
+
+const projects = await getPublishedProjects();
+const uniqueTypes = new Set(projects.map((project) => project.data.type)).size;
+const uniqueTags = new Set(
+	projects.flatMap((project) => project.data.tags.map((tag) => tag.trim().toLocaleLowerCase())),
+).size;
+
+const projectTypeLabels = {
+	tool: 'Tool',
+	repo: 'Repository',
+	experiment: 'Experiment',
+} as const;
+
+const getProjectSummary = (project: (typeof projects)[number]) => project.data.description;
+---
+
+<Layout
+	seo={{
+		title: 'Projects',
+		description:
+			'Browse projects from Iskander Sierra, including tools, repositories, and experiments collected under a single projects surface.',
+		pageType: 'website',
+	}}
+>
+	<main class="container page-shell projects-surface">
+		<header class="projects-hero motion-enter motion-delay-1">
+			<div class="projects-hero__copy">
+				<p class="mono page-kicker">Projects</p>
+				<h1>Projects</h1>
+				<p class="page-intro">
+					A single surface for practical tools, repositories, and experiments. Each entry has its own
+					detail page, and projects that ship an interactive view can extend that route without needing a
+					separate section.
+				</p>
+			</div>
+			<dl class="projects-stats" aria-label="Projects summary">
+				<div>
+					<dt class="mono">projects</dt>
+					<dd>{projects.length}</dd>
+				</div>
+				<div>
+					<dt class="mono">types</dt>
+					<dd>{uniqueTypes}</dd>
+				</div>
+				<div>
+					<dt class="mono">tags</dt>
+					<dd>{uniqueTags}</dd>
+				</div>
+			</dl>
+		</header>
+
+		<section class="projects-list" aria-label="Published projects archive">
+			{projects.length > 0 ? (
+				projects.map((project, index) => (
+					<article class={`project-card motion-enter motion-hover-lift motion-delay-${index + 2}`}>
+						<div class="project-card__body">
+							<div class="project-card__head">
+								<div>
+									<p class="mono project-card__meta">
+										{formatContentDate(project.data.publishedAt)} / {projectTypeLabels[project.data.type]}
+										{project.data.status ? ` / ${project.data.status}` : ''}
+									</p>
+									<h2>
+										<a href={getProjectHref(project.id)}>{project.data.title}</a>
+									</h2>
+								</div>
+								<div class="project-card__actions">
+									{project.data.type === 'tool' && project.data.framework ? (
+										<span class="framework-badge mono">{project.data.framework}</span>
+									) : null}
+									{project.data.type === 'repo' && project.data.externalUrl ? (
+										<a
+											class="external-link"
+											href={project.data.externalUrl}
+											target="_blank"
+											rel="noreferrer"
+											aria-label={`Open external link for ${project.data.title}`}
+										>
+											<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+												<path d="M14 5h5v5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+												<path d="M10 14 19 5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+												<path d="M19 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+											</svg>
+										</a>
+									) : null}
+								</div>
+							</div>
+							<p>{getProjectSummary(project)}</p>
+							<ul class="tag-list" aria-label={`Tags for ${project.data.title}`}>
+								{project.data.tags.map((tag) => <li>{tag}</li>)}
+							</ul>
+						</div>
+						<a class="project-card__cta mono" href={getProjectHref(project.id)}>
+							Open project
+						</a>
+					</article>
+				))
+			) : (
+				<article class="empty-state" role="status" aria-live="polite">
+					<h2>No published projects yet</h2>
+					<p>
+						This route will fill with tools, repositories, and experiments as they are published.
+					</p>
+				</article>
+			)}
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.projects-surface {
+		padding-block: 2rem 4rem;
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.projects-hero,
+	.project-card,
+	.empty-state {
+		position: relative;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
+		background:
+			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
+		box-shadow: var(--panel-shadow-soft);
+		overflow: clip;
+	}
+
+	.projects-hero::before,
+	.project-card::before,
+	.empty-state::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background:
+			linear-gradient(var(--grid-line) 1px, transparent 1px),
+			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+		background-size: 3rem 3rem;
+		opacity: 0.35;
+		mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.62), transparent 86%);
+	}
+
+	.projects-hero,
+	.empty-state {
+		padding: clamp(1.1rem, 2.8vw, 1.7rem);
+	}
+
+	.projects-hero > *,
+	.project-card > *,
+	.empty-state > * {
+		position: relative;
+		z-index: 1;
+	}
+
+	.projects-hero {
+		display: grid;
+		grid-template-columns: minmax(0, 1.2fr) repeat(3, minmax(0, 0.34fr));
+		gap: 1rem;
+		align-items: start;
+	}
+
+	.page-kicker,
+	.project-card__meta,
+	.projects-stats dt {
+		margin: 0;
+		font-size: 0.72rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+
+	.page-kicker {
+		color: var(--accent-2);
+	}
+
+	.projects-hero h1,
+	.project-card h2,
+	.empty-state h2 {
+		margin: 0;
+	}
+
+	.projects-hero h1 {
+		font-size: clamp(2.4rem, 5vw, 4.4rem);
+		line-height: 0.96;
+		margin-top: 0.55rem;
+	}
+
+	.page-intro,
+	.project-card p,
+	.empty-state p {
+		margin: 0;
+		line-height: 1.72;
+		color: var(--text-muted);
+	}
+
+	.projects-stats {
+		display: contents;
+		margin: 0;
+	}
+
+	.projects-stats div {
+		padding: 1rem;
+		border: 1px solid var(--border);
+		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+	}
+
+	.projects-stats dt,
+	.project-card__meta {
+		color: var(--text-soft);
+	}
+
+	.projects-stats dd {
+		margin: 0.4rem 0 0;
+		font-size: 1.2rem;
+		font-weight: 700;
+		color: var(--text-main);
+	}
+
+	.projects-list {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.project-card {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		gap: 1rem;
+		padding: 1.1rem;
+	}
+
+	.project-card__body {
+		display: grid;
+		gap: 0.85rem;
+	}
+
+	.project-card__head,
+	.project-card__actions {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+
+	.project-card h2 a,
+	.project-card__cta,
+	.external-link {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.project-card h2 a:hover,
+	.project-card h2 a:focus-visible,
+	.project-card__cta:hover,
+	.project-card__cta:focus-visible,
+	.external-link:hover,
+	.external-link:focus-visible {
+		color: var(--accent);
+		text-decoration: none;
+	}
+
+	.framework-badge,
+	.project-card__cta,
+	.external-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.65rem 0.85rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
+		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+	}
+
+	.framework-badge,
+	.project-card__cta {
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.external-link {
+		width: 2.5rem;
+		height: 2.5rem;
+		padding: 0;
+	}
+
+	.external-link svg {
+		width: 1rem;
+		height: 1rem;
+	}
+
+	.tag-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.tag-list li {
+		padding: 0.25rem 0.6rem;
+		border: 1px solid var(--border);
+		background: color-mix(in srgb, var(--surface-soft) 74%, transparent);
+		color: var(--text-soft);
+		font-size: 0.9rem;
+	}
+
+	@media (max-width: 960px) {
+		.projects-hero {
+			grid-template-columns: 1fr;
+		}
+
+		.projects-stats {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 1rem;
+		}
+	}
+
+	@media (max-width: 720px) {
+		.project-card {
+			grid-template-columns: 1fr;
+		}
+
+		.projects-stats {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.projects-surface {
+			padding-block: 1.5rem 3rem;
+		}
+
+		.projects-hero,
+		.empty-state {
+			padding: 1rem;
+		}
+	}
+</style>

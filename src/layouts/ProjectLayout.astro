@@ -1,0 +1,362 @@
+---
+import Layout from './Layout.astro';
+import { formatContentDate, getProjectHref, type ProjectEntry } from '../utils/content';
+
+export interface Props {
+	project: ProjectEntry;
+	adjacentProjects?: {
+		previous?: ProjectEntry;
+		next?: ProjectEntry;
+	};
+}
+
+const { project, adjacentProjects = {} } = Astro.props as Props;
+const formattedDate = formatContentDate(project.data.publishedAt);
+const hasInteractiveSlot = Astro.slots.has('interactive');
+const hasInteractiveSection = project.data.hasInteractivePage && hasInteractiveSlot;
+const projectStatus = project.data.status ?? 'active';
+const projectTypeLabel =
+	project.data.type === 'repo'
+		? 'Repository'
+		: project.data.type === 'experiment'
+			? 'Experiment'
+			: 'Tool';
+
+const overviewFacts = [
+	{ label: 'Published', value: formattedDate },
+	{ label: 'Type', value: projectTypeLabel },
+	{ label: 'Status', value: projectStatus },
+	...(project.data.framework ? [{ label: 'Framework', value: project.data.framework }] : []),
+];
+---
+
+<Layout
+	seo={{
+		title: project.data.title,
+		description: project.data.description,
+		pageType: 'website',
+	}}
+>
+	<main class="container page-shell detail-surface detail-surface--project">
+		<article class="project-post-layout post-shell detail-shell">
+			<header class="detail-hero motion-enter motion-delay-1">
+				<div class="detail-module detail-module--hero">
+					<p class="project-kicker mono">{projectTypeLabel}</p>
+					<h1 class="post-title">{project.data.title}</h1>
+					<p class="project-description">{project.data.description}</p>
+					<div class="project-meta mono" aria-label="Project metadata">
+						<span>Published {formattedDate}</span>
+						<span>Status {projectStatus}</span>
+						{project.data.framework ? <span>{project.data.framework}</span> : null}
+						{hasInteractiveSection ? <span>Interactive page</span> : null}
+					</div>
+					<ul class="project-tag-list post-tag-list" aria-label="Project tags">
+						{project.data.tags.map((tag) => (
+							<li>
+								<span class="project-tag mono">{tag}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				<aside class="detail-module detail-module--overview" aria-labelledby="project-overview-title">
+					<div class="detail-module__header">
+						<p class="mono detail-module__eyebrow" id="project-overview-title">Project overview</p>
+						<p class="mono detail-module__status">{projectTypeLabel}</p>
+					</div>
+					<dl class="detail-fact-list" aria-label="Project facts">
+						{overviewFacts.map((fact) => (
+							<div>
+								<dt class="mono">{fact.label}</dt>
+								<dd>{fact.value}</dd>
+							</div>
+						))}
+					</dl>
+					{project.data.externalUrl ? (
+						<a class="external-link mono" href={project.data.externalUrl} target="_blank" rel="noreferrer">
+							Open external link
+						</a>
+					) : null}
+				</aside>
+			</header>
+
+			<div class="detail-grid">
+				<div class="detail-main">
+					<section class="detail-module motion-enter motion-delay-2">
+						<div class="detail-module__header">
+							<p class="project-section-kicker mono">Project notes</p>
+							<p class="mono detail-module__status">Reference</p>
+						</div>
+						<div class="project-body post-body">
+							<slot />
+						</div>
+					</section>
+
+					{hasInteractiveSection ? (
+						<section class="detail-module motion-enter motion-delay-3" aria-label="Interactive project module">
+							<div class="detail-module__header">
+								<p class="project-section-kicker mono">Interactive project</p>
+								<p class="mono detail-module__status">Live workspace</p>
+							</div>
+							<p class="interactive-copy">
+								Use the live module below when this project ships an interactive surface.
+							</p>
+							<slot name="interactive" />
+						</section>
+					) : null}
+				</div>
+
+				<aside class="detail-sidebar">
+					<section class="detail-module motion-enter motion-delay-2" aria-labelledby="project-context-title">
+						<div class="detail-module__header">
+							<p class="mono detail-module__eyebrow" id="project-context-title">At a glance</p>
+							<p class="mono detail-module__status">Collection context</p>
+						</div>
+						<p class="detail-context-copy">
+							This detail view keeps the project type, status, and neighboring entries visible so the
+							page works as a reference surface even when the content is short.
+						</p>
+						<nav class="detail-route-nav" aria-label="Adjacent projects">
+							{adjacentProjects.next ? (
+								<a class="detail-route-link" href={getProjectHref(adjacentProjects.next.id)}>
+									<span class="mono detail-route-link__label">Newer project</span>
+									<strong>{adjacentProjects.next.data.title}</strong>
+								</a>
+							) : null}
+							{adjacentProjects.previous ? (
+								<a class="detail-route-link" href={getProjectHref(adjacentProjects.previous.id)}>
+									<span class="mono detail-route-link__label">Earlier project</span>
+									<strong>{adjacentProjects.previous.data.title}</strong>
+								</a>
+							) : null}
+							<a class="detail-route-link detail-route-link--solo" href="/projects">
+								<span class="mono detail-route-link__label">Project index</span>
+								<strong>Browse all projects</strong>
+							</a>
+						</nav>
+					</section>
+
+					<section class="detail-module motion-enter motion-delay-3">
+						<div class="detail-module__header">
+							<p class="mono detail-module__eyebrow">What this page includes</p>
+							<p class="mono detail-module__status">Quick guide</p>
+						</div>
+						<p class="detail-context-copy">
+							Expect a concise overview, implementation notes, and links to adjacent projects in the
+							collection. Interactive output stays optional and only appears when a project provides it.
+						</p>
+					</section>
+				</aside>
+			</div>
+		</article>
+	</main>
+</Layout>
+
+<style>
+	.detail-surface {
+		padding-block: 2rem 4rem;
+	}
+
+	.detail-shell,
+	.detail-hero,
+	.detail-grid,
+	.detail-main,
+	.detail-sidebar {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.detail-hero {
+		grid-template-columns: minmax(0, 1.16fr) minmax(18rem, 0.9fr);
+	}
+
+	.detail-grid {
+		grid-template-columns: minmax(0, 1.15fr) minmax(17rem, 0.82fr);
+		align-items: start;
+	}
+
+	.detail-module {
+		position: relative;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
+		background:
+			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
+		box-shadow: var(--panel-shadow-soft);
+		padding: clamp(1.1rem, 2.7vw, 1.65rem);
+		overflow: clip;
+	}
+
+	.detail-module::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background:
+			linear-gradient(var(--grid-line) 1px, transparent 1px),
+			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+		background-size: 3rem 3rem;
+		opacity: 0.35;
+		mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 86%);
+	}
+
+	.detail-module > * {
+		position: relative;
+		z-index: 1;
+	}
+
+	.detail-module__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+		margin-bottom: 1rem;
+	}
+
+	.detail-module__eyebrow,
+	.detail-module__status,
+	.project-kicker,
+	.project-section-kicker,
+	.project-meta,
+	.detail-fact-list dt,
+	.detail-route-link__label,
+	.external-link {
+		margin: 0;
+		font-size: 0.72rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+
+	.project-kicker,
+	.project-section-kicker,
+	.detail-module__eyebrow,
+	.detail-route-link__label,
+	.external-link {
+		color: var(--accent-2);
+	}
+
+	.detail-module__status,
+	.detail-fact-list dt,
+	.project-meta {
+		color: var(--text-soft);
+	}
+
+	.project-description,
+	.detail-context-copy,
+	.interactive-copy {
+		margin: 0;
+		max-width: 65ch;
+		color: var(--text-muted);
+		line-height: 1.72;
+	}
+
+	.project-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 1rem;
+	}
+
+	.project-tag-list {
+		margin-top: 1rem;
+	}
+
+	.project-tag {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.2rem 0.55rem;
+		border: 1px solid var(--border);
+		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		color: var(--accent);
+		line-height: 1.2;
+	}
+
+	.detail-fact-list {
+		display: grid;
+		gap: 0.75rem;
+		margin: 0;
+	}
+
+	.detail-fact-list div {
+		padding: 0.85rem 0.95rem;
+		border: 1px solid var(--border);
+		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+	}
+
+	.detail-fact-list dd {
+		margin: 0.35rem 0 0;
+		color: var(--text-main);
+		font-weight: 600;
+	}
+
+	.external-link {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0.75rem 0.9rem;
+		margin-top: 1rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
+		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		text-decoration: none;
+	}
+
+	.external-link:hover,
+	.external-link:focus-visible,
+	.detail-route-link:hover,
+	.detail-route-link:focus-visible {
+		border-color: var(--accent);
+		background: color-mix(in srgb, var(--accent) 10%, var(--surface-strong));
+		text-decoration: none;
+	}
+
+	.project-body {
+		max-width: 68ch;
+	}
+
+	.detail-route-nav {
+		display: grid;
+		gap: 0.75rem;
+		margin-top: 1rem;
+	}
+
+	.detail-route-link {
+		display: grid;
+		gap: 0.3rem;
+		padding: 0.9rem 1rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
+		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		color: var(--text-main);
+		text-decoration: none;
+	}
+
+	.detail-route-link strong {
+		font-size: 1rem;
+		line-height: 1.4;
+	}
+
+	@media (max-width: 960px) {
+		.detail-hero,
+		.detail-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.detail-sidebar {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 720px) {
+		.detail-sidebar {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.detail-surface {
+			padding-block: 1.5rem 3rem;
+		}
+
+		.detail-module {
+			padding: 1rem;
+		}
+	}
+</style>

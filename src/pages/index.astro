@@ -1,103 +1,363 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/ui/Card.astro';
 import {
+	formatContentDate,
 	getBlogPostHref,
-	getFeaturedBlogPost,
-	getFeaturedTool,
-	getToolHref,
+	getProjectHref,
+	getPublishedBlogPosts,
+	getPublishedProjects,
 } from '../utils/content';
 
-const [featuredPost, featuredTool] = await Promise.all([getFeaturedBlogPost(), getFeaturedTool()]);
-const featuredPostHref = featuredPost ? getBlogPostHref(featuredPost.id) : '/blog';
-const featuredToolHref = featuredTool ? getToolHref(featuredTool.id) : '/tools';
+const [blogPosts, projects] = await Promise.all([getPublishedBlogPosts(), getPublishedProjects()]);
+
+const latestWriting = blogPosts.filter((post) => post.data.featured).slice(0, 3);
+const latestProjects = projects.filter((project) => project.data.featured).slice(0, 3);
+
+const getProjectMeta = (project: (typeof latestProjects)[number]) => {
+	const details = [formatContentDate(project.data.publishedAt), project.data.type];
+
+	if (project.data.status) {
+		details.push(project.data.status);
+	}
+
+	if (project.data.type === 'tool' && project.data.framework) {
+		details.push(project.data.framework);
+	}
+
+	return details.join(' / ');
+};
 ---
 
 <Layout
 	seo={{
 		description:
-			"After 25 years in software, the most valuable thing I've learned is that there's always more to learn. This is my living portfolio, where I share what I know, experiment with new ideas, and document the journey.",
+			"After 25 years in software, the most valuable thing I've learned is that there's always more to learn. This is the portfolio for current writing, current projects, and the work that connects them.",
 		pageType: 'website',
 		socialImageAlt:
 			'Preview card for Iskander Sierra\'s portfolio with a terminal-inspired visual treatment.',
 	}}
 >
-	<main class="container page-shell">
-		<header class="hero motion-enter motion-delay-1">
-			<h1>"Never stop learning."<span class="cursor"></span></h1>
-			<p class="hero-text motion-enter motion-delay-2">
-				After 25 years in software, the most valuable thing I've learned is that there's always
-				more to learn. Welcome to my living portfolio — a place where I share what I know,
-				experiment with new ideas, and document the journey.
-			</p>
+	<main class="container page-shell home-surface">
+		<header class="home-hero motion-enter motion-delay-1">
+			<p class="mono home-kicker">Iskander Sierra</p>
+			<h1>Never stop learning.</h1>
+			<p class="home-hero__title">Full-stack developer, software architect, technical team lead.</p>
+			<div class="home-hero__body">
+				<p>
+					Twenty-five years in, the work is still the same at the core: stay hands-on, keep the
+					feedback loop tight, and learn fast enough that the next system is better than the last one.
+				</p>
+				<p>
+					This portfolio is the current surface for that practice. It holds recent writing, active
+					projects, and the experiments that turn experience into something useful.
+				</p>
+			</div>
 		</header>
 
-		<section class="recent-posts motion-enter motion-delay-3">
-			<h2 class="section-title mono">$ ls ./featured-content</h2>
-			<div class="cards-grid">
-				<Card
-					title={featuredPost?.data.title ?? 'Blog'}
-					description={
-						featuredPost?.data.excerpt ??
-						'Read the latest notes on software architecture, technical leadership, and long-term learning.'
-					}
-					href={featuredPostHref}
-					motionClass="motion-delay-3"
-					linkText={featuredPost ? `open ./blog/${featuredPost.id}.md →` : 'open ./blog_index.sh →'}
-					ariaLabel={
-						featuredPost
-							? `Open featured blog post ${featuredPost.data.title}`
-							: 'Open the blog section'
-					}
-				/>
-				<Card
-					title={featuredTool?.data.title ?? 'Tools'}
-					description={
-						featuredTool
-							? `${featuredTool.data.framework} · ${featuredTool.data.description}`
-							: 'Browse practical developer tools and experiments built for the portfolio.'
-					}
-					href={featuredToolHref}
-					motionClass="motion-delay-4"
-					linkText={featuredTool ? `open ./tools/${featuredTool.id}.md →` : 'open ./tools_catalog.sh →'}
-					ariaLabel={
-						featuredTool
-							? `Open featured tool ${featuredTool.data.title}`
-							: 'Open the tools section'
-					}
-				/>
+		<section class="content-section motion-enter motion-delay-2" aria-labelledby="latest-writing-title">
+			<div class="section-heading">
+				<p class="mono section-kicker">Latest writing</p>
+				<h2 id="latest-writing-title">Featured articles</h2>
+				<p>Up to three featured posts, sorted by publish date.</p>
 			</div>
+
+			{latestWriting.length > 0 ? (
+				<div class="content-grid" aria-label="Featured blog posts">
+					{latestWriting.map((post, index) => (
+						<article class={`content-card motion-enter motion-hover-lift motion-delay-${index + 2}`}>
+							<div class="content-card__body">
+								<p class="mono content-card__meta">{formatContentDate(post.data.date)}</p>
+								<h3>
+									<a href={getBlogPostHref(post.id)}>{post.data.title}</a>
+								</h3>
+								<p>{post.data.excerpt}</p>
+								<ul class="tag-list" aria-label={`Tags for ${post.data.title}`}>
+									{post.data.tags.map((tag) => <li>{tag}</li>)}
+								</ul>
+							</div>
+							<a class="content-card__link mono" href={getBlogPostHref(post.id)}>
+								Read article
+							</a>
+						</article>
+					))}
+				</div>
+			) : (
+				<div class="empty-state" role="status" aria-live="polite">
+					<h3>Latest writing is empty at launch</h3>
+					<p>
+						New articles will land here as soon as the first featured posts are published.
+					</p>
+				</div>
+			)}
+		</section>
+
+		<section class="content-section motion-enter motion-delay-3" aria-labelledby="latest-projects-title">
+			<div class="section-heading">
+				<p class="mono section-kicker">Latest projects</p>
+				<h2 id="latest-projects-title">Featured projects</h2>
+				<p>Tools, repositories, and experiments that are ready to surface on the home page.</p>
+			</div>
+
+			{latestProjects.length > 0 ? (
+				<div class="content-grid" aria-label="Featured projects">
+					{latestProjects.map((project, index) => (
+						<article class={`content-card motion-enter motion-hover-lift motion-delay-${index + 2}`}>
+							<div class="content-card__body">
+								<div class="content-card__head">
+									<p class="mono content-card__meta">{getProjectMeta(project)}</p>
+									{project.data.type === 'repo' && project.data.externalUrl ? (
+										<a
+											class="content-card__external"
+											href={project.data.externalUrl}
+											target="_blank"
+											rel="noreferrer"
+											aria-label={`Open external link for ${project.data.title}`}
+										>
+											<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+												<path d="M14 5h5v5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+												<path d="M10 14 19 5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+												<path d="M19 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+											</svg>
+										</a>
+									) : null}
+								</div>
+								<h3>
+									<a href={getProjectHref(project.id)}>{project.data.title}</a>
+								</h3>
+								<p>{project.data.description}</p>
+								<ul class="tag-list" aria-label={`Tags for ${project.data.title}`}>
+									{project.data.tags.map((tag) => <li>{tag}</li>)}
+								</ul>
+							</div>
+							<a class="content-card__link mono" href={getProjectHref(project.id)}>
+								Open project
+							</a>
+						</article>
+					))}
+				</div>
+			) : (
+				<div class="empty-state" role="status" aria-live="polite">
+					<h3>Latest projects is empty at launch</h3>
+					<p>
+						Featured projects will appear here once the first project entries are published.
+					</p>
+				</div>
+			)}
 		</section>
 	</main>
 </Layout>
 
 <style>
-	.hero {
-		margin-top: 2rem;
-		margin-bottom: 4rem;
+	.home-surface {
+		padding-block: 2rem 4rem;
+		display: grid;
+		gap: 1.25rem;
 	}
 
-	.hero h1 {
-		font-size: clamp(2rem, 5vw, 3.5rem);
-		margin-bottom: 1rem;
-		color: var(--text-main);
+	.home-hero,
+	.content-section,
+	.content-card,
+	.empty-state {
+		position: relative;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
+		background:
+			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
+		box-shadow: var(--panel-shadow-soft);
+		overflow: clip;
 	}
 
-	.hero-text {
-		font-size: 1.15rem;
+	.home-hero::before,
+	.content-section::before,
+	.content-card::before,
+	.empty-state::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background:
+			linear-gradient(var(--grid-line) 1px, transparent 1px),
+			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+		background-size: 3rem 3rem;
+		opacity: 0.35;
+		mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.62), transparent 86%);
+	}
+
+	.home-hero,
+	.content-section,
+	.empty-state {
+		padding: clamp(1.1rem, 2.8vw, 1.7rem);
+	}
+
+	.home-kicker,
+	.section-kicker,
+	.content-card__meta {
+		margin: 0;
+		font-size: 0.72rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+
+	.home-kicker,
+	.section-kicker {
+		color: var(--accent-2);
+	}
+
+	.home-hero > *,
+	.content-section > *,
+	.content-card > *,
+	.empty-state > * {
+		position: relative;
+		z-index: 1;
+	}
+
+	.home-hero h1 {
+		margin: 0.55rem 0 0.75rem;
+		font-size: clamp(2.3rem, 5vw, 4.4rem);
+		line-height: 0.96;
+		max-width: 11ch;
+	}
+
+	.home-hero__title {
+		margin: 0;
+		font-size: 1.05rem;
+		color: var(--text-soft);
+	}
+
+	.home-hero__body {
+		display: grid;
+		gap: 0.85rem;
+		margin-top: 1.5rem;
+		max-width: 62ch;
+	}
+
+	.home-hero__body p,
+	.section-heading p,
+	.content-card p,
+	.empty-state p {
+		margin: 0;
+		line-height: 1.72;
 		color: var(--text-muted);
-		max-width: 700px;
-		line-height: 1.7;
 	}
 
-	.section-title {
-		color: var(--accent);
-		font-size: 1.25rem;
-		margin-bottom: 1.5rem;
+	.section-heading {
+		display: grid;
+		gap: 0.35rem;
+		margin-bottom: 1rem;
 	}
 
-	.cards-grid {
+	.section-heading h2,
+	.content-card h3,
+	.empty-state h3 {
+		margin: 0;
+	}
+
+	.content-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.content-card {
 		display: grid;
 		gap: 1rem;
+		padding: 1.1rem;
+	}
+
+	.content-card__body {
+		display: grid;
+		gap: 0.85rem;
+	}
+
+	.content-card__head {
+		display: flex;
+		justify-content: space-between;
+		gap: 0.75rem;
+		align-items: center;
+	}
+
+	.content-card__meta {
+		color: var(--text-soft);
+	}
+
+	.content-card h3 a,
+	.content-card__link,
+	.content-card__external {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.content-card h3 a:hover,
+	.content-card h3 a:focus-visible,
+	.content-card__link:hover,
+	.content-card__link:focus-visible,
+	.content-card__external:hover,
+	.content-card__external:focus-visible {
+		color: var(--accent);
+		text-decoration: none;
+	}
+
+	.content-card__link {
+		display: inline-flex;
+		align-items: center;
+		justify-self: start;
+		padding: 0.7rem 0.9rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
+		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.content-card__external {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+		border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
+		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+	}
+
+	.content-card__external svg {
+		width: 1rem;
+		height: 1rem;
+	}
+
+	.tag-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.tag-list li {
+		padding: 0.25rem 0.6rem;
+		border: 1px solid var(--border);
+		background: color-mix(in srgb, var(--surface-soft) 74%, transparent);
+		color: var(--text-soft);
+		font-size: 0.9rem;
+	}
+
+	@media (max-width: 960px) {
+		.content-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.home-surface {
+			padding-block: 1.5rem 3rem;
+		}
+
+		.home-hero,
+		.content-section,
+		.empty-state {
+			padding: 1rem;
+		}
+
+		.home-hero h1 {
+			max-width: none;
+		}
 	}
 </style>

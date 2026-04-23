@@ -6,12 +6,14 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "clean": "node -e \"const fs = require('node:fs'); for (const target of ['dist', '.astro', 'node_modules/.astro']) { fs.rmSync(target, { recursive: true, force: true }); }\"",
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "pnpm clean && astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "test": "pnpm test:e2e",
     "test:e2e": "playwright test",
-    "test:seo": "playwright test tests/e2e/seo.spec.ts",
+    "test:seo": "pnpm test:e2e -- tests/e2e/seo.spec.ts",
     "check:md": "markdownlint-cli2",
     "check:ts": "astro check",
     "check:lint": "eslint .",
@@ -25,6 +27,8 @@
   "dependencies": {
     "@astrojs/check": "^0.9.7",
     "@astrojs/netlify": "^7.0.2",
+    "@fontsource/azeret-mono": "^5.2.11",
+    "@fontsource/exo-2": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/syne": "^5.2.7",
     "astro": "^6.0.4"
@@ -39,6 +43,7 @@
     "markdownlint-cli2": "^0.21.0",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
+    "sharp": "^0.34.5",
     "typescript": "^5.9.3"
   }
 }

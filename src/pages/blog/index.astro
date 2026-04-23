@@ -1,205 +1,547 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import {
-	filterBlogPostsByTag,
-	formatContentDate,
-	getAllBlogTags,
-	getBlogPostHref,
-	getBlogTagHref,
-	getPublishedBlogPosts,
+formatContentDate,
+getAllBlogTags,
+getBlogPostHref,
+getBlogTagHref,
+getPublishedBlogPosts,
 } from '../../utils/content';
 
-const selectedTag = Astro.url.searchParams.get('tag');
-const normalizedSelectedTag = selectedTag?.trim().toLocaleLowerCase();
 const allPosts = await getPublishedBlogPosts();
-const visiblePosts = filterBlogPostsByTag(allPosts, selectedTag);
+const visiblePosts = allPosts;
 const availableTags = getAllBlogTags(allPosts);
+const tagCounts = new Map<string, { label: string; count: number }>();
+
+for (const post of allPosts) {
+for (const rawTag of post.data.tags) {
+const label = rawTag.trim();
+const normalizedTag = label.toLocaleLowerCase();
+
+if (!normalizedTag) {
+continue;
+}
+
+const existingTag = tagCounts.get(normalizedTag);
+
+if (existingTag) {
+existingTag.count += 1;
+continue;
+}
+
+tagCounts.set(normalizedTag, { label, count: 1 });
+}
+}
+
+const tagSignals = availableTags.map((tag) => {
+const normalizedTag = tag.toLocaleLowerCase();
+
+return {
+tag,
+count: tagCounts.get(normalizedTag)?.count ?? 0,
+href: getBlogTagHref(tag),
+normalizedTag,
+};
+});
 ---
 
 <Layout
-	seo={{
-		title: 'Blog',
-		description:
-			'Read notes on software architecture, technical leadership, cloud delivery, and long-term learning from Iskander Sierra.',
-		pageType: 'website',
-	}}
+seo={{
+title: 'Blog',
+description:
+'Read notes on software architecture, technical leadership, cloud delivery, and long-term learning from Iskander Sierra.',
+pageType: 'website',
+}}
 >
-	<main class="container page-shell">
-		<header class="page-header motion-enter motion-delay-1">
-			<p class="mono page-kicker">$ find ./blog -type f</p>
-			<h1>Blog</h1>
-			<p class="page-intro">
-				Notes on software architecture, technical leadership, cloud delivery, and the habits that
-				help a long engineering career stay sharp.
-			</p>
-			<nav class="filter-row" aria-label="Blog tag filters">
-				<a
-					href={getBlogTagHref()}
-					class={`filter-chip mono ${normalizedSelectedTag ? '' : 'active'}`}
-					aria-current={normalizedSelectedTag ? undefined : 'page'}
-				>
-					All posts
-				</a>
-				{availableTags.map((tag) => {
-					const isActive = normalizedSelectedTag === tag.toLocaleLowerCase();
+<main
+class="container page-shell archive-shell archive-shell--blog"
+data-blog-archive
+data-total-post-count={String(allPosts.length)}
+data-total-tag-count={String(availableTags.length)}
+>
+<header class="archive-hero motion-enter motion-delay-1">
+<div class="archive-hero__copy">
+<p class="mono page-kicker">Writing archive</p>
+<h1>Blog</h1>
+<p class="page-intro">
+Notes on software architecture, technical leadership, cloud delivery, and the habits that
+help a long engineering career stay sharp.
+</p>
+<dl class="archive-stats" aria-label="Blog archive summary">
+<div>
+<dt class="mono">Visible posts</dt>
+<dd data-archive-visible-nodes>{visiblePosts.length}</dd>
+</div>
+<div>
+<dt class="mono">Tag groups</dt>
+<dd data-archive-tag-clusters>{availableTags.length}</dd>
+</div>
+<div>
+<dt class="mono">Focus</dt>
+<dd data-archive-focus>All posts</dd>
+</div>
+</dl>
+<nav class="filter-row" aria-label="Blog tag filters">
+<a
+href={getBlogTagHref()}
+class="filter-chip mono active"
+data-filter-chip
+data-filter-tag=""
+data-filter-label="All posts"
+aria-current="page"
+>
+All posts
+</a>
+{availableTags.map((tag) => (
+<a
+href={getBlogTagHref(tag)}
+class="filter-chip mono"
+data-filter-chip
+data-filter-tag={tag.toLocaleLowerCase()}
+data-filter-label={tag}
+>
+{tag}
+</a>
+))}
+</nav>
+</div>
 
-					return (
-						<a
-							href={getBlogTagHref(tag)}
-							class={`filter-chip mono ${isActive ? 'active' : ''}`}
-							aria-current={isActive ? 'page' : undefined}
-						>
-							{tag}
-						</a>
-					);
-				})}
-			</nav>
-		</header>
+<aside class="graph-panel" aria-labelledby="blog-summary-title">
+<div class="graph-panel__header">
+<p class="mono graph-panel__eyebrow" id="blog-summary-title">Archive summary</p>
+<p class="mono graph-panel__status" data-archive-status>Viewing all posts</p>
+</div>
+<p class="graph-panel__copy">
+The archive stays simple: filter by tag, scan summaries, and move into the full article when a
+piece is relevant.
+</p>
+<dl class="graph-panel__metrics" aria-label="Blog archive metrics">
+<div>
+<dt class="mono">Filter state</dt>
+<dd data-archive-density>open</dd>
+</div>
+<div>
+<dt class="mono">Active route</dt>
+<dd data-archive-route>/blog</dd>
+</div>
+</dl>
+</aside>
+</header>
 
-		<section class="post-list motion-enter motion-delay-2">
-			{visiblePosts.length > 0 ? (
-				visiblePosts.map((post, index) => (
-					<article class="post-card motion-enter motion-hover-lift" style={`--motion-delay: ${(index + 2) * 80}ms`}>
-						<div class="post-meta mono">
-							<span>{formatContentDate(post.data.date)}</span>
-							<span>{post.data.readTime} min read</span>
-						</div>
-						<h2>
-							<a class="post-link" href={getBlogPostHref(post.id)}>
-								{post.data.title}
-							</a>
-						</h2>
-						<p>{post.data.excerpt}</p>
-						<ul class="tag-list">
-							{post.data.tags.map((tag) => (
-								<li>
-									<a href={getBlogTagHref(tag)}>{tag}</a>
-								</li>
-							))}
-						</ul>
-						<a class="post-link post-link-cta mono" href={getBlogPostHref(post.id)}>
-							open ./blog/{post.id}.md →
-						</a>
-					</article>
-				))
-			) : (
-				<p class="empty-state">No posts match the selected tag yet.</p>
-			)}
-		</section>
-	</main>
+<div class="archive-grid motion-enter motion-delay-2">
+<section class="signal-feed" aria-label="Blog archive feed">
+{visiblePosts.map((post, index) => (
+<article
+class="signal-entry motion-enter motion-hover-lift"
+data-post-card
+data-post-tags={post.data.tags
+.map((tag) => tag.trim().toLocaleLowerCase())
+.filter(Boolean)
+.join('|')}
+style={`--motion-delay: ${(index + 2) * 80}ms`}
+>
+<div class="signal-entry__header">
+<div class="post-meta mono">
+<span>{formatContentDate(post.data.date)}</span>
+<span>{post.data.readTime} min read</span>
+</div>
+<p class="mono signal-entry__state" data-signal-state>Published</p>
+</div>
+<h2>
+<a class="post-link" href={getBlogPostHref(post.id)}>{post.data.title}</a>
+</h2>
+<p>{post.data.excerpt}</p>
+<ul class="tag-list" aria-label={`Tags for ${post.data.title}`}>
+{post.data.tags.map((tag) => (
+<li>
+<a href={getBlogTagHref(tag)}>{tag}</a>
+</li>
+))}
+</ul>
+</article>
+))}
+<p class="empty-state" role="status" aria-live="polite" data-empty-state hidden={visiblePosts.length > 0}>
+{visiblePosts.length === 0 ? 'No published posts yet.' : 'No posts match the selected tag yet.'}
+</p>
+</section>
+
+<aside class="archive-sidebar" aria-label="Blog archive context modules">
+<section class="sidebar-module">
+<div class="sidebar-module__header">
+<h2>Tag map</h2>
+<p class="mono">Resolved from published entries</p>
+</div>
+<ul class="tag-map">
+{tagSignals.map((signal) => (
+<li>
+<a
+href={signal.href}
+class="tag-map__link"
+data-tag-map-link
+data-filter-tag={signal.normalizedTag}
+data-filter-label={signal.tag}
+>
+<span class="mono">{signal.tag}</span>
+<strong>{signal.count}</strong>
+</a>
+</li>
+))}
+</ul>
+</section>
+
+<section class="sidebar-module sidebar-module--notes">
+<div class="sidebar-module__header">
+<h2>Archive notes</h2>
+<p class="mono">Placeholder system</p>
+</div>
+<p>
+This pass keeps the archive readable and filterable while the final design system is still a
+separate workstream.
+</p>
+</section>
+</aside>
+</div>
+</main>
+
+<script is:inline>
+(() => {
+const globalKey = '__portfolioBlogArchive';
+const previousState = window[globalKey];
+
+previousState?.abortController?.abort();
+
+const abortController = new AbortController();
+const normalizeTag = (value) => value.trim().toLocaleLowerCase();
+const formatCount = (value) => String(Math.max(value, 0));
+const allSignalsLabel = 'All posts';
+
+const syncArchiveState = () => {
+const archive = document.querySelector('[data-blog-archive]');
+
+if (!archive) {
+return;
+}
+
+const posts = [...archive.querySelectorAll('[data-post-card]')];
+const chips = [...archive.querySelectorAll('[data-filter-chip]')];
+const tagMapLinks = [...archive.querySelectorAll('[data-tag-map-link]')];
+const visibleNodes = archive.querySelector('[data-archive-visible-nodes]');
+const focus = archive.querySelector('[data-archive-focus]');
+const density = archive.querySelector('[data-archive-density]');
+const route = archive.querySelector('[data-archive-route]');
+const status = archive.querySelector('[data-archive-status]');
+const emptyState = archive.querySelector('[data-empty-state]');
+const totalTagCount = Number.parseInt(archive.dataset.totalTagCount ?? '0', 10);
+const rawTag = new URL(window.location.href).searchParams.get('tag')?.trim() ?? '';
+const normalizedSelectedTag = normalizeTag(rawTag);
+const activeChip = chips.find((chip) => (chip.dataset.filterTag ?? '') === normalizedSelectedTag);
+const activeLabel = normalizedSelectedTag
+? activeChip?.dataset.filterLabel ?? rawTag
+: allSignalsLabel;
+
+let visibleCount = 0;
+
+for (const post of posts) {
+const postTags = (post.dataset.postTags ?? '').split('|').filter(Boolean);
+const isVisible = !normalizedSelectedTag || postTags.includes(normalizedSelectedTag);
+const state = post.querySelector('[data-signal-state]');
+
+post.hidden = !isVisible;
+
+if (state) {
+state.textContent = normalizedSelectedTag ? 'Matching tag' : 'Published';
+}
+
+if (isVisible) {
+visibleCount += 1;
+}
+}
+
+for (const chip of chips) {
+const isActive = (chip.dataset.filterTag ?? '') === normalizedSelectedTag;
+chip.classList.toggle('active', isActive);
+if (isActive) {
+chip.setAttribute('aria-current', 'page');
+} else {
+chip.removeAttribute('aria-current');
+}
+}
+
+for (const link of tagMapLinks) {
+const isActive = (link.dataset.filterTag ?? '') === normalizedSelectedTag;
+link.classList.toggle('active', isActive);
+if (isActive) {
+link.setAttribute('aria-current', 'page');
+} else {
+link.removeAttribute('aria-current');
+}
+}
+
+if (visibleNodes) {
+visibleNodes.textContent = formatCount(visibleCount);
+}
+
+if (focus) {
+focus.textContent = activeLabel;
+}
+
+if (density) {
+density.textContent = normalizedSelectedTag ? 'filtered' : 'open';
+}
+
+if (route) {
+route.textContent = normalizedSelectedTag ? `/blog?tag=${activeLabel}` : '/blog';
+}
+
+if (status) {
+status.textContent = normalizedSelectedTag ? `Viewing ${activeLabel}` : 'Viewing all posts';
+}
+
+if (emptyState) {
+emptyState.hidden = visibleCount > 0;
+emptyState.textContent = normalizedSelectedTag
+? `No posts match the ${activeLabel} tag yet.`
+: 'No published posts yet.';
+}
+
+const tagClusterCount = archive.querySelector('[data-archive-tag-clusters]');
+
+if (tagClusterCount) {
+tagClusterCount.textContent = formatCount(totalTagCount);
+}
+};
+
+window[globalKey] = {
+abortController,
+syncArchiveState,
+};
+
+syncArchiveState();
+window.addEventListener('popstate', syncArchiveState, { signal: abortController.signal });
+document.addEventListener('astro:page-load', syncArchiveState, { signal: abortController.signal });
+})();
+</script>
 </Layout>
 
 <style>
-	.page-shell {
-		padding-block: 2rem 4rem;
-	}
+.archive-shell {
+padding-block: 2rem 4rem;
+}
 
-	.page-header {
-		margin-bottom: 2.5rem;
-	}
+.archive-hero,
+.archive-grid {
+display: grid;
+gap: 1.25rem;
+}
 
-	.filter-row {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-		margin-top: 1.5rem;
-	}
+.archive-hero {
+grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.9fr);
+margin-bottom: 1.5rem;
+}
 
-	.filter-chip {
-		padding: 0.35rem 0.75rem;
-		border: 1px solid var(--border);
-		background: var(--surface);
-		color: var(--text-muted);
-		text-decoration: none;
-	}
+.archive-grid {
+grid-template-columns: minmax(0, 1.36fr) minmax(18rem, 0.84fr);
+}
 
-	.filter-chip.active,
-	.filter-chip:hover {
-		color: var(--accent);
-		border-color: var(--accent);
-		text-decoration: none;
-	}
+.archive-hero__copy,
+.graph-panel,
+.signal-entry,
+.sidebar-module,
+.empty-state {
+padding: clamp(1.1rem, 2.6vw, 1.5rem);
+border: 1px solid var(--border);
+border-radius: 1rem;
+background: var(--surface);
+box-shadow: var(--panel-shadow-soft);
+}
 
-	.page-kicker {
-		color: var(--accent);
-	}
+.page-kicker,
+.archive-stats dt,
+.graph-panel__eyebrow,
+.graph-panel__status,
+.signal-entry__state,
+.sidebar-module__header p {
+margin: 0;
+font-size: 0.72rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--text-soft);
+}
 
-	.page-header h1 {
-		margin: 0.5rem 0 1rem;
-		font-size: clamp(2rem, 4vw, 3rem);
-	}
+.archive-hero h1,
+.signal-entry h2,
+.sidebar-module__header h2 {
+margin: 0;
+}
 
-	.page-intro,
-	.post-card p {
-		max-width: 720px;
-		line-height: 1.7;
-		color: var(--text-muted);
-	}
+.archive-hero h1 {
+margin-block: 0.55rem 0.85rem;
+font-size: clamp(2.6rem, 5.2vw, 4.6rem);
+line-height: 0.96;
+max-width: 7ch;
+}
 
-	.post-list {
-		display: grid;
-		gap: 1rem;
-	}
+.page-intro,
+.graph-panel__copy,
+.signal-entry p,
+.sidebar-module p,
+.empty-state {
+color: var(--text-muted);
+line-height: 1.72;
+}
 
-	.post-card {
-		border: 1px solid var(--border);
-		background: var(--surface);
-		padding: 1.25rem;
-	}
+.archive-stats,
+.graph-panel__metrics,
+.signal-feed,
+.archive-sidebar,
+.graph-panel,
+.tag-map {
+display: grid;
+gap: 0.75rem;
+}
 
-	.post-meta {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-		margin-bottom: 0.75rem;
-		color: var(--text-muted);
-		font-size: 0.9rem;
-	}
+.archive-stats {
+grid-template-columns: repeat(3, minmax(0, 1fr));
+margin: 1.3rem 0 0;
+}
 
-	.post-card h2 {
-		margin: 0 0 0.75rem;
-	}
+.graph-panel__metrics {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+margin: 0;
+}
 
-	.post-link {
-		color: inherit;
-		text-decoration: none;
-	}
+.archive-stats div,
+.graph-panel__metrics div {
+padding: 0.9rem 1rem;
+border: 1px solid var(--border-muted);
+border-radius: 0.875rem;
+background: var(--surface-subtle);
+}
 
-	.post-link:hover {
-		color: var(--accent);
-		text-decoration: none;
-	}
+.archive-stats dd,
+.graph-panel__metrics dd {
+margin: 0.4rem 0 0;
+font-size: 1.1rem;
+font-weight: 700;
+color: var(--text-main);
+}
 
-	.post-link-cta {
-		display: inline-block;
-		margin-top: 1rem;
-		color: var(--accent);
-	}
+.filter-row,
+.post-meta,
+.graph-panel__header,
+.sidebar-module__header,
+.signal-entry__header,
+.tag-list {
+display: flex;
+flex-wrap: wrap;
+gap: 0.75rem;
+}
 
-	.empty-state {
-		padding: 1rem 1.25rem;
-		border: 1px solid var(--border);
-		background: var(--surface);
-		color: var(--text-muted);
-	}
+.filter-row {
+margin-top: 1.5rem;
+}
 
-	.tag-list {
-		list-style: none;
-		padding: 0;
-		margin: 1rem 0 0;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-	}
+.graph-panel__header,
+.sidebar-module__header,
+.signal-entry__header {
+justify-content: space-between;
+align-items: flex-start;
+}
 
-	.tag-list li {
-		border: 1px solid var(--border);
-		font-size: 0.9rem;
-	}
+.post-meta {
+margin-bottom: 0.8rem;
+font-size: 0.9rem;
+color: var(--text-muted);
+}
 
-	.tag-list a {
-		display: inline-flex;
-		padding: 0.25rem 0.6rem;
-		color: var(--accent);
-	}
+.filter-chip,
+.tag-list a,
+.tag-map__link {
+display: inline-flex;
+align-items: center;
+justify-content: space-between;
+gap: 0.75rem;
+padding: 0.45rem 0.75rem;
+border: 1px solid var(--border-muted);
+border-radius: 999px;
+background: var(--surface-subtle);
+color: var(--text-main);
+text-decoration: none;
+}
+
+.filter-chip {
+letter-spacing: 0.05em;
+color: var(--text-muted);
+}
+
+.filter-chip.active,
+.filter-chip:hover,
+.filter-chip:focus-visible,
+.tag-list a:hover,
+.tag-list a:focus-visible,
+.tag-map__link:hover,
+.tag-map__link:focus-visible,
+.tag-map__link.active,
+.post-link:hover,
+.post-link:focus-visible {
+border-color: var(--border-strong);
+background: var(--surface-hover);
+color: var(--text-main);
+text-decoration: none;
+}
+
+.signal-entry h2 {
+margin-bottom: 0.75rem;
+font-size: clamp(1.35rem, 2vw, 1.85rem);
+}
+
+.post-link {
+color: inherit;
+text-decoration: none;
+}
+
+.tag-list,
+.tag-map {
+list-style: none;
+padding: 0;
+margin: 1rem 0 0;
+}
+
+.tag-map {
+margin-top: 0;
+}
+
+.empty-state {
+margin: 0;
+background: var(--surface-subtle);
+}
+
+@media (max-width: 960px) {
+.archive-hero,
+.archive-grid,
+.archive-sidebar {
+grid-template-columns: 1fr;
+}
+}
+
+@media (max-width: 720px) {
+.archive-stats,
+.graph-panel__metrics {
+grid-template-columns: 1fr;
+}
+}
+
+@media (max-width: 640px) {
+.archive-shell {
+padding-block: 1.5rem 3rem;
+}
+
+.archive-hero__copy,
+.graph-panel,
+.signal-entry,
+.sidebar-module,
+.empty-state {
+padding: 1rem;
+}
+}
 </style>

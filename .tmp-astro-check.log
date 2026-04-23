@@ -1,0 +1,1010 @@
+
+> astro-dir@0.0.1 check:ts E:\repos\portfolio
+> astro check
+
+[2m23:40:41[22m [34m[@astrojs/netlify][39m Enabling sessions with Netlify Blobs
+[2m23:40:42[22m [34m[content][39m Syncing content
+[2m23:40:42[22m [34m[content][39m Synced content
+[2m23:40:42[22m [34m[types][39m Generated [2m448ms[22m
+[2m23:40:42[22m [34m[check][39m Getting diagnostics for Astro files in E:\repos\portfolio...
+[96msrc/content.config.ts[0m:[93m47[0m:[93m27[0m - [93mwarning[0m[90m ts(6385): [0m'(params?: string | { normalize?: boolean | undefined; abort?: boolean | undefined; pattern?: RegExp | undefined; hostname?: RegExp | undefined; protocol?: RegExp | undefined; error?: string | ... 1 more ... | undefined; message?: string | undefined; } | undefined): ZodString' is deprecated.
+
+[7m47[0m   externalUrl: z.string().url().optional(),
+[7m  [0m [93m                          ~~~[0m
+
+[96msrc/pages/about.astro[0m:[93m587[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'width'.
+
+[7m587[0m    width: auto;
+[7m   [0m [91m   ~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m583[0m:[93m18[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'columns'.
+
+[7m583[0m    grid-template-columns: 1fr;
+[7m   [0m [91m                 ~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m583[0m:[93m9[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'template'.
+
+[7m583[0m    grid-template-columns: 1fr;
+[7m   [0m [91m        ~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m583[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+
+[7m583[0m    grid-template-columns: 1fr;
+[7m   [0m [91m   ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m579[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'padding'.
+
+[7m579[0m    padding: 0.85rem;
+[7m   [0m [91m   ~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m578[0m:[93m14[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'hub__visual'.
+
+[7m578[0m   .expertise-hub__visual {
+[7m   [0m [91m             ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m569[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'width'.
+
+[7m569[0m    width: 2.8rem;
+[7m   [0m [91m   ~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m564[0m:[93m14[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'flow'.
+
+[7m564[0m    grid-auto-flow: column;
+[7m   [0m [91m             ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m564[0m:[93m9[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'auto'.
+
+[7m564[0m    grid-auto-flow: column;
+[7m   [0m [91m        ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m564[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+
+[7m564[0m    grid-auto-flow: column;
+[7m   [0m [91m   ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m560[0m:[93m18[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'columns'.
+
+[7m560[0m    grid-template-columns: 1fr;
+[7m   [0m [91m                 ~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m560[0m:[93m9[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'template'.
+
+[7m560[0m    grid-template-columns: 1fr;
+[7m   [0m [91m        ~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m560[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+
+[7m560[0m    grid-template-columns: 1fr;
+[7m   [0m [91m   ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m556[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+
+[7m556[0m    display: none;
+[7m   [0m [91m   ~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m549[0m:[93m9[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'column'.
+
+[7m549[0m    grid-column: 1;
+[7m   [0m [91m        ~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m549[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+
+[7m549[0m    grid-column: 1;
+[7m   [0m [91m   ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m542[0m:[93m18[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'columns'.
+
+[7m542[0m    grid-template-columns: 1fr;
+[7m   [0m [91m                 ~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m542[0m:[93m9[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'template'.
+
+[7m542[0m    grid-template-columns: 1fr;
+[7m   [0m [91m        ~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m542[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+
+[7m542[0m    grid-template-columns: 1fr;
+[7m   [0m [91m   ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m534[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'position'.
+
+[7m534[0m    position: relative;
+[7m   [0m [91m   ~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m530[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'height'.
+
+[7m530[0m    min-height: auto;
+[7m   [0m [91m       ~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m530[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'min'.
+
+[7m530[0m    min-height: auto;
+[7m   [0m [91m   ~~~[0m
+[96msrc/pages/about.astro[0m:[93m526[0m:[93m18[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'columns'.
+
+[7m526[0m    grid-template-columns: 1fr;
+[7m   [0m [91m                 ~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m526[0m:[93m9[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'template'.
+
+[7m526[0m    grid-template-columns: 1fr;
+[7m   [0m [91m        ~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m526[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+
+[7m526[0m    grid-template-columns: 1fr;
+[7m   [0m [91m   ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m519[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'padding'.
+
+[7m519[0m    padding: 1rem;
+[7m   [0m [91m   ~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m518[0m:[93m12[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'block'.
+
+[7m518[0m   .section-block {
+[7m   [0m [91m           ~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m517[0m:[93m10[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'hero'.
+
+[7m517[0m   .about-hero,
+[7m   [0m [91m         ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m512[0m:[93m9[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'size'.
+
+[7m512[0m    font-size: 0.9rem;
+[7m   [0m [91m        ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m512[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'font'.
+
+[7m512[0m    font-size: 0.9rem;
+[7m   [0m [91m   ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m507[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'width'.
+
+[7m507[0m    max-width: 8.4rem;
+[7m   [0m [91m       ~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m507[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'max'.
+
+[7m507[0m    max-width: 8.4rem;
+[7m   [0m [91m   ~~~[0m
+[96msrc/pages/about.astro[0m:[93m501[0m:[93m18[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'columns'.
+
+[7m501[0m    grid-template-columns: minmax(0, 8.4rem) clamp(7.6rem, 11vw, 8.8rem) minmax(0, 8.4rem);
+[7m   [0m [91m                 ~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m501[0m:[93m9[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'template'.
+
+[7m501[0m    grid-template-columns: minmax(0, 8.4rem) clamp(7.6rem, 11vw, 8.8rem) minmax(0, 8.4rem);
+[7m   [0m [91m        ~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m501[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+
+[7m501[0m    grid-template-columns: minmax(0, 8.4rem) clamp(7.6rem, 11vw, 8.8rem) minmax(0, 8.4rem);
+[7m   [0m [91m   ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m497[0m:[93m9[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'size'.
+
+[7m497[0m    font-size: clamp(2.3rem, 3.5vw, 2.9rem);
+[7m   [0m [91m        ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m497[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'font'.
+
+[7m497[0m    font-size: clamp(2.3rem, 3.5vw, 2.9rem);
+[7m   [0m [91m   ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m492[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'width'.
+
+[7m492[0m    width: clamp(7.6rem, 11vw, 8.8rem);
+[7m   [0m [91m   ~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m182[0m:[93m38[0m - [91merror[0m[90m ts(7006): [0mParameter 'publication' implicitly has an 'any' type.
+
+[7m182[0m       {canonicalCv.publications.map((publication) => (
+[7m   [0m [91m                                     ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m182[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'canonicalCv'.
+
+[7m182[0m       {canonicalCv.publications.map((publication) => (
+[7m   [0m [91m       ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m165[0m:[93m43[0m - [91merror[0m[90m ts(7006): [0mParameter 'language' implicitly has an 'any' type.
+
+[7m165[0m         {canonicalCv.spokenLanguages.map((language) => (
+[7m   [0m [91m                                          ~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m165[0m:[93m10[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'canonicalCv'.
+
+[7m165[0m         {canonicalCv.spokenLanguages.map((language) => (
+[7m   [0m [91m         ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m153[0m:[93m35[0m - [91merror[0m[90m ts(7006): [0mParameter 'entry' implicitly has an 'any' type.
+
+[7m153[0m       {canonicalCv.education.map((entry) => (
+[7m   [0m [91m                                  ~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m153[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'canonicalCv'.
+
+[7m153[0m       {canonicalCv.education.map((entry) => (
+[7m   [0m [91m       ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m133[0m:[93m33[0m - [91merror[0m[90m ts(7006): [0mParameter 'entry' implicitly has an 'any' type.
+
+[7m133[0m             {group.entries.map((entry) => (
+[7m   [0m [91m                                ~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m129[0m:[93m31[0m - [91merror[0m[90m ts(7006): [0mParameter 'group' implicitly has an 'any' type.
+
+[7m129[0m          {section.groups.map((group) => (
+[7m   [0m [91m                              ~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m125[0m:[93m32[0m - [91merror[0m[90m ts(7006): [0mParameter 'section' implicitly has an 'any' type.
+
+[7m125[0m       {capabilitySections.map((section) => (
+[7m   [0m [91m                               ~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m125[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'capabilitySections'.
+
+[7m125[0m       {capabilitySections.map((section) => (
+[7m   [0m [91m       ~~~~~~~~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m105[0m:[93m35[0m - [91merror[0m[90m ts(7006): [0mParameter 'experience' implicitly has an 'any' type.
+
+[7m105[0m           {entry.experiences.map((experience) => (
+[7m   [0m [91m                                  ~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m89[0m:[93m37[0m - [91merror[0m[90m ts(7006): [0mParameter 'entry' implicitly has an 'any' type.
+
+[7m89[0m       {canonicalCv.workHistory.map((entry) => (
+[7m  [0m [91m                                    ~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m89[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'canonicalCv'.
+
+[7m89[0m       {canonicalCv.workHistory.map((entry) => (
+[7m  [0m [91m       ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m67[0m:[93m41[0m - [91merror[0m[90m ts(7006): [0mParameter 'profile' implicitly has an 'any' type.
+
+[7m67[0m      {canonicalCv.externalProfiles.map((profile) => (
+[7m  [0m [91m                                        ~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m67[0m:[93m7[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'canonicalCv'.
+
+[7m67[0m      {canonicalCv.externalProfiles.map((profile) => (
+[7m  [0m [91m      ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m62[0m:[93m23[0m - [91merror[0m[90m ts(7006): [0mParameter 'role' implicitly has an 'any' type.
+
+[7m62[0m      {roleLabels.map((role) => (
+[7m  [0m [91m                      ~~~~[0m
+[96msrc/pages/about.astro[0m:[93m62[0m:[93m7[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'roleLabels'.
+
+[7m62[0m      {roleLabels.map((role) => (
+[7m  [0m [91m      ~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m60[0m:[93m9[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'currentRole'.
+
+[7m60[0m     <p>{currentRole.summary}</p>
+[7m  [0m [91m        ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m58[0m:[93m31[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'currentRole'.
+
+[7m58[0m      {currentRole.company} · {currentRole.location}
+[7m  [0m [91m                              ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m58[0m:[93m7[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'currentRole'.
+
+[7m58[0m      {currentRole.company} · {currentRole.location}
+[7m  [0m [91m      ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m56[0m:[93m10[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'currentRole'.
+
+[7m56[0m     <h2>{currentRole.role}</h2>
+[7m  [0m [91m         ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m49[0m:[93m12[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'canonicalCv'.
+
+[7m49[0m       <dd>{canonicalCv.publications.length} entries</dd>
+[7m  [0m [91m           ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m45[0m:[93m12[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'canonicalCv'.
+
+[7m45[0m       <dd>{canonicalCv.workHistory.length} roles</dd>
+[7m  [0m [91m           ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m41[0m:[93m12[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'canonicalCv'.
+
+[7m41[0m       <dd>{canonicalCv.basics.yearsOfExperience} years</dd>
+[7m  [0m [91m           ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m37[0m:[93m29[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'canonicalCv'.
+
+[7m37[0m     <p class="about-intro">{canonicalCv.basics.description}</p>
+[7m  [0m [91m                            ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m31[0m:[93m57[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'profileSchema'.
+
+[7m31[0m  <script is:inline type="application/ld+json" set:html={profileSchema}></script>
+[7m  [0m [91m                                                        ~~~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m27[0m:[93m118[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'canonicalCv'.
+
+[7m27[0m    `Learn more about ${canonicalCv.basics.name}, a senior full-stack developer, architect, and technical lead with ${canonicalCv.basics.yearsOfExperience} years of experience building software and teams.`,
+[7m  [0m [91m                                                                                                                     ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m27[0m:[93m24[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'canonicalCv'.
+
+[7m27[0m    `Learn more about ${canonicalCv.basics.name}, a senior full-stack developer, architect, and technical lead with ${canonicalCv.basics.yearsOfExperience} years of experience building software and teams.`,
+[7m  [0m [91m                       ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m17[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'title'.
+
+[7m17[0m  { title: 'Frontend technologies', groups: canonicalCv.frontendTechnologies },
+[7m  [0m [91m   ~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m16[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'title'.
+
+[7m16[0m  { title: 'Backend technologies', groups: canonicalCv.backendTechnologies },
+[7m  [0m [91m   ~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m15[0m:[93m4[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'title'.
+
+[7m15[0m  { title: 'Programming languages', groups: canonicalCv.programmingLanguages },
+[7m  [0m [91m   ~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m5[0m:[93m35[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'canonicalCv'.
+
+[7m5[0m import { buildAboutProfileSchema, canonicalCv } from '../utils/cv';
+[7m [0m [91m                                  ~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m5[0m:[93m10[0m - [91merror[0m[90m ts(2695): [0mLeft side of comma operator is unused and has no side effects.
+
+[7m5[0m import { buildAboutProfileSchema, canonicalCv } from '../utils/cv';
+[7m [0m [91m         ~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m5[0m:[93m10[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'buildAboutProfileSchema'.
+
+[7m5[0m import { buildAboutProfileSchema, canonicalCv } from '../utils/cv';
+[7m [0m [91m         ~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/pages/about.astro[0m:[93m589[0m:[93m2[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m589[0m  }
+[7m   [0m [91m ~[0m
+[96msrc/pages/about.astro[0m:[93m588[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m588[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m587[0m:[93m9[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m587[0m    width: auto;
+[7m   [0m [91m        ~[0m
+[96msrc/pages/about.astro[0m:[93m584[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m584[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m583[0m:[93m25[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m583[0m    grid-template-columns: 1fr;
+[7m   [0m [91m                        ~[0m
+[96msrc/pages/about.astro[0m:[93m580[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m580[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m579[0m:[93m11[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m579[0m    padding: 0.85rem;
+[7m   [0m [91m          ~[0m
+[96msrc/pages/about.astro[0m:[93m578[0m:[93m26[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m578[0m   .expertise-hub__visual {
+[7m   [0m [91m                         ~[0m
+[96msrc/pages/about.astro[0m:[93m578[0m:[93m3[0m - [91merror[0m[90m ts(1109): [0mExpression expected.
+
+[7m578[0m   .expertise-hub__visual {
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m575[0m:[93m2[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m575[0m  }
+[7m   [0m [91m ~[0m
+[96msrc/pages/about.astro[0m:[93m573[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m573[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m569[0m:[93m9[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m569[0m    width: 2.8rem;
+[7m   [0m [91m        ~[0m
+[96msrc/pages/about.astro[0m:[93m566[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m566[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m564[0m:[93m18[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m564[0m    grid-auto-flow: column;
+[7m   [0m [91m                 ~[0m
+[96msrc/pages/about.astro[0m:[93m561[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m561[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m560[0m:[93m25[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m560[0m    grid-template-columns: 1fr;
+[7m   [0m [91m                        ~[0m
+[96msrc/pages/about.astro[0m:[93m557[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m557[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m556[0m:[93m11[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m556[0m    display: none;
+[7m   [0m [91m          ~[0m
+[96msrc/pages/about.astro[0m:[93m553[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m553[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m549[0m:[93m15[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m549[0m    grid-column: 1;
+[7m   [0m [91m              ~[0m
+[96msrc/pages/about.astro[0m:[93m544[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m544[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m542[0m:[93m25[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m542[0m    grid-template-columns: 1fr;
+[7m   [0m [91m                        ~[0m
+[96msrc/pages/about.astro[0m:[93m539[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m539[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m534[0m:[93m12[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m534[0m    position: relative;
+[7m   [0m [91m           ~[0m
+[96msrc/pages/about.astro[0m:[93m531[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m531[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m530[0m:[93m14[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m530[0m    min-height: auto;
+[7m   [0m [91m             ~[0m
+[96msrc/pages/about.astro[0m:[93m527[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m527[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m526[0m:[93m25[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m526[0m    grid-template-columns: 1fr;
+[7m   [0m [91m                        ~[0m
+[96msrc/pages/about.astro[0m:[93m520[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m520[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m519[0m:[93m11[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m519[0m    padding: 1rem;
+[7m   [0m [91m          ~[0m
+[96msrc/pages/about.astro[0m:[93m518[0m:[93m18[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m518[0m   .section-block {
+[7m   [0m [91m                 ~[0m
+[96msrc/pages/about.astro[0m:[93m518[0m:[93m3[0m - [91merror[0m[90m ts(1109): [0mExpression expected.
+
+[7m518[0m   .section-block {
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m517[0m:[93m3[0m - [91merror[0m[90m ts(1109): [0mExpression expected.
+
+[7m517[0m   .about-hero,
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m513[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m513[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m512[0m:[93m13[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m512[0m    font-size: 0.9rem;
+[7m   [0m [91m            ~[0m
+[96msrc/pages/about.astro[0m:[93m509[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m509[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m507[0m:[93m13[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m507[0m    max-width: 8.4rem;
+[7m   [0m [91m            ~[0m
+[96msrc/pages/about.astro[0m:[93m504[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m504[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m501[0m:[93m25[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m501[0m    grid-template-columns: minmax(0, 8.4rem) clamp(7.6rem, 11vw, 8.8rem) minmax(0, 8.4rem);
+[7m   [0m [91m                        ~[0m
+[96msrc/pages/about.astro[0m:[93m498[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m498[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m497[0m:[93m13[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m497[0m    font-size: clamp(2.3rem, 3.5vw, 2.9rem);
+[7m   [0m [91m            ~[0m
+[96msrc/pages/about.astro[0m:[93m494[0m:[93m3[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m494[0m   }
+[7m   [0m [91m  ~[0m
+[96msrc/pages/about.astro[0m:[93m492[0m:[93m9[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m492[0m    width: clamp(7.6rem, 11vw, 8.8rem);
+[7m   [0m [91m        ~[0m
+[96msrc/pages/about.astro[0m:[93m17[0m:[93m77[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m17[0m  { title: 'Frontend technologies', groups: canonicalCv.frontendTechnologies },
+[7m  [0m [91m                                                                            ~[0m
+[96msrc/pages/about.astro[0m:[93m17[0m:[93m9[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m17[0m  { title: 'Frontend technologies', groups: canonicalCv.frontendTechnologies },
+[7m  [0m [91m        ~[0m
+[96msrc/pages/about.astro[0m:[93m16[0m:[93m75[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m16[0m  { title: 'Backend technologies', groups: canonicalCv.backendTechnologies },
+[7m  [0m [91m                                                                          ~[0m
+[96msrc/pages/about.astro[0m:[93m16[0m:[93m9[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m16[0m  { title: 'Backend technologies', groups: canonicalCv.backendTechnologies },
+[7m  [0m [91m        ~[0m
+[96msrc/pages/about.astro[0m:[93m15[0m:[93m77[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m15[0m  { title: 'Programming languages', groups: canonicalCv.programmingLanguages },
+[7m  [0m [91m                                                                            ~[0m
+[96msrc/pages/about.astro[0m:[93m15[0m:[93m9[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m15[0m  { title: 'Programming languages', groups: canonicalCv.programmingLanguages },
+[7m  [0m [91m        ~[0m
+
+[96msrc/pages/index.astro[0m:[93m595[0m:[93m6[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'size'.
+
+[7m595[0m font-size: clamp(1.4rem, 6vw, 2rem);
+[7m   [0m [91m     ~~~~[0m
+[96msrc/pages/index.astro[0m:[93m595[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'font'.
+
+[7m595[0m font-size: clamp(1.4rem, 6vw, 2rem);
+[7m   [0m [91m~~~~[0m
+[96msrc/pages/index.astro[0m:[93m591[0m:[93m15[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'columns'.
+
+[7m591[0m grid-template-columns: 1fr;
+[7m   [0m [91m              ~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m591[0m:[93m6[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'template'.
+
+[7m591[0m grid-template-columns: 1fr;
+[7m   [0m [91m     ~~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m591[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+
+[7m591[0m grid-template-columns: 1fr;
+[7m   [0m [91m~~~~[0m
+[96msrc/pages/index.astro[0m:[93m587[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'left'.
+
+[7m587[0m margin-left: 0;
+[7m   [0m [91m       ~~~~[0m
+[96msrc/pages/index.astro[0m:[93m587[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'margin'.
+
+[7m587[0m margin-left: 0;
+[7m   [0m [91m~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m580[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'width'.
+
+[7m580[0m width: 2.8rem;
+[7m   [0m [91m~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m574[0m:[93m11[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'flow'.
+
+[7m574[0m grid-auto-flow: column;
+[7m   [0m [91m          ~~~~[0m
+[96msrc/pages/index.astro[0m:[93m574[0m:[93m6[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'auto'.
+
+[7m574[0m grid-auto-flow: column;
+[7m   [0m [91m     ~~~~[0m
+[96msrc/pages/index.astro[0m:[93m574[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+
+[7m574[0m grid-auto-flow: column;
+[7m   [0m [91m~~~~[0m
+[96msrc/pages/index.astro[0m:[93m569[0m:[93m15[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'columns'.
+
+[7m569[0m grid-template-columns: 1fr;
+[7m   [0m [91m              ~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m569[0m:[93m6[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'template'.
+
+[7m569[0m grid-template-columns: 1fr;
+[7m   [0m [91m     ~~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m569[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+
+[7m569[0m grid-template-columns: 1fr;
+[7m   [0m [91m~~~~[0m
+[96msrc/pages/index.astro[0m:[93m565[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+
+[7m565[0m display: none;
+[7m   [0m [91m~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m560[0m:[93m9[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'left'.
+
+[7m560[0m padding-left: 0;
+[7m   [0m [91m        ~~~~[0m
+[96msrc/pages/index.astro[0m:[93m560[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'padding'.
+
+[7m560[0m padding-left: 0;
+[7m   [0m [91m~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m556[0m:[93m3[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+
+[7m556[0m   display: none;
+[7m   [0m [91m  ~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m550[0m:[93m17[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'columns'.
+
+[7m550[0m   grid-template-columns: 1fr;
+[7m   [0m [91m                ~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m550[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'template'.
+
+[7m550[0m   grid-template-columns: 1fr;
+[7m   [0m [91m       ~~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m550[0m:[93m3[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'grid'.
+
+[7m550[0m   grid-template-columns: 1fr;
+[7m   [0m [91m  ~~~~[0m
+[96msrc/pages/index.astro[0m:[93m549[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'hero'.
+
+[7m549[0m  .home-hero {
+[7m   [0m [91m       ~~~~[0m
+[96msrc/pages/index.astro[0m:[93m544[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'position'.
+
+[7m544[0m object-position: 50% 44%;
+[7m   [0m [91m       ~~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m544[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'object'.
+
+[7m544[0m object-position: 50% 44%;
+[7m   [0m [91m~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m540[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'position'.
+
+[7m540[0m object-position: 50% 46%;
+[7m   [0m [91m       ~~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m540[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'object'.
+
+[7m540[0m object-position: 50% 46%;
+[7m   [0m [91m~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m536[0m:[93m2[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'inset'.
+
+[7m536[0m  inset: var(--hero-frame-gap);
+[7m   [0m [91m ~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m528[0m:[93m2[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'width'.
+
+[7m528[0m  width: 100%;
+[7m   [0m [91m ~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m527[0m:[93m7[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'hero__image'.
+
+[7m527[0m .home-hero__image {
+[7m   [0m [91m      ~~~~~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m521[0m:[93m8[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'color'.
+
+[7m521[0m border-color: var(--accent);
+[7m   [0m [91m       ~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m521[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'border'.
+
+[7m521[0m border-color: var(--accent);
+[7m   [0m [91m~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m505[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+
+[7m505[0m display: inline-flex;
+[7m   [0m [91m~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m498[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+
+[7m498[0m display: grid;
+[7m   [0m [91m~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m492[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'margin'.
+
+[7m492[0m margin: 0;
+[7m   [0m [91m~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m479[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+
+[7m479[0m display: inline-flex;
+[7m   [0m [91m~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m475[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'margin'.
+
+[7m475[0m margin: 0.4rem 0 0;
+[7m   [0m [91m~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m471[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'color'.
+
+[7m471[0m color: var(--text-soft);
+[7m   [0m [91m~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m463[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'margin'.
+
+[7m463[0m margin: 0.15rem 0 0;
+[7m   [0m [91m~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m455[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+
+[7m455[0m display: flex;
+[7m   [0m [91m~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m449[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+
+[7m449[0m display: grid;
+[7m   [0m [91m~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m445[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'color'.
+
+[7m445[0m color: var(--accent-2);
+[7m   [0m [91m~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m439[0m:[93m7[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'size'.
+
+[7m439[0m  font-size: 0.68rem;
+[7m   [0m [91m      ~~~~[0m
+[96msrc/pages/index.astro[0m:[93m439[0m:[93m2[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'font'.
+
+[7m439[0m  font-size: 0.68rem;
+[7m   [0m [91m ~~~~[0m
+[96msrc/pages/index.astro[0m:[93m431[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'position'.
+
+[7m431[0m position: relative;
+[7m   [0m [91m~~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m422[0m:[93m2[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'content'.
+
+[7m422[0m  content: '';
+[7m   [0m [91m ~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m409[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'content'.
+
+[7m409[0m content: '';
+[7m   [0m [91m~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m396[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'display'.
+
+[7m396[0m display: grid;
+[7m   [0m [91m~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m381[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'left'.
+
+[7m381[0m left: 0;
+[7m   [0m [91m~~~~[0m
+[96msrc/pages/index.astro[0m:[93m374[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'left'.
+
+[7m374[0m left: 0;
+[7m   [0m [91m~~~~[0m
+[96msrc/pages/index.astro[0m:[93m367[0m:[93m1[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'position'.
+
+[7m367[0m position: absolute;
+[7m   [0m [91m~~~~~~~~[0m
+[96msrc/pages/index.astro[0m:[93m598[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m598[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m597[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m597[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m595[0m:[93m10[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m595[0m font-size: clamp(1.4rem, 6vw, 2rem);
+[7m   [0m [91m         ~[0m
+[96msrc/pages/index.astro[0m:[93m592[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m592[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m591[0m:[93m22[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m591[0m grid-template-columns: 1fr;
+[7m   [0m [91m                     ~[0m
+[96msrc/pages/index.astro[0m:[93m588[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m588[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m587[0m:[93m12[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m587[0m margin-left: 0;
+[7m   [0m [91m           ~[0m
+[96msrc/pages/index.astro[0m:[93m584[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m584[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m580[0m:[93m6[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m580[0m width: 2.8rem;
+[7m   [0m [91m     ~[0m
+[96msrc/pages/index.astro[0m:[93m577[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m577[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m574[0m:[93m15[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m574[0m grid-auto-flow: column;
+[7m   [0m [91m              ~[0m
+[96msrc/pages/index.astro[0m:[93m571[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m571[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m569[0m:[93m22[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m569[0m grid-template-columns: 1fr;
+[7m   [0m [91m                     ~[0m
+[96msrc/pages/index.astro[0m:[93m566[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m566[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m565[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m565[0m display: none;
+[7m   [0m [91m       ~[0m
+[96msrc/pages/index.astro[0m:[93m561[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m561[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m560[0m:[93m13[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m560[0m padding-left: 0;
+[7m   [0m [91m            ~[0m
+[96msrc/pages/index.astro[0m:[93m557[0m:[93m2[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m557[0m  }
+[7m   [0m [91m ~[0m
+[96msrc/pages/index.astro[0m:[93m556[0m:[93m10[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m556[0m   display: none;
+[7m   [0m [91m         ~[0m
+[96msrc/pages/index.astro[0m:[93m553[0m:[93m2[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m553[0m  }
+[7m   [0m [91m ~[0m
+[96msrc/pages/index.astro[0m:[93m550[0m:[93m24[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m550[0m   grid-template-columns: 1fr;
+[7m   [0m [91m                       ~[0m
+[96msrc/pages/index.astro[0m:[93m549[0m:[93m13[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m549[0m  .home-hero {
+[7m   [0m [91m            ~[0m
+[96msrc/pages/index.astro[0m:[93m549[0m:[93m2[0m - [91merror[0m[90m ts(1109): [0mExpression expected.
+
+[7m549[0m  .home-hero {
+[7m   [0m [91m ~[0m
+[96msrc/pages/index.astro[0m:[93m546[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m546[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m545[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m545[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m544[0m:[93m16[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m544[0m object-position: 50% 44%;
+[7m   [0m [91m               ~[0m
+[96msrc/pages/index.astro[0m:[93m541[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m541[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m540[0m:[93m16[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m540[0m object-position: 50% 46%;
+[7m   [0m [91m               ~[0m
+[96msrc/pages/index.astro[0m:[93m537[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m537[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m536[0m:[93m7[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m536[0m  inset: var(--hero-frame-gap);
+[7m   [0m [91m      ~[0m
+[96msrc/pages/index.astro[0m:[93m533[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m533[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m528[0m:[93m7[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m528[0m  width: 100%;
+[7m   [0m [91m      ~[0m
+[96msrc/pages/index.astro[0m:[93m527[0m:[93m19[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m527[0m .home-hero__image {
+[7m   [0m [91m                  ~[0m
+[96msrc/pages/index.astro[0m:[93m527[0m:[93m1[0m - [91merror[0m[90m ts(1109): [0mExpression expected.
+
+[7m527[0m .home-hero__image {
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m524[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m524[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m521[0m:[93m13[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m521[0m border-color: var(--accent);
+[7m   [0m [91m            ~[0m
+[96msrc/pages/index.astro[0m:[93m517[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m517[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m505[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m505[0m display: inline-flex;
+[7m   [0m [91m       ~[0m
+[96msrc/pages/index.astro[0m:[93m502[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m502[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m498[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m498[0m display: grid;
+[7m   [0m [91m       ~[0m
+[96msrc/pages/index.astro[0m:[93m495[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m495[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m492[0m:[93m7[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m492[0m margin: 0;
+[7m   [0m [91m      ~[0m
+[96msrc/pages/index.astro[0m:[93m488[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m488[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m479[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m479[0m display: inline-flex;
+[7m   [0m [91m       ~[0m
+[96msrc/pages/index.astro[0m:[93m476[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m476[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m475[0m:[93m7[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m475[0m margin: 0.4rem 0 0;
+[7m   [0m [91m      ~[0m
+[96msrc/pages/index.astro[0m:[93m472[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m472[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m471[0m:[93m6[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m471[0m color: var(--text-soft);
+[7m   [0m [91m     ~[0m
+[96msrc/pages/index.astro[0m:[93m466[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m466[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m463[0m:[93m7[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m463[0m margin: 0.15rem 0 0;
+[7m   [0m [91m      ~[0m
+[96msrc/pages/index.astro[0m:[93m460[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m460[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m455[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m455[0m display: flex;
+[7m   [0m [91m       ~[0m
+[96msrc/pages/index.astro[0m:[93m452[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m452[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m449[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m449[0m display: grid;
+[7m   [0m [91m       ~[0m
+[96msrc/pages/index.astro[0m:[93m446[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m446[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m445[0m:[93m6[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m445[0m color: var(--accent-2);
+[7m   [0m [91m     ~[0m
+[96msrc/pages/index.astro[0m:[93m442[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m442[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m439[0m:[93m11[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m439[0m  font-size: 0.68rem;
+[7m   [0m [91m          ~[0m
+[96msrc/pages/index.astro[0m:[93m433[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m433[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m431[0m:[93m9[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m431[0m position: relative;
+[7m   [0m [91m        ~[0m
+[96msrc/pages/index.astro[0m:[93m428[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m428[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m422[0m:[93m9[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m422[0m  content: '';
+[7m   [0m [91m        ~[0m
+[96msrc/pages/index.astro[0m:[93m419[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m419[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m409[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m409[0m content: '';
+[7m   [0m [91m       ~[0m
+[96msrc/pages/index.astro[0m:[93m406[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m406[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m396[0m:[93m8[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m396[0m display: grid;
+[7m   [0m [91m       ~[0m
+[96msrc/pages/index.astro[0m:[93m393[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m393[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m392[0m:[93m4[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m392[0m top: calc(50% + 2rem);
+[7m   [0m [91m   ~[0m
+[96msrc/pages/index.astro[0m:[93m389[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m389[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m388[0m:[93m4[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m388[0m top: 4.4rem;
+[7m   [0m [91m   ~[0m
+[96msrc/pages/index.astro[0m:[93m385[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m385[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m381[0m:[93m5[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m381[0m left: 0;
+[7m   [0m [91m    ~[0m
+[96msrc/pages/index.astro[0m:[93m378[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m378[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m374[0m:[93m5[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m374[0m left: 0;
+[7m   [0m [91m    ~[0m
+[96msrc/pages/index.astro[0m:[93m371[0m:[93m1[0m - [91merror[0m[90m ts(1381): [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+[7m371[0m }
+[7m   [0m [91m~[0m
+[96msrc/pages/index.astro[0m:[93m367[0m:[93m9[0m - [91merror[0m[90m ts(1005): [0m'}' expected.
+
+[7m367[0m position: absolute;
+[7m   [0m [91m        ~[0m
+
+Result (30 files): 
+- 247 errors
+- 0 warnings
+- 1 hint
+
+ ELIFECYCLE  Command failed with exit code 1.
