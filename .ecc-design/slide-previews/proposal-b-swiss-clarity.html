@@ -503,8 +503,8 @@ a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
 
 function toggleTheme() {
   const html = document.documentElement;
-  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
+  const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  html.dataset.theme = next;
 }
 </script>
 </body>

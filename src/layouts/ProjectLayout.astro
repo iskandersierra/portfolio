@@ -176,31 +176,11 @@ const overviewFacts = [
 	}
 
 	.detail-module {
-		position: relative;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
-		background:
-			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		background: var(--surface);
 		box-shadow: var(--panel-shadow-soft);
 		padding: clamp(1.1rem, 2.7vw, 1.65rem);
-		overflow: clip;
-	}
-
-	.detail-module::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-		background:
-			linear-gradient(var(--grid-line) 1px, transparent 1px),
-			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-		background-size: 3rem 3rem;
-		opacity: 0.35;
-		mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 86%);
-	}
-
-	.detail-module > * {
-		position: relative;
-		z-index: 1;
 	}
 
 	.detail-module__header {
@@ -222,7 +202,7 @@ const overviewFacts = [
 	.external-link {
 		margin: 0;
 		font-size: 0.72rem;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
 	}
 
@@ -231,7 +211,7 @@ const overviewFacts = [
 	.detail-module__eyebrow,
 	.detail-route-link__label,
 	.external-link {
-		color: var(--accent-2);
+		color: var(--text-soft);
 	}
 
 	.detail-module__status,
@@ -265,8 +245,9 @@ const overviewFacts = [
 		align-items: center;
 		padding: 0.2rem 0.55rem;
 		border: 1px solid var(--border);
-		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
-		color: var(--accent);
+		border-radius: 999px;
+		background: var(--surface-soft);
+		color: var(--text-soft);
 		line-height: 1.2;
 	}
 
@@ -279,7 +260,8 @@ const overviewFacts = [
 	.detail-fact-list div {
 		padding: 0.85rem 0.95rem;
 		border: 1px solid var(--border);
-		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		border-radius: var(--radius-lg);
+		background: var(--surface-soft);
 	}
 
 	.detail-fact-list dd {
@@ -294,8 +276,9 @@ const overviewFacts = [
 		align-items: center;
 		padding: 0.75rem 0.9rem;
 		margin-top: 1rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
-		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-md);
+		background: var(--surface-soft);
 		text-decoration: none;
 	}
 
@@ -303,8 +286,8 @@ const overviewFacts = [
 	.external-link:focus-visible,
 	.detail-route-link:hover,
 	.detail-route-link:focus-visible {
-		border-color: var(--accent);
-		background: color-mix(in srgb, var(--accent) 10%, var(--surface-strong));
+		border-color: var(--border-strong);
+		background: var(--surface-hover);
 		text-decoration: none;
 	}
 
@@ -322,8 +305,9 @@ const overviewFacts = [
 		display: grid;
 		gap: 0.3rem;
 		padding: 0.9rem 1rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
-		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		border: 1px solid var(--border-muted);
+		border-radius: var(--radius-lg);
+		background: var(--surface-soft);
 		color: var(--text-main);
 		text-decoration: none;
 	}

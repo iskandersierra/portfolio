@@ -1,8 +1,9 @@
 # Design System PRD — Portfolio Neutral Editorial System
 
 **Owner:** Iskander Sierra
-**Status:** Proposed
+**Status:** Accepted — Warm Editorial
 **Date:** 2026-04-25
+**Accepted:** 2026-04-25
 **Scope:** Portfolio redesign workstream after the clean-slate refactor
 
 ---
@@ -83,16 +84,17 @@ Use a custom font pairing rather than pure system fonts.
 
 ### Chosen approach
 
-- Primary text: a modern sans serif with clean geometry and strong readability.
-- Secondary and code-like text: a refined monospace used for metadata, labels, code, and small technical accents.
+- Display / headings: **Fraunces** (variable, optical size 9–144, weight 300–700). A soft serif with character and warmth. Fallback: Georgia, serif.
+- Body text: **Inter** (weights 400, 500, 600). Clean geometric sans with excellent screen readability. Fallback: system-ui, sans-serif.
+- Code / metadata / labels: **JetBrains Mono** (weights 400, 500). Technical but refined. Fallback: ui-monospace, monospace.
 
 ### Typography rules
 
-- Headings should be strong but not heavy.
-- Body copy should stay highly readable at normal and small sizes.
-- Monospace should be reserved for utility, labels, code blocks, and technical metadata.
-- Letter spacing should be subtle and only used where it improves clarity.
-- Font choices should not feel trendy or experimental.
+- Headings use Fraunces at weight 600 with `-0.02em` letter spacing and 1.2 line height.
+- Body copy uses Inter at weight 400 with 1.7 line height.
+- Monospace is reserved for tags, metadata labels, code blocks, and small technical accents.
+- Labels use JetBrains Mono at small size with `0.06em` letter spacing and uppercase.
+- Card link text uses JetBrains Mono at small size, weight 500.
 
 ### Desired tone
 
@@ -108,31 +110,55 @@ Use a custom font pairing rather than pure system fonts.
 
 ### Base palette
 
-The palette should remain neutral and restrained, with a small amount of accent color for links, actions, and emphasis.
+The palette is neutral and restrained with warm undertones. A terracotta accent provides identity for links and actions. A teal secondary provides contrast for supporting elements.
 
-### Recommended semantic tokens
+### Light mode values
 
-- `--bg`
-- `--bg-elevated`
-- `--surface`
-- `--surface-strong`
-- `--surface-soft`
-- `--text-main`
-- `--text-muted`
-- `--border`
-- `--border-strong`
-- `--accent`
-- `--accent-2`
-- `--shadow-color`
-- `--selection-bg`
-- `--selection-fg`
+| Token | Value | Purpose |
+|---|---|---|
+| `--bg` | `#f9f9f7` | Page background — near-white with a hint of warmth |
+| `--bg-elevated` | `#ffffff` | Elevated containers |
+| `--surface` | `#ffffff` | Card and panel backgrounds |
+| `--surface-soft` | `#f2f1ef` | Subtle surface tint for tags, toggles |
+| `--surface-strong` | `#ffffff` | High-emphasis surfaces |
+| `--text-main` | `#1a1a1a` | Primary text |
+| `--text-muted` | `#5c5c5c` | Body copy, descriptions |
+| `--text-soft` | `#8a8a8a` | Labels, tertiary text |
+| `--border` | `rgba(26, 26, 26, 0.10)` | Default borders |
+| `--border-strong` | `rgba(26, 26, 26, 0.18)` | Emphasized borders |
+| `--accent` | `#b85c38` | Primary accent — terracotta |
+| `--accent-2` | `#2a6b5a` | Secondary accent — teal |
+| `--shadow-color` | `rgba(26, 26, 26, 0.06)` | Shadow base |
+| `--selection-bg` | `#b85c38` | Text selection background |
+| `--selection-fg` | `#ffffff` | Text selection foreground |
+
+### Dark mode values
+
+| Token | Value | Purpose |
+|---|---|---|
+| `--bg` | `#1a1816` | Deep warm brown, not pure black |
+| `--bg-elevated` | `#22201d` | Elevated background |
+| `--surface` | `#2a2724` | Card backgrounds |
+| `--surface-soft` | `#33302c` | Subtle surface tint |
+| `--surface-strong` | `#2a2724` | High-emphasis surfaces |
+| `--text-main` | `#ede8e0` | Primary text |
+| `--text-muted` | `#a8a098` | Body copy |
+| `--text-soft` | `#7a736b` | Tertiary text |
+| `--border` | `rgba(237, 232, 224, 0.10)` | Default borders |
+| `--border-strong` | `rgba(237, 232, 224, 0.18)` | Emphasized borders |
+| `--accent` | `#d4845a` | Lighter terracotta for dark surfaces |
+| `--accent-2` | `#5ec4a8` | Brighter teal for dark surfaces |
+| `--shadow-color` | `rgba(0, 0, 0, 0.20)` | Shadow base |
+| `--selection-bg` | `#d4845a` | Text selection background |
+| `--selection-fg` | `#1a1816` | Text selection foreground |
 
 ### Color behavior
 
-- Light mode should feel airy and restrained.
-- Dark mode should feel deep but still soft, not high-contrast neon.
-- Accent color should be strong enough for links and focus states, but not dominate the page.
-- Selection colors should remain accessible in both themes.
+- Light mode feels airy and restrained — the background is near-white, not cream.
+- Dark mode uses warm brown tones, not cold void black.
+- The terracotta accent is strong enough for links and focus rings without dominating the page.
+- Both accents shift lighter/brighter in dark mode to maintain contrast.
+- Selection colors remain accessible in both themes.
 
 ### Color constraints
 
@@ -166,9 +192,15 @@ The palette should remain neutral and restrained, with a small amount of accent 
 
 ### Borders and shadows
 
-- Borders should be thin and understated.
-- Shadows should create subtle separation rather than a dramatic floating effect.
-- Shadows should remain consistent across component types.
+- Borders are 1px, using `--border` by default and `--border-strong` on hover.
+- Card shadows: `0 1px 3px var(--shadow-color), 0 4px 12px var(--shadow-color)` at rest.
+- Card hover shadows: `0 4px 8px var(--shadow-color), 0 12px 28px var(--shadow-color)` with a `translateY(-2px)` lift.
+- Shadows remain consistent across all card-like components.
+
+### Radius tokens
+
+- `--radius`: `0.5rem` — default for tags, toggles, small elements.
+- `--radius-lg`: `0.75rem` — cards, panels, content containers.
 
 ---
 
@@ -320,18 +352,46 @@ The design system is successful if:
 
 ---
 
-## 15. Open Implementation Questions
+## 15. Resolved Design Decisions
 
-These are the remaining delivery details that can be refined during implementation.
+These questions from the proposal phase are now resolved.
 
-- Exact font family selection.
-- Exact accent color values.
-- Whether surfaces should lean more flat or more tactile.
-- How much background texture, if any, should survive in dark mode.
-- Whether component variants should be codified in shared primitives or handled per section.
+| Question | Decision |
+|---|---|
+| Font family selection | Fraunces (display serif) + Inter (body sans) + JetBrains Mono (code/meta) |
+| Accent color values | Terracotta `#b85c38` / `#d4845a` dark + Teal `#2a6b5a` / `#5ec4a8` dark |
+| Surface treatment | Soft tactile — gentle shadows, hover lifts, not flat |
+| Background texture in dark mode | None — rely on tonal surface layering only |
+| Component variants | Handle per component; no shared primitive abstraction layer |
+| Background warmth | Near-white `#f9f9f7`, not cream — just enough warmth to avoid clinical feel |
 
 ---
 
-## 16. Next Step
+## 16. Selected Proposal
 
-Translate this PRD into implementation tasks for the shared layout, theme tokens, typography, cards, and page-level surfaces.
+**Warm Editorial** (Proposal A) — selected 2026-04-25.
+
+Visual preview: `.ecc-design/slide-previews/proposal-a-warm-editorial.html`
+
+Key identity traits:
+
+- Serif display headings (Fraunces) create editorial personality without heaviness.
+- Terracotta + teal accent pair gives warmth and distinction without trendiness.
+- Dark mode uses warm browns, not cold blacks — surfaces retain character.
+- Cards lift gently on hover with deepening shadows.
+- Tags use monospace in pill-shaped containers.
+- Card links use monospace at small size with understated underline on hover.
+
+---
+
+## 17. Next Step
+
+Implement the design system into the codebase:
+
+1. Update `src/styles/themes.css` with the resolved color, typography, radius, and shadow tokens.
+2. Update `src/styles/global.css` with typography rules, link styles, and remove terminal-era patterns.
+3. Update `src/components/ui/Card.astro` to use the new card styling.
+4. Update `src/components/layout/Header.astro` and `Footer.astro` for the new header/nav treatment.
+5. Update `src/layouts/Layout.astro` to remove the terminal window wrapper.
+6. Add Google Fonts link for Fraunces, Inter, and JetBrains Mono.
+7. Verify all pages render correctly in both themes.

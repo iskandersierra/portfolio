@@ -112,7 +112,7 @@ const getProjectSummary = (project: (typeof projects)[number]) => project.data.d
 
 <style>
 	.projects-surface {
-		padding-block: 2rem 4rem;
+		padding-block: 1.25rem 4rem;
 		display: grid;
 		gap: 1.25rem;
 	}
@@ -120,39 +120,15 @@ const getProjectSummary = (project: (typeof projects)[number]) => project.data.d
 	.projects-hero,
 	.project-card,
 	.empty-state {
-		position: relative;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
-		background:
-			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		background: var(--surface);
 		box-shadow: var(--panel-shadow-soft);
-		overflow: clip;
-	}
-
-	.projects-hero::before,
-	.project-card::before,
-	.empty-state::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-		background:
-			linear-gradient(var(--grid-line) 1px, transparent 1px),
-			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-		background-size: 3rem 3rem;
-		opacity: 0.35;
-		mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.62), transparent 86%);
 	}
 
 	.projects-hero,
 	.empty-state {
 		padding: clamp(1.1rem, 2.8vw, 1.7rem);
-	}
-
-	.projects-hero > *,
-	.project-card > *,
-	.empty-state > * {
-		position: relative;
-		z-index: 1;
 	}
 
 	.projects-hero {
@@ -167,12 +143,12 @@ const getProjectSummary = (project: (typeof projects)[number]) => project.data.d
 	.projects-stats dt {
 		margin: 0;
 		font-size: 0.72rem;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
 	}
 
 	.page-kicker {
-		color: var(--accent-2);
+		color: var(--text-soft);
 	}
 
 	.projects-hero h1,
@@ -183,7 +159,7 @@ const getProjectSummary = (project: (typeof projects)[number]) => project.data.d
 
 	.projects-hero h1 {
 		font-size: clamp(2.4rem, 5vw, 4.4rem);
-		line-height: 0.96;
+		line-height: 1;
 		margin-top: 0.55rem;
 	}
 
@@ -203,7 +179,8 @@ const getProjectSummary = (project: (typeof projects)[number]) => project.data.d
 	.projects-stats div {
 		padding: 1rem;
 		border: 1px solid var(--border);
-		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		border-radius: var(--radius-lg);
+		background: var(--surface-soft);
 	}
 
 	.projects-stats dt,
@@ -267,21 +244,24 @@ const getProjectSummary = (project: (typeof projects)[number]) => project.data.d
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0.65rem 0.85rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
-		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		padding: 0.45rem 0.75rem;
+		border: 1px solid var(--border);
+		border-radius: 999px;
+		background: var(--surface-soft);
 	}
 
 	.framework-badge,
 	.project-card__cta {
-		letter-spacing: 0.08em;
+		letter-spacing: 0.04em;
 		text-transform: uppercase;
+		color: var(--accent);
 	}
 
 	.external-link {
 		width: 2.5rem;
 		height: 2.5rem;
 		padding: 0;
+		border-radius: var(--radius-md);
 	}
 
 	.external-link svg {
@@ -301,9 +281,11 @@ const getProjectSummary = (project: (typeof projects)[number]) => project.data.d
 	.tag-list li {
 		padding: 0.25rem 0.6rem;
 		border: 1px solid var(--border);
-		background: color-mix(in srgb, var(--surface-soft) 74%, transparent);
+		border-radius: 999px;
+		background: var(--surface-soft);
 		color: var(--text-soft);
-		font-size: 0.9rem;
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
 	}
 
 	@media (max-width: 960px) {

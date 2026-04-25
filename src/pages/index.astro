@@ -34,7 +34,7 @@ const getProjectMeta = (project: (typeof latestProjects)[number]) => {
 			"After 25 years in software, the most valuable thing I've learned is that there's always more to learn. This is the portfolio for current writing, current projects, and the work that connects them.",
 		pageType: 'website',
 		socialImageAlt:
-			'Preview card for Iskander Sierra\'s portfolio with a terminal-inspired visual treatment.',
+			'Preview card for Iskander Sierra\'s portfolio with a warm editorial visual treatment.',
 	}}
 >
 	<main class="container page-shell home-surface">
@@ -149,7 +149,7 @@ const getProjectMeta = (project: (typeof latestProjects)[number]) => {
 
 <style>
 	.home-surface {
-		padding-block: 2rem 4rem;
+		padding-block: 1.25rem 4rem;
 		display: grid;
 		gap: 1.25rem;
 	}
@@ -158,28 +158,10 @@ const getProjectMeta = (project: (typeof latestProjects)[number]) => {
 	.content-section,
 	.content-card,
 	.empty-state {
-		position: relative;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
-		background:
-			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 94%, transparent) 100%);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		background: var(--surface);
 		box-shadow: var(--panel-shadow-soft);
-		overflow: clip;
-	}
-
-	.home-hero::before,
-	.content-section::before,
-	.content-card::before,
-	.empty-state::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-		background:
-			linear-gradient(var(--grid-line) 1px, transparent 1px),
-			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-		background-size: 3rem 3rem;
-		opacity: 0.35;
-		mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.62), transparent 86%);
 	}
 
 	.home-hero,
@@ -193,13 +175,13 @@ const getProjectMeta = (project: (typeof latestProjects)[number]) => {
 	.content-card__meta {
 		margin: 0;
 		font-size: 0.72rem;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
 	}
 
 	.home-kicker,
 	.section-kicker {
-		color: var(--accent-2);
+		color: var(--text-soft);
 	}
 
 	.home-hero > *,
@@ -213,7 +195,7 @@ const getProjectMeta = (project: (typeof latestProjects)[number]) => {
 	.home-hero h1 {
 		margin: 0.55rem 0 0.75rem;
 		font-size: clamp(2.3rem, 5vw, 4.4rem);
-		line-height: 0.96;
+		line-height: 1;
 		max-width: 11ch;
 	}
 
@@ -300,11 +282,12 @@ const getProjectMeta = (project: (typeof latestProjects)[number]) => {
 		display: inline-flex;
 		align-items: center;
 		justify-self: start;
-		padding: 0.7rem 0.9rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
-		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
-		letter-spacing: 0.08em;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		letter-spacing: 0.04em;
 		text-transform: uppercase;
+		color: var(--accent);
 	}
 
 	.content-card__external {
@@ -313,8 +296,9 @@ const getProjectMeta = (project: (typeof latestProjects)[number]) => {
 		justify-content: center;
 		width: 2rem;
 		height: 2rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
-		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-md);
+		background: var(--surface-soft);
 	}
 
 	.content-card__external svg {
@@ -334,9 +318,11 @@ const getProjectMeta = (project: (typeof latestProjects)[number]) => {
 	.tag-list li {
 		padding: 0.25rem 0.6rem;
 		border: 1px solid var(--border);
-		background: color-mix(in srgb, var(--surface-soft) 74%, transparent);
+		border-radius: 999px;
+		background: var(--surface-soft);
 		color: var(--text-soft);
-		font-size: 0.9rem;
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
 	}
 
 	@media (max-width: 960px) {

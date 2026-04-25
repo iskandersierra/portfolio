@@ -141,13 +141,13 @@
 	}
 
 	.theme-toggle {
-		background: color-mix(in srgb, var(--surface-strong) 78%, transparent);
-		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
-		border-radius: 999px;
+		background: var(--surface-soft);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-md);
 		color: var(--text-muted);
 		cursor: pointer;
 		min-width: 8rem;
-		height: 2.75rem;
+		height: 2.5rem;
 		padding: 0.45rem 0.75rem;
 		display: flex;
 		align-items: center;
@@ -163,13 +163,13 @@
 
 	.theme-toggle-shell[data-open='true'] .theme-toggle,
 	.theme-toggle:hover {
-		border-color: var(--accent);
+		border-color: var(--border-strong);
 		color: var(--accent);
-		box-shadow: 0 14px 30px color-mix(in srgb, var(--shadow-color) 28%, transparent);
+		box-shadow: var(--panel-shadow-soft);
 	}
 
 	.theme-toggle-shell[data-open='true'] .theme-toggle {
-		background: color-mix(in srgb, var(--surface-strong) 78%, var(--accent) 12%);
+		background: var(--surface);
 	}
 
 	.theme-toggle:focus-visible {
@@ -187,7 +187,7 @@
 
 	.theme-toggle-label {
 		font-size: 0.64rem;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		color: var(--text-muted);
 	}
@@ -206,8 +206,8 @@
 		width: 1.8rem;
 		height: 1.8rem;
 		border-radius: 999px;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 56%, transparent);
-		background: color-mix(in srgb, var(--surface) 65%, transparent);
+		border: 1px solid var(--border);
+		background: var(--surface);
 	}
 
 	.theme-icon,
@@ -243,12 +243,10 @@
 		z-index: 20;
 		width: min(13rem, calc(100vw - 2rem));
 		padding: 0.45rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
-		border-radius: 1rem;
-		background:
-			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 94%, transparent) 0%, color-mix(in srgb, var(--surface-soft) 92%, transparent) 100%);
-		backdrop-filter: blur(16px);
-		box-shadow: 0 24px 48px color-mix(in srgb, var(--shadow-color) 22%, transparent);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		background: var(--surface);
+		box-shadow: var(--panel-shadow);
 	}
 
 	.theme-menu[hidden] {
@@ -293,19 +291,19 @@
 
 	.theme-option:hover,
 	.theme-option:focus-visible {
-		border-color: var(--accent);
+		border-color: var(--border-strong);
 		color: var(--text-main);
 		outline: none;
 	}
 
 	.theme-option:focus-visible {
-		background: color-mix(in srgb, var(--surface) 82%, var(--accent) 18%);
+		background: var(--surface-soft);
 	}
 
 	.theme-option[aria-checked='true'] {
 		color: var(--accent);
-		border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
-		background: color-mix(in srgb, var(--surface-strong) 80%, var(--accent) 14%);
+		border-color: var(--border-strong);
+		background: var(--surface-soft);
 	}
 
 	.theme-option-icon {
