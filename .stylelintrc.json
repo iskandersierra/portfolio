@@ -1,4 +1,12 @@
 {
+  "overrides": [
+    {
+      "files": [
+        "**/*.astro"
+      ],
+      "customSyntax": "postcss-html"
+    }
+  ],
   "rules": {
     "value-keyword-case": "lower"
   }
