@@ -13,14 +13,14 @@ const {
 	description,
 	href,
 	motionClass = '',
-	linkText = 'run ./read_post.sh →',
+	linkText = 'Read more →',
 	ariaLabel = `Open: ${title}`,
 } = Astro.props;
 ---
 
-<div class={`brutalist-card motion-enter motion-hover-lift ${motionClass}`}>
+<div class={`editorial-card motion-enter motion-hover-lift ${motionClass}`}>
 	<div class="card-content">
-		<h3 class="mono">{title}</h3>
+		<h3>{title}</h3>
 		<p>{description}</p>
 	</div>
 	<a href={href} class="card-link mono" aria-label={ariaLabel}>
@@ -29,59 +29,22 @@ const {
 </div>
 
 <style>
-	.brutalist-card {
+	.editorial-card {
 		display: grid;
 		gap: 1.15rem;
 		align-content: start;
 		min-height: 100%;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 72%, transparent);
-		background:
-			linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%, color-mix(in srgb, var(--surface-soft) 92%, transparent) 100%);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		background: var(--surface);
 		padding: 1.35rem;
 		margin-bottom: 0;
-		position: relative;
-		overflow: clip;
-		box-shadow: inset 0 1px 0 color-mix(in srgb, var(--surface-strong) 44%, transparent);
+		box-shadow: var(--panel-shadow-soft);
 	}
 
-	.brutalist-card::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-		background:
-			linear-gradient(var(--grid-line) 1px, transparent 1px),
-			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-		background-size: 3rem 3rem;
-		opacity: 0.35;
-		mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 84%);
-	}
-
-	.brutalist-card:hover {
-		border-color: var(--accent);
-		box-shadow:
-			0 0 0 1px var(--accent),
-			0 18px 36px color-mix(in srgb, var(--shadow-color) 22%, transparent);
-	}
-
-	.brutalist-card::after {
-		content: '';
-		position: absolute;
-		inset: 0 0 auto 0;
-		height: 2px;
-		background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent);
-		opacity: 0;
-		transition: opacity 0.3s ease;
-		z-index: 2;
-	}
-
-	.brutalist-card:hover::after {
-		opacity: 0.7;
-	}
-
-	.brutalist-card > * {
-		position: relative;
-		z-index: 1;
+	.editorial-card:hover {
+		border-color: var(--border-strong);
+		box-shadow: 0 4px 8px var(--shadow-color), 0 12px 28px var(--shadow-color);
 	}
 
 	.card-content {
@@ -106,28 +69,25 @@ const {
 	.card-link {
 		display: inline-flex;
 		align-items: center;
-		justify-content: center;
-		min-height: 2.5rem;
+		justify-content: flex-start;
+		min-height: 1.5rem;
 		width: fit-content;
-		padding: 0.45rem 0.8rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
-		background: color-mix(in srgb, var(--surface) 58%, transparent);
+		padding: 0;
+		border: 0;
+		background: transparent;
 		color: var(--accent);
 		text-decoration: none;
-		font-size: 0.9rem;
+		font-size: 0.8rem;
 		font-weight: 600;
-		letter-spacing: 0.08em;
-		font-variant: small-caps;
+		letter-spacing: 0.04em;
 		transition:
-			border-color 0.2s ease,
-			background-color 0.2s ease,
+			color 0.2s ease,
 			text-underline-offset 0.2s ease;
 	}
 
 	.card-link:hover,
 	.card-link:focus-visible {
-		border-color: var(--accent);
-		background: color-mix(in srgb, var(--accent) 12%, var(--surface-strong));
-		text-decoration: none;
+		color: color-mix(in srgb, var(--accent) 88%, var(--accent-2));
+		text-decoration: underline;
 	}
 </style>

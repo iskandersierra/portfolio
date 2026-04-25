@@ -198,7 +198,7 @@ const currentRole = canonicalCv.workHistory[0];
 
 <style>
 	.about-page {
-		padding-block: 2rem 4rem;
+		padding-block: 1.25rem 4rem;
 	}
 
 	.about-hero,
@@ -229,9 +229,9 @@ const currentRole = canonicalCv.workHistory[0];
 	.publication-item__meta {
 		margin: 0;
 		font-size: 0.72rem;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: var(--text-soft);
+		color: var(--text-muted-strong);
 	}
 
 	.about-hero h1,
@@ -242,7 +242,7 @@ const currentRole = canonicalCv.workHistory[0];
 
 	.about-hero h1 {
 		font-size: clamp(2.6rem, 5vw, 4.5rem);
-		line-height: 0.95;
+		line-height: 1;
 		margin-top: 0.5rem;
 	}
 
@@ -261,8 +261,7 @@ const currentRole = canonicalCv.workHistory[0];
 		font-size: 1.05rem;
 	}
 
-	.about-stats,
-	.graph-panel__metrics {
+	.about-stats {
 		display: grid;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 0.75rem;
@@ -327,10 +326,13 @@ const currentRole = canonicalCv.workHistory[0];
 	.about-role-list li,
 	.experience-tags li,
 	.capability-group li {
-		padding: 0.45rem 0.7rem;
+		padding: 0.35rem 0.7rem;
 		border: 1px solid var(--border-muted);
 		border-radius: 999px;
 		background: var(--surface-subtle);
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		color: var(--text-muted-strong);
 	}
 
 	.about-profile-links,
@@ -347,7 +349,7 @@ const currentRole = canonicalCv.workHistory[0];
 		align-items: center;
 		padding: 0.9rem 1rem;
 		border: 1px solid var(--border-muted);
-		border-radius: 0.875rem;
+		border-radius: var(--radius-lg);
 		background: var(--surface-subtle);
 		color: var(--text-main);
 		text-decoration: none;

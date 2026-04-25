@@ -31,7 +31,7 @@ export const seoExpectations: SeoExpectation[] = [
 		siteName: 'Iskander Sierra',
 		socialImageUrl: 'https://isksz.com/social-card.png',
 		socialImageAlt:
-			"Preview card for Iskander Sierra's portfolio with a terminal-inspired visual treatment.",
+			"Preview card for Iskander Sierra's portfolio with a warm editorial visual treatment.",
 	},
 	{
 		name: 'about',

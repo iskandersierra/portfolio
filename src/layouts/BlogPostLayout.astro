@@ -237,7 +237,7 @@ const hasSeriesBlock = Boolean(seriesData.series && seriesLinks.length > 0);
 
 	.detail-module {
 		border: 1px solid var(--border);
-		border-radius: 1rem;
+		border-radius: var(--radius-lg);
 		background: var(--surface);
 		box-shadow: var(--panel-shadow-soft);
 		padding: clamp(1.1rem, 2.7vw, 1.65rem);
@@ -266,13 +266,14 @@ const hasSeriesBlock = Boolean(seriesData.series && seriesLinks.length > 0);
 	.detail-module__eyebrow,
 	.blog-post-kicker,
 	.detail-route-link__label {
-		color: var(--text-soft);
+		color: var(--text-muted-strong);
+		letter-spacing: 0.08em;
 	}
 
 	.detail-module__status,
 	.detail-hero__metrics dt,
 	.detail-fact-list dt {
-		color: var(--text-soft);
+		color: var(--text-muted-strong);
 	}
 
 	.detail-hero__metrics,
@@ -291,7 +292,7 @@ const hasSeriesBlock = Boolean(seriesData.series && seriesLinks.length > 0);
 	.detail-fact-list div {
 		padding: 0.85rem 0.95rem;
 		border: 1px solid var(--border-muted);
-		border-radius: 0.875rem;
+		border-radius: var(--radius-lg);
 		background: var(--surface-subtle);
 	}
 
@@ -333,7 +334,7 @@ const hasSeriesBlock = Boolean(seriesData.series && seriesLinks.length > 0);
 		gap: 0.3rem;
 		padding: 0.9rem 1rem;
 		border: 1px solid var(--border-muted);
-		border-radius: 0.875rem;
+		border-radius: var(--radius-lg);
 		background: var(--surface-subtle);
 		color: var(--text-main);
 		text-decoration: none;
@@ -369,7 +370,7 @@ const hasSeriesBlock = Boolean(seriesData.series && seriesLinks.length > 0);
 		gap: 0.25rem;
 		padding: 0.85rem 0.95rem;
 		border: 1px solid var(--border-muted);
-		border-radius: 0.875rem;
+		border-radius: var(--radius-lg);
 		background: var(--surface-subtle);
 		color: var(--text-main);
 		text-decoration: none;

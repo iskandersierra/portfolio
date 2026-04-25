@@ -15,14 +15,16 @@
     "test:e2e": "playwright test",
     "test:seo": "pnpm test:e2e -- tests/e2e/seo.spec.ts",
     "check:md": "markdownlint-cli2",
+    "check:styles": "stylelint \"src/**/*.{css,astro}\"",
     "check:ts": "astro check",
     "check:lint": "eslint .",
     "check:format": "prettier --check .",
     "fix:md": "markdownlint-cli2 --fix",
+    "fix:styles": "stylelint --fix \"src/**/*.{css,astro}\"",
     "fix:lint": "eslint --fix .",
     "fix:format": "prettier --write .",
-    "check": "markdownlint-cli2 && astro check && eslint . && prettier --check .",
-    "fix": "markdownlint-cli2 --fix && astro check && eslint --fix . && prettier --write ."
+    "check": "pnpm check:md && pnpm check:styles && pnpm check:ts && pnpm check:lint && pnpm check:format",
+    "fix": "pnpm fix:md && pnpm fix:styles && pnpm check:ts && pnpm fix:lint && pnpm fix:format"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.7",
@@ -41,9 +43,11 @@
     "eslint-plugin-astro": "^1.6.0",
     "globals": "^17.4.0",
     "markdownlint-cli2": "^0.21.0",
+    "postcss-html": "^1.8.1",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
     "sharp": "^0.34.5",
+    "stylelint": "^16.26.0",
     "typescript": "^5.9.3"
   }
 }

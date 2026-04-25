@@ -1,5 +1,9 @@
 {
 	"servers": {
+		"context-mode": {
+			"type": "stdio",
+			"command": "context-mode"
+		},
 		"github": {
 			"type": "http",
 			"url": "https://api.githubcopilot.com/mcp/"

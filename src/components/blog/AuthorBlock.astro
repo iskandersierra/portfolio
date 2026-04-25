@@ -38,9 +38,9 @@ const author = {
 
 	.blog-author-block__label {
 		margin: 0;
-		color: var(--accent-2);
+		color: var(--text-muted-strong);
 		font-size: 0.72rem;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
 	}
 
@@ -67,17 +67,18 @@ const author = {
 	.blog-author-block__link {
 		display: inline-flex;
 		align-items: center;
-		padding: 0.45rem 0.75rem;
-		border: 1px solid color-mix(in srgb, var(--border-strong) 68%, transparent);
-		background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+		padding: 0.35rem 0.7rem;
+		border: 1px solid var(--border);
+		border-radius: 999px;
+		background: var(--surface-soft);
 		color: var(--accent);
 		text-decoration: none;
 	}
 
 	.blog-author-block__link:hover,
 	.blog-author-block__link:focus-visible {
-		border-color: var(--accent);
-		background: color-mix(in srgb, var(--accent) 10%, var(--surface-strong));
+		border-color: var(--border-strong);
+		background: var(--surface);
 		text-decoration: none;
 	}
 </style>

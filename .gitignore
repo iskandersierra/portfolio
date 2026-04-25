@@ -51,4 +51,9 @@ docs/inbox/
 .squad/sessions/
 # Squad: SubSquad activation file (local to this machine)
 .squad-workstream
+
+# GitNexus: ignore local state
 .gitnexus
+
+# ContextMode: ignore local state
+.github/context-mode/

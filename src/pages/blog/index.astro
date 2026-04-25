@@ -192,11 +192,11 @@ data-filter-label={signal.tag}
 <section class="sidebar-module sidebar-module--notes">
 <div class="sidebar-module__header">
 <h2>Archive notes</h2>
-<p class="mono">Placeholder system</p>
+<p class="mono">Editorial archive</p>
 </div>
 <p>
-This pass keeps the archive readable and filterable while the final design system is still a
-separate workstream.
+This archive collects durable notes worth revisiting later, not stream-of-consciousness updates or
+release-by-release commentary.
 </p>
 </section>
 </aside>
@@ -325,7 +325,7 @@ document.addEventListener('astro:page-load', syncArchiveState, { signal: abortCo
 
 <style>
 .archive-shell {
-padding-block: 2rem 4rem;
+padding-block: 1.25rem 4rem;
 }
 
 .archive-hero,
@@ -363,9 +363,9 @@ box-shadow: var(--panel-shadow-soft);
 .sidebar-module__header p {
 margin: 0;
 font-size: 0.72rem;
-letter-spacing: 0.12em;
+letter-spacing: 0.08em;
 text-transform: uppercase;
-color: var(--text-soft);
+color: var(--text-muted-strong);
 }
 
 .archive-hero h1,
@@ -377,7 +377,7 @@ margin: 0;
 .archive-hero h1 {
 margin-block: 0.55rem 0.85rem;
 font-size: clamp(2.6rem, 5.2vw, 4.6rem);
-line-height: 0.96;
+line-height: 1;
 max-width: 7ch;
 }
 
@@ -461,17 +461,17 @@ display: inline-flex;
 align-items: center;
 justify-content: space-between;
 gap: 0.75rem;
-padding: 0.45rem 0.75rem;
-border: 1px solid var(--border-muted);
+padding: 0.35rem 0.7rem;
+border: 1px solid var(--border);
 border-radius: 999px;
-background: var(--surface-subtle);
-color: var(--text-main);
+background: var(--surface-soft);
+color: var(--text-muted);
 text-decoration: none;
 }
 
 .filter-chip {
 letter-spacing: 0.05em;
-color: var(--text-muted);
+font-size: 0.78rem;
 }
 
 .filter-chip.active,
@@ -485,8 +485,8 @@ color: var(--text-muted);
 .post-link:hover,
 .post-link:focus-visible {
 border-color: var(--border-strong);
-background: var(--surface-hover);
-color: var(--text-main);
+background: var(--surface);
+color: var(--accent);
 text-decoration: none;
 }
 
@@ -513,7 +513,7 @@ margin-top: 0;
 
 .empty-state {
 margin: 0;
-background: var(--surface-subtle);
+background: var(--surface-soft);
 }
 
 @media (max-width: 960px) {
