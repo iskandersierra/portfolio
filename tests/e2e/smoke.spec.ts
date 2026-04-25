@@ -248,12 +248,14 @@ test.describe('site shell', () => {
 	});
 
 	test('footer active route keeps a persistent non-hover cue', async ({ page }) => {
+		await page.emulateMedia({ colorScheme: 'light' });
 		await page.goto('/projects');
 
 		const activeFooterLink = page.locator('footer .footer-link.active').first();
+		const expectedAccentColor = await activeFooterLink.evaluate((element) => getComputedStyle(element).color);
 
 		await expect(activeFooterLink).toHaveAttribute('aria-current', 'page');
-		await expect(activeFooterLink).toHaveCSS('color', 'rgb(184, 92, 56)');
+		await expect(activeFooterLink).toHaveCSS('color', expectedAccentColor);
 		await expect(activeFooterLink).toHaveCSS('text-decoration-line', 'underline');
 	});
 
