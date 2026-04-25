@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposal C — Soft Studio</title>
+<!-- Fonts: Plus Jakarta Sans (display + body) + Fira Code (code/meta) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ===========================================
+   VIEWPORT FITTING: MANDATORY BASE STYLES
+   =========================================== */
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+.slide {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.slide-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 100%;
+  overflow: hidden;
+  padding: var(--slide-padding);
+}
+:root {
+  --title-size: clamp(1.5rem, 5vw, 4rem);
+  --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+  --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+  --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+  --small-size: clamp(0.65rem, 1vw, 0.875rem);
+  --slide-padding: clamp(1rem, 4vw, 4rem);
+  --content-gap: clamp(0.5rem, 2vw, 2rem);
+  --element-gap: clamp(0.25rem, 1vw, 1rem);
+}
+
+@media (max-height: 700px) {
+  :root {
+    --slide-padding: clamp(0.75rem, 3vw, 2rem);
+    --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+    --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+    --h2-size: clamp(1rem, 3vw, 1.75rem);
+  }
+}
+@media (max-height: 600px) {
+  :root {
+    --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+    --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+    --title-size: clamp(1.1rem, 4vw, 2rem);
+    --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+  }
+  .nav-dots, .keyboard-hint { display: none; }
+}
+@media (max-width: 600px) {
+  :root { --title-size: clamp(1.25rem, 7vw, 2.5rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.2s !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ===========================================
+   PROPOSAL C: SOFT STUDIO
+   Rounded, warm, tactile depth with soft shadows
+   A single versatile sans family + refined mono
+   Atmospheric but restrained
+   Inspired by Dark Botanical + Pastel Geometry
+   =========================================== */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Light Theme Tokens --- */
+:root {
+  --bg: #f5f3f0;
+  --bg-elevated: #faf9f7;
+  --surface: #ffffff;
+  --surface-soft: #efecea;
+  --surface-strong: #ffffff;
+  --text-main: #1e1e1e;
+  --text-muted: #5a5550;
+  --text-soft: #928b84;
+  --border: rgba(30, 30, 30, 0.07);
+  --border-strong: rgba(30, 30, 30, 0.13);
+  --accent: #3b6b8a;
+  --accent-2: #8b6b4a;
+  --shadow-color: rgba(30, 30, 30, 0.05);
+  --shadow-md: 0 2px 8px rgba(30, 30, 30, 0.06), 0 8px 24px rgba(30, 30, 30, 0.04);
+  --shadow-lg: 0 4px 12px rgba(30, 30, 30, 0.07), 0 16px 40px rgba(30, 30, 30, 0.05);
+  --selection-bg: #3b6b8a;
+  --selection-fg: #ffffff;
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'Fira Code', ui-monospace, monospace;
+  --radius: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+}
+
+/* --- Dark Theme Tokens --- */
+[data-theme="dark"] {
+  --bg: #1c1a18;
+  --bg-elevated: #242220;
+  --surface: #2c2a27;
+  --surface-soft: #343230;
+  --surface-strong: #2c2a27;
+  --text-main: #e8e4de;
+  --text-muted: #a8a29a;
+  --text-soft: #726c65;
+  --border: rgba(232, 228, 222, 0.08);
+  --border-strong: rgba(232, 228, 222, 0.14);
+  --accent: #6ba4c8;
+  --accent-2: #c8a46b;
+  --shadow-color: rgba(0, 0, 0, 0.20);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.18), 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.22), 0 16px 40px rgba(0, 0, 0, 0.15);
+  --selection-bg: #6ba4c8;
+  --selection-fg: #1c1a18;
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
+/* --- Slide Backgrounds --- */
+.slide { background: var(--bg); color: var(--text-main); }
+
+.slide-title {
+  background:
+    radial-gradient(ellipse at 70% 30%, color-mix(in srgb, var(--accent) 5%, transparent), transparent 50%),
+    radial-gradient(ellipse at 20% 80%, color-mix(in srgb, var(--accent-2) 4%, transparent), transparent 50%),
+    var(--bg);
+}
+
+/* --- Typography --- */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+h1 { font-size: var(--title-size); }
+h2 { font-size: var(--h2-size); }
+h3 { font-size: var(--h3-size); font-weight: 600; }
+
+p, li {
+  font-size: var(--body-size);
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--small-size);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--accent-2);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+a:hover { opacity: 0.8; }
+
+/* --- Components --- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(1rem, 2.5vw, 1.75rem);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-strong);
+}
+.card h3 { margin-bottom: 0.45em; }
+.card p { margin: 0; }
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  margin-top: 0.75em;
+  font-family: var(--font-body);
+  font-size: var(--small-size);
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+.card-link:hover { gap: 0.5em; opacity: 1; }
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: clamp(0.6rem, 0.85vw, 0.7rem);
+  font-weight: 500;
+  padding: 0.25em 0.65em;
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  background: var(--surface-soft);
+  border: none;
+}
+
+/* --- Theme Toggle --- */
+.theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.35em 0.65em;
+  cursor: pointer;
+  font-size: var(--body-size);
+  color: var(--text-main);
+  box-shadow: 0 1px 3px var(--shadow-color);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.theme-toggle:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); }
+
+/* --- Header --- */
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(0.75rem, 2vw, 1.25rem) var(--slide-padding);
+}
+.header-bar .logo {
+  font-family: var(--font-display);
+  font-size: clamp(0.9rem, 1.6vw, 1.15rem);
+  font-weight: 700;
+  color: var(--text-main);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.header-bar nav { display: flex; gap: clamp(0.75rem, 2vw, 1.5rem); }
+.header-bar nav a {
+  font-size: var(--small-size);
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.header-bar nav a:hover { color: var(--text-main); opacity: 1; }
+
+/* --- Pill indicator --- */
+.pill-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-mono);
+  font-size: var(--small-size);
+  font-weight: 500;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+  padding: 0.3em 0.75em;
+  border-radius: 999px;
+}
+.pill-indicator::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* --- Layout Helpers --- */
+.center-col {
+  max-width: min(90vw, 700px);
+  margin: 0 auto;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  margin-top: var(--content-gap);
+}
+.spacer { height: var(--content-gap); }
+
+/* --- Swatch Row --- */
+.swatch-row {
+  display: flex;
+  gap: clamp(0.3rem, 0.8vw, 0.5rem);
+  flex-wrap: wrap;
+  margin-top: var(--element-gap);
+}
+.swatch {
+  width: clamp(2rem, 4vw, 3rem);
+  height: clamp(2rem, 4vw, 3rem);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+/* --- Divider --- */
+.soft-rule {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+  margin: var(--content-gap) 0;
+}
+
+/* --- Entrance Animations --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* --- Nav Dots --- */
+.nav-dots {
+  position: fixed;
+  right: clamp(0.5rem, 1.5vw, 1rem);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 100;
+}
+.nav-dots .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 0;
+}
+.nav-dots .dot.active {
+  background: var(--accent);
+  transform: scale(1.4);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.keyboard-hint {
+  position: fixed;
+  bottom: clamp(0.5rem, 1.5vw, 1rem);
+  right: clamp(0.5rem, 1.5vw, 1rem);
+  font-family: var(--font-mono);
+  font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+  color: var(--text-soft);
+  z-index: 100;
+  opacity: 0.5;
+}
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Title & Identity -->
+<section class="slide slide-title" id="s1">
+  <div class="header-bar">
+    <a href="#" class="logo">Iskander Sierra</a>
+    <nav>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Projects</a>
+    </nav>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
+  </div>
+  <div class="slide-content">
+    <div class="center-col reveal">
+      <div class="pill-indicator">Proposal C</div>
+      <div class="spacer"></div>
+      <h1>Soft Studio</h1>
+      <p style="max-width: 36em; margin-top: 0.5em;">
+        Tactile depth and rounded surfaces create a portfolio that feels crafted and approachable. A single versatile sans-serif family handles everything from bold headings to comfortable body text. Soft shadows create layered depth without heaviness.
+      </p>
+      <div class="spacer"></div>
+      <div class="swatch-row">
+        <div class="swatch" style="background:#f5f3f0;" title="bg"></div>
+        <div class="swatch" style="background:#1e1e1e;" title="text-main"></div>
+        <div class="swatch" style="background:#5a5550;" title="text-muted"></div>
+        <div class="swatch" style="background:#3b6b8a;" title="accent"></div>
+        <div class="swatch" style="background:#8b6b4a;" title="accent-2"></div>
+        <div class="swatch" style="background:#1c1a18;" title="dark-bg"></div>
+        <div class="swatch" style="background:#6ba4c8;" title="dark-accent"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 2: Typography & Cards -->
+<section class="slide" id="s2">
+  <div class="slide-content">
+    <div class="center-col reveal">
+      <div class="pill-indicator">Surfaces &amp; Cards</div>
+      <div class="spacer"></div>
+      <h2>Tactile, not flat</h2>
+      <p>Cards float gently with layered shadows. Rounded corners and warm tones make everything feel approachable. Fira Code adds just enough technical character to metadata.</p>
+      <hr class="soft-rule">
+    </div>
+    <div class="card-grid reveal" style="max-width: min(90vw, 740px); margin-left: auto; margin-right: auto;">
+      <div class="card">
+        <h3>UUID/ULID Generator</h3>
+        <p>A lightweight browser tool for generating and comparing unique identifiers.</p>
+        <div style="display:flex;gap:0.35em;margin-top:0.6em;">
+          <span class="tag">TypeScript</span>
+          <span class="tag">Utility</span>
+        </div>
+        <a href="#" class="card-link">View project <span>→</span></a>
+      </div>
+      <div class="card">
+        <h3>Recent Writing</h3>
+        <p>Reflections on software architecture, developer experience, and building in public.</p>
+        <a href="#" class="card-link">Read post <span>→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 3: Dark Theme Preview -->
+<section class="slide" id="s3" data-theme="dark" style="background: #1c1a18; color: #e8e4de;">
+  <div class="slide-content">
+    <div class="center-col reveal">
+      <div class="pill-indicator" style="background: color-mix(in srgb, #6ba4c8 10%, #2c2a27); color: #6ba4c8;">Dark mode</div>
+      <div class="spacer"></div>
+      <h2 style="color:#e8e4de;">Depth without darkness</h2>
+      <p style="color:#a8a29a;">The dark palette stays warm and layered. Shadows deepen naturally. Surfaces separate through subtle tonal shifts. The blue accent brightens to stay inviting, while the secondary amber adds a golden warmth.</p>
+      <hr class="soft-rule" style="background: linear-gradient(90deg, transparent, rgba(232,228,222,0.14), transparent);">
+      <div class="card-grid" style="max-width: min(90vw, 740px);">
+        <div class="card" style="background:#2c2a27; border-color:rgba(232,228,222,0.08); box-shadow: 0 2px 8px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.12);">
+          <h3 style="color:#e8e4de;">Card in dark mode</h3>
+          <p style="color:#a8a29a;">Rounded, lifted surfaces. Hover adds gentle elevation. Everything feels soft and intentional.</p>
+          <div style="display:flex;gap:0.35em;margin-top:0.6em;">
+            <span class="tag" style="background:#343230; color:#a8a29a;">Astro</span>
+            <span class="tag" style="background:#343230; color:#a8a29a;">CSS</span>
+          </div>
+          <a href="#" class="card-link" style="color:#6ba4c8;">View project <span>→</span></a>
+        </div>
+        <div class="card" style="background:#2c2a27; border-color:rgba(232,228,222,0.08); box-shadow: 0 2px 8px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.12);">
+          <h3 style="color:#e8e4de;">Motion philosophy</h3>
+          <p style="color:#a8a29a;">Spring-like easing on lifts. Gentle scale on entrance. Everything breathes quietly.</p>
+          <a href="#" class="card-link" style="color:#6ba4c8;">Explore <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Navigation dots -->
+<nav class="nav-dots" aria-label="Slide navigation">
+  <button class="dot active" data-slide="0" aria-label="Slide 1"></button>
+  <button class="dot" data-slide="1" aria-label="Slide 2"></button>
+  <button class="dot" data-slide="2" aria-label="Slide 3"></button>
+</nav>
+<div class="keyboard-hint">↑↓ or scroll</div>
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  let current = 0;
+
+  function goTo(i) {
+    if (i < 0 || i >= slides.length) return;
+    current = i;
+    slides[i].scrollIntoView({ behavior: 'smooth' });
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); goTo(current - 1); }
+  });
+
+  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.slide)));
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = [...slides].indexOf(e.target);
+        current = idx;
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.6 });
+  slides.forEach(s => obs.observe(s));
+
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  let touchY = 0;
+  document.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const diff = touchY - e.changedTouches[0].clientY;
+    if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+  });
+})();
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+}
+</script>
+</body>
+</html>

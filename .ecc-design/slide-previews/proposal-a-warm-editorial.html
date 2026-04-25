@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Proposal A — Warm Editorial</title>
+<!-- Fonts: Fraunces (display serif) + Inter (body sans) + JetBrains Mono (code/meta) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ===========================================
+   VIEWPORT FITTING: MANDATORY BASE STYLES
+   =========================================== */
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  color-scheme: light;
+  background-color: #f9f9f7;
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  background-color: #1a1816;
+}
+.slide {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.slide-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 100%;
+  overflow: hidden;
+  padding: var(--slide-padding);
+}
+:root {
+  --title-size: clamp(1.5rem, 5vw, 4rem);
+  --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+  --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+  --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+  --small-size: clamp(0.65rem, 1vw, 0.875rem);
+  --slide-padding: clamp(1rem, 4vw, 4rem);
+  --content-gap: clamp(0.5rem, 2vw, 2rem);
+  --element-gap: clamp(0.25rem, 1vw, 1rem);
+}
+
+@media (max-height: 700px) {
+  :root {
+    --slide-padding: clamp(0.75rem, 3vw, 2rem);
+    --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+    --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+    --h2-size: clamp(1rem, 3vw, 1.75rem);
+  }
+}
+@media (max-height: 600px) {
+  :root {
+    --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+    --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+    --title-size: clamp(1.1rem, 4vw, 2rem);
+    --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+  }
+}
+@media (max-width: 600px) {
+  :root { --title-size: clamp(1.25rem, 7vw, 2.5rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.2s !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ===========================================
+   PROPOSAL A: WARM EDITORIAL
+   Serif headings + clean sans body
+   Warm cream/stone palette, literary feel
+   Inspired by Paper & Ink / Vintage Editorial
+   =========================================== */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Light Theme Tokens --- */
+:root {
+  --bg: #f9f9f7;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-soft: #f2f1ef;
+  --surface-strong: #ffffff;
+  --text-main: #1a1a1a;
+  --text-muted: #5c5c5c;
+  --text-soft: #8a8a8a;
+  --border: rgba(26, 26, 26, 0.10);
+  --border-strong: rgba(26, 26, 26, 0.18);
+  --accent: #b85c38;
+  --accent-2: #2a6b5a;
+  --shadow-color: rgba(26, 26, 26, 0.06);
+  --selection-bg: #b85c38;
+  --selection-fg: #ffffff;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --radius: 0.5rem;
+  --radius-lg: 0.75rem;
+}
+
+/* --- Dark Theme Tokens --- */
+[data-theme="dark"] {
+  --bg: #1a1816;
+  --bg-elevated: #22201d;
+  --surface: #2a2724;
+  --surface-soft: #33302c;
+  --surface-strong: #2a2724;
+  --text-main: #ede8e0;
+  --text-muted: #a8a098;
+  --text-soft: #7a736b;
+  --border: rgba(237, 232, 224, 0.10);
+  --border-strong: rgba(237, 232, 224, 0.18);
+  --accent: #d4845a;
+  --accent-2: #5ec4a8;
+  --shadow-color: rgba(0, 0, 0, 0.20);
+  --selection-bg: #d4845a;
+  --selection-fg: #1a1816;
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
+/* --- Slide Backgrounds --- */
+.slide { background: var(--bg); color: var(--text-main); }
+
+.slide-title {
+  background:
+    radial-gradient(ellipse at 20% 50%, color-mix(in srgb, var(--accent) 4%, transparent), transparent 60%),
+    var(--bg);
+}
+
+/* --- Typography --- */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+h1 { font-size: var(--title-size); }
+h2 { font-size: var(--h2-size); }
+h3 { font-size: var(--h3-size); }
+
+p, li {
+  font-size: var(--body-size);
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--small-size);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color 0.2s ease;
+}
+a:hover { color: var(--accent-2); }
+
+/* --- Components --- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(1rem, 2.5vw, 1.75rem);
+  box-shadow: 0 1px 3px var(--shadow-color), 0 4px 12px var(--shadow-color);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-color), 0 12px 28px var(--shadow-color);
+  border-color: var(--border-strong);
+}
+
+.card h3 { margin-bottom: 0.5em; }
+.card p { margin: 0; }
+
+.card-link {
+  display: inline-block;
+  margin-top: 0.75em;
+  font-family: var(--font-mono);
+  font-size: var(--small-size);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.card-link:hover { border-color: var(--accent); text-decoration: none; }
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 0.2em 0.6em;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  background: var(--surface-soft);
+}
+
+/* --- Theme Toggle --- */
+.theme-toggle {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.35em 0.65em;
+  cursor: pointer;
+  font-size: var(--body-size);
+  color: var(--text-main);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.theme-toggle:hover { border-color: var(--border-strong); }
+
+/* --- Header --- */
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(0.75rem, 2vw, 1.25rem) var(--slide-padding);
+  border-bottom: 1px solid var(--border);
+}
+.header-bar .logo {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 600;
+  color: var(--text-main);
+  text-decoration: none;
+}
+.header-bar nav { display: flex; gap: clamp(0.75rem, 2vw, 1.5rem); }
+.header-bar nav a {
+  font-size: var(--small-size);
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.header-bar nav a:hover { color: var(--text-main); }
+
+/* --- Layout Helpers --- */
+.center-col {
+  max-width: min(90vw, 720px);
+  margin: 0 auto;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  margin-top: var(--content-gap);
+}
+.spacer { height: var(--content-gap); }
+
+/* --- Swatch Row --- */
+.swatch-row {
+  display: flex;
+  gap: clamp(0.3rem, 0.8vw, 0.5rem);
+  flex-wrap: wrap;
+  margin-top: var(--element-gap);
+}
+.swatch {
+  width: clamp(2rem, 4vw, 3rem);
+  height: clamp(2rem, 4vw, 3rem);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+/* --- Divider --- */
+.rule {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: var(--content-gap) 0;
+}
+
+/* --- Entrance Animations --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Nav Dots --- */
+.nav-dots {
+  position: fixed;
+  right: clamp(0.5rem, 1.5vw, 1rem);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 100;
+}
+.nav-dots .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  padding: 0;
+}
+.nav-dots .dot.active {
+  background: var(--accent);
+  transform: scale(1.3);
+}
+
+/* --- Keyboard Hint --- */
+.keyboard-hint {
+  position: fixed;
+  bottom: clamp(0.5rem, 1.5vw, 1rem);
+  right: clamp(0.5rem, 1.5vw, 1rem);
+  font-family: var(--font-mono);
+  font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+  color: var(--text-soft);
+  z-index: 100;
+  opacity: 0.6;
+}
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Title & Identity -->
+<section class="slide slide-title" id="s1">
+  <div class="header-bar">
+    <a href="#" class="logo">Iskander Sierra</a>
+    <nav>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Projects</a>
+    </nav>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
+  </div>
+  <div class="slide-content">
+    <div class="center-col reveal">
+      <span class="label">Proposal A</span>
+      <div class="spacer"></div>
+      <h1>Warm Editorial</h1>
+      <p style="max-width: 36em; margin-top: 0.5em;">
+        Serif headings meet clean sans-serif body text. Warm stone and cream surfaces. Literary clarity with quiet confidence. Inspired by magazine editorial design, adapted for a developer portfolio.
+      </p>
+      <div class="spacer"></div>
+      <div class="swatch-row">
+        <div class="swatch" style="background:#f9f9f7;" title="bg"></div>
+        <div class="swatch" style="background:#1a1a1a;" title="text-main"></div>
+        <div class="swatch" style="background:#5c5c5c;" title="text-muted"></div>
+        <div class="swatch" style="background:#b85c38;" title="accent"></div>
+        <div class="swatch" style="background:#2a6b5a;" title="accent-2"></div>
+        <div class="swatch" style="background:#1a1816;" title="dark-bg"></div>
+        <div class="swatch" style="background:#d4845a;" title="dark-accent"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 2: Typography & Cards -->
+<section class="slide" id="s2">
+  <div class="slide-content">
+    <div class="center-col reveal">
+      <span class="label">Typography &amp; Surfaces</span>
+      <div class="spacer"></div>
+      <h2>Thoughtful hierarchy</h2>
+      <p>Fraunces brings character to headings without shouting. Inter keeps body copy clear and professional. JetBrains Mono handles metadata and code.</p>
+      <hr class="rule">
+    </div>
+    <div class="card-grid reveal" style="max-width: min(90vw, 760px); margin-left: auto; margin-right: auto;">
+      <div class="card">
+        <h3>UUID/ULID Generator</h3>
+        <p>A lightweight browser tool for generating and comparing unique identifiers.</p>
+        <div style="display:flex;gap:0.35em;margin-top:0.6em;">
+          <span class="tag">TypeScript</span>
+          <span class="tag">Utility</span>
+        </div>
+        <a href="#" class="card-link">View project →</a>
+      </div>
+      <div class="card">
+        <h3>Recent Writing</h3>
+        <p>Reflections on software architecture, developer experience, and building in public.</p>
+        <a href="#" class="card-link">Read post →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 3: Dark Theme Preview -->
+<section class="slide" id="s3" data-theme="dark" style="background: #1a1816; color: #ede8e0;">
+  <div class="slide-content">
+    <div class="center-col reveal">
+      <span class="label" style="color:#7a736b;">Dark mode</span>
+      <div class="spacer"></div>
+      <h2 style="color:#ede8e0;">Warm darkness, not void</h2>
+      <p style="color:#a8a098;">The dark theme uses a deep warm brown instead of pure black. Shadows deepen, surfaces layer with subtle warmth, and the accent shifts to a softer terracotta.</p>
+      <hr class="rule" style="border-color: rgba(237,232,224,0.10);">
+      <div class="card-grid" style="max-width: min(90vw, 760px);">
+        <div class="card" style="background:#2a2724; border-color:rgba(237,232,224,0.10); box-shadow: 0 1px 3px rgba(0,0,0,0.20), 0 4px 12px rgba(0,0,0,0.15);">
+          <h3 style="color:#ede8e0;">Card in dark mode</h3>
+          <p style="color:#a8a098;">Surfaces retain warmth. Borders stay soft. The card lifts gently on hover with deeper shadows.</p>
+          <div style="display:flex;gap:0.35em;margin-top:0.6em;">
+            <span class="tag" style="background:#33302c; border-color:rgba(237,232,224,0.10); color:#a8a098;">Astro</span>
+            <span class="tag" style="background:#33302c; border-color:rgba(237,232,224,0.10); color:#a8a098;">CSS</span>
+          </div>
+          <a href="#" class="card-link" style="color:#d4845a;">View project →</a>
+        </div>
+        <div class="card" style="background:#2a2724; border-color:rgba(237,232,224,0.10); box-shadow: 0 1px 3px rgba(0,0,0,0.20), 0 4px 12px rgba(0,0,0,0.15);">
+          <h3 style="color:#ede8e0;">Focus states</h3>
+          <p style="color:#a8a098;">Accent-tinted focus rings. Visible, accessible, and consistent with the warm palette.</p>
+          <a href="#" class="card-link" style="color:#d4845a;">Read more →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Navigation dots -->
+<nav class="nav-dots" aria-label="Slide navigation">
+  <button class="dot active" data-slide="0" aria-label="Slide 1"></button>
+  <button class="dot" data-slide="1" aria-label="Slide 2"></button>
+  <button class="dot" data-slide="2" aria-label="Slide 3"></button>
+</nav>
+<div class="keyboard-hint">↑↓ or scroll</div>
+
+<script>
+/* --- Presentation Controller --- */
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  let current = 0;
+
+  function goTo(i) {
+    if (i < 0 || i >= slides.length) return;
+    current = i;
+    slides[i].scrollIntoView({ behavior: 'smooth' });
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+  }
+
+  /* Keyboard */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); goTo(current - 1); }
+  });
+
+  /* Dots */
+  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.slide)));
+
+  /* Scroll-snap observer */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = [...slides].indexOf(e.target);
+        current = idx;
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.6 });
+  slides.forEach(s => obs.observe(s));
+
+  /* Reveal animations */
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  /* Touch / swipe */
+  let touchY = 0;
+  document.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const diff = touchY - e.changedTouches[0].clientY;
+    if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+  });
+})();
+
+/* Theme toggle */
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+}
+</script>
+</body>
+</html>
