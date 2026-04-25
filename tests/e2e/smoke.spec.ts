@@ -102,8 +102,8 @@ test.describe('site shell', () => {
 		await page.setViewportSize({ width: 320, height: 720 });
 		await page.goto('/');
 
-		const header = page.locator('header.terminal-header');
-		const headerTop = page.locator('.terminal-header-top');
+		const header = page.locator('header.site-header');
+		const headerTop = page.locator('.site-header-top');
 		const brand = page.locator('.brand');
 		const actions = page.locator('.actions');
 		const menuToggle = page.locator('[data-mobile-nav-toggle]');
@@ -118,11 +118,16 @@ test.describe('site shell', () => {
 		await expect(desktopNav).toBeHidden();
 		await expect(mobileNav).toBeHidden();
 
-		const [headerBox, topBox, brandBox, actionsBox] = await Promise.all([
+		const [headerBox, topBox, brandBox, actionsBox, topPaddingBlock] = await Promise.all([
 			header.boundingBox(),
 			headerTop.boundingBox(),
 			brand.boundingBox(),
 			actions.boundingBox(),
+			headerTop.evaluate(
+				(element) =>
+					Number.parseFloat(getComputedStyle(element).paddingTop) +
+					Number.parseFloat(getComputedStyle(element).paddingBottom),
+			),
 		]);
 
 		expect(headerBox).not.toBeNull();
@@ -133,7 +138,9 @@ test.describe('site shell', () => {
 		if (headerBox && topBox && brandBox && actionsBox) {
 			expect(brandBox.y).toBeLessThan(actionsBox.y + actionsBox.height);
 			expect(actionsBox.y).toBeLessThan(brandBox.y + brandBox.height);
-			expect(topBox.height).toBeLessThanOrEqual(Math.max(brandBox.height, actionsBox.height) + 18);
+			expect(topBox.height).toBeLessThanOrEqual(
+				Math.max(brandBox.height, actionsBox.height) + topPaddingBlock + 2,
+			);
 			expect(headerBox.height).toBeLessThan(220);
 		}
 
@@ -158,8 +165,8 @@ test.describe('site shell', () => {
 		await page.setViewportSize({ width: 1280, height: 900 });
 		await page.goto('/');
 
-		const header = page.locator('header.terminal-header');
-		const headerTop = page.locator('.terminal-header-top');
+		const header = page.locator('header.site-header');
+		const headerTop = page.locator('.site-header-top');
 		const brand = page.locator('.brand');
 		const nav = page.locator('.nav-links-desktop');
 		const actions = page.locator('.actions');
@@ -170,13 +177,18 @@ test.describe('site shell', () => {
 		await expect(actions).toBeVisible();
 		await expect(menuToggle).toBeHidden();
 
-		const [headerBox, topBox, brandBox, navBox, actionsBox, headerPaddingRight] = await Promise.all([
+		const [headerBox, topBox, brandBox, navBox, actionsBox, headerPaddingRight, topPaddingBlock] = await Promise.all([
 			header.boundingBox(),
 			headerTop.boundingBox(),
 			brand.boundingBox(),
 			nav.boundingBox(),
 			actions.boundingBox(),
 			header.evaluate((element) => Number.parseFloat(getComputedStyle(element).paddingRight)),
+			headerTop.evaluate(
+				(element) =>
+					Number.parseFloat(getComputedStyle(element).paddingTop) +
+					Number.parseFloat(getComputedStyle(element).paddingBottom),
+			),
 		]);
 
 		expect(headerBox).not.toBeNull();
@@ -199,7 +211,7 @@ test.describe('site shell', () => {
 			expect(Math.abs(actionsRight - headerContentRight)).toBeLessThanOrEqual(2);
 			expect(Math.abs(brandCenterY - navCenterY)).toBeLessThanOrEqual(8);
 			expect(Math.abs(actionsCenterY - navCenterY)).toBeLessThanOrEqual(8);
-			expect(topBox.height).toBeLessThanOrEqual(tallestChild + 12);
+			expect(topBox.height).toBeLessThanOrEqual(tallestChild + topPaddingBlock + 2);
 			expect(headerBox.height).toBeLessThan(132);
 			expect(brandBox.x + brandBox.width).toBeLessThan(navBox.x);
 			expect(navBox.x + navBox.width).toBeLessThan(actionsBox.x);
