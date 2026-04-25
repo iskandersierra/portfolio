@@ -36,12 +36,43 @@ const metadata = resolveSeoMetadata(
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@400;500;600&display=swap"
 			rel="stylesheet"
 		/>
+		<link
+			rel="preload"
+			as="style"
+			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+		/>
+		<link
+			id="deferred-mono-font"
+			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+			rel="stylesheet"
+			media="print"
+		/>
+		<noscript>
+			<link
+				href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+				rel="stylesheet"
+			/>
+		</noscript>
 		<meta name="generator" content={Astro.generator} />
 		<ClientRouter />
 		<SEO {...metadata} />
+
+		<script is:inline>
+			const deferredMonoFont = document.getElementById('deferred-mono-font');
+
+			if (deferredMonoFont instanceof HTMLLinkElement) {
+				deferredMonoFont.addEventListener(
+					'load',
+					() => {
+						deferredMonoFont.removeAttribute('media');
+					},
+					{ once: true },
+				);
+			}
+		</script>
 
 		<script is:inline>
 			(function () {
