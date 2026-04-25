@@ -84,16 +84,16 @@ Use a custom font pairing rather than pure system fonts.
 
 ### Chosen approach
 
-- Display / headings: **Fraunces** (variable, optical size 9–144, weight 300–700). A soft serif with character and warmth. Fallback: Georgia, serif.
-- Body text: **Inter** (weights 400, 500, 600). Clean geometric sans with excellent screen readability. Fallback: system-ui, sans-serif.
-- Code / metadata / labels: **JetBrains Mono** (weights 400, 500). Technical but refined. Fallback: ui-monospace, monospace.
+- Display / headings: **Fraunces** (weight 600). A soft serif with character and warmth. Fallback: Georgia, serif.
+- Body text: **Inter** (weights 400, 500, 600, 700). Clean geometric sans with excellent screen readability. Fallback: system-ui, sans-serif.
+- Code / metadata / labels: **JetBrains Mono** (weight 500). Technical but refined. Fallback: ui-monospace, monospace.
 
 ### Typography rules
 
 - Headings use Fraunces at weight 600 with `-0.02em` letter spacing and 1.2 line height.
 - Body copy uses Inter at weight 400 with 1.7 line height.
 - Monospace is reserved for tags, metadata labels, code blocks, and small technical accents.
-- Labels use JetBrains Mono at small size with `0.06em` letter spacing and uppercase.
+- Labels use JetBrains Mono at small size with `0.08em` letter spacing and uppercase.
 - Card link text uses JetBrains Mono at small size, weight 500.
 
 ### Desired tone
@@ -199,8 +199,11 @@ The palette is neutral and restrained with warm undertones. A terracotta accent 
 
 ### Radius tokens
 
-- `--radius`: `0.5rem` — default for tags, toggles, small elements.
-- `--radius-lg`: `0.75rem` — cards, panels, content containers.
+- `--radius-sm`: `0.375rem` — compact inline treatments.
+- `--radius-md`: `0.5rem` — default for tags, toggles, and small controls.
+- `--radius-lg`: `0.75rem` — cards and panels.
+- `--radius-xl`: `1rem` — large content containers.
+- `--radius-2xl`: `1.25rem` — extra-large featured surfaces.
 
 ---
 
