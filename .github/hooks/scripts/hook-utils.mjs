@@ -66,6 +66,26 @@ export function normalizeHookPath(rawPath, cwd) {
     : path.resolve(cwd, normalizedInput);
 }
 
+export function collectApplyPatchFiles(patchInput) {
+  if (typeof patchInput !== 'string' || patchInput.length === 0) {
+    return [];
+  }
+
+  const matches = patchInput.matchAll(/^\*\*\* (?:Add|Update|Delete) File: (.+)$/gm);
+  const files = [];
+
+  for (const match of matches) {
+    const rawPath = match[1]?.trim();
+    if (!rawPath) {
+      continue;
+    }
+
+    files.push(rawPath.replace(/\s+->\s+.+$/, ''));
+  }
+
+  return files;
+}
+
 export function collectToolInputFiles(
   toolInput,
   {
@@ -91,6 +111,8 @@ export function collectToolInputFiles(
       candidates.push(...value);
     }
   }
+
+  candidates.push(...collectApplyPatchFiles(toolInput.input));
 
   return candidates;
 }
