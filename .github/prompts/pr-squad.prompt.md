@@ -2,7 +2,7 @@
 name: pr-squad
 description: "Check the current branch PR, summarize unresolved reviewer comments, and turn them into an action plan."
 argument-hint: Optional focus for the summary or planning pass
-agent: Plan Squad
+agent: Squad
 ---
 Review the pull request associated with the current branch for this repository.
 
