@@ -10,6 +10,7 @@
 	--surface-hover: #ffffff;
 	--text-main: #1a1a1a;
 	--text-muted: #5c5c5c;
+	--text-muted-strong: #66615b;
 	--text-soft: #8a8a8a;
 	--border: rgba(26, 26, 26, 0.1);
 	--border-muted: rgba(26, 26, 26, 0.07);
@@ -47,6 +48,7 @@
 	--surface-hover: #34302c;
 	--text-main: #ede8e0;
 	--text-muted: #a8a098;
+	--text-muted-strong: #c3bbb2;
 	--text-soft: #7a736b;
 	--border: rgba(237, 232, 224, 0.1);
 	--border-muted: rgba(237, 232, 224, 0.07);
