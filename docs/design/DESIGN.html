@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Portfolio Design System Showcase</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
+		rel="stylesheet"
+	/>
+	<style>
+		:root {
+			--bg: #fdf6e3;
+			--bg-elevated: #fffdf7;
+			--bg-depth: #f5edd8;
+			--surface: #fffdf7;
+			--surface-soft: #f5edd8;
+			--surface-subtle: #faf4e5;
+			--surface-contrast: #ede5d0;
+			--text-main: #1a1a1a;
+			--text-muted: #5c5c5c;
+			--text-soft: #8a8a8a;
+			--border: rgba(26, 26, 26, 0.1);
+			--border-strong: rgba(26, 26, 26, 0.18);
+			--accent: #3A5F4A;
+			--accent-2: #A8654D;
+			--accent-3: #708090;
+			--shadow-color: rgba(26, 26, 26, 0.06);
+			--panel-shadow: 0 18px 42px rgba(26, 26, 26, 0.08);
+			--panel-shadow-soft: 0 1px 3px rgba(26, 26, 26, 0.05), 0 4px 12px rgba(26, 26, 26, 0.06);
+			--font-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+			--font-display: 'IBM Plex Serif', Georgia, serif;
+			--font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', 'SF Mono', Consolas, 'Liberation Mono', monospace;
+			--radius-sm: 0.375rem;
+			--radius-md: 0.5rem;
+			--radius-lg: 0.75rem;
+			--radius-xl: 1rem;
+			--radius-2xl: 1.25rem;
+			--measure: 72ch;
+		}
+
+		* { box-sizing: border-box; }
+
+		html {
+			scroll-behavior: smooth;
+			background: var(--bg);
+			color: var(--text-main);
+		}
+
+		body {
+			margin: 0;
+			font-family: var(--font-body);
+			line-height: 1.7;
+			color: var(--text-main);
+		}
+
+		a {
+			color: var(--accent);
+			text-decoration-thickness: 0.08em;
+			text-underline-offset: 0.18em;
+			transition: color 0.2s ease;
+		}
+
+		a:hover { color: color-mix(in srgb, var(--accent) 70%, var(--accent-2)); }
+
+		img { max-width: 100%; display: block; }
+
+		.page-shell {
+			width: min(1200px, calc(100% - 2rem));
+			margin: 0 auto;
+			padding: 1rem 0 5rem;
+		}
+
+		/* ─── Topbar ──────────────────────────────────────── */
+		.topbar {
+			position: sticky;
+			top: 0;
+			z-index: 10;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 1rem;
+			padding: 1rem 0 1.15rem;
+			background: rgba(253, 246, 227, 0.95);
+			border-bottom: 1px solid rgba(26, 26, 26, 0.06);
+		}
+
+		.topbar__mark {
+			font-family: var(--font-display);
+			font-size: clamp(1.2rem, 1rem + 0.7vw, 1.7rem);
+			font-weight: 600;
+			letter-spacing: -0.02em;
+			text-decoration: none;
+			color: var(--text-main);
+		}
+
+		.topbar__nav {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: flex-end;
+			gap: 0.9rem 1.2rem;
+			font-size: 0.95rem;
+		}
+
+		/* ─── Headings ────────────────────────────────────── */
+		.eyebrow, .token-note, .meta, .mono {
+			font-family: var(--font-mono);
+			font-size: 0.76rem;
+			font-weight: 500;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		.eyebrow { color: var(--text-muted); margin: 0 0 0.9rem; }
+
+		h1, h2, h3, h4 {
+			margin: 0;
+			font-family: var(--font-display);
+			font-weight: 600;
+			letter-spacing: -0.02em;
+			line-height: 1.15;
+			text-wrap: balance;
+		}
+
+		h1 { font-size: clamp(2.75rem, 1.5rem + 4vw, 5.5rem); }
+		h2 { font-size: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem); }
+		h3 { font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.55rem); }
+
+		/* ─── Hero ────────────────────────────────────────── */
+		.hero {
+			padding: 3rem 0 2.5rem;
+			max-width: var(--measure);
+		}
+
+		.hero__lede {
+			max-width: 60ch;
+			font-size: clamp(1rem, 0.95rem + 0.45vw, 1.22rem);
+			color: var(--text-muted);
+			margin: 1rem 0 0;
+		}
+
+		.hero__principles {
+			display: flex;
+			gap: 2.5rem;
+			margin-top: 2rem;
+			padding-top: 1.5rem;
+			border-top: 1px solid var(--border);
+		}
+
+		.principle { flex: 1; }
+
+		.principle strong {
+			display: block;
+			font-size: 0.95rem;
+			margin-bottom: 0.2rem;
+		}
+
+		.principle span {
+			font-size: 0.9rem;
+			color: var(--text-muted);
+		}
+
+		/* ─── Section ─────────────────────────────────────── */
+		.section {
+			padding: 3rem 0 0;
+			display: grid;
+			gap: 1.5rem;
+		}
+
+		.section__intro {
+			display: grid;
+			gap: 0.5rem;
+			max-width: var(--measure);
+		}
+
+		.section__intro p { margin: 0; color: var(--text-muted); }
+
+		/* ─── Palette: horizontal strips ──────────────────── */
+		.color-strips { display: grid; gap: 0; }
+
+		.color-strip {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			align-items: center;
+			padding: 1.25rem 1.5rem;
+			border-bottom: 1px solid var(--border);
+			transition: padding-left 0.2s ease;
+		}
+
+		.color-strip:first-child {
+			border-top: 1px solid var(--border);
+			border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+		}
+
+		.color-strip:last-child {
+			border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+		}
+
+		.color-strip:hover { padding-left: 2rem; }
+
+		.color-strip__info {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
+
+		.color-strip__swatch {
+			width: 2.5rem;
+			height: 2.5rem;
+			border-radius: var(--radius-md);
+			border: 1px solid rgba(26, 26, 26, 0.08);
+			flex-shrink: 0;
+		}
+
+		.color-strip__name {
+			font-weight: 600;
+			font-size: 0.95rem;
+		}
+
+		.color-strip__role {
+			color: var(--text-muted);
+			font-size: 0.88rem;
+		}
+
+		.color-strip__value {
+			font-family: var(--font-mono);
+			font-size: 0.78rem;
+			font-weight: 500;
+			letter-spacing: 0.04em;
+			color: var(--text-soft);
+		}
+
+		.color-pair {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 0;
+			margin-top: 1.5rem;
+			border-radius: var(--radius-xl);
+			overflow: hidden;
+			border: 1px solid var(--border);
+		}
+
+		.color-pair__side {
+			padding: 2rem 1.5rem;
+			display: grid;
+			gap: 0.5rem;
+		}
+
+		.color-pair__side--light {
+			background: #fdf6e3;
+			color: #1a1a1a;
+		}
+
+		.color-pair__side--dark {
+			background: #1c1e1a;
+			color: #e8e4d8;
+		}
+
+		.color-pair__side p {
+			margin: 0;
+			font-size: 0.9rem;
+		}
+
+		.color-pair__side--dark p { color: #a8a498; }
+
+		/* ─── Typography: full-width specimens ────────────── */
+		.type-stack { display: grid; gap: 0; }
+
+		.type-specimen {
+			padding: 2rem 1.5rem;
+			border-bottom: 1px solid var(--border);
+		}
+
+		.type-specimen:first-child { border-top: 1px solid var(--border); }
+
+		.type-specimen p {
+			margin: 0.4rem 0 0;
+			color: var(--text-muted);
+			font-size: 0.9rem;
+		}
+
+		.type-display {
+			font-family: var(--font-display);
+			font-size: clamp(2.75rem, 1.5rem + 4vw, 4.5rem);
+			font-weight: 600;
+			line-height: 1.1;
+			letter-spacing: -0.02em;
+		}
+
+		.type-headline {
+			font-family: var(--font-display);
+			font-size: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem);
+			font-weight: 600;
+			line-height: 1.2;
+			letter-spacing: -0.02em;
+		}
+
+		.type-title {
+			font-family: var(--font-display);
+			font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.55rem);
+			font-weight: 600;
+			line-height: 1.25;
+		}
+
+		.type-body {
+			max-width: 55ch;
+			font-size: 1rem;
+			line-height: 1.7;
+		}
+
+		.type-label {
+			font-family: var(--font-mono);
+			font-size: 0.78rem;
+			font-weight: 500;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+		}
+
+		/* ─── Elevation: varied cards ─────────────────────── */
+		.elevation-stack {
+			display: grid;
+			grid-template-columns: 1.2fr 1fr 0.8fr;
+			gap: 1rem;
+			align-items: start;
+		}
+
+		.elevation-card {
+			padding: 1.5rem;
+			background: var(--surface);
+			border-radius: var(--radius-xl);
+			border: 1px solid var(--border);
+			transition: box-shadow 0.2s ease, transform 0.2s ease;
+		}
+
+		.elevation-card p { margin: 0.3rem 0 0; color: var(--text-muted); font-size: 0.9rem; }
+
+		.elevation-card--flat { box-shadow: none; }
+		.elevation-card--soft { box-shadow: var(--panel-shadow-soft); }
+		.elevation-card--raised { box-shadow: var(--panel-shadow); }
+		.elevation-card--raised:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 22px 50px rgba(26, 26, 26, 0.1);
+		}
+
+		/* ─── Components: mixed layout ────────────────────── */
+		.component-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+
+		.component-demo {
+			padding: 1.5rem;
+			border-radius: var(--radius-xl);
+			background: var(--surface-subtle);
+			border: 1px solid var(--border);
+		}
+
+		.demo-nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 1rem;
+			padding-bottom: 0.8rem;
+			border-bottom: 1px solid var(--border);
+		}
+
+		.demo-nav__mark { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; }
+		.demo-nav__links { display: flex; gap: 0.85rem; flex-wrap: wrap; }
+
+		.demo-link {
+			position: relative;
+			text-decoration: none;
+			color: var(--text-muted);
+			padding-bottom: 0.18rem;
+			transition: color 0.2s ease;
+		}
+
+		.demo-link:hover { color: var(--text-main); }
+
+		.demo-link--active { color: var(--accent); }
+
+		.demo-link--active::after {
+			content: '';
+			position: absolute;
+			left: 0; right: 0; bottom: 0;
+			height: 1px;
+			background: var(--accent);
+		}
+
+		.demo-link:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 3px;
+			border-radius: 2px;
+		}
+
+		.demo-toggle {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.6rem;
+			padding: 0.45rem 0.75rem;
+			border: 1px solid var(--border);
+			border-radius: var(--radius-md);
+			background: var(--surface-soft);
+			box-shadow: var(--panel-shadow-soft);
+			color: var(--text-main);
+			cursor: pointer;
+			transition: border-color 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.demo-toggle:hover {
+			border-color: var(--border-strong);
+			box-shadow: var(--panel-shadow);
+		}
+
+		.demo-toggle:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+		}
+
+		.demo-toggle__icon {
+			width: 1.8rem; height: 1.8rem;
+			display: grid; place-items: center;
+			border-radius: 999px;
+			border: 1px solid var(--border);
+			background: var(--surface);
+		}
+
+		.component-row {
+			display: grid;
+			grid-template-columns: 1.4fr 1fr;
+			gap: 1.5rem;
+		}
+
+		.demo-card {
+			display: grid;
+			gap: 0.8rem;
+			padding: 1.35rem;
+			border-radius: var(--radius-lg);
+			border: 1px solid var(--border);
+			background: var(--surface);
+			box-shadow: var(--panel-shadow-soft);
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.demo-card:hover {
+			transform: translateY(-2px);
+			box-shadow: var(--panel-shadow);
+		}
+
+		.demo-card p { margin: 0; color: var(--text-muted); }
+
+		.demo-card__link {
+			font-family: var(--font-mono);
+			font-size: 0.78rem;
+			font-weight: 500;
+			letter-spacing: 0.04em;
+			text-transform: uppercase;
+			text-decoration: none;
+			transition: color 0.15s ease;
+		}
+
+		.demo-card__link:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+			border-radius: 2px;
+		}
+
+		.tag-row { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+
+		.tag {
+			padding: 0.35rem 0.6rem;
+			border: 1px solid var(--border);
+			border-radius: 999px;
+			background: var(--surface-soft);
+			font-family: var(--font-mono);
+			font-size: 0.72rem;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+			color: var(--text-muted);
+		}
+
+		/* ─── States showcase ─────────────────────────────── */
+		.states-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 1rem;
+		}
+
+		.state-demo {
+			padding: 1.15rem;
+			border-radius: var(--radius-lg);
+			border: 1px solid var(--border);
+			background: var(--surface);
+			text-align: center;
+		}
+
+		.state-demo__label {
+			display: block;
+			font-family: var(--font-mono);
+			font-size: 0.72rem;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+			color: var(--text-soft);
+			margin-bottom: 0.7rem;
+		}
+
+		.state-link {
+			color: var(--accent);
+			text-decoration: underline;
+			text-underline-offset: 0.18em;
+			text-decoration-thickness: 0.08em;
+		}
+
+		.state-link--hover {
+			color: color-mix(in srgb, var(--accent) 70%, var(--accent-2));
+		}
+
+		.state-link--focus {
+			outline: 2px solid var(--accent);
+			outline-offset: 3px;
+			border-radius: 2px;
+		}
+
+		.state-link--visited {
+			color: var(--accent-3);
+		}
+
+		/* ─── Rules: asymmetric ───────────────────────────── */
+		.rules-layout {
+			display: grid;
+			grid-template-columns: 1.3fr 1fr;
+			gap: 1.5rem;
+		}
+
+		.rules-block { display: grid; gap: 0.7rem; }
+
+		.rules-block ul {
+			margin: 0;
+			padding-left: 1.1rem;
+			display: grid;
+			gap: 0.5rem;
+		}
+
+		.rules-block li { color: var(--text-muted); font-size: 0.95rem; }
+		.rules-block li strong { color: var(--text-main); }
+
+		.rules-block--dont {
+			padding: 1.5rem;
+			border-radius: var(--radius-xl);
+			border: 1px solid rgba(58, 95, 74, 0.15);
+			background: rgba(58, 95, 74, 0.03);
+		}
+
+		.footer {
+			padding-top: 3rem;
+			color: var(--text-soft);
+			font-size: 0.9rem;
+		}
+
+		@media (max-width: 980px) {
+			.hero__principles { flex-direction: column; gap: 1rem; }
+			.color-pair { grid-template-columns: 1fr; }
+			.elevation-stack { grid-template-columns: 1fr; }
+			.component-row { grid-template-columns: 1fr; }
+			.rules-layout { grid-template-columns: 1fr; }
+			.states-grid { grid-template-columns: repeat(2, 1fr); }
+			.topbar { position: static; background: transparent; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			html { scroll-behavior: auto; }
+			*, *::before, *::after {
+				animation: none !important;
+				transition: none !important;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="page-shell">
+		<header class="topbar">
+			<a class="topbar__mark" href="#top">iskander.sierra</a>
+			<nav class="topbar__nav" aria-label="Design system sections">
+				<a href="#palette">Palette</a>
+				<a href="#type">Typography</a>
+				<a href="#elevation">Elevation</a>
+				<a href="#components">Components</a>
+				<a href="#states">States</a>
+				<a href="#rules">Rules</a>
+			</nav>
+		</header>
+
+		<main id="top">
+			<!-- ─── Hero: single-column, no card grid ─────────── -->
+			<section class="hero">
+				<p class="eyebrow">Design System Showcase</p>
+			<h1>Quiet authority and authored signal, rendered as a working reference.</h1>
+				<p class="hero__lede">
+					This page turns the portfolio design system into an inspectable artifact. Tokens,
+					typography, elevation, component language, and interaction states in one standalone file.
+				</p>
+				<div class="hero__principles">
+					<div class="principle">
+						<strong>Warm</strong>
+						<span>Paper-like fields, not sterile white.</span>
+					</div>
+					<div class="principle">
+						<strong>Precise</strong>
+						<span>Typography and borders carry hierarchy.</span>
+					</div>
+					<div class="principle">
+						<strong>Experienced</strong>
+						<span>Quiet confidence, no startup theater.</span>
+					</div>
+				</div>
+			</section>
+
+			<!-- ─── Palette: horizontal strips, not a card grid ── -->
+			<section class="section" id="palette">
+				<div class="section__intro">
+					<p class="eyebrow">Palette</p>
+					<h2>Sandstone fields, deep moss signal, rust warmth.</h2>
+					<p>
+						The palette is intentionally sparse. Warm sandstone neutrals do the structural work. The moss green accent appears
+						as a signal, not a flood. Dark mode stays warm and green-tinted rather than cold.
+					</p>
+				</div>
+
+				<div class="color-strips">
+					<div class="color-strip">
+						<div class="color-strip__info">
+							<div class="color-strip__swatch" style="background: #3A5F4A"></div>
+							<div>
+								<div class="color-strip__name">Deep Moss Green</div>
+								<div class="color-strip__role">Interactive accent: links, active nav, selection</div>
+							</div>
+						</div>
+						<div class="color-strip__value">#3A5F4A</div>
+					</div>
+					<div class="color-strip">
+						<div class="color-strip__info">
+							<div class="color-strip__swatch" style="background: #A8654D"></div>
+							<div>
+								<div class="color-strip__name">Aged Rust</div>
+								<div class="color-strip__role">Secondary accent: highlights, metadata emphasis</div>
+							</div>
+						</div>
+						<div class="color-strip__value">#A8654D</div>
+					</div>
+					<div class="color-strip">
+						<div class="color-strip__info">
+							<div class="color-strip__swatch" style="background: #708090"></div>
+							<div>
+								<div class="color-strip__name">Muted Slate Gray</div>
+								<div class="color-strip__role">Tertiary accent for supporting UI elements</div>
+							</div>
+						</div>
+						<div class="color-strip__value">#708090</div>
+					</div>
+					<div class="color-strip">
+						<div class="color-strip__info">
+							<div class="color-strip__swatch" style="background: #FDF6E3"></div>
+							<div>
+								<div class="color-strip__name">Warm Sandstone</div>
+								<div class="color-strip__role">Main page background, light mode</div>
+							</div>
+						</div>
+						<div class="color-strip__value">#FDF6E3</div>
+					</div>
+					<div class="color-strip">
+						<div class="color-strip__info">
+							<div class="color-strip__swatch" style="background: #FFFDF7; border-color: rgba(26,26,26,0.12)"></div>
+							<div>
+								<div class="color-strip__name">Lifted Sandstone</div>
+								<div class="color-strip__role">Elevated surface for cards and panels</div>
+							</div>
+						</div>
+						<div class="color-strip__value">#FFFDF7</div>
+					</div>
+					<div class="color-strip">
+						<div class="color-strip__info">
+							<div class="color-strip__swatch" style="background: #1a1a1a"></div>
+							<div>
+								<div class="color-strip__name">Main Ink</div>
+								<div class="color-strip__role">Core text and strongest contrast anchor</div>
+							</div>
+						</div>
+						<div class="color-strip__value">#1a1a1a</div>
+					</div>
+				</div>
+
+				<div class="color-pair">
+					<div class="color-pair__side color-pair__side--light">
+						<p class="eyebrow">Light mode</p>
+						<h3>Warm sandstone, dark ink.</h3>
+						<p>The main voice: warm sandstone neutrals, deep moss links, soft editorial depth.</p>
+					</div>
+					<div class="color-pair__side color-pair__side--dark">
+						<p class="eyebrow" style="color: #a8a498">Dark mode</p>
+						<h3>Night field.</h3>
+						<p>Same mood, no neon. Green-tinted dark with lifted moss at <code style="font-family: var(--font-mono); font-size: 0.82em; color: #6FAF7A">#6FAF7A</code>.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- ─── Typography: full-width specimens ──────────── -->
+			<section class="section" id="type">
+				<div class="section__intro">
+					<p class="eyebrow">Typography</p>
+					<h2>Display for voice, sans for reading, mono for precision.</h2>
+					<p>
+						IBM Plex Serif carries identity and headline warmth with intellectual rigor. IBM Plex Sans
+						keeps body copy clear with precision and reading comfort. IBM Plex Mono
+						marks metadata without turning the site into a costume.
+					</p>
+				</div>
+
+				<div class="type-stack">
+					<div class="type-specimen">
+						<p class="eyebrow">Display / IBM Plex Serif 600 / clamp(2.75rem, 1.5rem + 4vw, 5.5rem)</p>
+						<div class="type-display">Never stop learning.</div>
+						<p>Hero statements, page titles, and the branded wordmark.</p>
+					</div>
+					<div class="type-specimen">
+						<p class="eyebrow">Headline / IBM Plex Serif 600 / clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem)</p>
+						<div class="type-headline">Sandstone fields, deep moss signal.</div>
+						<p>Section titles and major content blocks.</p>
+					</div>
+					<div class="type-specimen">
+						<p class="eyebrow">Title / IBM Plex Serif 600 / clamp(1.25rem, 1.1rem + 0.5vw, 1.55rem)</p>
+						<div class="type-title">Portfolio design reference artifact</div>
+						<p>Card titles, content preview headings, secondary headings.</p>
+					</div>
+					<div class="type-specimen">
+						<p class="eyebrow">Body / IBM Plex Sans 400 / 1rem</p>
+						<p class="type-body">
+							Twenty-five years in, the work is still the same at the core: stay hands-on, keep the
+							feedback loop tight, and learn fast enough that the next system is better than the last one.
+						</p>
+					</div>
+					<div class="type-specimen">
+						<p class="eyebrow">Label / IBM Plex Mono 500 / 0.78rem</p>
+						<div class="type-label">FEATURED PROJECT / 2026 / ACTIVE</div>
+						<p>Tags, dates, labels, and compact technical accents.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- ─── Elevation: varied sizes ───────────────────── -->
+			<section class="section" id="elevation">
+				<div class="section__intro">
+					<p class="eyebrow">Elevation</p>
+					<h2>Tonal layering first, shadow second.</h2>
+					<p>
+						Depth comes mainly from warm surface changes and borders. Shadow is ambient and sparse.
+						Hover the raised card to see interactive lift.
+					</p>
+				</div>
+
+				<div class="elevation-stack">
+					<article class="elevation-card elevation-card--flat">
+						<p class="eyebrow">Flat at rest</p>
+						<h3>Structural calm</h3>
+						<p>Default. Use background tone and 1px borders before reaching for depth. Most surfaces sit here.</p>
+					</article>
+					<article class="elevation-card elevation-card--soft">
+						<p class="eyebrow">Panel soft</p>
+						<h3>Bounded surface</h3>
+						<p>Cards, toggles, and contained blocks. Quiet ambient shadow.</p>
+					</article>
+					<article class="elevation-card elevation-card--raised">
+						<p class="eyebrow">Raised / hover</p>
+						<h3>Lifted layer</h3>
+						<p>Menus, overlays, and hover response. Hover me.</p>
+					</article>
+				</div>
+			</section>
+
+			<!-- ─── Components: mixed layouts ─────────────────── -->
+			<section class="section" id="components">
+				<div class="section__intro">
+					<p class="eyebrow">Components</p>
+					<h2>Quiet navigation, framed utilities, editorial cards.</h2>
+					<p>
+						These specimens show the live site language: muted navigation with accent-on-signal,
+						compact utility controls, and editorial cards with hover response.
+					</p>
+				</div>
+
+				<div class="component-grid">
+					<div class="component-demo">
+						<div class="demo-nav">
+							<div class="demo-nav__mark">iskander.sierra</div>
+							<div class="demo-nav__links">
+								<a class="demo-link" href="#">Home</a>
+								<a class="demo-link" href="#">Blog</a>
+								<a class="demo-link demo-link--active" href="#">Projects</a>
+								<a class="demo-link" href="#">About</a>
+							</div>
+						</div>
+						<div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap">
+							<button class="demo-toggle" type="button">
+								<span class="demo-toggle__icon">◐</span>
+								<div>
+									<div class="mono">theme</div>
+									<div>system</div>
+								</div>
+							</button>
+							<span style="color: var(--text-soft); font-size: 0.88rem">← Tab to see focus ring. Hover for border shift.</span>
+						</div>
+					</div>
+
+					<div class="component-row">
+						<article class="demo-card">
+							<p class="mono">2026-05-05 / DESIGN SYSTEM</p>
+							<h3>Portfolio design reference artifact</h3>
+							<p>
+								A standalone showcase that makes the written design system inspectable by humans and agents.
+							</p>
+							<div class="tag-row">
+								<span class="tag">editorial</span>
+								<span class="tag">warm neutral</span>
+								<span class="tag">accessible</span>
+							</div>
+							<a class="demo-card__link" href="#">Open reference →</a>
+						</article>
+						<article class="demo-card">
+							<p class="mono">2026-04-28 / TOOL</p>
+							<h3>UUID/ULID Generator</h3>
+							<p>
+								Generate and compare identifiers with copy-to-clipboard.
+							</p>
+							<div class="tag-row">
+								<span class="tag">typescript</span>
+								<span class="tag">utility</span>
+							</div>
+							<a class="demo-card__link" href="#">Open project →</a>
+						</article>
+					</div>
+				</div>
+			</section>
+
+			<!-- ─── States: interactive showcase ──────────────── -->
+			<section class="section" id="states">
+				<div class="section__intro">
+					<p class="eyebrow">States</p>
+					<h2>Every interactive element has four visible states.</h2>
+					<p>
+						Links, cards, and controls must communicate rest, hover, focus, and visited/active.
+						Focus rings use a 2px accent outline with offset. Hover shifts color or lifts shadow.
+					</p>
+				</div>
+
+				<div class="states-grid">
+					<div class="state-demo">
+						<span class="state-demo__label">Rest</span>
+						<a class="state-link" href="#states" style="pointer-events: none">Read more</a>
+					</div>
+					<div class="state-demo">
+						<span class="state-demo__label">Hover</span>
+						<a class="state-link state-link--hover" href="#states" style="pointer-events: none">Read more</a>
+					</div>
+					<div class="state-demo">
+						<span class="state-demo__label">Focus</span>
+						<a class="state-link state-link--focus" href="#states" style="pointer-events: none">Read more</a>
+					</div>
+					<div class="state-demo">
+						<span class="state-demo__label">Visited</span>
+						<a class="state-link state-link--visited" href="#states" style="pointer-events: none">Read more</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- ─── Rules: asymmetric ─────────────────────────── -->
+			<section class="section" id="rules">
+				<div class="section__intro">
+					<p class="eyebrow">Rules</p>
+					<h2>What this system does, and what it refuses.</h2>
+				</div>
+
+				<div class="rules-layout">
+					<div class="rules-block">
+						<h3>The system keeps content in charge.</h3>
+						<ul>
+							<li><strong>Warm fields</strong> — use tinted neutrals and soft surface separation, not stark white.</li>
+							<li><strong>Typography-led hierarchy</strong> — spacing, weight, and font role carry structure before color does.</li>
+							<li><strong>Accent scarcity</strong> — deep moss green appears at links, focus, and active state only. Never as a section wash.</li>
+							<li><strong>Mono precision</strong> — IBM Plex Mono for metadata, tags, and labels. Never for headings.</li>
+							<li><strong>Flat at rest</strong> — shadow as response, not as permanent decoration.</li>
+							<li><strong>Scale lock</strong> — five type sizes, no custom in-between steps.</li>
+							<li><strong>Focus always visible</strong> — 2px accent outline with offset on every interactive element.</li>
+						</ul>
+					</div>
+
+					<div class="rules-block rules-block--dont">
+						<h3>The system refuses these.</h3>
+						<ul>
+							<li>Glossy SaaS hero metrics or generic feature grids.</li>
+							<li>Neon-on-black devtool theatrics.</li>
+							<li>Decorative serif flourishes or editorial costume.</li>
+							<li>Glassmorphism, gradient text, or retro terminal framing.</li>
+							<li>Backdrop-filter blur as decoration (functional nav only).</li>
+							<li>Cards as the only layout pattern — vary structure per section.</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<footer class="footer">
+			<p>
+				Built from <a href="../../DESIGN.md">DESIGN.md</a> and the current portfolio token set. This file is
+				standalone on purpose so it can be opened without the Astro app running.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>
