@@ -6,6 +6,14 @@ import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
 import { resolveSeoMetadata, type SeoInput } from '../utils/seo';
 
+import '@fontsource/ibm-plex-serif/400.css';
+import '@fontsource/ibm-plex-serif/600.css';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/ibm-plex-sans/700.css';
+import '@fontsource/ibm-plex-mono/500.css';
+
 export interface Props extends SeoInput {
 	seo?: SeoInput;
 }
@@ -33,46 +41,10 @@ const metadata = resolveSeoMetadata(
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="color-scheme" content="light dark" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@400;500;600;700&display=swap"
-			rel="stylesheet"
-		/>
-		<link
-			rel="preload"
-			as="style"
-			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap"
-		/>
-		<link
-			id="deferred-mono-font"
-			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap"
-			rel="stylesheet"
-			media="print"
-		/>
-		<noscript>
-			<link
-				href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap"
-				rel="stylesheet"
-			/>
-		</noscript>
+
 		<meta name="generator" content={Astro.generator} />
 		<ClientRouter />
 		<SEO {...metadata} />
-
-		<script is:inline>
-			const deferredMonoFont = document.getElementById('deferred-mono-font');
-
-			if (deferredMonoFont instanceof HTMLLinkElement) {
-				deferredMonoFont.addEventListener(
-					'load',
-					() => {
-						deferredMonoFont.removeAttribute('media');
-					},
-					{ once: true },
-				);
-			}
-		</script>
 
 		<script is:inline>
 			(function () {
